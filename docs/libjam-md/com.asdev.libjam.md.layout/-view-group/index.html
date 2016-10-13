@@ -1,0 +1,203 @@
+<HTML>
+<HEAD>
+<title>ViewGroup - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.layout</a>&nbsp;/&nbsp;<a href=".">ViewGroup</a><br/>
+<br/>
+<h1>ViewGroup</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ViewGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code>
+<p>Created by Asdev on 10/05/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+<p>Authored by Shahbaz Momi as part of libjam-md
+under the package com.asdev.libjam.md.layout</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">ViewGroup</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Created by Asdev on 10/05/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/background.html">background</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">background</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.drawable/-drawable/index.html"><span class="identifier">Drawable</span></a><span class="symbol">?</span></code>
+<p>The background drawable of this view.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/layout-size.html">layoutSize</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">layoutSize</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a></code>
+<p>The size of this view set by the layout. Will be between min and max size once a layout pass has been conducted.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/max-size.html">maxSize</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">maxSize</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a></code>
+<p>The max and minimum sizes of this view. Consider the maximum size as the preferred size as the layout will always
+try to grow the view to that size.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/min-size.html">minSize</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">minSize</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/visibility.html">visibility</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">visibility</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>Defines the visibility of this view. May either be VISIBLE or INVISIBLE</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="add-child.html">addChild</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">addChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$addChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-child-at-index.html">getChildAtIndex</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildAtIndex</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$getChildAtIndex(kotlin.Int)/i">i</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-child-count.html">getChildCount</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-children.html">getChildren</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getChildren</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Array</span><span class="symbol">&lt;</span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="loop.html">loop</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>A function called on the UI thread 60 times a second to update this view.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="remove-child.html">removeChild</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">removeChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$removeChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/apply-layout-parameters.html">applyLayoutParameters</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">applyLayoutParameters</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$applyLayoutParameters(com.asdev.libjam.md.layout.GenericLayoutParamList)/params">params</span><span class="symbol">:</span>&nbsp;<a href="../-generic-layout-param-list/index.html"><span class="identifier">GenericLayoutParamList</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Applies the given layout parameters. Can be taken by onMeasure</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-draw.html">onDraw</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when to draw the view. Graphics should be clipped and translated to this view. E.g. the origin of this
+view should be 0, 0 when drawing something</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-layout.html">onLayout</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onLayout</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onLayout(com.asdev.libjam.md.util.FloatDim)/newSize">newSize</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the layout has determined the size of this layout</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-measure.html">onMeasure</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMeasure</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onMeasure(com.asdev.libjam.md.layout.LayoutParams)/result">result</span><span class="symbol">:</span>&nbsp;<a href="../-layout-params/index.html"><span class="identifier">LayoutParams</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-layout-params/index.html"><span class="identifier">LayoutParams</span></a></code>
+<p>Called by the layout before layout to signify that the view should determine its max and min sizes at this point.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/request-layout.html">requestLayout</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">requestLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sends a message to the root view to request a re-layout.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/request-repaint.html">requestRepaint</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">requestRepaint</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/send-message-to-root.html">sendMessageToRoot</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sendMessageToRoot</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$sendMessageToRoot(com.asdev.libjam.md.thread.Message)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.thread/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sends a message to the root view. MUST be run on the ui looper/thread.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-linear-layout/index.html">LinearLayout</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LinearLayout</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewGroup</span></code>
+<p>A layout that lays view one after another (a linear fashion). The items may be vertical or horizontal, and this is
+specified by the orientation. Directly inherits ViewGroup.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-relative-layout/index.html">RelativeLayout</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">RelativeLayout</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewGroup</span></code>
+<p>Created by Asdev on 10/05/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

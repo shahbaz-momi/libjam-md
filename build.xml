@@ -1,0 +1,8 @@
+<project name="Dokka" default="document">
+    <typedef resource="dokka-antlib.xml" classpath="E:\SourceLibs\dokka-fatjar.jar"/>
+
+    <target name="document">
+        <dokka src="src" outputdir="docs" modulename="libjam-md"/>
+    </target>
+
+</project>

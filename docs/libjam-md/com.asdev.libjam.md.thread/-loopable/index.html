@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<title>Loopable - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.thread</a>&nbsp;/&nbsp;<a href=".">Loopable</a><br/>
+<br/>
+<h1>Loopable</h1>
+<code><span class="keyword">interface </span><span class="identifier">Loopable</span></code>
+<p>Created by Asdev on 10/05/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+<p>Authored by Shahbaz Momi as part of libjam-md
+under the package com.asdev.libjam.md.thread</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="handle-message.html">handleMessage</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">handleMessage</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.thread.Loopable$handleMessage(com.asdev.libjam.md.thread.Message)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="../-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a message is sent to this looper
+Will be before loop and on the same thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="loop.html">loop</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a loop is scheduled.
+Will be after handleMessage but on the same thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="loops-per-second.html">loopsPerSecond</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">loopsPerSecond</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>The number of loops to perform per second</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.base/-root-view/index.html">RootView</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">RootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><span class="identifier">Loopable</span></code>
+<p>Created by Asdev on 10/05/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

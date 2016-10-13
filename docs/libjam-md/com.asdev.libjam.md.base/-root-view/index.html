@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<title>RootView - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.base</a>&nbsp;/&nbsp;<a href=".">RootView</a><br/>
+<br/>
+<h1>RootView</h1>
+<code><span class="keyword">class </span><span class="identifier">RootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><a href="../../com.asdev.libjam.md.thread/-loopable/index.html"><span class="identifier">Loopable</span></a></code>
+<p>Created by Asdev on 10/05/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+<p>Authored by Shahbaz Momi as part of libjam-md
+under the package com.asdev.libjam.md.base</p>
+<p>The root view that creates and attaches to a swing window.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">RootView</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean)/title">title</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean)/size">size</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean)/rootVG">rootVG</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean)/customToolbar">customToolbar</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="get-looper.html">getLooper</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getLooper</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.thread/-looper/index.html"><span class="identifier">Looper</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-size.html">getSize</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getSize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="handle-message.html">handleMessage</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handleMessage</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$handleMessage(com.asdev.libjam.md.thread.Message)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.thread/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a message is sent to this looper
+Will be before loop and on the same thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="hide-frame.html">hideFrame</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hideFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Hides the frame (internal JFrame).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="loop.html">loop</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a loop is scheduled.
+Will be after handleMessage but on the same thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="loops-per-second.html">loopsPerSecond</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loopsPerSecond</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>The number of loops to perform per second</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="paint-component.html">paintComponent</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">paintComponent</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$paintComponent(java.awt.Graphics)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics.html"><span class="identifier">Graphics</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="set-size.html">setSize</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setSize</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$setSize(java.awt.Dimension)/d">d</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Resizes this root view. Is thread-safe (actual resizing is done on Looper thread).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="set-size0.html">setSize0</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setSize0</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$setSize0(java.awt.Dimension)/attemptSize">attemptSize</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Internal size-setting method. Only to be used by handleMessage in the Looper thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="set-theme.html">setTheme</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setTheme</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$setTheme(com.asdev.libjam.md.theme.Theme)/theme">theme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="show-frame.html">showFrame</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">showFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Shows the frame (internal JFrame).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
