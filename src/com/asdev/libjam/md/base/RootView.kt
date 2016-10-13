@@ -7,10 +7,7 @@ import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.thread.*
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.View
-import java.awt.Color
-import java.awt.Dimension
-import java.awt.Graphics
-import java.awt.Graphics2D
+import java.awt.*
 import java.awt.event.ComponentEvent
 import java.awt.event.ComponentListener
 import javax.swing.JFrame
@@ -77,12 +74,7 @@ class RootView: JPanel, Loopable {
     }
 
     fun setTheme(theme: Theme) {
-        // initialize the theme
-        theme.init()
-        // update the current one
-        THEME = theme
-        // call on draw
-        requestPaint()
+        looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_THEME_CHANGED).apply { data0 = theme })
     }
 
     fun getLooper() = looper
@@ -163,6 +155,17 @@ class RootView: JPanel, Loopable {
             if(msg.action == MESSAGE_ACTION_RESIZE) {
                 // resize on the proper thread (this thread)
                 setSize0(msg.data0 as Dimension)
+            } else if(msg.action == MESSAGE_ACTION_THEME_CHANGED) {
+                val theme = msg.data0 as Theme
+                // initialize the theme
+                theme.init()
+                val oldTheme = THEME
+                // update the current one
+                THEME = theme
+                // call onThemeChanged of the view
+                rootView.onThemeChange(oldTheme, THEME)
+                // call on draw
+                requestPaint()
             }
         }
     }
@@ -196,7 +199,12 @@ class RootView: JPanel, Loopable {
     override fun paintComponent(g: Graphics?) {
         val start = System.nanoTime()
 
-        g!!.color = Color.BLACK
+        // enable anti-aliasing
+        (g!! as Graphics2D).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+        // enable text anti-aliasing
+        (g as Graphics2D).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB)
+
+        g.color = Color.BLACK
         g.fillRect(0, 0, size.width, size.height)
         // call on draw on the root view group
         rootView.onDraw(g as Graphics2D)

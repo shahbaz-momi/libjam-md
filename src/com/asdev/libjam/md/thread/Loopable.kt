@@ -8,6 +8,10 @@ package com.asdev.libjam.md.thread
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.thread
  */
+
+/**
+ * Defines an interface/class/object that may be looped by a [Looper].
+ */
 interface Loopable {
 
     /**

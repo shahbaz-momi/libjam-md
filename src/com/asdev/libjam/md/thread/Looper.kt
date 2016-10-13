@@ -13,11 +13,24 @@ import java.util.concurrent.atomic.AtomicBoolean
  * under the package com.asdev.libjam.md.thread
  */
 
+/**
+ * A class that handles looping operations and manages them onto a single [Thread]. Also, it handles the synchronization
+ * of messages between itself and other threads.
+ */
 class Looper(val loopable: Loopable): Thread() {
 
+    /**
+     * Whether this [Looper] is running or not.
+     */
     private val isRunning = AtomicBoolean(false)
+    /**
+     * The delay between each [Loopable] loop().
+     */
     private val loopDelay: Long
 
+    /**
+     * The message queue for this [Looper]. This will store messages until the next loop() and then call handleMessage() of the [Loopable].
+     */
     private val msgQueue = ConcurrentLinkedQueue<Message>()
 
     init {
@@ -30,13 +43,16 @@ class Looper(val loopable: Loopable): Thread() {
     fun postMessage(msg: Message) = msgQueue.add(msg)
 
     /**
-     * Safely stop this looper.
+     * Safely stops this looper.
      */
     fun stopSafe() {
         isRunning.set(false)
     }
 
     // java-thread implementation of run
+    /**
+     * The implementation of [run] for this [Thread].
+     */
     override fun run() {
         if(DEBUG)
             println("[Looper] Starting $name looper...")
@@ -57,9 +73,15 @@ class Looper(val loopable: Loopable): Thread() {
         }
     }
 
+    /**
+     * Returns this class and the name of this [Looper]
+     */
     override fun toString(): String {
         return "Looper:" + name
     }
 }
 
+/**
+ * Returns the [Looper] associated with your [Thread] or null if no [Looper] is associated.
+ */
 fun myLooper() = if(Thread.currentThread() != null && Thread.currentThread() is Looper) Thread.currentThread() as Looper else null

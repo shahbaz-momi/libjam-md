@@ -8,11 +8,7 @@
 <br/>
 <h1>ViewGroup</h1>
 <code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ViewGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code>
-<p>Created by Asdev on 10/05/16. All rights reserved.
-Unauthorized copying via any medium is stricitly
-prohibited.</p>
-<p>Authored by Shahbaz Momi as part of libjam-md
-under the package com.asdev.libjam.md.layout</p>
+<p>A <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> that holds multiple other <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> children.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -21,9 +17,7 @@ under the package com.asdev.libjam.md.layout</p>
 <a href="-init-.html">&lt;init&gt;</a></td>
 <td>
 <code><span class="identifier">ViewGroup</span><span class="symbol">(</span><span class="symbol">)</span></code>
-<p>Created by Asdev on 10/05/16. All rights reserved.
-Unauthorized copying via any medium is stricitly
-prohibited.</p>
+<p>A <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> that holds multiple other <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> children.</p>
 </td>
 </tr>
 </tbody>
@@ -36,7 +30,7 @@ prohibited.</p>
 <a href="../../com.asdev.libjam.md.view/-view/background.html">background</a></td>
 <td>
 <code><span class="keyword">var </span><span class="identifier">background</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.drawable/-drawable/index.html"><span class="identifier">Drawable</span></a><span class="symbol">?</span></code>
-<p>The background drawable of this view.</p>
+<p>The background drawable of this view. Defaults to the <a href="../../com.asdev.libjam.md.theme/-t-h-e-m-e.html">THEME</a> background color.</p>
 </td>
 </tr>
 <tr>
@@ -79,39 +73,57 @@ try to grow the view to that size.</p>
 <td>
 <a href="add-child.html">addChild</a></td>
 <td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">addChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$addChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">addChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$addChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Adds the specified child to this ViewGroup</p>
+</td>
 </tr>
 <tr>
 <td>
 <a href="get-child-at-index.html">getChildAtIndex</a></td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildAtIndex</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$getChildAtIndex(kotlin.Int)/i">i</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildAtIndex</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$getChildAtIndex(kotlin.Int)/i">i</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code>
+<p>Returns the child <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> at the specified index ($i).</p>
+</td>
 </tr>
 <tr>
 <td>
 <a href="get-child-count.html">getChildCount</a></td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>Returns the number of children managed by this ViewGroup</p>
+</td>
 </tr>
 <tr>
 <td>
 <a href="get-children.html">getChildren</a></td>
 <td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getChildren</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Array</span><span class="symbol">&lt;</span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">&gt;</span></code></td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getChildren</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Array</span><span class="symbol">&lt;</span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the children managed by this ViewGroup</p>
+</td>
 </tr>
 <tr>
 <td>
 <a href="loop.html">loop</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>A function called on the UI thread 60 times a second to update this view.</p>
+<p>Implementation of <a href="loop.html">loop</a>. Calls the <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> implementation and then loops its children.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-theme-change.html">onThemeChange</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onThemeChange</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/prevTheme">prevTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/newTheme">newTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Implementation of <a href="on-theme-change.html">onThemeChange</a>. Calls the <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> implementation and then notifies its children of the theme change.</p>
 </td>
 </tr>
 <tr>
 <td>
 <a href="remove-child.html">removeChild</a></td>
 <td>
-<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">removeChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$removeChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">removeChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$removeChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Removes the specified child from this ViewGroup</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -163,7 +175,10 @@ view should be 0, 0 when drawing something</p>
 <td>
 <a href="../../com.asdev.libjam.md.view/-view/request-repaint.html">requestRepaint</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">requestRepaint</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">requestRepaint</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Requests a repaint (to the <a href="#">RootView</a>) of the entire frame. It broadcasts a message via the UI <a href="#">Looper</a> to the
+<a href="#">RootView</a>.</p>
+</td>
 </tr>
 <tr>
 <td>
@@ -192,9 +207,7 @@ specified by the orientation. Directly inherits ViewGroup.</p>
 <a href="../-relative-layout/index.html">RelativeLayout</a></td>
 <td>
 <code><span class="keyword">class </span><span class="identifier">RelativeLayout</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewGroup</span></code>
-<p>Created by Asdev on 10/05/16. All rights reserved.
-Unauthorized copying via any medium is stricitly
-prohibited.</p>
+<p>A ViewGroup that manages children in a grid-like fashion.</p>
 </td>
 </tr>
 </tbody>

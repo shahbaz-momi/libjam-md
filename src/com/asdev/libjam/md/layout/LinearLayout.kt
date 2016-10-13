@@ -91,21 +91,21 @@ class LinearLayout: ViewGroup() {
             if(lp !is LinearLayoutParams)
                 throw IllegalStateException("Children of LinearLayout must return LinearLayoutParams in onMeasure(). This was not the case.")
 
-            if (lp.minSize.w > 0f) {
+            if (c.minSize.w > 0f) {
                 if(orientation == ORIENTATION_HORIZONTAL) {
-                    if(lp.minSize.w > minW)
-                        minW = lp.minSize.w
+                    if(c.minSize.w > minW)
+                        minW = c.minSize.w
                 } else if(orientation == ORIENTATION_VERTICAL) {
-                    minW += lp.minSize.w
+                    minW += c.minSize.w
                 }
             }
 
-            if(lp.minSize.h > 0f) {
+            if(c.minSize.h > 0f) {
                 if(orientation == ORIENTATION_HORIZONTAL) {
-                    minH += lp.minSize.h
+                    minH += c.minSize.h
                 } else if(orientation == ORIENTATION_VERTICAL) {
-                    if(lp.minSize.h > minH)
-                        minH = lp.minSize.h
+                    if(c.minSize.h > minH)
+                        minH = c.minSize.h
                 }
             }
 

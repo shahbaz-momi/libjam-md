@@ -19,7 +19,7 @@ import java.awt.image.BufferedImage
  */
 class ColorDrawable: Drawable {
 
-    val color: Color
+    var color: Color
 
     constructor(c: Color) {
         color = c

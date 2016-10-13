@@ -29,7 +29,7 @@ public class LinearLayoutTest {
         LinearLayout l = new LinearLayout();
         l.setOrientation(0);
 
-        l.setBackground(new CompoundDrawable(new ColorDrawable(Color.GRAY), new ImageDrawable(ImageIO.read(new File("assets/roadtrip.jpg")), 1)));
+        // l.setBackground(new CompoundDrawable(new ColorDrawable(Color.GRAY), new ImageDrawable(ImageIO.read(new File("assets/roadtrip.jpg")), 1)));
 
         View v = new View();
         GenericLayoutParamList list = new GenericLayoutParamList();

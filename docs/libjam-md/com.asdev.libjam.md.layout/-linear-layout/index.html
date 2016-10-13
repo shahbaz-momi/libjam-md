@@ -96,20 +96,32 @@ $orientation the new orientation of this layout. May be either <a href="../-o-r-
 <td>
 <a href="../-view-group/get-child-at-index.html">getChildAtIndex</a></td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildAtIndex</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$getChildAtIndex(kotlin.Int)/i">i</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildAtIndex</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$getChildAtIndex(kotlin.Int)/i">i</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code>
+<p>Returns the child <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> at the specified index ($i).</p>
+</td>
 </tr>
 <tr>
 <td>
 <a href="../-view-group/get-child-count.html">getChildCount</a></td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>Returns the number of children managed by this <a href="../-view-group/index.html">ViewGroup</a></p>
+</td>
 </tr>
 <tr>
 <td>
 <a href="../-view-group/loop.html">loop</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>A function called on the UI thread 60 times a second to update this view.</p>
+<p>Implementation of <a href="../-view-group/loop.html">loop</a>. Calls the <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> implementation and then loops its children.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-theme-change.html">onThemeChange</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onThemeChange</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/prevTheme">prevTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/newTheme">newTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Implementation of <a href="../-view-group/on-theme-change.html">onThemeChange</a>. Calls the <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> implementation and then notifies its children of the theme change.</p>
 </td>
 </tr>
 </tbody>

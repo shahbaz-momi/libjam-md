@@ -1,8 +1,11 @@
 package com.asdev.libjam.md.view
 
+import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.Drawable
 import com.asdev.libjam.md.layout.GenericLayoutParamList
 import com.asdev.libjam.md.layout.LayoutParams
+import com.asdev.libjam.md.theme.THEME
+import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.thread.MESSAGE_REQUEST_LAYOUT
 import com.asdev.libjam.md.thread.MESSAGE_REQUEST_REPAINT
 import com.asdev.libjam.md.thread.Message
@@ -22,9 +25,20 @@ import java.awt.Graphics2D
  * under the package com.asdev.libjam.md.view
  */
 
+/**
+ * Flag for [View] parameter. This is to signify that the view is visible and it should be drawn.
+ */
 val VISIBILITY_VISIBLE = 0
+
+/**
+ * Flag for [View] parameter. This is to signify that the view is invisible and it should not be drawn.
+ */
 val VISIBILITY_INVISIBLE = 1
 
+/**
+ * An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It
+ * implements the bare minimum functionality, allowing for easy extensibility.
+ */
 open class View {
 
     /**
@@ -45,9 +59,9 @@ open class View {
     var layoutSize = DIM_UNSET
 
     /**
-     * The background drawable of this view.
+     * The background drawable of this view. Defaults to the [THEME] background color.
      */
-    var background: Drawable? = null
+    var background: Drawable? = null // should it be ColorDrawable(THEME.getBackgroundColor())?
 
     /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
@@ -66,6 +80,19 @@ open class View {
         layoutSize = newSize
     }
 
+    /**
+     * Called by the [RootView] when an [Theme] change occurs.
+     */
+    open fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
+        if(background is ColorDrawable && (background as ColorDrawable).color == prevTheme.getBackgroundColor()) {
+            // apply the new background color
+            (background as ColorDrawable).color = newTheme.getBackgroundColor()
+        }
+    }
+
+    /**
+     * The addition parameter list ([GenericLayoutParamList]) attached to this view. Will be applied in [onMeasure].
+     */
     private var paramList: GenericLayoutParamList? = null
 
     /**
@@ -79,7 +106,13 @@ open class View {
         paramList = params
     }
 
+    /**
+     * Async flag for requesting a layout. Should be used internally only.
+     */
     private var flagRequestingLayout = false
+    /**
+     * Async flag for requesting a repaint. Should be used internally only.
+     */
     private var flagRequestingRepaint = false
 
     /**
@@ -93,6 +126,10 @@ open class View {
         flagRequestingLayout  = true
     }
 
+    /**
+     * Requests a repaint (to the [RootView]) of the entire frame. It broadcasts a message via the UI [Looper] to the
+     * [RootView].
+     */
     fun requestRepaint() {
         if(DEBUG)
             println("[View] Repaint requested...")

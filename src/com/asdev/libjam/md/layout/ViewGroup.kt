@@ -1,5 +1,6 @@
 package com.asdev.libjam.md.layout
 
+import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.view.View
 
 /**
@@ -11,14 +12,45 @@ import com.asdev.libjam.md.view.View
  * under the package com.asdev.libjam.md.layout
  */
 
+/**
+ * A [View] that holds multiple other [View] children.
+ */
 abstract class ViewGroup: View() {
 
+    /**
+     * Adds the specified child to this [ViewGroup]
+     */
     abstract fun addChild(child: View)
+
+    /**
+     * Removes the specified child from this [ViewGroup]
+     */
     abstract fun removeChild(child: View)
+
+    /**
+     * Returns the children managed by this [ViewGroup]
+     */
     abstract fun getChildren(): Array<View>
 
+    /**
+     * Returns the number of children managed by this [ViewGroup]
+     */
     open fun getChildCount() = getChildren().size
 
+    /**
+     * Implementation of [onThemeChange]. Calls the [View] implementation and then notifies its children of the theme change.
+     */
+    override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
+        super.onThemeChange(prevTheme, newTheme)
+
+        // theme change the children as well
+        for(c in getChildren())
+            c.onThemeChange(prevTheme, newTheme)
+    }
+
+    /**
+     * Implementation of [loop]. Calls the [View] implementation and then loops its children.
+     */
     override fun loop() {
         super.loop()
 
@@ -27,6 +59,9 @@ abstract class ViewGroup: View() {
         }
     }
 
+    /**
+     * Returns the child [View] at the specified index ($i).
+     */
     open fun getChildAtIndex(i: Int): View {
         if(i < 0 || i >= getChildCount())
             throw ArrayIndexOutOfBoundsException("There is no child with the specified index ($i)")

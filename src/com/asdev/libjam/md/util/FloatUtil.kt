@@ -8,18 +8,33 @@ package com.asdev.libjam.md.util
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.util
  */
-data class FloatDim(var w: Float, var h: Float) {
+
+/**
+ * A dimension holding two [Float]s pertaining to width ($w) and height ($h).
+ */
+data class FloatDim(
+        /**
+         * The width of this dimension.
+         */
+        var w: Float,
+        /**
+         * The height of this dimension.
+         */
+        var h: Float) {
 
     override fun toString(): String {
         return "FloatDim[w=$w,h=$h]"
     }
 }
 
-/** Constants for float dimensions
+/** Constant float dimensions
  */
 val DIM_UNSET = FloatDim(-1f, -1f)
 val DIM_UNLIMITED = FloatDim(-2f, -2f)
 
+/**
+ * Returns whether the given [FloatDim], $d, fits in between the [Pair] of dimensions.
+ */
 infix fun Pair<FloatDim, FloatDim>.fits(d: FloatDim) =
         // actually compare the values
         (d.w >= first.w && d.w <= second.w && d.h >= first.h && d.h <= second.h) ||
@@ -32,7 +47,18 @@ infix fun Pair<FloatDim, FloatDim>.fits(d: FloatDim) =
 
 val POINT_UNSET = FloatPoint(-1f, -1f)
 
-data class FloatPoint(var x: Float, var y: Float) {
+/**
+ * A point holding two [Float]s pertaining to x and y positions.
+ */
+data class FloatPoint(
+        /**
+         * The x-element of this point.
+         */
+        var x: Float,
+        /**
+         * The y-element of this point.
+         */
+        var y: Float) {
 
     override fun toString(): String {
         return "FloatPoint[x=$x,y=$y]"

@@ -15,16 +15,16 @@
 <a href="-float-dim/index.html">FloatDim</a></td>
 <td>
 <code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">FloatDim</span></code>
-<p>Created by Asdev on 10/05/16. All rights reserved.
-Unauthorized copying via any medium is stricitly
-prohibited.</p>
+<p>A dimension holding two <a href="#">Float</a>s pertaining to width ($w) and height ($h).</p>
 </td>
 </tr>
 <tr>
 <td>
 <a href="-float-point/index.html">FloatPoint</a></td>
 <td>
-<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">FloatPoint</span></code></td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">FloatPoint</span></code>
+<p>A point holding two <a href="#">Float</a>s pertaining to x and y positions.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -36,7 +36,16 @@ prohibited.</p>
 <a href="-d-e-b-u-g.html">DEBUG</a></td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">DEBUG</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
-<p>NOTICE: Using DEBUG will cause significant lag because there will be a lot of output on each onMeasure(), onLayout(), and onDraw()</p>
+<p>Enables debug logging.
+NOTICE: Using DEBUG will cause significant lag because there will be a lot of output on each onMeasure(), onLayout(), and onDraw()</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-d-e-b-u-g_-t-e-x-t_-b-o-x-e-s.html">DEBUG_TEXT_BOXES</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">DEBUG_TEXT_BOXES</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Enables debug text boundaries.</p>
 </td>
 </tr>
 <tr>
@@ -50,7 +59,7 @@ prohibited.</p>
 <a href="-d-i-m_-u-n-s-e-t.html">DIM_UNSET</a></td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">DIM_UNSET</span><span class="symbol">: </span><a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a></code>
-<p>Constants for float dimensions</p>
+<p>Constant float dimensions</p>
 </td>
 </tr>
 <tr>
@@ -68,7 +77,9 @@ prohibited.</p>
 <td>
 <a href="fits.html">fits</a></td>
 <td>
-<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">&lt;</span><a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">,</span>&nbsp;<a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">fits</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.util$fits(((com.asdev.libjam.md.util.FloatDim, )), com.asdev.libjam.md.util.FloatDim)/d">d</span><span class="symbol">:</span>&nbsp;<a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">&lt;</span><a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">,</span>&nbsp;<a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">fits</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.util$fits(((com.asdev.libjam.md.util.FloatDim, )), com.asdev.libjam.md.util.FloatDim)/d">d</span><span class="symbol">:</span>&nbsp;<a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Returns whether the given <a href="-float-dim/index.html">FloatDim</a>, $d, fits in between the <a href="#">Pair</a> of dimensions.</p>
+</td>
 </tr>
 </tbody>
 </table>

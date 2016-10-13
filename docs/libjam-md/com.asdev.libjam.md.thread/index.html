@@ -15,9 +15,7 @@
 <a href="-loopable/index.html">Loopable</a></td>
 <td>
 <code><span class="keyword">interface </span><span class="identifier">Loopable</span></code>
-<p>Created by Asdev on 10/05/16. All rights reserved.
-Unauthorized copying via any medium is stricitly
-prohibited.</p>
+<p>Defines an interface/class/object that may be looped by a <a href="-looper/index.html">Looper</a>.</p>
 </td>
 </tr>
 <tr>
@@ -25,9 +23,8 @@ prohibited.</p>
 <a href="-looper/index.html">Looper</a></td>
 <td>
 <code><span class="keyword">class </span><span class="identifier">Looper</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Thread.html"><span class="identifier">Thread</span></a></code>
-<p>Created by Asdev on 10/05/16. All rights reserved.
-Unauthorized copying via any medium is stricitly
-prohibited.</p>
+<p>A class that handles looping operations and manages them onto a single <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Thread.html">Thread</a>. Also, it handles the synchronization
+of messages between itself and other threads.</p>
 </td>
 </tr>
 <tr>
@@ -49,7 +46,9 @@ prohibited.</p>
 <td>
 <a href="-m-e-s-s-a-g-e_-a-c-t-i-o-n_-r-e-p-a-i-n-t.html">MESSAGE_ACTION_REPAINT</a></td>
 <td>
-<code><span class="keyword">val </span><span class="identifier">MESSAGE_ACTION_REPAINT</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+<code><span class="keyword">val </span><span class="identifier">MESSAGE_ACTION_REPAINT</span><span class="symbol">: </span><span class="identifier">String</span></code>
+<p>Common <a href="-message/index.html">Message</a> actions</p>
+</td>
 </tr>
 <tr>
 <td>
@@ -65,10 +64,16 @@ prohibited.</p>
 </tr>
 <tr>
 <td>
+<a href="-m-e-s-s-a-g-e_-a-c-t-i-o-n_-t-h-e-m-e_-c-h-a-n-g-e-d.html">MESSAGE_ACTION_THEME_CHANGED</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">MESSAGE_ACTION_THEME_CHANGED</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
 <a href="-m-e-s-s-a-g-e_-r-e-q-u-e-s-t_-l-a-y-o-u-t.html">MESSAGE_REQUEST_LAYOUT</a></td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">MESSAGE_REQUEST_LAYOUT</span><span class="symbol">: </span><a href="-message/index.html"><span class="identifier">Message</span></a></code>
-<p>Common messages</p>
+<p>Common <a href="-message/index.html">Message</a>s</p>
 </td>
 </tr>
 <tr>
@@ -88,7 +93,7 @@ prohibited.</p>
 <a href="-m-e-s-s-a-g-e_-t-y-p-e_-v-i-e-w.html">MESSAGE_TYPE_VIEW</a></td>
 <td>
 <code><span class="keyword">val </span><span class="identifier">MESSAGE_TYPE_VIEW</span><span class="symbol">: </span><span class="identifier">String</span></code>
-<p>Common message types</p>
+<p>Common <a href="-message/index.html">Message</a> types</p>
 </td>
 </tr>
 </tbody>
@@ -100,7 +105,9 @@ prohibited.</p>
 <td>
 <a href="my-looper.html">myLooper</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">myLooper</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-looper/index.html"><span class="identifier">Looper</span></a><span class="symbol">?</span></code></td>
+<code><span class="keyword">fun </span><span class="identifier">myLooper</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-looper/index.html"><span class="identifier">Looper</span></a><span class="symbol">?</span></code>
+<p>Returns the <a href="-looper/index.html">Looper</a> associated with your <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Thread.html">Thread</a> or null if no <a href="-looper/index.html">Looper</a> is associated.</p>
+</td>
 </tr>
 </tbody>
 </table>

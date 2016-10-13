@@ -8,7 +8,14 @@ package com.asdev.libjam.md.util
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.util
  */
+
 /**
+ * Enables debug logging.
  * NOTICE: Using DEBUG will cause significant lag because there will be a lot of output on each onMeasure(), onLayout(), and onDraw()
  */
-val DEBUG = false
+val DEBUG = true
+
+/**
+ * Enables debug text boundaries.
+ */
+val DEBUG_TEXT_BOXES = false

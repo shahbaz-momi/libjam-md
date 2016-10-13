@@ -78,6 +78,7 @@ class LinearLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int 
         if(DEBUG) {
             println("[LinearLayoutParams] Applying additional layout params from generic layout param list: $params")
         }
+
         if(params == null)
             return
 
@@ -116,7 +117,7 @@ class GenericLayoutParamList {
     fun clearParam(name: String) = map.remove(name)
 
     /**
-     * Gets a layout parameter from this list.
+     * Gets a layout parameter from this list or null if it isn't present.
      */
-    fun getParam(name: String) = map.getOrDefault(name, null)
+    fun getParam(name: String): Any? = map.getOrDefault(name, null)
 }

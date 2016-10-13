@@ -14,17 +14,36 @@ import java.util.*
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.layout
  */
+
+/**
+ * A [ViewGroup] that manages children in a grid-like fashion.
+ */
 class RelativeLayout: ViewGroup() {
 
     // array of children in nine spots
+    /**
+     * The temporary list of children managed by this [ViewGroup]
+     */
     private val children = ArrayList<View>()
+    /**
+     * The children of this [ViewGroup] in order of their gravity.
+     */
     private val orderedChildren = Array<View?>(9){null}
     // the layout parameters of each child. Stored to prevent recalling onMeasure()
+    /**
+     * The cache of [LayoutParams] of each child [View]. In order of the child's gravity.
+     */
     private val layoutParams = Array<RelativeLayoutParams?>(9) {null}
     // the coordinates of each child
+    /**
+     * The coordinates of each child, in order of the child's gravity.
+     */
     private val childCoords = Array<FloatPoint?>(9) {null}
 
     // the actual minimum size of all of the children combined
+    /**
+     * The absolute minimum size required to fit the children into this [ViewGroup].
+     */
     private var minChildSize = DIM_UNSET
 
     override fun removeChild(child: View) { children.remove(child) }
@@ -44,6 +63,9 @@ class RelativeLayout: ViewGroup() {
         super.loop()
     }
 
+    /**
+     * Measures it self and its children.
+     */
     override fun onMeasure(result: LayoutParams): LayoutParams {
         if(DEBUG) {
             println("[RelativeLayout] onMeasure")
@@ -195,6 +217,9 @@ class RelativeLayout: ViewGroup() {
         return super.onMeasure(result)
     }
 
+    /**
+     * Lays out the children to fit in the given size ($newSize).
+     */
     override fun onLayout(newSize: FloatDim) {
         if(DEBUG) {
             println("[RelativeLayout] Laying out to size $newSize")
@@ -226,6 +251,9 @@ class RelativeLayout: ViewGroup() {
         super.onLayout(newSize)
     }
 
+    /**
+     * Lays out the specified row. Internal method only.
+     */
     private fun layoutRow(newSize: FloatDim, newSizes: Array<FloatDim>, rangeStart: Int, rangeEnd: Int) {
         // calculate the difference between the widthes
         val deltaW = newSize.w - minSize.w
@@ -259,6 +287,9 @@ class RelativeLayout: ViewGroup() {
         }
     }
 
+    /**
+     * Layouts out the specified column. Internal method only.
+     */
     private fun layoutColumn(newSize: FloatDim, newSizes: Array<FloatDim>, viewRange: Array<Int>) {
         // calculate the difference between the heights
         val deltaH = newSize.h - minSize.h
@@ -394,6 +425,9 @@ class RelativeLayout: ViewGroup() {
         }
     }
 
+    /**
+     * Draws this [ViewGroup] and its children [View].
+     */
     override fun onDraw(g: Graphics2D) {
         if(visibility != VISIBILITY_VISIBLE)
             return

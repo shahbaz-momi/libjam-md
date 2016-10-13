@@ -7,6 +7,8 @@ package com.asdev.libjam.md.thread
  *
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.thread
+ *
+ * A simple POJO that defines a message. Messages must have a $type and a $action. Data fields are optional.
  */
 data class Message (val type: String, val action: String) {
 
@@ -21,13 +23,15 @@ data class Message (val type: String, val action: String) {
 
 }
 
-/** Common message types */
+/** Common [Message] types */
 val MESSAGE_TYPE_VIEW = "View:Msg"
 val MESSAGE_TYPE_ROOT_VIEW = "RootView:Msg"
+/** Common [Message] actions */
 val MESSAGE_ACTION_REPAINT = "View:Repaint"
 val MESSAGE_ACTION_REQUEST_LAYOUT = "View:Layout"
 val MESSAGE_ACTION_RESIZE = "RootView:Resize"
+val MESSAGE_ACTION_THEME_CHANGED = "RootView:ThemeChanged"
 
-/** Common messages */
+/** Common [Message]s */
 val MESSAGE_REQUEST_LAYOUT = Message(MESSAGE_TYPE_VIEW, MESSAGE_ACTION_REQUEST_LAYOUT)
 val MESSAGE_REQUEST_REPAINT = Message(MESSAGE_TYPE_VIEW, MESSAGE_ACTION_REPAINT)

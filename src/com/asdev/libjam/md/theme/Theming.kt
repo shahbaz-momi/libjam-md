@@ -183,10 +183,10 @@ object LightMaterialTheme : Theme() {
     override fun init() {
         // load and set the fonts
         val roboto = Font.createFont(Font.TRUETYPE_FONT, File("assets/fonts/Roboto/Roboto-Regular.ttf"))
-        titleFont = roboto.deriveFont(18f)
+        titleFont = Font.createFont(Font.TRUETYPE_FONT, File("assets/fonts/Roboto/Roboto-Medium.ttf")).deriveFont(16f)
         subtitleFont = roboto.deriveFont(16f)
-        primaryTextFont = roboto.deriveFont(12f)
-        secondaryTextFont = roboto.deriveFont(11f)
+        primaryTextFont = roboto.deriveFont(14f)
+        secondaryTextFont = roboto.deriveFont(14f)
     }
 
     override fun getPrimaryColor() = primaryColor
@@ -216,5 +216,11 @@ object LightMaterialTheme : Theme() {
     override fun getPrimaryTextFont() = primaryTextFont
 
     override fun getSecondaryTextFont() = secondaryTextFont
+
+    //// Misc ////
+
+    override fun toString(): String {
+        return "LightMaterialTheme"
+    }
 
 }
