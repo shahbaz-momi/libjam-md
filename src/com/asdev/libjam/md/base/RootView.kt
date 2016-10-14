@@ -126,7 +126,7 @@ class RootView: JPanel, Loopable {
         // we now know are size, so set the frame to that
         frame.contentPane.size = Dimension( size.w.toInt(), size.h.toInt() )
 
-        frame.minimumSize = Dimension(dims.minSize.w.toInt() + 100, dims.minSize.h.toInt() + 100)
+        frame.minimumSize = Dimension(dims.minSize.w.toInt() + 200, dims.minSize.h.toInt() + 200)
 
         // set the actual size for future use
         actualSize = size
@@ -199,15 +199,19 @@ class RootView: JPanel, Loopable {
     override fun paintComponent(g: Graphics?) {
         val start = System.nanoTime()
 
+        if(g == null || g !is Graphics2D)
+            return
+
         // enable anti-aliasing
-        (g!! as Graphics2D).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
         // enable text anti-aliasing
-        (g as Graphics2D).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB)
+        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB)
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR)
 
         g.color = Color.BLACK
         g.fillRect(0, 0, size.width, size.height)
         // call on draw on the root view group
-        rootView.onDraw(g as Graphics2D)
+        rootView.onDraw(g)
 
         if(DEBUG)
             println("[RootView] onDraw() took ${(System.nanoTime() - start) / 1000000.0}ms")

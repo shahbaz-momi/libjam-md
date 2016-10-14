@@ -2,6 +2,9 @@ package com.asdev.libjam.md.tests
 
 import com.asdev.libjam.md.base.RootView
 import com.asdev.libjam.md.drawable.ColorDrawable
+import com.asdev.libjam.md.drawable.CompoundDrawable
+import com.asdev.libjam.md.drawable.NinePatchDrawable
+import com.asdev.libjam.md.drawable.ShadowDrawable
 import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.COLOR_TITLE
 import com.asdev.libjam.md.theme.FONT_TITLE
@@ -10,7 +13,10 @@ import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.TextView
 import com.asdev.libjam.md.view.View
+import java.awt.Color
 import java.awt.Dimension
+import java.io.File
+import javax.imageio.ImageIO
 
 /**
  * Created by Asdev on 10/13/16. All rights reserved.
@@ -24,7 +30,6 @@ import java.awt.Dimension
 fun main(args: Array<String>) {
     THEME.init()
 
-
     val toolbarContainer = LinearLayout()
     toolbarContainer.background = ColorDrawable(THEME.getBackgroundColor())
 
@@ -32,29 +37,41 @@ fun main(args: Array<String>) {
     navBar.background = ColorDrawable(THEME.getDarkPrimaryColor())
     navBar.maxSize = FloatDim(-2f, 35f)
 
-//    val toolbar = LinearLayout()
-//    toolbar.setOrientation(ORIENTATION_VERTICAL)
-//    toolbar.background = ColorDrawable(THEME.getPrimaryColor())
+    val toolbar = TextView("My Drive")
+    toolbar.background  = ColorDrawable(THEME.getPrimaryColor())
+    toolbar.gravity = GRAVITY_MIDDLE_LEFT
+    toolbar.setThemeFont(FONT_TITLE)
+    toolbar.setThemeColor(COLOR_TITLE)
+    toolbar.setPadding(20f)
 
-    val textView = TextView("My Drive")
-    textView.background  = ColorDrawable(THEME.getPrimaryColor())
-    textView.gravity = GRAVITY_MIDDLE_LEFT
-    textView.setThemeFont(FONT_TITLE)
-    textView.setThemeColor(COLOR_TITLE)
-    textView.setPadding(20f)
-
-    textView.minSize = FloatDim(-2f, 50f)
-    textView.maxSize = FloatDim(-2f, 50f)
+    toolbar.minSize = FloatDim(-2f, 50f)
+    toolbar.maxSize = FloatDim(-2f, 50f)
 
     val list = GenericLayoutParamList()
     list.putParam("gravity", GRAVITY_MIDDLE_LEFT)
-    textView.applyLayoutParameters(list)
+    toolbar.applyLayoutParameters(list)
 
     // toolbar.addChild(textView)
 
     toolbarContainer.addChild(navBar)
-    toolbarContainer.addChild(textView)
-    toolbarContainer.addChild(View())
+    toolbarContainer.addChild(toolbar)
+
+    val v = RelativeLayout()
+
+    // create a shadow
+    val drawable = ShadowDrawable()
+
+    val dummy = View()
+    dummy.background =
+            CompoundDrawable(
+                    drawable,
+                    ColorDrawable(THEME.getAccentColor())
+            )
+    dummy.maxSize = FloatDim(100f, 100f)
+
+    v.addChild(dummy)
+
+    toolbarContainer.addChild(v)
 
     val rootView = RootView("TextView", Dimension(500, 500), toolbarContainer, false)
     rootView.showFrame()
