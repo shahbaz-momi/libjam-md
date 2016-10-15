@@ -29,7 +29,7 @@ val ORIENTATION_HORIZONTAL = 1
  * A layout that lays view one after another (a linear fashion). The items may be vertical or horizontal, and this is
  * specified by the orientation. Directly inherits [ViewGroup].
  */
-class LinearLayout: ViewGroup() {
+open class LinearLayout: ViewGroup() {
 
     private val children = ArrayList<View>()
     private lateinit var childrenCoords: Array<FloatPoint>

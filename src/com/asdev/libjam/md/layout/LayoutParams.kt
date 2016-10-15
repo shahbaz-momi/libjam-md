@@ -120,4 +120,9 @@ class GenericLayoutParamList {
      * Gets a layout parameter from this list or null if it isn't present.
      */
     fun getParam(name: String): Any? = map.getOrDefault(name, null)
+
+    infix fun with(param: Pair<String, Any>): GenericLayoutParamList {
+        putParam(param.first, param.second)
+        return this
+    }
 }

@@ -1,5 +1,8 @@
 package com.asdev.libjam.md.base
 
+import com.asdev.libjam.md.layout.ElevatedLayout
+import com.asdev.libjam.md.layout.FrameDecoration
+import com.asdev.libjam.md.layout.LinearLayout
 import com.asdev.libjam.md.layout.newLayoutParams
 import com.asdev.libjam.md.theme.LightMaterialTheme
 import com.asdev.libjam.md.theme.THEME
@@ -10,8 +13,10 @@ import com.asdev.libjam.md.view.View
 import java.awt.*
 import java.awt.event.ComponentEvent
 import java.awt.event.ComponentListener
+import javax.swing.BorderFactory
 import javax.swing.JFrame
 import javax.swing.JPanel
+import javax.swing.border.EtchedBorder
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -29,6 +34,7 @@ class RootView: JPanel, Loopable {
     private val frame: JFrame
     private val rootView: View
     private val looper: Looper
+    private val frameDecoration: FrameDecoration?
 
     constructor(title: String, size: Dimension, rootVG: View, customToolbar: Boolean) {
         frame = JFrame(title)
@@ -36,9 +42,25 @@ class RootView: JPanel, Loopable {
         // TODO: custom toolbars like chrome os
         frame.isUndecorated = customToolbar
         // TODO: toolbar semi transparent when not focused
-        // frame.opacity = 0.1f
 
-        this.rootView = rootVG
+        if(customToolbar) {
+            frame.background = Color(0, 0, 0, 0)
+            background = Color(0, 0, 0, 0)
+            isOpaque = false
+
+            // add a frame decorator
+            frameDecoration = FrameDecoration(title)
+
+            val l = LinearLayout()
+            l.addChild(frameDecoration)
+            l.addChild(rootVG)
+
+            // now add the content
+            rootView = ElevatedLayout(l, shadowYOffset = 0f)
+        } else {
+            frameDecoration = null
+            this.rootView = rootVG
+        }
 
         // create a new looper and bind it with this loopable
         looper = Looper(this)
@@ -52,7 +74,6 @@ class RootView: JPanel, Loopable {
 
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.setLocationRelativeTo(null)
-        frame.add(this)
 
         // add resize event thingy
         frame.addComponentListener(object : ComponentListener {
@@ -66,6 +87,8 @@ class RootView: JPanel, Loopable {
             override fun componentHidden(e: ComponentEvent?) {
             }
         })
+
+        frame.add(this)
 
         // double buffer this biotch
         isDoubleBuffered = true
@@ -202,14 +225,13 @@ class RootView: JPanel, Loopable {
         if(g == null || g !is Graphics2D)
             return
 
+        g.clearRect(0, 0, size.width, size.height)
+
         // enable anti-aliasing
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
         // enable text anti-aliasing
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB)
-        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR)
-
-        g.color = Color.BLACK
-        g.fillRect(0, 0, size.width, size.height)
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC)
         // call on draw on the root view group
         rootView.onDraw(g)
 
