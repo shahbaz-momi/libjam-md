@@ -435,18 +435,14 @@ class RelativeLayout: ViewGroup() {
         val prevClip = g.clip
         super.onDraw(g)
 
-        for(i in 0 until orderedChildren.size) {
-            if(orderedChildren[i] != null) {
-                val child = orderedChildren[i]!!
-
-                val p = childCoords[i]!!
-                // translate it
-                g.translate( p.x.toInt(), p.y.toInt() )
-                // set the clip
-                g.setClip(0, 0, child.layoutSize.w.toInt(), child.layoutSize.h.toInt())
-                orderedChildren[i]!!.onDraw(g)
-                g.translate( -p.x.toInt(), -p.y.toInt() )
-            }
+        for(c in children.sorted()) {
+            val p = childCoords[orderedChildren.indexOf(c)]!!
+            // translate it
+            g.translate( p.x.toInt(), p.y.toInt() )
+            // set the clip
+            g.setClip(0, 0, c.layoutSize.w.toInt(), c.layoutSize.h.toInt())
+            c.onDraw(g)
+            g.translate( -p.x.toInt(), -p.y.toInt() )
         }
 
         g.clip = prevClip

@@ -96,6 +96,8 @@ class RootView: JPanel, Loopable {
         setTheme(LightMaterialTheme)
     }
 
+    fun getFrameDecoration() = frameDecoration
+
     fun setTheme(theme: Theme) {
         looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_THEME_CHANGED).apply { data0 = theme })
     }

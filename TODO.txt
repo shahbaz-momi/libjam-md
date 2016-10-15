@@ -1,0 +1,23 @@
+TODO:
+- root view // MOSTLY DONE
+- looper and loopable // DONE
+- message handling across threads // DONE
+- views // MOSTLY DONE
+- view groups // DONE
+- drawables // MOSTLY DONE
+- layout params // MOSTLY DONE
+- relative layout // MOSTLY DONE
+- linear layout // MOSTLY DONE
+- theming // MOSTLY DONE
+- nine patch drawable // MOSTLY DONE
+- shadow drawable // DONE
+- frame decoration // IN PROGRESS
+- elevated layout // DONE
+- z-index // DONE
+- mouse input - hover, click, etc
+- animations - choreographer with delta times
+- animate window in - upward reveal (dark primary animates up then the window animates up - like geforce experience notification)
+- animate window out - downward reveal (reverse window in animation)
+- buttons
+- nav buttons
+- more material ui components

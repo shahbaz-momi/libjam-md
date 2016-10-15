@@ -22,5 +22,10 @@ fun main(args: Array<String>) {
     v.background = ColorDrawable(THEME.getBackgroundColor())
 
     val root = RootView("My Drive", Dimension(500, 500), v, true)
+
+    // show frame decoration above all
+    val deco = root.getFrameDecoration()!!
+    deco.setDrawAboveAll(true)
+
     root.showFrame()
 }

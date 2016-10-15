@@ -5,6 +5,7 @@ import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
 import java.util.*
+import kotlin.comparisons.compareBy
 
 /**
  * Created by Asdev on 10/07/16. All rights reserved.
@@ -315,7 +316,9 @@ open class LinearLayout: ViewGroup() {
         val prevClip = g.clip
         super.onDraw(g)
 
-        for((i, c) in children.withIndex()) {
+        // draw the children by z order
+        for(c in children.sorted()) {
+            val i = children.indexOf(c)
             g.translate(childrenCoords[i].x.toInt(), childrenCoords[i].y.toInt())
             g.setClip(0, 0, c.layoutSize.w.toInt(), c.layoutSize.h.toInt())
             c.onDraw(g)

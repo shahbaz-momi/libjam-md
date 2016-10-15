@@ -61,6 +61,8 @@ class FrameDecoration(title: String): LinearLayout() {
         addChild(toolbar)
     }
 
+    fun setDrawAboveAll(b: Boolean) = if(b) zIndex = 99 else zIndex = 0
+
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
         // on theme change the children
         super.onThemeChange(prevTheme, newTheme)

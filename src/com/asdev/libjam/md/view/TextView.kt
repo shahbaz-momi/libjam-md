@@ -64,6 +64,8 @@ open class TextView(var text: String): View() {
         setThemeFont(themeFont)
 
         setThemeColor(themeColor)
+
+        zIndex = 1
     }
 
     fun setPadding(padding: Float) {

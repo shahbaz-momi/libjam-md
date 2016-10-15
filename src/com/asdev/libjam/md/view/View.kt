@@ -15,6 +15,7 @@ import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.DIM_UNSET
 import com.asdev.libjam.md.util.FloatDim
 import java.awt.Graphics2D
+import kotlin.comparisons.compareValues
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -39,7 +40,12 @@ val VISIBILITY_INVISIBLE = 1
  * An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It
  * implements the bare minimum functionality, allowing for easy extensibility.
  */
-open class View {
+open class View: Comparable<View> {
+
+    /**
+     * Compares this view against the other view based on the z-index.
+     */
+    override fun compareTo(other: View) = zIndex.compareTo(other.zIndex)
 
     /**
      * The max and minimum sizes of this view. Consider the maximum size as the preferred size as the layout will always
@@ -64,10 +70,15 @@ open class View {
     var background: Drawable? = null // should it be ColorDrawable(THEME.getBackgroundColor())?
 
     /**
+     * The ordering index of this view. The higher the index, the further on-top it is drawn.
+     */
+    var zIndex = 0
+
+    /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
      * @return the min and max sizes, respectively.
      */
-    open fun onMeasure(result: LayoutParams): LayoutParams = result.apply { minSize = this@View.minSize; maxSize = this@View.maxSize; applyAdditional(paramList) }
+    open fun onMeasure(result: LayoutParams): LayoutParams = result.apply { minSize = this@View.minSize; maxSize = this@View.maxSize; applyAdditional(paramList); }
 
     /**
      * Called when the layout has determined the size of this layout
