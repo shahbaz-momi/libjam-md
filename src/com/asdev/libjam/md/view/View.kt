@@ -15,7 +15,8 @@ import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.DIM_UNSET
 import com.asdev.libjam.md.util.FloatDim
 import java.awt.Graphics2D
-import kotlin.comparisons.compareValues
+import java.awt.Point
+import java.awt.event.MouseEvent
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -73,6 +74,11 @@ open class View: Comparable<View> {
      * The ordering index of this view. The higher the index, the further on-top it is drawn.
      */
     var zIndex = 0
+
+    /**
+     * The mouse listener associated with this view
+     */
+    var mouseListener: ViewMouseListener? = null
 
     /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
@@ -149,6 +155,36 @@ open class View: Comparable<View> {
     }
 
     /**
+     * Called when the mouse is pressed within this [View]'s bounds.
+     */
+    open fun onMousePress(e: MouseEvent, mPos: Point) = mouseListener?.onMousePress(e, mPos)
+
+    /**
+     * Called when the mouse is released within this [View]'s bounds.
+     */
+    open fun onMouseRelease(e: MouseEvent, mPos: Point) = mouseListener?.onMouseRelease(e,  mPos)
+
+    /**
+     * Called when the mouse is moved within this [View]'s bounds.
+     */
+    open fun onMouseMoved(e: MouseEvent, mPos: Point) = mouseListener?.onMouseMoved(e, mPos)
+
+    /**
+     * Called when the mouse is dragged within this [View]'s bounds.
+     */
+    open fun onMouseDragged(e: MouseEvent, mPos: Point) = mouseListener?.onMouseDragged(e, mPos)
+
+    /**
+     * Called when the mouse enters this [View]'s bounds.
+     */
+    open fun onMouseEnter(e: MouseEvent, mPos: Point) = mouseListener?.onMouseEnter(e, mPos)
+
+    /**
+     * Called when the mouse exits this [View]'s bounds.
+     */
+    open fun onMouseExit(e: MouseEvent, mPos: Point) = mouseListener?.onMouseExit(e, mPos)
+
+    /**
      * A function called on the UI thread 60 times a second to update this view.
      */
     open fun loop() {
@@ -183,5 +219,15 @@ open class View: Comparable<View> {
 
         // draw the background
         background?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
+    }
+
+    interface ViewMouseListener {
+
+        fun onMousePress(e: MouseEvent, p: Point)
+        fun onMouseRelease(e: MouseEvent, p: Point)
+        fun onMouseDragged(e: MouseEvent, p: Point)
+        fun onMouseMoved(e: MouseEvent, p: Point)
+        fun onMouseEnter(e: MouseEvent, p: Point)
+        fun onMouseExit(e: MouseEvent, p: Point)
     }
 }

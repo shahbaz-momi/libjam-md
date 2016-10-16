@@ -11,8 +11,7 @@ import com.asdev.libjam.md.thread.*
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.View
 import java.awt.*
-import java.awt.event.ComponentEvent
-import java.awt.event.ComponentListener
+import java.awt.event.*
 import javax.swing.BorderFactory
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -29,7 +28,7 @@ import javax.swing.border.EtchedBorder
  * The root view that creates and attaches to a swing window.
  */
 
-class RootView: JPanel, Loopable {
+class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
 
     private val frame: JFrame
     private val rootView: View
@@ -39,7 +38,6 @@ class RootView: JPanel, Loopable {
     constructor(title: String, size: Dimension, rootVG: View, customToolbar: Boolean) {
         frame = JFrame(title)
 
-        // TODO: custom toolbars like chrome os
         frame.isUndecorated = customToolbar
         // TODO: toolbar semi transparent when not focused
 
@@ -49,7 +47,7 @@ class RootView: JPanel, Loopable {
             isOpaque = false
 
             // add a frame decorator
-            frameDecoration = FrameDecoration(title)
+            frameDecoration = FrameDecoration(title, frame)
 
             val l = LinearLayout()
             l.addChild(frameDecoration)
@@ -89,6 +87,9 @@ class RootView: JPanel, Loopable {
         })
 
         frame.add(this)
+
+        frame.addMouseListener(this)
+        frame.addMouseMotionListener(this)
 
         // double buffer this biotch
         isDoubleBuffered = true
@@ -259,6 +260,34 @@ class RootView: JPanel, Loopable {
             println("[RootView] Hiding frame...")
 
         frame.isVisible = false
+    }
+
+    override fun mouseEntered(e: MouseEvent?) {
+    }
+
+    override fun mouseClicked(e: MouseEvent?) {
+
+    }
+
+    override fun mouseExited(e: MouseEvent?) {
+
+    }
+
+    override fun mouseReleased(e: MouseEvent?) {
+        rootView.onMouseRelease(e!!, e.point)
+    }
+
+
+    override fun mousePressed(e: MouseEvent?) {
+        rootView.onMousePress(e!!, e.point)
+    }
+
+    override fun mouseMoved(e: MouseEvent?) {
+        rootView.onMouseMoved(e!!, e.point)
+    }
+
+    override fun mouseDragged(e: MouseEvent?) {
+        rootView.onMouseDragged(e!!, e.point)
     }
 
 }

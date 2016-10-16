@@ -14,7 +14,7 @@ TODO:
 - frame decoration // IN PROGRESS
 - elevated layout // DONE
 - z-index // DONE
-- mouse input - hover, click, etc
+- mouse input - hover, click, etc // MOSTLY DONE
 - animations - choreographer with delta times
 - animate window in - upward reveal (dark primary animates up then the window animates up - like geforce experience notification)
 - animate window out - downward reveal (reverse window in animation)

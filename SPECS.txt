@@ -1,0 +1,3 @@
+- Nav bar icons are to be 10px x 10px
+- Toolbar icons are to be 14px x 14px
+- General icons are to be 14px x 14px

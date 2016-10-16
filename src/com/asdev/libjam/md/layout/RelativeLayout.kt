@@ -4,6 +4,8 @@ import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
+import java.awt.Point
+import java.awt.event.MouseEvent
 import java.util.*
 
 /**
@@ -423,6 +425,92 @@ class RelativeLayout: ViewGroup() {
             // align to bottom
             return bH - oH
         }
+    }
+
+    override fun onMousePress(e: MouseEvent, mPos: Point) {
+        super.onMousePress(e, mPos)
+        // check the bounds of each child view and see if it fits
+        for(i in 0 until orderedChildren.size) {
+            val c = orderedChildren[i] ?: continue
+            val p = childCoords[i]!!
+            // check if it fits betweens p and c.layoutSize
+            if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
+                mPos.y >= p.y && mPos.y <= p.y + c.layoutSize.h) {
+                c.onMousePress(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
+                break
+            }
+        }
+    }
+
+    override fun onMouseRelease(e: MouseEvent, mPos: Point) {
+        super.onMouseRelease(e, mPos)
+        // check the bounds of each child view and see if it fits
+        for(i in 0 until orderedChildren.size) {
+            val c = orderedChildren[i] ?: continue
+            val p = childCoords[i]!!
+            // check if it fits betweens p and c.layoutSize
+            if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
+                    mPos.y >= p.y && mPos.y <= p.y + c.layoutSize.h) {
+                c.onMouseRelease(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
+                break
+            }
+        }
+    }
+
+    private var previousViewMousedOn = -1
+    override fun onMouseMoved(e: MouseEvent, mPos: Point) {
+        super.onMouseMoved(e, mPos)
+        // check the bounds of each child view and see if it fits
+        for(i in 0 until orderedChildren.size) {
+            val c = orderedChildren[i] ?: continue
+            val p = childCoords[i]!!
+            // check if it fits betweens p and c.layoutSize
+            if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
+                    mPos.y >= p.y && mPos.y <= p.y + c.layoutSize.h) {
+                if(previousViewMousedOn != i) {
+                    if(previousViewMousedOn != -1) {
+                        orderedChildren[i]!!.onMouseExit(e, mPos)
+                    }
+
+                    c.onMouseEnter(e, mPos)
+                    previousViewMousedOn = i
+                }
+
+                c.onMouseMoved(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
+                break
+            }
+        }
+    }
+
+    override fun onMouseDragged(e: MouseEvent, mPos: Point) {
+        super.onMouseDragged(e, mPos)
+        // check the bounds of each child view and see if it fits
+        for(i in 0 until orderedChildren.size) {
+            val c = orderedChildren[i] ?: continue
+            val p = childCoords[i]!!
+            // check if it fits betweens p and c.layoutSize
+            if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
+                    mPos.y >= p.y && mPos.y <= p.y + c.layoutSize.h) {
+                if(previousViewMousedOn != i) {
+                    if(previousViewMousedOn != -1) {
+                        orderedChildren[i]!!.onMouseExit(e, mPos)
+                    }
+
+                    c.onMouseEnter(e, mPos)
+                    previousViewMousedOn = i
+                }
+
+                c.onMouseDragged(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
+                break
+            }
+        }
+    }
+
+    override fun onMouseExit(e: MouseEvent, mPos: Point) {
+        super.onMouseExit(e, mPos)
+        if(previousViewMousedOn != -1)
+            orderedChildren[previousViewMousedOn]!!.onMouseExit(e, mPos)
+        previousViewMousedOn = -1
     }
 
     /**

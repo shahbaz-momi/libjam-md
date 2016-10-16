@@ -4,8 +4,9 @@ import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
+import java.awt.Point
+import java.awt.event.MouseEvent
 import java.util.*
-import kotlin.comparisons.compareBy
 
 /**
  * Created by Asdev on 10/07/16. All rights reserved.
@@ -372,6 +373,85 @@ open class LinearLayout: ViewGroup() {
             // align to bottom
             return bY + bH - oH
         }
+    }
+
+    override fun onMousePress(e: MouseEvent, mPos: Point) {
+        super.onMousePress(e, mPos)
+        for((i, c) in children.withIndex()) {
+            val p = childrenCoords[i]
+            if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
+                    mPos.y >= p.y && mPos.y <= p.y + c.layoutSize.h) {
+                c.onMousePress(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
+                break
+            }
+        }
+    }
+
+    override fun onMouseRelease(e: MouseEvent, mPos: Point) {
+        super.onMouseRelease(e, mPos)
+        for((i, c) in children.withIndex()) {
+            val p = childrenCoords[i]
+            if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
+                    mPos.y >= p.y && mPos.y <= p.y + c.layoutSize.h) {
+                c.onMouseRelease(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
+                break
+            }
+        }
+    }
+
+    private var previousViewMousedOn = -1
+    override fun onMouseMoved(e: MouseEvent, mPos: Point) {
+        super.onMouseMoved(e, mPos)
+        for((i, c) in children.withIndex()) {
+            val p = childrenCoords[i]
+            if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
+                    mPos.y >= p.y && mPos.y <= p.y + c.layoutSize.h) {
+                if(previousViewMousedOn != i) {
+                    // call on mouse exit of previous
+                    if(previousViewMousedOn != -1) {
+                        children[previousViewMousedOn].onMouseExit(e, mPos)
+                    }
+
+                    // call mouse enter of this view
+                    c.onMouseEnter(e, mPos)
+                    previousViewMousedOn = i
+                }
+
+                c.onMouseMoved(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
+                break
+            }
+        }
+    }
+
+    override fun onMouseDragged(e: MouseEvent, mPos: Point) {
+        super.onMouseDragged(e, mPos)
+        for((i, c) in children.withIndex()) {
+            val p = childrenCoords[i]
+            if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
+                    mPos.y >= p.y && mPos.y <= p.y + c.layoutSize.h) {
+
+                if(previousViewMousedOn != i) {
+                    // call on mouse exit of previous
+                    if(previousViewMousedOn != -1) {
+                        children[previousViewMousedOn].onMouseExit(e, mPos)
+                    }
+
+                    // call mouse enter of this view
+                    c.onMouseEnter(e, mPos)
+                    previousViewMousedOn = i
+                }
+
+                c.onMouseDragged(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
+                break
+            }
+        }
+    }
+
+    override fun onMouseExit(e: MouseEvent, mPos: Point) {
+        super.onMouseExit(e, mPos)
+        if(previousViewMousedOn != -1)
+            children[previousViewMousedOn].onMouseExit(e, mPos)
+        previousViewMousedOn = -1
     }
 
 }

@@ -5,6 +5,8 @@ import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
+import java.awt.Point
+import java.awt.event.MouseEvent
 
 /**
  * Created by Asdev on 10/14/16. All rights reserved.
@@ -73,5 +75,55 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
         // draw the child
         child.onDraw(g)
         g.translate(-radius.toInt(), -radius.toInt())
+    }
+
+    private var wasOnCompBefore = false
+
+    override fun onMouseDragged(e: MouseEvent, mPos: Point) {
+        super.onMouseDragged(e, mPos)
+        if(mPos.x >= radius && mPos.x <= layoutSize.w - radius &&
+                mPos.y >= radius && mPos.y <= layoutSize.h - radius) {
+            if(!wasOnCompBefore) {
+                child.onMouseEnter(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
+                wasOnCompBefore = true
+            }
+            child.onMouseDragged(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
+        } else {
+            if(wasOnCompBefore) {
+                child.onMouseExit(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
+                wasOnCompBefore = false
+            }
+        }
+    }
+
+    override fun onMouseMoved(e: MouseEvent, mPos: Point) {
+        super.onMouseMoved(e, mPos)
+        if(mPos.x >= radius && mPos.x <= layoutSize.w - radius &&
+                mPos.y >= radius && mPos.y <= layoutSize.h - radius) {
+            if(!wasOnCompBefore) {
+                child.onMouseEnter(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
+                wasOnCompBefore = true
+            }
+            child.onMouseMoved(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
+        } else {
+            if(wasOnCompBefore) {
+                child.onMouseExit(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
+                wasOnCompBefore = false
+            }
+        }
+    }
+
+    override fun onMousePress(e: MouseEvent, mPos: Point) {
+        super.onMousePress(e, mPos)
+        if(mPos.x >= radius && mPos.x <= layoutSize.w - radius &&
+                mPos.y >= radius && mPos.y <= layoutSize.h - radius)
+            child.onMousePress(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
+    }
+
+    override fun onMouseRelease(e: MouseEvent, mPos: Point) {
+        super.onMouseRelease(e, mPos)
+        if(mPos.x >= radius && mPos.x <= layoutSize.w - radius &&
+                mPos.y >= radius && mPos.y <= layoutSize.h - radius)
+            child.onMouseRelease(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
     }
 }
