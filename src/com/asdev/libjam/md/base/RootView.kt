@@ -12,10 +12,8 @@ import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.View
 import java.awt.*
 import java.awt.event.*
-import javax.swing.BorderFactory
 import javax.swing.JFrame
 import javax.swing.JPanel
-import javax.swing.border.EtchedBorder
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -28,7 +26,7 @@ import javax.swing.border.EtchedBorder
  * The root view that creates and attaches to a swing window.
  */
 
-class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
+class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocusListener {
 
     private val frame: JFrame
     private val rootView: View
@@ -39,7 +37,6 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
         frame = JFrame(title)
 
         frame.isUndecorated = customToolbar
-        // TODO: toolbar semi transparent when not focused
 
         if(customToolbar) {
             frame.background = Color(0, 0, 0, 0)
@@ -52,6 +49,9 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
             val l = LinearLayout()
             l.addChild(frameDecoration)
             l.addChild(rootVG)
+
+            // make the window a bit transparent on focus lost, so add a listener for that
+            frame.addWindowFocusListener(this)
 
             // now add the content
             rootView = ElevatedLayout(l, shadowYOffset = 0f)
@@ -103,7 +103,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
         looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_THEME_CHANGED).apply { data0 = theme })
     }
 
-    fun getLooper() = looper
+    // potentially unsafe. E.g. stopSafe() could be called on the looper
+    // fun getLooper() = looper
 
     override fun getSize() = Dimension(actualSize.w.toInt(), actualSize.h.toInt())
 
@@ -166,6 +167,10 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
         rootView.loop()
     }
 
+    fun setCursor(cursor: Int) {
+        looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_SET_CURSOR).apply { data0 = cursor })
+    }
+
     override fun handleMessage(msg: Message) {
         if(DEBUG) {
             println("[RootView] Handling message: $msg")
@@ -192,6 +197,11 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
                 rootView.onThemeChange(oldTheme, THEME)
                 // call on draw
                 requestPaint()
+            } else if(msg.action == MESSAGE_ACTION_SET_CURSOR) {
+                val cursorInt = msg.data0 as Int
+                val cursor = Cursor.getPredefinedCursor(cursorInt)
+                // set it
+                frame.cursor = cursor
             }
         }
     }
@@ -277,7 +287,6 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
         rootView.onMouseRelease(e!!, e.point)
     }
 
-
     override fun mousePressed(e: MouseEvent?) {
         rootView.onMousePress(e!!, e.point)
     }
@@ -288,6 +297,15 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener {
 
     override fun mouseDragged(e: MouseEvent?) {
         rootView.onMouseDragged(e!!, e.point)
+    }
+
+    override fun windowLostFocus(e: WindowEvent?) {
+        // set opacity a little lower
+        frame.opacity = 0.85f
+    }
+
+    override fun windowGainedFocus(e: WindowEvent?) {
+        frame.opacity = 1f
     }
 
 }

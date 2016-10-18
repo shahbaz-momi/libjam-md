@@ -1,6 +1,7 @@
 package com.asdev.libjam.md.drawable
 
 import com.asdev.libjam.md.util.*
+import com.asdev.libjam.md.view.View
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Graphics2D
@@ -307,6 +308,34 @@ class NinePatchDrawable(val ninepatch: BufferedImage): Drawable() {
         g.drawImage(ninepatch, midStartX, bottomStartY, midEndX, bottomEndY, coords[7].x, coords[7].y, coords[7].x + sizes[7].width, coords[7].y + sizes[7].height, null)
         // draw section 8
         g.drawImage(ninepatch, rightStartX, bottomStartY, rightEndX, bottomEndY, coords[8].x, coords[8].y, coords[8].x + sizes[8].width, coords[8].y + sizes[8].height, null)
+    }
+
+}
+
+/**
+ * Draws the given drawables for each state.
+ */
+class StatefulCompoundDrawable(val normal: Drawable, val hover: Drawable? = null, val pressed: Drawable? = null, val focused: Drawable? = null): StatefulDrawable() {
+
+    override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float, state: View.State) {
+        if(state == View.State.STATE_NORMAL) {
+            normal.draw(g, x, y, w, h)
+        } else if(state == View.State.STATE_HOVER) {
+            if(hover != null)
+                hover.draw(g, x, y, w, h)
+            else
+                normal.draw(g, x, y, w, h)
+        } else if(state == View.State.STATE_FOCUSED) {
+            if(focused != null)
+                focused.draw(g, x, y, w, h)
+            else
+                normal.draw(g, x, y, w, h)
+        } else if(state == View.State.STATE_PRESSED) {
+            if(pressed != null)
+                pressed.draw(g, x, y, w, h)
+            else
+                normal.draw(g, x, y, w, h)
+        }
     }
 
 }

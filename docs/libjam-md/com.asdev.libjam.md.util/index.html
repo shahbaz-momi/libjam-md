@@ -35,17 +35,17 @@
 <td>
 <a href="-d-e-b-u-g.html">DEBUG</a></td>
 <td>
-<code><span class="keyword">val </span><span class="identifier">DEBUG</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">DEBUG</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
 <p>Enables debug logging.
 NOTICE: Using DEBUG will cause significant lag because there will be a lot of output on each onMeasure(), onLayout(), and onDraw()</p>
 </td>
 </tr>
 <tr>
 <td>
-<a href="-d-e-b-u-g_-t-e-x-t_-b-o-x-e-s.html">DEBUG_TEXT_BOXES</a></td>
+<a href="-d-e-b-u-g_-l-a-y-o-u-t_-b-o-x-e-s.html">DEBUG_LAYOUT_BOXES</a></td>
 <td>
-<code><span class="keyword">val </span><span class="identifier">DEBUG_TEXT_BOXES</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
-<p>Enables debug text boundaries.</p>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">DEBUG_LAYOUT_BOXES</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Enables debug drawing layout boundaries.</p>
 </td>
 </tr>
 <tr>
@@ -79,6 +79,14 @@ NOTICE: Using DEBUG will cause significant lag because there will be a lot of ou
 <td>
 <code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">&lt;</span><a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">,</span>&nbsp;<a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">fits</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.util$fits(((com.asdev.libjam.md.util.FloatDim, )), com.asdev.libjam.md.util.FloatDim)/d">d</span><span class="symbol">:</span>&nbsp;<a href="-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
 <p>Returns whether the given <a href="-float-dim/index.html">FloatDim</a>, $d, fits in between the <a href="#">Pair</a> of dimensions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="perceived-brightness.html">perceivedBrightness</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">perceivedBrightness</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.util$perceivedBrightness(java.awt.Color)/c">c</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Color.html"><span class="identifier">Color</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Double</span></code>
+<p>Calculates the perceived brightness of a color.</p>
 </td>
 </tr>
 </tbody>

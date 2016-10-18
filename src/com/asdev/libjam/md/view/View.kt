@@ -1,19 +1,17 @@
 package com.asdev.libjam.md.view
 
+import com.asdev.libjam.md.animation.FloatValueAnimator
+import com.asdev.libjam.md.animation.LinearInterpolator
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.Drawable
+import com.asdev.libjam.md.drawable.StatefulDrawable
 import com.asdev.libjam.md.layout.GenericLayoutParamList
 import com.asdev.libjam.md.layout.LayoutParams
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
-import com.asdev.libjam.md.thread.MESSAGE_REQUEST_LAYOUT
-import com.asdev.libjam.md.thread.MESSAGE_REQUEST_REPAINT
-import com.asdev.libjam.md.thread.Message
-import com.asdev.libjam.md.thread.myLooper
-import com.asdev.libjam.md.util.DEBUG
-import com.asdev.libjam.md.util.DIM_UNLIMITED
-import com.asdev.libjam.md.util.DIM_UNSET
-import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.thread.*
+import com.asdev.libjam.md.util.*
+import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.MouseEvent
@@ -76,9 +74,39 @@ open class View: Comparable<View> {
     var zIndex = 0
 
     /**
-     * The mouse listener associated with this view
+     * The mouse listener associated with this [View].
      */
     var mouseListener: ViewMouseListener? = null
+
+    /**
+     * The state listener associated with this [View].
+     */
+    var stateListener: StateListener? = null
+
+    /**
+     * The state of the current view.
+     */
+    var state: State = State.STATE_NORMAL
+
+    /**
+     * The [FloatValueAnimator] for [translationX].
+     */
+    var translationXAnimator = FloatValueAnimator(0f, LinearInterpolator, 0f, 0f, 0f)
+
+    /**
+     * The translationX of this [View].
+     */
+    var translationX: Float by translationXAnimator
+
+    /**
+     * The [FloatValueAnimator] for [translationY].
+     */
+    var translationYAnimator = FloatValueAnimator(0f, LinearInterpolator, 0f, 0f, 0f)
+
+    /**
+     * The translationY of this [View].
+     */
+    var translationY: Float by translationYAnimator
 
     /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
@@ -157,12 +185,20 @@ open class View: Comparable<View> {
     /**
      * Called when the mouse is pressed within this [View]'s bounds.
      */
-    open fun onMousePress(e: MouseEvent, mPos: Point) = mouseListener?.onMousePress(e, mPos)
+    open fun onMousePress(e: MouseEvent, mPos: Point) {
+        mouseListener?.onMousePress(e, mPos)
+        // change the state to pressed
+        onStateChanged(state, State.STATE_PRESSED)
+    }
 
     /**
      * Called when the mouse is released within this [View]'s bounds.
      */
-    open fun onMouseRelease(e: MouseEvent, mPos: Point) = mouseListener?.onMouseRelease(e,  mPos)
+    open fun onMouseRelease(e: MouseEvent, mPos: Point) {
+        mouseListener?.onMouseRelease(e,  mPos)
+        // the the state to focused
+        onStateChanged(state, State.STATE_FOCUSED)
+    }
 
     /**
      * Called when the mouse is moved within this [View]'s bounds.
@@ -177,12 +213,29 @@ open class View: Comparable<View> {
     /**
      * Called when the mouse enters this [View]'s bounds.
      */
-    open fun onMouseEnter(e: MouseEvent, mPos: Point) = mouseListener?.onMouseEnter(e, mPos)
+    open fun onMouseEnter(e: MouseEvent, mPos: Point) {
+        mouseListener?.onMouseEnter(e, mPos)
+        onStateChanged(state, State.STATE_HOVER)
+    }
 
     /**
      * Called when the mouse exits this [View]'s bounds.
      */
-    open fun onMouseExit(e: MouseEvent, mPos: Point) = mouseListener?.onMouseExit(e, mPos)
+    open fun onMouseExit(e: MouseEvent, mPos: Point) {
+        mouseListener?.onMouseExit(e, mPos)
+        onStateChanged(state, State.STATE_NORMAL)
+    }
+
+    /**
+     * Called when the state of this view has changed.
+     */
+    open fun onStateChanged(previous: State, newState: State) {
+        // call on listener
+        stateListener?.onStateChanged(previous, newState)
+        // request a repaint to update a potential stateful drawable.
+        requestRepaint()
+        state = newState
+    }
 
     /**
      * A function called on the UI thread 60 times a second to update this view.
@@ -198,6 +251,32 @@ open class View: Comparable<View> {
             sendMessageToRoot(MESSAGE_REQUEST_REPAINT)
             flagRequestingRepaint = false
         }
+
+        if(flagRequestingCursor > -1) {
+            if(DEBUG)
+                println("[View] Setting cursor to $flagRequestingCursor")
+
+            sendMessageToRoot(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_SET_CURSOR).apply { data0 = flagRequestingCursor })
+            flagRequestingCursor = -1
+        }
+
+        // loop the animators
+        translationXAnimator.loop()
+        translationYAnimator.loop()
+
+        if(!translationXAnimator.hasEnded() || !translationYAnimator.hasEnded()) {
+            // request a new frame
+            requestRepaint()
+        }
+    }
+
+    private var flagRequestingCursor = -1
+
+    /**
+     * Sets the current mouse cursor.
+     */
+    fun setCursor(cursor: Int) {
+        flagRequestingCursor = cursor
     }
 
     /**
@@ -217,10 +296,30 @@ open class View: Comparable<View> {
         if(visibility != VISIBILITY_VISIBLE)
             return
 
+        // apply the translations
+        g.translate(translationX.toDouble(), translationY.toDouble())
+        // TODO: move the clip
+
         // draw the background
-        background?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
+        val bg = background
+        if(bg != null) {
+            if(bg is StatefulDrawable)
+                bg.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state)
+            else
+                bg.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
+        }
+
+        if(DEBUG_LAYOUT_BOXES) {
+            g.color = Color.RED
+            g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
+        }
+
+        g.translate(-translationX.toDouble(), -translationY.toDouble())
     }
 
+    /**
+     * A mouse event listener.
+     */
     interface ViewMouseListener {
 
         fun onMousePress(e: MouseEvent, p: Point)
@@ -229,5 +328,33 @@ open class View: Comparable<View> {
         fun onMouseMoved(e: MouseEvent, p: Point)
         fun onMouseEnter(e: MouseEvent, p: Point)
         fun onMouseExit(e: MouseEvent, p: Point)
+    }
+
+    /**
+     * A [View].[State] listener.
+     */
+    interface StateListener {
+
+        fun onStateChanged(prevState: State, newState: State)
+
+    }
+
+    enum class State {
+        /**
+         * The normal, idle state of the [View].
+         */
+        STATE_NORMAL,
+        /**
+         * The state when the mouse is hovering the [View]
+         */
+        STATE_HOVER,
+        /**
+         * The state when the mouse is pressing down on the [View]
+         */
+        STATE_PRESSED,
+        /**
+         * The state when the mouse has clicked on the [View]
+         */
+        STATE_FOCUSED;
     }
 }

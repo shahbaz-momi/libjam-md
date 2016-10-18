@@ -1,6 +1,8 @@
 package com.asdev.libjam.md.layout
 
+import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.ShadowDrawable
+import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.View
@@ -22,6 +24,7 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
 
     init {
         shadow = ShadowDrawable(radius, opacity, shadowYOffset, false, false)
+        background = ColorDrawable(THEME.getBackgroundColor())
     }
 
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
@@ -57,6 +60,11 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
         return super.onMeasure(result)
     }
 
+    override fun loop() {
+        super.loop()
+        child.loop()
+    }
+
     override fun onLayout(newSize: FloatDim) {
         super.onLayout(newSize)
         child.onLayout(FloatDim(newSize.w - radius * 2f, newSize.h - radius * 2f))
@@ -64,17 +72,27 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
     }
 
     override fun onDraw(g: Graphics2D) {
+        val prevClip = g.clip
+
         if(layoutSize.w < 0f || layoutSize.h < 0f)
             return
 
+        // apply the translations
+        g.translate(translationX.toDouble(), translationY.toDouble())
+        // TODO: move the clip
+
         shadow.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
         // draw the background behind the view
-        // background?.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
+        background?.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
         // translate the canvas
         g.translate(radius.toInt(), radius.toInt())
         // draw the child
         child.onDraw(g)
         g.translate(-radius.toInt(), -radius.toInt())
+
+        g.translate(-translationX.toDouble(), -translationY.toDouble())
+
+        g.clip = prevClip
     }
 
     private var wasOnCompBefore = false

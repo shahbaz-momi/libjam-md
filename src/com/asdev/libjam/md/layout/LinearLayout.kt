@@ -3,6 +3,7 @@ package com.asdev.libjam.md.layout
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
+import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.MouseEvent
@@ -317,6 +318,9 @@ open class LinearLayout: ViewGroup() {
         val prevClip = g.clip
         super.onDraw(g)
 
+        // TODO: reclip to the translations
+        g.translate(translationX.toDouble(), translationY.toDouble())
+
         // draw the children by z order
         for(c in children.sorted()) {
             val i = children.indexOf(c)
@@ -325,6 +329,13 @@ open class LinearLayout: ViewGroup() {
             c.onDraw(g)
             g.translate(-childrenCoords[i].x.toInt(), -childrenCoords[i].y.toInt())
         }
+
+        if(DEBUG_LAYOUT_BOXES) {
+            g.color = Color.RED
+            g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
+        }
+
+        g.translate(-translationX.toDouble(), -translationY.toDouble())
 
         g.clip = prevClip
     }
@@ -375,6 +386,10 @@ open class LinearLayout: ViewGroup() {
         }
     }
 
+    /**
+     * Calls [View]'s implementation of [onMousePress] then checks to find which child is being pressed on. Finally,
+     * it calls [onMousePress] of that child.
+     */
     override fun onMousePress(e: MouseEvent, mPos: Point) {
         super.onMousePress(e, mPos)
         for((i, c) in children.withIndex()) {
@@ -387,6 +402,10 @@ open class LinearLayout: ViewGroup() {
         }
     }
 
+    /**
+     * Calls [View]'s implementation of [onMouseRelease] then checks to find which child is being released on. Finally,
+     * it calls [onMouseRelease] of that child.
+     */
     override fun onMouseRelease(e: MouseEvent, mPos: Point) {
         super.onMouseRelease(e, mPos)
         for((i, c) in children.withIndex()) {
@@ -399,7 +418,15 @@ open class LinearLayout: ViewGroup() {
         }
     }
 
+    /**
+     * The last [View] that the moused was moved/dragged on.
+     */
     private var previousViewMousedOn = -1
+
+    /**
+     * Calls [View]'s implementation of [onMouseMoved] then checks to find which child is being moved on. Finally,
+     * it calls [onMouseMoved] of that child.
+     */
     override fun onMouseMoved(e: MouseEvent, mPos: Point) {
         super.onMouseMoved(e, mPos)
         for((i, c) in children.withIndex()) {
@@ -423,6 +450,10 @@ open class LinearLayout: ViewGroup() {
         }
     }
 
+    /**
+     * Calls [View]'s implementation of [onMouseDragged] then checks to find which child is being dragged on. Finally,
+     * it calls [onMouseDragged] of that child.
+     */
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {
         super.onMouseDragged(e, mPos)
         for((i, c) in children.withIndex()) {
@@ -447,6 +478,10 @@ open class LinearLayout: ViewGroup() {
         }
     }
 
+    /**
+     * Calls [View]'s implementation of [onMouseExit] then checks to find which child is being exited on. Finally,
+     * it calls [onMouseExit] of that child.
+     */
     override fun onMouseExit(e: MouseEvent, mPos: Point) {
         super.onMouseExit(e, mPos)
         if(previousViewMousedOn != -1)

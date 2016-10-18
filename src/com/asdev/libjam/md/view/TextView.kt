@@ -5,8 +5,7 @@ import com.asdev.libjam.md.theme.COLOR_PRIMARY_TEXT
 import com.asdev.libjam.md.theme.FONT_PRIMARY
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
-import com.asdev.libjam.md.util.DEBUG
-import com.asdev.libjam.md.util.DEBUG_TEXT_BOXES
+import com.asdev.libjam.md.util.DEBUG_LAYOUT_BOXES
 import com.asdev.libjam.md.util.FloatDim
 import java.awt.Color
 import java.awt.Font
@@ -128,8 +127,10 @@ open class TextView(var text: String): View() {
 
         // draw the text at that spot
         g.drawString(text, x + paddingLeft, y + textSize.h - (g.fontMetrics.height - g.fontMetrics.ascent) / 2 - paddingTop) // shift height by text size h because we are drawing from the basline
-        if(DEBUG_TEXT_BOXES)
+        if(DEBUG_LAYOUT_BOXES) {
+            g.color = Color.RED
             g.drawRect(x.toInt(), y.toInt(), textSize.w.toInt(), textSize.h.toInt())
+        }
     }
 
     /**

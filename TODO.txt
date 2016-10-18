@@ -15,7 +15,12 @@ TODO:
 - elevated layout // DONE
 - z-index // DONE
 - mouse input - hover, click, etc // MOSTLY DONE
-- animations - choreographer with delta times
+- custom cursors - hand, text, etc // DONE
+- interpolaters - accelerate, decelerate, etc. // DONE
+- states - STATE_NORMAL, STATE_FOCUSED, STATE_HOVER, etc // MOSTLY DONE
+- animations - choreographer with delta times // BASE ANIMATORS ARE MOSTLY DONE
+    - Basic view translations // IN PROGRESS - CLIPS
+- figure out why the onDraws are taking ~40ms
 - animate window in - upward reveal (dark primary animates up then the window animates up - like geforce experience notification)
 - animate window out - downward reveal (reverse window in animation)
 - buttons

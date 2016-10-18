@@ -9,6 +9,7 @@ import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.TextView
+import java.awt.Cursor
 import java.awt.Point
 import java.awt.event.MouseEvent
 import javax.swing.JFrame

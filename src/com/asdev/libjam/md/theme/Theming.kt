@@ -224,3 +224,70 @@ object LightMaterialTheme : Theme() {
     }
 
 }
+
+/**
+ * The dark theme that can be used with any app. A basic dark material theme.
+ */
+object DarkMaterialTheme : Theme() {
+
+    //// Colors ////
+    private val primaryColor = Color.decode("#212121")!!
+    private val darkPrimaryColor = Color.decode("#1E1E1E")!! // could be #000000 for a true dark feel
+    private val accentColor = Color.decode("#B71C1C")!!
+    private val titleColor = Color.decode("#FFFFFF")!!
+    private val subtitleColor = Color.decode("#EEEEEE")!!
+    private val primaryTextColor = Color.decode("#FFFFFF")!!
+    private val secondaryTextColor = Color.decode("#EEEEEE")!!
+    private val backgroundColor = Color.decode("#303030")!!
+    private val dividerColor = Color.decode("#BDBDBD")!!
+
+    //// Fonts ////
+    private lateinit var titleFont: Font
+    private lateinit var subtitleFont: Font
+    private lateinit var primaryTextFont: Font
+    private lateinit var secondaryTextFont: Font
+
+    override fun init() {
+        // load and set the fonts
+        val roboto = Font.createFont(Font.TRUETYPE_FONT, File("assets/fonts/Roboto/Roboto-Regular.ttf"))
+        titleFont = Font.createFont(Font.TRUETYPE_FONT, File("assets/fonts/Roboto/Roboto-Medium.ttf")).deriveFont(16f)
+        subtitleFont = roboto.deriveFont(16f)
+        primaryTextFont = roboto.deriveFont(14f)
+        secondaryTextFont = roboto.deriveFont(14f)
+    }
+
+    override fun getPrimaryColor() = primaryColor
+
+    override fun getDarkPrimaryColor() = darkPrimaryColor
+
+    override fun getAccentColor() = accentColor
+
+    override fun getTitleColor() = titleColor
+
+    override fun getSubtitleColor() = subtitleColor
+
+    override fun getPrimaryTextColor() = primaryTextColor
+
+    override fun getSecondaryTextColor() = secondaryTextColor
+
+    override fun getDividerColor() = dividerColor
+
+    override fun getBackgroundColor() = backgroundColor
+
+    //// Fonts ////
+
+    override fun getTitleFont() = titleFont
+
+    override fun getSubtitleFont() = subtitleFont
+
+    override fun getPrimaryTextFont() = primaryTextFont
+
+    override fun getSecondaryTextFont() = secondaryTextFont
+
+    //// Misc ////
+
+    override fun toString(): String {
+        return "DarkMaterialTheme"
+    }
+
+}

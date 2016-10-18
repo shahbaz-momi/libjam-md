@@ -7,7 +7,7 @@
 <a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.base</a>&nbsp;/&nbsp;<a href=".">RootView</a><br/>
 <br/>
 <h1>RootView</h1>
-<code><span class="keyword">class </span><span class="identifier">RootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><a href="../../com.asdev.libjam.md.thread/-loopable/index.html"><span class="identifier">Loopable</span></a></code>
+<code><span class="keyword">class </span><span class="identifier">RootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><a href="../../com.asdev.libjam.md.thread/-loopable/index.html"><span class="identifier">Loopable</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseListener.html"><span class="identifier">MouseListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseMotionListener.html"><span class="identifier">MouseMotionListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/WindowFocusListener.html"><span class="identifier">WindowFocusListener</span></a></code>
 <p>Created by Asdev on 10/05/16. All rights reserved.
 Unauthorized copying via any medium is stricitly
 prohibited.</p>
@@ -30,9 +30,9 @@ under the package com.asdev.libjam.md.base</p>
 <tbody>
 <tr>
 <td>
-<a href="get-looper.html">getLooper</a></td>
+<a href="get-frame-decoration.html">getFrameDecoration</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">getLooper</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.thread/-looper/index.html"><span class="identifier">Looper</span></a></code></td>
+<code><span class="keyword">fun </span><span class="identifier">getFrameDecoration</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.layout/-frame-decoration/index.html"><span class="identifier">FrameDecoration</span></a><span class="symbol">?</span></code></td>
 </tr>
 <tr>
 <td>
@@ -76,9 +76,57 @@ Will be after handleMessage but on the same thread.</p>
 </tr>
 <tr>
 <td>
+<a href="mouse-clicked.html">mouseClicked</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseClicked</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mouseClicked(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-dragged.html">mouseDragged</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseDragged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mouseDragged(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-entered.html">mouseEntered</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseEntered</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mouseEntered(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-exited.html">mouseExited</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseExited</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mouseExited(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-moved.html">mouseMoved</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseMoved</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mouseMoved(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-pressed.html">mousePressed</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mousePressed</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mousePressed(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-released.html">mouseReleased</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseReleased</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mouseReleased(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
 <a href="paint-component.html">paintComponent</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">paintComponent</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$paintComponent(java.awt.Graphics)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics.html"><span class="identifier">Graphics</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="set-cursor.html">setCursor</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setCursor</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$setCursor(kotlin.Int)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>
@@ -109,6 +157,18 @@ Will be after handleMessage but on the same thread.</p>
 <code><span class="keyword">fun </span><span class="identifier">showFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Shows the frame (internal JFrame).</p>
 </td>
+</tr>
+<tr>
+<td>
+<a href="window-gained-focus.html">windowGainedFocus</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">windowGainedFocus</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$windowGainedFocus(java.awt.event.WindowEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/WindowEvent.html"><span class="identifier">WindowEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="window-lost-focus.html">windowLostFocus</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">windowLostFocus</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$windowLostFocus(java.awt.event.WindowEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/WindowEvent.html"><span class="identifier">WindowEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 </tbody>
 </table>
