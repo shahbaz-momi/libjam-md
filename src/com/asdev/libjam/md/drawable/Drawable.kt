@@ -10,6 +10,10 @@ import java.awt.Graphics2D
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.drawable
  */
+
+/**
+ * An object that may drawn to the screen with the given parameters.
+ */
 abstract class Drawable {
 
     /**

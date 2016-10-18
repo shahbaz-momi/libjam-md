@@ -28,12 +28,12 @@ import java.awt.event.MouseEvent
 /**
  * Flag for [View] parameter. This is to signify that the view is visible and it should be drawn.
  */
-val VISIBILITY_VISIBLE = 0
+const val VISIBILITY_VISIBLE = 0
 
 /**
  * Flag for [View] parameter. This is to signify that the view is invisible and it should not be drawn.
  */
-val VISIBILITY_INVISIBLE = 1
+const val VISIBILITY_INVISIBLE = 1
 
 /**
  * An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It

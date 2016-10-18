@@ -36,9 +36,9 @@ class ColorDrawable: Drawable {
 
 }
 
-val SCALE_TYPE_CONTAIN = 0
-val SCALE_TYPE_COVER = 1
-val SCALE_TYPE_FIT = 2
+const val SCALE_TYPE_CONTAIN = 0
+const val SCALE_TYPE_COVER = 1
+const val SCALE_TYPE_FIT = 2
 
 class ImageDrawable: Drawable {
 

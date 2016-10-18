@@ -93,6 +93,9 @@ class FrameDecoration(title: String, val frame: JFrame): LinearLayout() {
         addChild(toolbar)
     }
 
+    /**
+     * Sets whether to draw this frame decoration above all other views. Results in a shadow being cast on the content underneath.
+     */
     fun setDrawAboveAll(b: Boolean) = if(b) zIndex = 99 else zIndex = 0
 
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {

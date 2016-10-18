@@ -40,6 +40,9 @@ open class Animator(
         endTime = startTime + (duration * 1000000.0f).toLong()
     }
 
+    /**
+     * Cancels and resets this animator.
+     */
     open fun cancel() {
         startTime = -1L
         endTime = -1L

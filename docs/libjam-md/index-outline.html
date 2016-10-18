@@ -682,6 +682,18 @@
 </BODY>
 </HTML>
 </ul>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/-state-listener/index.html"><span class="keyword">interface </span><span class="identifier">StateListener</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<title>Module Contents</title>
+<link rel="stylesheet" href="..\style.css">
+</HEAD>
+<BODY>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/-state-listener/on-state-changed.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onStateChanged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View.StateListener$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/prevState">prevState</span><span class="symbol">:</span>&nbsp;<a href="com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View.StateListener$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/-view-mouse-listener/index.html"><span class="keyword">interface </span><span class="identifier">ViewMouseListener</span></a></a><br/>
 <ul>
 <HTML>
@@ -723,6 +735,7 @@
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/send-message-to-root.html"><span class="keyword">fun </span><span class="identifier">sendMessageToRoot</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$sendMessageToRoot(com.asdev.libjam.md.thread.Message)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="com.asdev.libjam.md.thread/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/set-cursor.html"><span class="keyword">fun </span><span class="identifier">setCursor</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$setCursor(kotlin.Int)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/state.html"><span class="keyword">var </span><span class="identifier">state</span><span class="symbol">: </span><a href="com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a></a></a><br/>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/state-listener.html"><span class="keyword">var </span><span class="identifier">stateListener</span><span class="symbol">: </span><a href="com.asdev.libjam.md.view/-view/-state-listener/index.html"><span class="identifier">StateListener</span></a><span class="symbol">?</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/translation-x.html"><span class="keyword">var </span><span class="identifier">translationX</span><span class="symbol">: </span><span class="identifier">Float</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/translation-x-animator.html"><span class="keyword">var </span><span class="identifier">translationXAnimator</span><span class="symbol">: </span><a href="com.asdev.libjam.md.animation/-float-value-animator/index.html"><span class="identifier">FloatValueAnimator</span></a></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/translation-y.html"><span class="keyword">var </span><span class="identifier">translationY</span><span class="symbol">: </span><span class="identifier">Float</span></a></a><br/>
@@ -1039,9 +1052,9 @@
 </BODY>
 </HTML>
 </ul>
-<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.drawable/-s-c-a-l-e_-t-y-p-e_-c-o-n-t-a-i-n.html"><span class="keyword">val </span><span class="identifier">SCALE_TYPE_CONTAIN</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
-<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.drawable/-s-c-a-l-e_-t-y-p-e_-c-o-v-e-r.html"><span class="keyword">val </span><span class="identifier">SCALE_TYPE_COVER</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
-<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.drawable/-s-c-a-l-e_-t-y-p-e_-f-i-t.html"><span class="keyword">val </span><span class="identifier">SCALE_TYPE_FIT</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.drawable/-s-c-a-l-e_-t-y-p-e_-c-o-n-t-a-i-n.html"><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SCALE_TYPE_CONTAIN</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.drawable/-s-c-a-l-e_-t-y-p-e_-c-o-v-e-r.html"><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SCALE_TYPE_COVER</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.drawable/-s-c-a-l-e_-t-y-p-e_-f-i-t.html"><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SCALE_TYPE_FIT</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.drawable/-shadow-drawable/index.html"><span class="keyword">class </span><span class="identifier">ShadowDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="com.asdev.libjam.md.drawable/-drawable/index.html"><span class="identifier">Drawable</span></a></a></a><br/>
 <ul>
 <HTML>
@@ -1549,8 +1562,8 @@
 </BODY>
 </HTML>
 </ul>
-<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-v-i-s-i-b-i-l-i-t-y_-i-n-v-i-s-i-b-l-e.html"><span class="keyword">val </span><span class="identifier">VISIBILITY_INVISIBLE</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
-<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-v-i-s-i-b-i-l-i-t-y_-v-i-s-i-b-l-e.html"><span class="keyword">val </span><span class="identifier">VISIBILITY_VISIBLE</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-v-i-s-i-b-i-l-i-t-y_-i-n-v-i-s-i-b-l-e.html"><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">VISIBILITY_INVISIBLE</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-v-i-s-i-b-i-l-i-t-y_-v-i-s-i-b-l-e.html"><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">VISIBILITY_VISIBLE</span><span class="symbol">: </span><span class="identifier">Int</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/index.html"><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">View</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Comparable</span><span class="symbol">&lt;</span><a href="com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">&gt;</span></a></a><br/>
 <ul>
 <HTML>
@@ -1572,6 +1585,18 @@
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/-state/-s-t-a-t-e_-h-o-v-e-r.html"><span class="identifier">STATE_HOVER</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/-state/-s-t-a-t-e_-n-o-r-m-a-l.html"><span class="identifier">STATE_NORMAL</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/-state/-s-t-a-t-e_-p-r-e-s-s-e-d.html"><span class="identifier">STATE_PRESSED</span></a></a><br/>
+</BODY>
+</HTML>
+</ul>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/-state-listener/index.html"><span class="keyword">interface </span><span class="identifier">StateListener</span></a></a><br/>
+<ul>
+<HTML>
+<HEAD>
+<title>Module Contents</title>
+<link rel="stylesheet" href="..\style.css">
+</HEAD>
+<BODY>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/-state-listener/on-state-changed.html"><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onStateChanged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View.StateListener$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/prevState">prevState</span><span class="symbol">:</span>&nbsp;<a href="com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View.StateListener$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></a></a><br/>
 </BODY>
 </HTML>
 </ul>
@@ -1616,6 +1641,7 @@
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/send-message-to-root.html"><span class="keyword">fun </span><span class="identifier">sendMessageToRoot</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$sendMessageToRoot(com.asdev.libjam.md.thread.Message)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="com.asdev.libjam.md.thread/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/set-cursor.html"><span class="keyword">fun </span><span class="identifier">setCursor</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$setCursor(kotlin.Int)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/state.html"><span class="keyword">var </span><span class="identifier">state</span><span class="symbol">: </span><a href="com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a></a></a><br/>
+<a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/state-listener.html"><span class="keyword">var </span><span class="identifier">stateListener</span><span class="symbol">: </span><a href="com.asdev.libjam.md.view/-view/-state-listener/index.html"><span class="identifier">StateListener</span></a><span class="symbol">?</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/translation-x.html"><span class="keyword">var </span><span class="identifier">translationX</span><span class="symbol">: </span><span class="identifier">Float</span></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/translation-x-animator.html"><span class="keyword">var </span><span class="identifier">translationXAnimator</span><span class="symbol">: </span><a href="com.asdev.libjam.md.animation/-float-value-animator/index.html"><span class="identifier">FloatValueAnimator</span></a></a></a><br/>
 <a href="docs\libjam-md\index"><a href="com.asdev.libjam.md.view/-view/translation-y.html"><span class="keyword">var </span><span class="identifier">translationY</span><span class="symbol">: </span><span class="identifier">Float</span></a></a><br/>

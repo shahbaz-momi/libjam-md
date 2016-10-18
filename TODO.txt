@@ -25,4 +25,5 @@ TODO:
 - animate window out - downward reveal (reverse window in animation)
 - buttons
 - nav buttons
+- scroll views
 - more material ui components
