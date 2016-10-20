@@ -119,9 +119,11 @@ class CompoundDrawable(vararg drawables: Drawable): Drawable() {
 }
 
 /**
- * Accepts a standard Android nine-patch image and draws it as a nine-patch drawable.
+ * Accepts a standard Android nine-patch image and draws it as a nine-patch drawable. NOTE: this is slow, so using caching
+ * (by setting cache = true) if you are going to be constantly be repainting the image. This may improve performance just
+ * a bit.
  */
-class NinePatchDrawable(val ninepatch: BufferedImage): Drawable() {
+class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = false, val drawMiddlePatch: Boolean = true): Drawable() {
 
     /**
      * The coordinates of the nine-patch elements.
@@ -132,6 +134,10 @@ class NinePatchDrawable(val ninepatch: BufferedImage): Drawable() {
      * The sizes of the nine-patch elements.
      */
     private val sizes = Array(9){ Dimension(-2, -2) }
+
+    // private val section: Array<BufferedImage>
+
+    private var cache: BufferedImage? = null
 
     /**
      * Calculates the coordinates of the nine-patch image.
@@ -243,6 +249,11 @@ class NinePatchDrawable(val ninepatch: BufferedImage): Drawable() {
             throw IllegalArgumentException("The passed NinePatch isn't a valid nine patch!")
         }
 
+        // create a subimage for each section because cropping and drawing the images are soo slow
+//        section = Array(9) { i ->
+//            ninepatch.getSubimage(coords[i].x, coords[i].y, sizes[i].width, sizes[i].height)
+//        }
+
         if(DEBUG) {
             println("[NinePatchDrawable] Coords: ${coords.joinToString(" ")}, Sizes: ${sizes.joinToString(" ")}")
         }
@@ -290,24 +301,88 @@ class NinePatchDrawable(val ninepatch: BufferedImage): Drawable() {
         val bottomStartY = midEndY
         val bottomEndY = bottomStartY + bottomH
 
+        // if caching, just draw that
+        if(doCache) {
+            if(cache != null && cache!!.width == w.toInt() && cache!!.height == h.toInt()) {
+                if(DEBUG) {
+                    println("[NinePatchDrawable] Drawing from cache...")
+                }
+                g.drawImage(cache, x.toInt(), y.toInt(), null)
+            } else {
+                if(DEBUG) {
+                    println("[NinePatchDrawable] Purging cache...")
+                }
+                // draw it to the cache
+                cache = createCompatibleImage(w.toInt(), h.toInt())
+                val cg = cache!!.createGraphics()!!
+
+                val xI = x.toInt()
+                val yI = y.toInt()
+
+                // draw section 0
+                cg.drawImage(ninepatch, leftStartX - xI, topStartY - yI, leftEndX- xI, topEndY - yI, coords[0].x, coords[0].y, coords[0].x + sizes[0].width, coords[0].y + sizes[0].height, null)
+                // g.drawImage(section[0], leftStartX, topStartY, section[0].width, section[0].height, null)
+                // draw section 1
+                cg.drawImage(ninepatch, midStartX- xI, topStartY - yI, midEndX- xI, topEndY - yI, coords[1].x, coords[1].y, coords[1].x + sizes[1].width, coords[1].y + sizes[1].height, null)
+                // g.drawImage(section[1], midStartX, topStartY, (midEndX - midStartX), (topEndY - topStartY), null)
+                // draw section 2
+                cg.drawImage(ninepatch, rightStartX- xI, topStartY - yI, rightEndX- xI, topEndY - yI, coords[2].x, coords[2].y, coords[2].x + sizes[2].width, coords[2].y + sizes[2].height, null)
+                // g.drawImage(section[2], rightStartX, topStartY, (rightEndX - rightStartX), (topEndY - topStartY), null)
+                // draw section 3
+                cg.drawImage(ninepatch, leftStartX- xI, midStartY - yI, leftEndX- xI, midEndY - yI, coords[3].x, coords[3].y, coords[3].x + sizes[3].width, coords[3].y + sizes[3].height, null)
+                // g.drawImage(section[3], leftStartX, midStartY, (leftEndX - leftStartX), (midEndY - midStartY), null)
+                // draw section 4
+                if(drawMiddlePatch)
+                    cg.drawImage(ninepatch, midStartX- xI, midStartY - yI, midEndX- xI, midEndY - yI, coords[4].x, coords[4].y, coords[4].x + sizes[4].width, coords[4].y + sizes[4].height, null)
+                // g.drawImage(section[4], midStartX, midStartY, (midEndX - midStartX), (midEndY - midStartY), null)
+                // draw section 5
+                cg.drawImage(ninepatch, rightStartX- xI, midStartY - yI, rightEndX- xI, midEndY - yI, coords[5].x, coords[5].y, coords[5].x + sizes[5].width, coords[5].y + sizes[5].height, null)
+                // g.drawImage(section[5], rightStartX, midStartY, (rightEndX - rightStartX), (midEndY - midStartY), null)
+                // draw section 6
+                cg.drawImage(ninepatch, leftStartX- xI, bottomStartY - yI, leftEndX- xI, bottomEndY - yI, coords[6].x, coords[6].y, coords[6].x + sizes[6].width, coords[6].y + sizes[6].height, null)
+                // g.drawImage(section[6], leftStartX, bottomStartY, (leftEndX - leftStartX), (bottomEndY - bottomStartY), null)
+                // draw section 7
+                cg.drawImage(ninepatch, midStartX- xI, bottomStartY - yI, midEndX- xI, bottomEndY - yI, coords[7].x, coords[7].y, coords[7].x + sizes[7].width, coords[7].y + sizes[7].height, null)
+                // g.drawImage(section[7], midStartX, bottomStartY, (midEndX - midStartX), (bottomEndY - bottomStartY), null)
+                // draw section 8
+                cg.drawImage(ninepatch, rightStartX- xI, bottomStartY - yI, rightEndX- xI, bottomEndY - yI, coords[8].x, coords[8].y, coords[8].x + sizes[8].width, coords[8].y + sizes[8].height, null)
+                // g.drawImage(section[8], rightStartX, bottomStartY, (rightEndX - rightStartX), (bottomEndY - bottomStartY), null)
+
+                // draw the cache
+                g.drawImage(cache, x.toInt(), y.toInt(), null)
+            }
+
+            return
+        }
+
         // draw section 0
         g.drawImage(ninepatch, leftStartX, topStartY, leftEndX, topEndY, coords[0].x, coords[0].y, coords[0].x + sizes[0].width, coords[0].y + sizes[0].height, null)
+        // g.drawImage(section[0], leftStartX, topStartY, section[0].width, section[0].height, null)
         // draw section 1
         g.drawImage(ninepatch, midStartX, topStartY, midEndX, topEndY, coords[1].x, coords[1].y, coords[1].x + sizes[1].width, coords[1].y + sizes[1].height, null)
+        // g.drawImage(section[1], midStartX, topStartY, (midEndX - midStartX), (topEndY - topStartY), null)
         // draw section 2
         g.drawImage(ninepatch, rightStartX, topStartY, rightEndX, topEndY, coords[2].x, coords[2].y, coords[2].x + sizes[2].width, coords[2].y + sizes[2].height, null)
+        // g.drawImage(section[2], rightStartX, topStartY, (rightEndX - rightStartX), (topEndY - topStartY), null)
         // draw section 3
         g.drawImage(ninepatch, leftStartX, midStartY, leftEndX, midEndY, coords[3].x, coords[3].y, coords[3].x + sizes[3].width, coords[3].y + sizes[3].height, null)
+        // g.drawImage(section[3], leftStartX, midStartY, (leftEndX - leftStartX), (midEndY - midStartY), null)
         // draw section 4
-        g.drawImage(ninepatch, midStartX, midStartY, midEndX, midEndY, coords[4].x, coords[4].y, coords[4].x + sizes[4].width, coords[4].y + sizes[4].height, null)
+        if(drawMiddlePatch)
+            g.drawImage(ninepatch, midStartX, midStartY, midEndX, midEndY, coords[4].x, coords[4].y, coords[4].x + sizes[4].width, coords[4].y + sizes[4].height, null)
+        // g.drawImage(section[4], midStartX, midStartY, (midEndX - midStartX), (midEndY - midStartY), null)
         // draw section 5
         g.drawImage(ninepatch, rightStartX, midStartY, rightEndX, midEndY, coords[5].x, coords[5].y, coords[5].x + sizes[5].width, coords[5].y + sizes[5].height, null)
+        // g.drawImage(section[5], rightStartX, midStartY, (rightEndX - rightStartX), (midEndY - midStartY), null)
         // draw section 6
         g.drawImage(ninepatch, leftStartX, bottomStartY, leftEndX, bottomEndY, coords[6].x, coords[6].y, coords[6].x + sizes[6].width, coords[6].y + sizes[6].height, null)
+        // g.drawImage(section[6], leftStartX, bottomStartY, (leftEndX - leftStartX), (bottomEndY - bottomStartY), null)
         // draw section 7
         g.drawImage(ninepatch, midStartX, bottomStartY, midEndX, bottomEndY, coords[7].x, coords[7].y, coords[7].x + sizes[7].width, coords[7].y + sizes[7].height, null)
+        // g.drawImage(section[7], midStartX, bottomStartY, (midEndX - midStartX), (bottomEndY - bottomStartY), null)
         // draw section 8
         g.drawImage(ninepatch, rightStartX, bottomStartY, rightEndX, bottomEndY, coords[8].x, coords[8].y, coords[8].x + sizes[8].width, coords[8].y + sizes[8].height, null)
+        // g.drawImage(section[8], rightStartX, bottomStartY, (rightEndX - rightStartX), (bottomEndY - bottomStartY), null)
     }
 
 }
@@ -336,6 +411,46 @@ class StatefulCompoundDrawable(val normal: Drawable, val hover: Drawable? = null
             else
                 normal.draw(g, x, y, w, h)
         }
+    }
+
+}
+
+/**
+ * A compound animated drawable that will attempt to animate its children.
+ */
+class AnimatedCompoundDrawable(vararg drawables: Drawable): AnimatedDrawable() {
+
+    override fun onStateChanged(bounder: View?, prevState: View.State, newState: View.State) {
+        // try and update the states of the children
+        drawables.forEach {
+            if(it is StatefulDrawable)
+                it.onStateChanged(bounder, prevState, newState)
+        }
+    }
+
+    override fun requestFrame(): Boolean {
+        drawables.forEach {
+            if(it is AnimatedDrawable && it.requestFrame())
+                return true
+        }
+
+        return false
+    }
+
+    private val drawables: Array<out Drawable>
+
+    init {
+        this.drawables = drawables
+    }
+
+    override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float, state: View.State, progress: Float) {
+        for(d in drawables)
+            if(d is AnimatedDrawable)
+                d.draw(g, x, y, w, h, state, progress)
+            else if(d is StatefulDrawable)
+                d.draw(g, x, y, w, h, state)
+            else
+                d.draw(g, x, y, w, h)
     }
 
 }

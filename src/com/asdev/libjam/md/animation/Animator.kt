@@ -33,7 +33,7 @@ open class Animator(
      * Starts this animations
      */
     open fun start() {
-        if(startTime != -1L)
+        if(startTime != -1L && !hasEnded())
             throw IllegalStateException("This animation is already started!")
 
         startTime = System.nanoTime() + (startDelay * 1000000.0f).toLong()
@@ -132,4 +132,6 @@ open class Animator(
      * Returns the interpolator of this animator.
      */
     fun getInterpolator() = interpolator
+
+    fun getStartTime() = startTime
 }

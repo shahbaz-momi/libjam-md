@@ -1,10 +1,7 @@
 package com.asdev.libjam.md.tests
 
 import com.asdev.libjam.md.base.RootView
-import com.asdev.libjam.md.drawable.ColorDrawable
-import com.asdev.libjam.md.drawable.CompoundDrawable
-import com.asdev.libjam.md.drawable.NinePatchDrawable
-import com.asdev.libjam.md.drawable.ShadowDrawable
+import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.COLOR_TITLE
 import com.asdev.libjam.md.theme.FONT_TITLE
@@ -58,16 +55,11 @@ fun main(args: Array<String>) {
 
     val v = RelativeLayout()
 
-    // create a shadow
-    val drawable = ShadowDrawable()
-
     val dummy = View()
-    dummy.background =
-            CompoundDrawable(
-                    drawable,
-                    ColorDrawable(THEME.getAccentColor())
-            )
+    dummy.background = ColorDrawable(THEME.getAccentColor())
     dummy.maxSize = FloatDim(100f, 100f)
+
+    val elevated = ElevatedLayout(dummy)
 
     v.addChild(dummy)
 

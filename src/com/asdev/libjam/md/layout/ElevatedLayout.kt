@@ -23,7 +23,7 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
     private val shadow: ShadowDrawable
 
     init {
-        shadow = ShadowDrawable(radius, opacity, shadowYOffset, false, false)
+        shadow = ShadowDrawable(radius, opacity, shadowYOffset, false, false, false)
         background = ColorDrawable(THEME.getBackgroundColor())
     }
 
@@ -43,11 +43,11 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
             minSize = FloatDim(minSize.w, lp.minSize.h + radius * 2f)
         }
 
-        if(lp.maxSize.w > 0f && maxSize.w > 0f && lp.maxSize.w > maxSize.w) {
+        if(lp.maxSize.w > 0f && lp.maxSize.w > maxSize.w) {
             maxSize = FloatDim(lp.maxSize.w + radius * 2f, maxSize.h)
         }
 
-        if(lp.maxSize.h > 0f && maxSize.h > 0f && lp.maxSize.h > maxSize.h) {
+        if(lp.maxSize.h > 0f && lp.maxSize.h > maxSize.h) {
             maxSize = FloatDim(maxSize.w, lp.maxSize.h + radius * 2f)
         }
 
@@ -68,7 +68,6 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
     override fun onLayout(newSize: FloatDim) {
         super.onLayout(newSize)
         child.onLayout(FloatDim(newSize.w - radius * 2f, newSize.h - radius * 2f))
-
     }
 
     override fun onDraw(g: Graphics2D) {
@@ -82,6 +81,7 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
         // TODO: move the clip
 
         shadow.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
+
         // draw the background behind the view
         background?.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
         // translate the canvas

@@ -429,6 +429,7 @@ open class LinearLayout: ViewGroup() {
      */
     override fun onMouseMoved(e: MouseEvent, mPos: Point) {
         super.onMouseMoved(e, mPos)
+        var viewMouseOn = -1
         for((i, c) in children.withIndex()) {
             val p = childrenCoords[i]
             if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
@@ -444,9 +445,16 @@ open class LinearLayout: ViewGroup() {
                     previousViewMousedOn = i
                 }
 
+                viewMouseOn = i
                 c.onMouseMoved(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
                 break
             }
+        }
+
+        if(viewMouseOn == -1 && previousViewMousedOn != -1) {
+            // call on exit on that
+            children[previousViewMousedOn].onMouseExit(e, mPos)
+            previousViewMousedOn = -1
         }
     }
 
@@ -456,6 +464,7 @@ open class LinearLayout: ViewGroup() {
      */
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {
         super.onMouseDragged(e, mPos)
+        var viewMouseOn = -1
         for((i, c) in children.withIndex()) {
             val p = childrenCoords[i]
             if(mPos.x >= p.x && mPos.x <= p.x + c.layoutSize.w &&
@@ -472,9 +481,16 @@ open class LinearLayout: ViewGroup() {
                     previousViewMousedOn = i
                 }
 
+                viewMouseOn = i
                 c.onMouseDragged(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
                 break
             }
+        }
+
+        if(viewMouseOn == -1 && previousViewMousedOn != -1) {
+            // call on exit on that
+            children[previousViewMousedOn].onMouseExit(e, mPos)
+            previousViewMousedOn = -1
         }
     }
 

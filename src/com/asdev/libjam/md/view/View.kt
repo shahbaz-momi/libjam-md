@@ -2,6 +2,7 @@ package com.asdev.libjam.md.view
 
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.animation.LinearInterpolator
+import com.asdev.libjam.md.drawable.AnimatedDrawable
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.Drawable
 import com.asdev.libjam.md.drawable.StatefulDrawable
@@ -232,6 +233,11 @@ open class View: Comparable<View> {
     open fun onStateChanged(previous: State, newState: State) {
         // call on listener
         stateListener?.onStateChanged(previous, newState)
+
+        // call on potential stateful drawable
+        if(background != null && background is StatefulDrawable)
+            (background!! as StatefulDrawable).onStateChanged(this, previous, newState)
+
         // request a repaint to update a potential stateful drawable.
         requestRepaint()
         state = newState
@@ -268,6 +274,13 @@ open class View: Comparable<View> {
             // request a new frame
             requestRepaint()
         }
+
+        // request a repaint if the background is animatable and wants a frame
+        if(background != null && background is AnimatedDrawable) {
+            if ((background!! as AnimatedDrawable).requestFrame()) {
+                requestRepaint()
+            }
+        }
     }
 
     private var flagRequestingCursor = -1
@@ -296,9 +309,13 @@ open class View: Comparable<View> {
         if(visibility != VISIBILITY_VISIBLE)
             return
 
+        val clipBounds = g.clipBounds
+
+        g.clip = null
         // apply the translations
         g.translate(translationX.toDouble(), translationY.toDouble())
         // TODO: move the clip
+        g.clip(clipBounds)
 
         // draw the background
         val bg = background
@@ -310,11 +327,13 @@ open class View: Comparable<View> {
         }
 
         if(DEBUG_LAYOUT_BOXES) {
-            g.color = Color.RED
+            g.color = Color.GREEN
             g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
         }
 
+        g.clip = null
         g.translate(-translationX.toDouble(), -translationY.toDouble())
+        g.clip(clipBounds)
     }
 
     /**

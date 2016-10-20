@@ -20,7 +20,11 @@ TODO:
 - states - STATE_NORMAL, STATE_FOCUSED, STATE_HOVER, etc // MOSTLY DONE
 - animations - choreographer with delta times // BASE ANIMATORS ARE MOSTLY DONE
     - Basic view translations // IN PROGRESS - CLIPS
-- figure out why the onDraws are taking ~40ms
+- figure out why the onDraws are taking so long // Nine patch drawables are sooooo slow // MOSTLY FIXED WITH CACHING AND NOT DRAWING MIDDLE PATCH
+- Animated stateful shadow drawable - hovers higher on mouse hover
+- Ripples
+- Elevated layout ignores max size // FIXED IT
+- Maybe: Implement caching or something? Split the image into 9 images and paint them individually? // IMPLEMENTED NINE PATCH CACHING AND NOT DRAWING MIDDLE PATCH
 - animate window in - upward reveal (dark primary animates up then the window animates up - like geforce experience notification)
 - animate window out - downward reveal (reverse window in animation)
 - buttons

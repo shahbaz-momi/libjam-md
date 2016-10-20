@@ -67,7 +67,7 @@ class FloatValueAnimator(duration: Float, interpolator: Interpolator, startDelay
      * Returns the animated value of this animator.
      */
     operator fun getValue(thisRef: Any?, property: KProperty<*>): Float {
-        return if(hasEnded()) assignedValue else getValue()
+        return if(hasEnded() || getStartTime() <= 0L) assignedValue else getValue()
     }
 
     /**

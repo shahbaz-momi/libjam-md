@@ -477,6 +477,7 @@ class RelativeLayout: ViewGroup() {
      */
     override fun onMouseMoved(e: MouseEvent, mPos: Point) {
         super.onMouseMoved(e, mPos)
+        var viewMouseOn = -1
         // check the bounds of each child view and see if it fits
         for(i in 0 until orderedChildren.size) {
             val c = orderedChildren[i] ?: continue
@@ -493,9 +494,16 @@ class RelativeLayout: ViewGroup() {
                     previousViewMousedOn = i
                 }
 
+                viewMouseOn = i
                 c.onMouseMoved(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
                 break
             }
+        }
+
+        if(viewMouseOn == -1 && previousViewMousedOn != -1) {
+            // call on exit on that
+            orderedChildren[previousViewMousedOn]?.onMouseExit(e, mPos)
+            previousViewMousedOn = -1
         }
     }
 
@@ -505,6 +513,7 @@ class RelativeLayout: ViewGroup() {
      */
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {
         super.onMouseDragged(e, mPos)
+        var viewMouseOn = -1
         // check the bounds of each child view and see if it fits
         for(i in 0 until orderedChildren.size) {
             val c = orderedChildren[i] ?: continue
@@ -521,9 +530,16 @@ class RelativeLayout: ViewGroup() {
                     previousViewMousedOn = i
                 }
 
+                viewMouseOn = i
                 c.onMouseDragged(e, Point(mPos.x - p.x.toInt(), mPos.y - p.y.toInt()))
                 break
             }
+        }
+
+        if(viewMouseOn == -1 && previousViewMousedOn != -1) {
+            // call on exit on that
+            orderedChildren[previousViewMousedOn]?.onMouseExit(e, mPos)
+            previousViewMousedOn = -1
         }
     }
 
