@@ -23,6 +23,34 @@
 </tr>
 <tr>
 <td>
+<a href="../com.asdev.libjam.md.drawable/-animated-compound-drawable/index.html">com.asdev.libjam.md.drawable.AnimatedCompoundDrawable</a></td>
+<td>
+<p>A compound animated drawable that will attempt to animate its children.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../com.asdev.libjam.md.drawable/-animated-drawable/index.html">com.asdev.libjam.md.drawable.AnimatedDrawable</a></td>
+<td>
+<p>An animatable drawable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../com.asdev.libjam.md.drawable/-animated-hover-shadow-drawable/index.html">com.asdev.libjam.md.drawable.AnimatedHoverShadowDrawable</a></td>
+<td>
+<p>An animated shadow drawable that creates a hovering animation based off of the state.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../com.asdev.libjam.md.drawable/-animated-shadow-drawable/index.html">com.asdev.libjam.md.drawable.AnimatedShadowDrawable</a></td>
+<td>
+<p>A class that draws an animated rectangular shadow.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="../com.asdev.libjam.md.animation/-animator/index.html">com.asdev.libjam.md.animation.Animator</a></td>
 <td>
 <p>Manages the duration, interpolator, and start time for an animation.</p>
@@ -205,7 +233,9 @@ of messages between itself and other threads.</p>
 <td>
 <a href="../com.asdev.libjam.md.drawable/-nine-patch-drawable/index.html">com.asdev.libjam.md.drawable.NinePatchDrawable</a></td>
 <td>
-<p>Accepts a standard Android nine-patch image and draws it as a nine-patch drawable.</p>
+<p>Accepts a standard Android nine-patch image and draws it as a nine-patch drawable. NOTE: this is slow, so using caching
+(by setting cache = true) if you are going to be constantly be repainting the image. This may improve performance just
+a bit.</p>
 </td>
 </tr>
 <tr>

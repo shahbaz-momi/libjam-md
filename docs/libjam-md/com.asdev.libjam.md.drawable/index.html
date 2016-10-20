@@ -12,6 +12,38 @@
 <tbody>
 <tr>
 <td>
+<a href="-animated-compound-drawable/index.html">AnimatedCompoundDrawable</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AnimatedCompoundDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-animated-drawable/index.html"><span class="identifier">AnimatedDrawable</span></a></code>
+<p>A compound animated drawable that will attempt to animate its children.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-animated-drawable/index.html">AnimatedDrawable</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AnimatedDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-stateful-drawable/index.html"><span class="identifier">StatefulDrawable</span></a></code>
+<p>An animatable drawable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-animated-hover-shadow-drawable/index.html">AnimatedHoverShadowDrawable</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AnimatedHoverShadowDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-animated-shadow-drawable/index.html"><span class="identifier">AnimatedShadowDrawable</span></a></code>
+<p>An animated shadow drawable that creates a hovering animation based off of the state.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-animated-shadow-drawable/index.html">AnimatedShadowDrawable</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AnimatedShadowDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-animated-drawable/index.html"><span class="identifier">AnimatedDrawable</span></a></code>
+<p>A class that draws an animated rectangular shadow.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="-color-drawable/index.html">ColorDrawable</a></td>
 <td>
 <code><span class="keyword">class </span><span class="identifier">ColorDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-drawable/index.html"><span class="identifier">Drawable</span></a></code>
@@ -45,14 +77,16 @@
 <a href="-nine-patch-drawable/index.html">NinePatchDrawable</a></td>
 <td>
 <code><span class="keyword">class </span><span class="identifier">NinePatchDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-drawable/index.html"><span class="identifier">Drawable</span></a></code>
-<p>Accepts a standard Android nine-patch image and draws it as a nine-patch drawable.</p>
+<p>Accepts a standard Android nine-patch image and draws it as a nine-patch drawable. NOTE: this is slow, so using caching
+(by setting cache = true) if you are going to be constantly be repainting the image. This may improve performance just
+a bit.</p>
 </td>
 </tr>
 <tr>
 <td>
 <a href="-shadow-drawable/index.html">ShadowDrawable</a></td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">ShadowDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-drawable/index.html"><span class="identifier">Drawable</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ShadowDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-drawable/index.html"><span class="identifier">Drawable</span></a></code>
 <p>A class that draws a rectangular shadow.</p>
 </td>
 </tr>
