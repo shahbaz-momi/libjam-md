@@ -1,8 +1,10 @@
 package com.asdev.libjam.md.layout
 
 import com.asdev.libjam.md.theme.Theme
+import com.asdev.libjam.md.util.DEBUG_LAYOUT_BOXES
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.View
+import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.MouseEvent
@@ -71,8 +73,13 @@ class PaddingLayout (val child: View, val padding: Float = 15f): View() {
         if (layoutSize.w < 0f || layoutSize.h < 0f)
             return
 
-        // draw the background behind the view
-        background?.draw(g, padding, padding, layoutSize.w - padding * 2f, layoutSize.h - padding * 2f)
+        // draw the background
+        background?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
+        // draw a blue debug border
+        if(DEBUG_LAYOUT_BOXES) {
+            g.color = Color.BLUE
+            g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
+        }
         // translate the canvas
         g.translate(padding.toDouble() + child.translationX.toDouble(), padding.toDouble() + child.translationY.toDouble())
         // intersect the child bounds clip

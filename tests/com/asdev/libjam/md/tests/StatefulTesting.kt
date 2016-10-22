@@ -4,7 +4,7 @@ import com.asdev.libjam.md.base.RootView
 import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.layout.PaddingLayout
 import com.asdev.libjam.md.layout.RelativeLayout
-import com.asdev.libjam.md.theme.LightMaterialTheme
+import com.asdev.libjam.md.theme.DarkMaterialTheme
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.BUTTON_TYPE_RAISED
@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent
  */
 
 fun main(args: Array<String>) {
-    THEME = LightMaterialTheme
+    THEME = DarkMaterialTheme
     // NOTE: always initiliaze the theme before creating any views // TODO: fix that
     THEME.init()
 

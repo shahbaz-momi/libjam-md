@@ -3,11 +3,15 @@ package com.asdev.libjam.md.view
 import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.layout.GRAVITY_MIDDLE_MIDDLE
 import com.asdev.libjam.md.theme.COLOR_ACCENT
+import com.asdev.libjam.md.theme.COLOR_RIPPLE
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import java.awt.Color
 import java.awt.Cursor
 import java.awt.Graphics2D
+import java.awt.Point
+import java.awt.event.MouseEvent
+import java.awt.geom.RoundRectangle2D
 
 /**
  * Created by Asdev on 10/20/16. All rights reserved.
@@ -36,16 +40,16 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
     private var themeBgColor = COLOR_ACCENT
 
     /**
-     * The foreground of this button. Usually, this will be a ripple effect.
+     * The ripple effect of this button.
      */
-    private var foreground: Drawable? = null // TODO: ripple foreground
+    private var foreground: RippleDrawable? = null
 
     init {
         // set the background to a hover shadow and a rounded rectangle based on the accent color
         if(type == BUTTON_TYPE_RAISED)
             background =
                     AnimatedCompoundDrawable(
-                            AnimatedHoverShadowDrawable(opacity = 0.3f),
+                            AnimatedHoverShadowDrawable(opacity = 0.3f, viewYTransHover = 0f),
                             RoundedRectangleDrawable(THEME.getAccentColor(), 6f)
                     )
         // if its a flat style then background should be null
@@ -57,6 +61,26 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
         gravity = GRAVITY_MIDDLE_MIDDLE
 
         // set the foreground to the ripple
+        foreground = RippleDrawable(THEME.getRippleColor())
+    }
+
+    private var themeRippleColor = COLOR_RIPPLE
+
+    /**
+     * Sets the ripple color of this button.
+     */
+    fun setRippleColor(color: Color) {
+        foreground?.highlight = color
+    }
+
+    /**
+     * Sets the ripple color of this button according to the specified theme color.
+     */
+    fun setThemeRippleColor(color: Int) {
+        themeRippleColor = color
+
+        if(color != -1)
+            setRippleColor(THEME.getColor(color))
     }
 
     override fun loop() {
@@ -88,6 +112,7 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
 
         // update the background color
         setThemeBackgroundColor(themeBgColor)
+        setThemeRippleColor(themeRippleColor)
     }
 
     /**
@@ -116,15 +141,22 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
         }
     }
 
+    private var mPos = Point(-1, -1)
+    override fun onMouseDragged(e: MouseEvent, mPos: Point) {
+        super.onMouseDragged(e, mPos)
+        this.mPos = mPos
+    }
+
+    override fun onMousePress(e: MouseEvent, mPos: Point) {
+        super.onMousePress(e, mPos)
+        this.mPos = mPos
+    }
+
     override fun onDraw(g: Graphics2D) {
         super.onDraw(g)
 
-        // draw the foreground
-        val fg = foreground
-        if(fg is StatefulDrawable)
-            fg.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state)
-        else
-            fg?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
+        // draw the ripple
+        foreground?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state, 0f, mPos.x.toFloat(), mPos.y.toFloat())
     }
 
 }

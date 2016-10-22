@@ -374,11 +374,15 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     }
 
     override fun mouseReleased(e: MouseEvent?) {
-        rootView.onMouseRelease(e!!, e.point)
+        // left click only
+        if(e!!.button == MouseEvent.BUTTON1)
+            rootView.onMouseRelease(e, e.point)
     }
 
     override fun mousePressed(e: MouseEvent?) {
-        rootView.onMousePress(e!!, e.point)
+        // left click only
+        if(e!!.button == MouseEvent.BUTTON1)
+            rootView.onMousePress(e, e.point)
     }
 
     override fun mouseMoved(e: MouseEvent?) {

@@ -30,6 +30,7 @@ val COLOR_PRIMARY_TEXT = 6
 val COLOR_SECONDARY_TEXT = 7
 val COLOR_BACKGROUND = 8
 val COLOR_DIVIDER = 9
+val COLOR_RIPPLE = 10
 
 /**
  * Font property indexing constants. For use in Theme.getFont(which)
@@ -66,6 +67,7 @@ abstract class Theme {
             COLOR_SECONDARY_TEXT -> return getSecondaryTextColor()
             COLOR_BACKGROUND -> return getBackgroundColor()
             COLOR_DIVIDER -> return getDividerColor()
+            COLOR_RIPPLE -> return getRippleColor()
         }
 
         throw IllegalArgumentException("The color index must be a valid color property index. $which is not.")
@@ -132,6 +134,11 @@ abstract class Theme {
      */
     abstract fun getDividerColor(): Color
 
+    /**
+     * The ripple (on buttons, etc) color.
+     */
+    abstract fun getRippleColor(): Color
+
     //// Fonts /////
 
     /**
@@ -173,6 +180,7 @@ object LightMaterialTheme : Theme() {
     private val secondaryTextColor = Color.decode("#757575")!!
     private val backgroundColor = Color.decode("#EEEEEE")!!
     private val dividerColor = Color.decode("#BDBDBD")!!
+    private val rippleColor = Color.decode("#444444")!!
 
     //// Fonts ////
     private lateinit var titleFont: Font
@@ -206,6 +214,8 @@ object LightMaterialTheme : Theme() {
     override fun getDividerColor() = dividerColor
 
     override fun getBackgroundColor() = backgroundColor
+
+    override fun getRippleColor() = rippleColor
 
     //// Fonts ////
 
@@ -240,6 +250,7 @@ object DarkMaterialTheme : Theme() {
     private val secondaryTextColor = Color.decode("#EEEEEE")!!
     private val backgroundColor = Color.decode("#303030")!!
     private val dividerColor = Color.decode("#BDBDBD")!!
+    private val rippleColor = Color.decode("#EEEEEE")!!
 
     //// Fonts ////
     private lateinit var titleFont: Font
@@ -273,6 +284,8 @@ object DarkMaterialTheme : Theme() {
     override fun getDividerColor() = dividerColor
 
     override fun getBackgroundColor() = backgroundColor
+
+    override fun getRippleColor() = rippleColor
 
     //// Fonts ////
 

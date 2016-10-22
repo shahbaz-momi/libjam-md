@@ -23,23 +23,24 @@ TODO:
 - figure out why the onDraws are taking so long // Nine patch drawables are sooooo slow // MOSTLY FIXED WITH CACHING AND NOT DRAWING MIDDLE PATCH
 - made shadow file smaller to reduce the min nine patch size and speed up the drawing
 - Animated stateful shadow drawable - hovers higher on mouse hover // MOSTLY DONE
-- Buttons // MOSTLY DONE - NEEDS RIPPLE
-    - Normal buttons // MOSTLY DONE - NEEDS RIPPLE
-    - Flat (colorless) buttons // MOSTLY DONE - NEEDS RIPPLE
+- Buttons // MOSTLY DONE
+    - Normal buttons // MOSTLY DONE
+    - Flat (colorless) buttons // MOSTLY DONE
     - Icon buttons - for nav buttons, etc.
 - Fix the clipping - often views ignore the existing clip // DONE - Views will respect the previous clips
     - Also, views should not be clipping // DONE - DEFERRED TO THE LAYOUTS
 - Fix the shadow clipping // FIXED - adding a padding layout to the desired layout or add a elevated layout
 - Migrate the translation X and Y to the ViewGroup // MIGRATED // DONE
-- Foreground drawable on views for things like a ripple
-- Ripples
+- Foreground drawable on views for things like a ripple // DONE
+- Ripples // MOSTLY DONE - SMALL TWEAKS
 - Rounded rectangle drawable - for cards, buttons, etc. // DONE
 - Elevated layout ignores max size // FIXED IT
 - Maybe: Implement caching or something? Split the image into 9 images and paint them individually? // IMPLEMENTED NINE PATCH CACHING AND NOT DRAWING MIDDLE PATCH
-- animate window in - upward reveal (reveals up like how apps launch in Marshmellow and Nougat)
-- animate window out - slide out?
-- nav buttons
+- animate window in - upward reveal (reveals up like how apps launch in Marshmellow and Nougat) // DONE
+- animate window out - slide out? // CHANGE IT NOT SUPER HAPPY
+- nav buttons // SOMEWHAT DONE
 - scroll views
+- card views
 - list views
 - tool tips
 - right-click menu / dropdown menu
