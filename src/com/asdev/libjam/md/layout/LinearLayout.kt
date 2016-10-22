@@ -315,19 +315,21 @@ open class LinearLayout: ViewGroup() {
         if(visibility != VISIBILITY_VISIBLE)
             return
 
-        val prevClip = g.clip
+        val clipBounds = g.clipBounds
         super.onDraw(g)
-
-        // TODO: reclip to the translations
-        g.translate(translationX.toDouble(), translationY.toDouble())
 
         // draw the children by z order
         for(c in children.sorted()) {
             val i = children.indexOf(c)
-            g.translate(childrenCoords[i].x.toInt(), childrenCoords[i].y.toInt())
-            g.setClip(0, 0, c.layoutSize.w.toInt(), c.layoutSize.h.toInt())
+            // add the translation of the views
+            g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())
+            // intersect the child clip
+            g.clipRect(0, 0, c.layoutSize.w.toInt(), c.layoutSize.h.toInt())
             c.onDraw(g)
-            g.translate(-childrenCoords[i].x.toInt(), -childrenCoords[i].y.toInt())
+            g.translate(-childrenCoords[i].x.toDouble() - c.translationX.toDouble(), -childrenCoords[i].y.toDouble() - c.translationY.toDouble())
+
+            // reset the clip bounds again
+            g.clip = clipBounds
         }
 
         if(DEBUG_LAYOUT_BOXES) {
@@ -335,9 +337,7 @@ open class LinearLayout: ViewGroup() {
             g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
         }
 
-        g.translate(-translationX.toDouble(), -translationY.toDouble())
-
-        g.clip = prevClip
+        g.clip = clipBounds
     }
 
     /**

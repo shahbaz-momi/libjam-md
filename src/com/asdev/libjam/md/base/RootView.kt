@@ -1,10 +1,12 @@
 package com.asdev.libjam.md.base
 
+import com.asdev.libjam.md.animation.AccelerateInterpolator
+import com.asdev.libjam.md.animation.FactorableDecelerateInterpolator
+import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.layout.ElevatedLayout
 import com.asdev.libjam.md.layout.FrameDecoration
 import com.asdev.libjam.md.layout.LinearLayout
 import com.asdev.libjam.md.layout.newLayoutParams
-import com.asdev.libjam.md.theme.LightMaterialTheme
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.thread.*
@@ -44,7 +46,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             isOpaque = false
 
             // add a frame decorator
-            frameDecoration = FrameDecoration(title, frame)
+            frameDecoration = FrameDecoration(title, frame, this)
 
             val l = LinearLayout()
             l.addChild(frameDecoration)
@@ -91,10 +93,36 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         frame.addMouseListener(this)
         frame.addMouseMotionListener(this)
 
-        // double buffer this biotch
+        // double buffering
         isDoubleBuffered = true
 
-        setTheme(LightMaterialTheme)
+        // initialize the default theme
+        setTheme(THEME)
+
+        frame.addWindowListener(object : WindowListener {
+            override fun windowDeiconified(e: WindowEvent?) {
+                startMaximizeAnimation(actualSize)
+            }
+
+            override fun windowActivated(e: WindowEvent?) {
+            }
+
+            override fun windowDeactivated(e: WindowEvent?) {
+            }
+
+            override fun windowIconified(e: WindowEvent?) {
+            }
+
+            override fun windowClosing(e: WindowEvent?) {
+            }
+
+            override fun windowClosed(e: WindowEvent?) {
+            }
+
+            override fun windowOpened(e: WindowEvent?) {
+            }
+
+        })
     }
 
     fun getFrameDecoration() = frameDecoration
@@ -162,9 +190,17 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         reLayout()
     }
 
+    private var minimizing = false
+
     override fun loop() {
         // loop the views
         rootView.loop()
+
+        // check to minimize
+        if(minimizing && maxXAnim.hasEnded()) {
+            minimizing = false
+            frame.state = Frame.ICONIFIED
+        }
     }
 
     fun setCursor(cursor: Int) {
@@ -206,6 +242,51 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         }
     }
 
+    private val interpolator = FactorableDecelerateInterpolator(3.2f)
+
+    private var maxXAnim = FloatValueAnimator(500f, interpolator, 0f, 0f, 0f)
+    private var maxYAnim = FloatValueAnimator(500f, interpolator, 0f, 0f, 0f)
+    private var maxWAnim = FloatValueAnimator(500f, interpolator, 0f, 0f, 0f)
+    private var maxHAnim = FloatValueAnimator(500f, interpolator, 0f, 0f, 0f)
+
+
+    // runs the maximize clipping anim
+    fun startMaximizeAnimation(size: FloatDim) {
+        // if its already running then don't do it
+        if(!maxXAnim.hasEnded() || !maxWAnim.hasEnded() ||
+                !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
+            return
+        }
+        val divFactor = 6f
+        // start the x from near left to the left and the width from near zero to full width
+        maxXAnim.setFromValue(size.w / divFactor).setToValue(0f).setInterpolator(interpolator).start()
+        maxWAnim.setFromValue(size.w / divFactor).setToValue(size.w).setInterpolator(interpolator).start()
+        // same for y
+        maxYAnim.setFromValue(size.h - size.h / divFactor).setToValue(0f).setInterpolator(interpolator).start()
+        maxHAnim.setFromValue(size.h / divFactor).setToValue(size.h).setInterpolator(interpolator).start()
+    }
+
+    // runs the maximize clipping anim
+    fun startMinimizeAnimation(size: FloatDim) {
+        minimizing = true
+        // if its already running then don't do it
+        if(!maxXAnim.hasEnded() || !maxWAnim.hasEnded() ||
+                !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
+            return
+        }
+        val divFactor = 6f
+        // start the x from near left to the left and the width from near zero to full width
+        maxXAnim.setFromValue(0f).setToValue(size.w / divFactor).setInterpolator(AccelerateInterpolator).start()
+        maxWAnim.setFromValue(size.w).setToValue(0f).setInterpolator(AccelerateInterpolator).start()
+        // same for y
+        maxYAnim.setFromValue(0f).setToValue(size.h - size.h / divFactor).setInterpolator(AccelerateInterpolator).start()
+        maxHAnim.setFromValue(size.h).setToValue(0f).setInterpolator(AccelerateInterpolator).start()
+    }
+
+    fun minimize () {
+        startMinimizeAnimation(actualSize)
+    }
+
     private fun reLayout() {
         if(DEBUG)
             println("[RootView] Performing a layout pass...")
@@ -245,6 +326,15 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         // enable text anti-aliasing
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB)
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC)
+
+        // check for animations
+        if(!maxXAnim.hasEnded() || !maxWAnim.hasEnded() ||
+            !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
+            // set the clip to the values
+            g.setClip(maxXAnim.getValue().toInt(), maxYAnim.getValue().toInt(), maxWAnim.getValue().toInt(), maxHAnim.getValue().toInt())
+            requestPaint()
+        }
+
         // call on draw on the root view group
         rootView.onDraw(g)
 
@@ -301,7 +391,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
 
     override fun windowLostFocus(e: WindowEvent?) {
         // set opacity a little lower
-        frame.opacity = 0.85f
+        // frame.opacity = 0.85f
     }
 
     override fun windowGainedFocus(e: WindowEvent?) {

@@ -561,20 +561,19 @@ class RelativeLayout: ViewGroup() {
         if(visibility != VISIBILITY_VISIBLE)
             return
 
-        val prevClip = g.clip
+        val clipBounds = g.clipBounds
         super.onDraw(g)
-
-        // TODO: reclip to the translations
-        g.translate(translationX.toDouble(), translationY.toDouble())
 
         for(c in children.sorted()) {
             val p = childCoords[orderedChildren.indexOf(c)]!!
             // translate it
-            g.translate( p.x.toInt(), p.y.toInt() )
-            // set the clip
-            g.setClip(0, 0, c.layoutSize.w.toInt(), c.layoutSize.h.toInt())
+            g.translate( p.x.toDouble() + c.translationX.toDouble(), p.y.toDouble() + c.translationY.toDouble())
+            // intersect the clip
+            g.clipRect(0, 0, c.layoutSize.w.toInt(), c.layoutSize.h.toInt())
             c.onDraw(g)
-            g.translate( -p.x.toInt(), -p.y.toInt() )
+            g.translate( -p.x.toDouble() - c.translationX.toDouble(), -p.y.toDouble() - c.translationY.toDouble())
+            // reset the clip
+            g.clip = clipBounds
         }
 
         if(DEBUG_LAYOUT_BOXES) {
@@ -582,9 +581,6 @@ class RelativeLayout: ViewGroup() {
             g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
         }
 
-        // TODO: reclip to the translations
-        g.translate(-translationX.toDouble(), -translationY.toDouble())
-
-        g.clip = prevClip
+        g.clip = clipBounds
     }
 }

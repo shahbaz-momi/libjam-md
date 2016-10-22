@@ -1,14 +1,16 @@
 package com.asdev.libjam.md.layout
 
+import com.asdev.libjam.md.base.RootView
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.CompoundDrawable
 import com.asdev.libjam.md.drawable.ShadowDrawable
-import com.asdev.libjam.md.theme.COLOR_TITLE
-import com.asdev.libjam.md.theme.FONT_TITLE
-import com.asdev.libjam.md.theme.THEME
-import com.asdev.libjam.md.theme.Theme
+import com.asdev.libjam.md.theme.*
+import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.view.BUTTON_TYPE_FLAT
+import com.asdev.libjam.md.view.ButtonView
 import com.asdev.libjam.md.view.TextView
+import java.awt.Color
 import java.awt.Cursor
 import java.awt.Point
 import java.awt.event.MouseEvent
@@ -26,7 +28,7 @@ import javax.swing.JFrame
 /**
  * A custom material design frame decoration.
  */
-class FrameDecoration(title: String, val frame: JFrame): LinearLayout() {
+class FrameDecoration(title: String, val frame: JFrame, val rootView: RootView): LinearLayout() {
 
     private val navBar: RelativeLayout
     private val toolbar: RelativeLayout
@@ -60,6 +62,31 @@ class FrameDecoration(title: String, val frame: JFrame): LinearLayout() {
 
         // add the title text to the toolbar
         toolbar.addChild(titleText)
+
+        // add the nav buttons
+        val buttonMinimize = ButtonView("_", BUTTON_TYPE_FLAT)
+        buttonMinimize.setThemeColor(COLOR_TITLE)
+
+        buttonMinimize.onClickListener = { mouseEvent: MouseEvent, point: Point -> rootView.minimize()}
+
+        val buttonMaximize = ButtonView("+", BUTTON_TYPE_FLAT)
+        buttonMaximize.setThemeColor(COLOR_TITLE)
+
+        val buttonClose = ButtonView("×", BUTTON_TYPE_FLAT)
+        buttonClose.setThemeColor(COLOR_TITLE)
+
+        val navBarButtonsContainer = LinearLayout()
+        navBarButtonsContainer.setOrientation(ORIENTATION_VERTICAL)
+        navBarButtonsContainer.applyLayoutParameters(
+                GenericLayoutParamList() with ("gravity" to GRAVITY_MIDDLE_RIGHT)
+        )
+
+        navBarButtonsContainer.maxSize = FloatDim(120f, DIM_UNLIMITED.h)
+
+        navBarButtonsContainer.addChild(buttonMinimize)
+        navBarButtonsContainer.addChild(buttonMaximize)
+        navBarButtonsContainer.addChild(buttonClose)
+        navBar.addChild(navBarButtonsContainer)
 
         // make a listener to drag the window on mouse dragged
         navBar.mouseListener = object : ViewMouseListener {
@@ -109,7 +136,7 @@ class FrameDecoration(title: String, val frame: JFrame): LinearLayout() {
         // the toolbar is just primary
         toolbar.background = CompoundDrawable(
                 // draw the shadow
-                ShadowDrawable(radius = 20f, opacity = 0.5f, clipLeft = true, clipRight = true),
+                ShadowDrawable(radius = 15f, opacity = 0.25f, clipLeft = true, clipRight = true),
                 // then the color
                 ColorDrawable(newTheme.getPrimaryColor())
         )

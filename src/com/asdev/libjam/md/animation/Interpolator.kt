@@ -82,6 +82,15 @@ object DecelerateInterpolator: Interpolator() {
 }
 
 /**
+ * An interpolator (with a decelerate factor) where the rate of change starts out quickly and and then decelerates.
+ */
+class FactorableDecelerateInterpolator(val factor: Float): Interpolator() {
+
+    override fun getValue(input: Float) = (1.0f - Math.pow((1.0f - input).toDouble(), (2f * factor).toDouble())).toFloat()
+
+}
+
+/**
  * An interpolator where the change flings forward and overshoots the last value then comes back.
  */
 object OvershootInterpolator: Interpolator() {

@@ -8,7 +8,6 @@ import com.asdev.libjam.md.drawable.Drawable
 import com.asdev.libjam.md.drawable.StatefulDrawable
 import com.asdev.libjam.md.layout.GenericLayoutParamList
 import com.asdev.libjam.md.layout.LayoutParams
-import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.thread.*
 import com.asdev.libjam.md.util.*
@@ -35,6 +34,11 @@ const val VISIBILITY_VISIBLE = 0
  * Flag for [View] parameter. This is to signify that the view is invisible and it should not be drawn.
  */
 const val VISIBILITY_INVISIBLE = 1
+
+/**
+ * The time between a mouse press and release for it to be considered a click.
+ */
+const val MOUSE_CLICK_TIME = 400f
 
 /**
  * An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It
@@ -65,7 +69,7 @@ open class View: Comparable<View> {
     var layoutSize = DIM_UNSET
 
     /**
-     * The background drawable of this view. Defaults to the [THEME] background color.
+     * The background drawable of this view. Defaults to the null.
      */
     var background: Drawable? = null // should it be ColorDrawable(THEME.getBackgroundColor())?
 
@@ -108,6 +112,16 @@ open class View: Comparable<View> {
      * The translationY of this [View].
      */
     var translationY: Float by translationYAnimator
+
+    /**
+     * Called when this view is clicked upon.
+     */
+    var onClickListener: ((MouseEvent, Point) -> Unit)? = null
+
+    /**
+     * Called when this view is pressed upon.
+     */
+    var onPressListener: ((MouseEvent, Point) -> Unit)? = null
 
     /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
@@ -183,6 +197,8 @@ open class View: Comparable<View> {
         flagRequestingRepaint = true
     }
 
+    private var mousePressTime = -1L
+
     /**
      * Called when the mouse is pressed within this [View]'s bounds.
      */
@@ -190,6 +206,10 @@ open class View: Comparable<View> {
         mouseListener?.onMousePress(e, mPos)
         // change the state to pressed
         onStateChanged(state, State.STATE_PRESSED)
+
+        onPressListener?.invoke(e, mPos)
+
+        mousePressTime = System.currentTimeMillis()
     }
 
     /**
@@ -199,6 +219,10 @@ open class View: Comparable<View> {
         mouseListener?.onMouseRelease(e,  mPos)
         // the the state to focused
         onStateChanged(state, State.STATE_FOCUSED)
+
+        if(System.currentTimeMillis() - mousePressTime <= MOUSE_CLICK_TIME) {
+            onClickListener?.invoke(e, mPos)
+        }
     }
 
     /**
@@ -309,31 +333,17 @@ open class View: Comparable<View> {
         if(visibility != VISIBILITY_VISIBLE)
             return
 
-        val clipBounds = g.clipBounds
-
-        g.clip = null
-        // apply the translations
-        g.translate(translationX.toDouble(), translationY.toDouble())
-        // TODO: move the clip
-        g.clip(clipBounds)
-
         // draw the background
         val bg = background
-        if(bg != null) {
-            if(bg is StatefulDrawable)
-                bg.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state)
-            else
-                bg.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
-        }
+        if(bg is StatefulDrawable)
+            bg.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state)
+        else
+            bg?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
 
         if(DEBUG_LAYOUT_BOXES) {
             g.color = Color.GREEN
             g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
         }
-
-        g.clip = null
-        g.translate(-translationX.toDouble(), -translationY.toDouble())
-        g.clip(clipBounds)
     }
 
     /**

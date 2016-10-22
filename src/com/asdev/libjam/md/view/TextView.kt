@@ -93,6 +93,11 @@ open class TextView(var text: String): View() {
     }
 
     /**
+     * Returns the theme color this [TextView] will use to draw the text.
+     */
+    fun getThemeColor() = themeColor
+
+    /**
      * [TextView] implementation of [onThemeChange]. Will update the [Font] and [Color] used by this [TextView].
      */
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {

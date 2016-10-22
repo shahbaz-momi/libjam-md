@@ -420,6 +420,12 @@ class StatefulCompoundDrawable(val normal: Drawable, val hover: Drawable? = null
  */
 class AnimatedCompoundDrawable(vararg drawables: Drawable): AnimatedDrawable() {
 
+
+    /**
+     * Returns the drawables that this compound drawable manages.
+     */
+    fun getDrawables() = drawables
+
     override fun onStateChanged(bounder: View?, prevState: View.State, newState: View.State) {
         // try and update the states of the children
         drawables.forEach {

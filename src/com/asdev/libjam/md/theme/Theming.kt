@@ -185,7 +185,7 @@ object LightMaterialTheme : Theme() {
         val roboto = Font.createFont(Font.TRUETYPE_FONT, File("assets/fonts/Roboto/Roboto-Regular.ttf"))
         titleFont = Font.createFont(Font.TRUETYPE_FONT, File("assets/fonts/Roboto/Roboto-Medium.ttf")).deriveFont(16f)
         subtitleFont = roboto.deriveFont(16f)
-        primaryTextFont = roboto.deriveFont(14f)
+        primaryTextFont = roboto.deriveFont(15f)
         secondaryTextFont = roboto.deriveFont(14f)
     }
 
@@ -233,7 +233,7 @@ object DarkMaterialTheme : Theme() {
     //// Colors ////
     private val primaryColor = Color.decode("#212121")!!
     private val darkPrimaryColor = Color.decode("#1E1E1E")!! // could be #000000 for a true dark feel
-    private val accentColor = Color.decode("#B71C1C")!!
+    private val accentColor = Color.decode("#B71C1C")!!.darker()!! // dark color for a dark atmosphere/environment
     private val titleColor = Color.decode("#FFFFFF")!!
     private val subtitleColor = Color.decode("#EEEEEE")!!
     private val primaryTextColor = Color.decode("#FFFFFF")!!
@@ -252,7 +252,7 @@ object DarkMaterialTheme : Theme() {
         val roboto = Font.createFont(Font.TRUETYPE_FONT, File("assets/fonts/Roboto/Roboto-Regular.ttf"))
         titleFont = Font.createFont(Font.TRUETYPE_FONT, File("assets/fonts/Roboto/Roboto-Medium.ttf")).deriveFont(16f)
         subtitleFont = roboto.deriveFont(16f)
-        primaryTextFont = roboto.deriveFont(14f)
+        primaryTextFont = roboto.deriveFont(15f)
         secondaryTextFont = roboto.deriveFont(14f)
     }
 

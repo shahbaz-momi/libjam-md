@@ -18,7 +18,7 @@ import java.awt.event.MouseEvent
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.layout
  */
-class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 0.25f, shadowYOffset: Float = 3f): View() {
+class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Float = 0.25f, shadowYOffset: Float = 3f): View() {
 
     private val shadow: ShadowDrawable
 
@@ -71,28 +71,25 @@ class ElevatedLayout(val child: View, val radius: Float = 30f, opacity: Float = 
     }
 
     override fun onDraw(g: Graphics2D) {
-        val prevClip = g.clip
+        val clipBounds = g.clipBounds
 
         if(layoutSize.w < 0f || layoutSize.h < 0f)
             return
-
-        // apply the translations
-        g.translate(translationX.toDouble(), translationY.toDouble())
-        // TODO: move the clip
 
         shadow.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
 
         // draw the background behind the view
         background?.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
         // translate the canvas
-        g.translate(radius.toInt(), radius.toInt())
+        g.translate(radius.toDouble() + child.translationX.toDouble(), radius.toDouble() + child.translationY.toDouble())
+        // intersect the child bounds clip
+        g.clipRect(0, 0, child.layoutSize.w.toInt(), child.layoutSize.h.toInt())
         // draw the child
         child.onDraw(g)
-        g.translate(-radius.toInt(), -radius.toInt())
+        g.translate(-radius.toDouble() - child.translationX.toDouble(), -radius.toDouble() - child.translationY.toDouble())
 
-        g.translate(-translationX.toDouble(), -translationY.toDouble())
-
-        g.clip = prevClip
+        // reset the clip
+        g.clip = clipBounds
     }
 
     private var wasOnCompBefore = false
