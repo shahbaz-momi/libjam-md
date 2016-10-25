@@ -39,6 +39,7 @@ class ColorDrawable: Drawable {
 const val SCALE_TYPE_CONTAIN = 0
 const val SCALE_TYPE_COVER = 1
 const val SCALE_TYPE_FIT = 2
+const val SCALE_TYPE_ORIGINAL = 3
 
 class ImageDrawable: Drawable {
 
@@ -56,14 +57,17 @@ class ImageDrawable: Drawable {
     }
 
     /**
-     * Draws the image to this drawable according to the scale type.
+     * Draws the foreground to this drawable according to the scale type.
      */
     override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float) {
         val clipP = g.clip
 
-        g.setClip(x.toInt(), y.toInt(), w.toInt(), h.toInt())
+        g.clipRect(x.toInt(), y.toInt(), w.toInt(), h.toInt())
         // check scaling mode
-        if(scaleType == SCALE_TYPE_FIT) {
+        if(scaleType == SCALE_TYPE_ORIGINAL) {
+            // center the original image size within this
+            g.drawImage(img, x.toInt() + ((w - img.width) / 2f).toInt(), y.toInt() + ((h - img.height) / 2f).toInt(), img.width, img.height, null)
+        } else if(scaleType == SCALE_TYPE_FIT) {
             // stretch w and h to fit the bounding size
             g.drawImage(img, x.toInt(), y.toInt(), w.toInt(), h.toInt(), null)
         } else if(scaleType == SCALE_TYPE_CONTAIN) {
@@ -74,7 +78,7 @@ class ImageDrawable: Drawable {
             val newH = img.height * sfw
 
             if(newH > h) {
-                // center the image horizontally
+                // center the foreground horizontally
                 g.drawImage(img, x.toInt() + ((w - newW) / 2f).toInt(), y.toInt(), newW.toInt(), h.toInt(), null)
             } else {
                 g.drawImage(img, x.toInt(), y.toInt() + ((h - newH) / 2f).toInt(), w.toInt(), newH.toInt(), null)
@@ -88,7 +92,7 @@ class ImageDrawable: Drawable {
             val newH = img.height * sfw
 
             if(newH < h) {
-                // center the image horizontally
+                // center the foreground horizontally
                 g.drawImage(img, x.toInt() + ((w - newW) / 2f).toInt(), y.toInt(), newW.toInt(), h.toInt(), null)
             } else {
                 g.drawImage(img, x.toInt(), y.toInt() + ((h - newH) / 2f).toInt(), w.toInt(), newH.toInt(), null)
@@ -119,8 +123,8 @@ class CompoundDrawable(vararg drawables: Drawable): Drawable() {
 }
 
 /**
- * Accepts a standard Android nine-patch image and draws it as a nine-patch drawable. NOTE: this is slow, so using caching
- * (by setting cache = true) if you are going to be constantly be repainting the image. This may improve performance just
+ * Accepts a standard Android nine-patch foreground and draws it as a nine-patch drawable. NOTE: this is slow, so using caching
+ * (by setting cache = true) if you are going to be constantly be repainting the foreground. This may improve performance just
  * a bit.
  */
 class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = false, val drawMiddlePatch: Boolean = true): Drawable() {
@@ -140,7 +144,7 @@ class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = fal
     private var cache: BufferedImage? = null
 
     /**
-     * Calculates the coordinates of the nine-patch image.
+     * Calculates the coordinates of the nine-patch foreground.
      */
     init {
         // map of the array:

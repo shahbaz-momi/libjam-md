@@ -42,7 +42,12 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
     /**
      * The ripple effect of this button.
      */
-    private var foreground: RippleDrawable? = null
+    private var ripple: RippleDrawable? = null
+
+    /**
+     * The foreground of this button. May be an image, etc.
+     */
+    var foreground: Drawable? = null
 
     init {
         // set the background to a hover shadow and a rounded rectangle based on the accent color
@@ -60,8 +65,8 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
 
         gravity = GRAVITY_MIDDLE_MIDDLE
 
-        // set the foreground to the ripple
-        foreground = RippleDrawable(THEME.getRippleColor())
+        // set the ripple to the ripple
+        ripple = RippleDrawable(THEME.getRippleColor())
     }
 
     private var themeRippleColor = COLOR_RIPPLE
@@ -70,7 +75,7 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
      * Sets the ripple color of this button.
      */
     fun setRippleColor(color: Color) {
-        foreground?.highlight = color
+        ripple?.highlight = color
     }
 
     /**
@@ -86,6 +91,12 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
     override fun loop() {
         super.loop()
 
+        if(ripple != null && ripple is AnimatedDrawable) {
+            if ((ripple!! as AnimatedDrawable).requestFrame()) {
+                requestRepaint()
+            }
+        }
+
         if(foreground != null && foreground is AnimatedDrawable) {
             if ((foreground!! as AnimatedDrawable).requestFrame()) {
                 requestRepaint()
@@ -95,6 +106,9 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
 
     override fun onStateChanged(previous: State, newState: State) {
         super.onStateChanged(previous, newState)
+
+        if(ripple != null && ripple is StatefulDrawable)
+            (ripple!! as StatefulDrawable).onStateChanged(this, previous, newState)
 
         if(foreground != null && foreground is StatefulDrawable)
             (foreground!! as StatefulDrawable).onStateChanged(this, previous, newState)
@@ -155,8 +169,13 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
     override fun onDraw(g: Graphics2D) {
         super.onDraw(g)
 
+        if(foreground is StatefulDrawable)
+            (foreground as StatefulDrawable).draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state)
+        else
+            foreground?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
+
         // draw the ripple
-        foreground?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state, 0f, mPos.x.toFloat(), mPos.y.toFloat())
+        ripple?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state, 0f, mPos.x.toFloat(), mPos.y.toFloat())
     }
 
 }

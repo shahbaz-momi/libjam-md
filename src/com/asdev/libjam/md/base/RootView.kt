@@ -1,8 +1,6 @@
 package com.asdev.libjam.md.base
 
-import com.asdev.libjam.md.animation.AccelerateInterpolator
-import com.asdev.libjam.md.animation.FactorableDecelerateInterpolator
-import com.asdev.libjam.md.animation.FloatValueAnimator
+import com.asdev.libjam.md.animation.*
 import com.asdev.libjam.md.layout.ElevatedLayout
 import com.asdev.libjam.md.layout.FrameDecoration
 import com.asdev.libjam.md.layout.LinearLayout
@@ -34,6 +32,11 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     private val rootView: View
     private val looper: Looper
     private val frameDecoration: FrameDecoration?
+
+    /**
+     * Called when the frame is disposed and the system is exiting.
+     */
+    var onDisposeListener: ((Unit) -> Unit)? = null
 
     constructor(title: String, size: Dimension, rootVG: View, customToolbar: Boolean) {
         frame = JFrame(title)
@@ -197,9 +200,11 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         rootView.loop()
 
         // check to minimize
-        if(minimizing && maxXAnim.hasEnded()) {
+        if(minimizing && minYAnim.hasEnded()) {
             minimizing = false
             frame.state = Frame.ICONIFIED
+            // frame flashing hack
+            frame.opacity = 0f
         }
     }
 
@@ -249,6 +254,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     private var maxWAnim = FloatValueAnimator(500f, interpolator, 0f, 0f, 0f)
     private var maxHAnim = FloatValueAnimator(500f, interpolator, 0f, 0f, 0f)
 
+    private var minYAnim = FloatValueAnimator(400f, AccelerateInterpolator, 0f, 0f, 0f)
 
     // runs the maximize clipping anim
     fun startMaximizeAnimation(size: FloatDim) {
@@ -257,6 +263,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
                 !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
             return
         }
+
         val divFactor = 6f
         // start the x from near left to the left and the width from near zero to full width
         maxXAnim.setFromValue(size.w / divFactor).setToValue(0f).setInterpolator(interpolator).start()
@@ -264,27 +271,24 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         // same for y
         maxYAnim.setFromValue(size.h - size.h / divFactor).setToValue(0f).setInterpolator(interpolator).start()
         maxHAnim.setFromValue(size.h / divFactor).setToValue(size.h).setInterpolator(interpolator).start()
+
+        maxWAnim.setAssignedValue(0f)
+        maxHAnim.setAssignedValue(0f)
     }
 
     // runs the maximize clipping anim
-    fun startMinimizeAnimation(size: FloatDim) {
+    fun startMinimizeAnimation() {
         minimizing = true
         // if its already running then don't do it
-        if(!maxXAnim.hasEnded() || !maxWAnim.hasEnded() ||
-                !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
+        if(!minYAnim.hasEnded()) {
             return
         }
-        val divFactor = 6f
-        // start the x from near left to the left and the width from near zero to full width
-        maxXAnim.setFromValue(0f).setToValue(size.w / divFactor).setInterpolator(AccelerateInterpolator).start()
-        maxWAnim.setFromValue(size.w).setToValue(0f).setInterpolator(AccelerateInterpolator).start()
-        // same for y
-        maxYAnim.setFromValue(0f).setToValue(size.h - size.h / divFactor).setInterpolator(AccelerateInterpolator).start()
-        maxHAnim.setFromValue(size.h).setToValue(0f).setInterpolator(AccelerateInterpolator).start()
+
+        minYAnim.setFromValue(0f).setToValue(actualSize.h + 100).start()
     }
 
     fun minimize () {
-        startMinimizeAnimation(actualSize)
+        startMinimizeAnimation()
     }
 
     private fun reLayout() {
@@ -313,6 +317,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     // we want the buttery-smooth 60fps action
     override fun loopsPerSecond() = 60
 
+    private var focused = true
+
     override fun paintComponent(g: Graphics?) {
         val start = System.nanoTime()
 
@@ -330,8 +336,17 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         // check for animations
         if(!maxXAnim.hasEnded() || !maxWAnim.hasEnded() ||
             !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
+            if((maxHAnim.getValue() > 0f || maxWAnim.getValue() > 0f) && frame.opacity == 0f) // frame flashing hack
+                frame.opacity = 1f
+
             // set the clip to the values
             g.setClip(maxXAnim.getValue().toInt(), maxYAnim.getValue().toInt(), maxWAnim.getValue().toInt(), maxHAnim.getValue().toInt())
+            requestPaint()
+        }
+
+        if(!minYAnim.hasEnded()) {
+            // translate it
+            g.translate(0.0, -minYAnim.getValue().toDouble())
             requestPaint()
         }
 
@@ -394,12 +409,43 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     }
 
     override fun windowLostFocus(e: WindowEvent?) {
-        // set opacity a little lower
-        // frame.opacity = 0.85f
+        focused = false
+        requestPaint()
     }
 
     override fun windowGainedFocus(e: WindowEvent?) {
-        frame.opacity = 1f
+        focused = true
     }
 
+    fun destroy() {
+        onDisposeListener?.invoke(Unit)
+        frame.dispose()
+        System.exit(0)
+    }
+
+    fun getFrame() = frame
+
+    private var localState = STATE_ORIGINAL
+    private var previousBounds = Rectangle(0, 0, 0, 0)
+
+    fun getLocalFrameState() = localState
+
+    fun setLocalFrameState(newState: Int) {
+        if(newState == STATE_MAXIMIZED && localState != STATE_MAXIMIZED) {
+            previousBounds = frame.bounds
+
+            val bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
+            frame.setLocation(-15, -15)
+            frame.setSize(bounds.width + 30, bounds.height + 30)
+            localState = STATE_MAXIMIZED
+        } else if(newState == STATE_MAXIMIZED) {
+            frame.bounds = previousBounds
+
+            // set to original state
+            localState = STATE_ORIGINAL
+        }
+    }
 }
+
+const val STATE_ORIGINAL = 0
+const val STATE_MAXIMIZED = 1

@@ -132,6 +132,7 @@ open class TextView(var text: String): View() {
 
         // draw the text at that spot
         g.drawString(text, x + paddingLeft, y + textSize.h - (g.fontMetrics.height - g.fontMetrics.ascent) / 2 - paddingTop) // shift height by text size h because we are drawing from the basline
+
         if(DEBUG_LAYOUT_BOXES) {
             g.color = Color.RED
             g.drawRect(x.toInt(), y.toInt(), textSize.w.toInt(), textSize.h.toInt())

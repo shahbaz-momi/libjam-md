@@ -19,3 +19,18 @@ const val DEBUG = false
  * Enables debug drawing layout boundaries.
  */
 const val DEBUG_LAYOUT_BOXES = false
+
+object Debug {
+
+    private var time = -1L
+
+    fun startTimer() {
+        time = System.nanoTime()
+    }
+
+    fun stopTimer(tag: String) {
+        if(DEBUG)
+            println("$tag took ${(System.nanoTime() - time) / 1000000.0}ms")
+    }
+
+}

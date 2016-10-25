@@ -315,7 +315,7 @@ open class LinearLayout: ViewGroup() {
         if(visibility != VISIBILITY_VISIBLE)
             return
 
-        val clipBounds = g.clipBounds
+        val clipBounds = g.clip
         super.onDraw(g)
 
         // draw the children by z order

@@ -26,7 +26,7 @@ TODO:
 - Buttons // MOSTLY DONE
     - Normal buttons // MOSTLY DONE
     - Flat (colorless) buttons // MOSTLY DONE
-    - Icon buttons - for nav buttons, etc.
+    - Icon buttons - for nav buttons, etc. // DONE THROUGH THE FOREGROUND DRAWABLE OF THE BUTTON
 - Fix the clipping - often views ignore the existing clip // DONE - Views will respect the previous clips
     - Also, views should not be clipping // DONE - DEFERRED TO THE LAYOUTS
 - Fix the shadow clipping // FIXED - adding a padding layout to the desired layout or add a elevated layout
@@ -35,13 +35,17 @@ TODO:
 - Ripples // MOSTLY DONE - SMALL TWEAKS
 - Rounded rectangle drawable - for cards, buttons, etc. // DONE
 - Elevated layout ignores max size // FIXED IT
-- Maybe: Implement caching or something? Split the image into 9 images and paint them individually? // IMPLEMENTED NINE PATCH CACHING AND NOT DRAWING MIDDLE PATCH
+- Maybe: Implement caching or something? Split the foreground into 9 images and paint them individually? // IMPLEMENTED NINE PATCH CACHING AND NOT DRAWING MIDDLE PATCH
 - animate window in - upward reveal (reveals up like how apps launch in Marshmellow and Nougat) // DONE
 - animate window out - slide out? // CHANGE IT NOT SUPER HAPPY
-- nav buttons // SOMEWHAT DONE
-- scroll views
+- nav buttons // DONE
+- frame resizer // TODO next
+TODO NEXT performance debugging
+// FRAME SHADOW TAKING A LONG ASS TIME
+- fix window intro animation flashing thing // FIXED WITH A DIRTY HACK
 - card views
+- right-click menu / dropdown menu
+- scroll views
 - list views
 - tool tips
-- right-click menu / dropdown menu
 - more material ui components

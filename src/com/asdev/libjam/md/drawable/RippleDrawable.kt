@@ -19,7 +19,7 @@ import java.awt.Graphics2D
  */
 
 const val HIGHLIGHT_OPACITY = 0.13f
-const val RIPPLE_OPACITY = 0.3f
+const val RIPPLE_OPACITY = 0.2f
 
 /**
  * A drawable that draws a material ripple effect.
@@ -84,7 +84,7 @@ class RippleDrawable(
         val prevComp = g.composite
         g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, highlightOpacity)
 
-        val prevClipBounds = g.clipBounds
+        val prevClipBounds = g.clip
 
         g.clipRect(x.toInt(), y.toInt(), w.toInt(), h.toInt())
 
@@ -127,7 +127,7 @@ class RippleDrawable(
 
         g.clipRect((rippleX + rippleW).toInt() - 10,
                 y.toInt(),
-                10,
+                20,
                 h.toInt())
 
         g.fillOval(

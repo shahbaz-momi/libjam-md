@@ -21,8 +21,19 @@ import java.awt.event.MouseEvent
 /**
  * A layout that has one child and that provides a padding around he child.
  */
-class PaddingLayout (val child: View, val padding: Float = 15f): View() {
+class PaddingLayout (val child: View, padding: Float = 15f): View() {
 
+    var paddingLeft: Float
+    var paddingRight: Float
+    var paddingTop: Float
+    var paddingBottom: Float
+
+    init {
+        paddingLeft = padding
+        paddingBottom = padding
+        paddingRight = padding
+        paddingTop = padding
+    }
 
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
         super.onThemeChange(prevTheme, newTheme)
@@ -33,19 +44,19 @@ class PaddingLayout (val child: View, val padding: Float = 15f): View() {
         val lp = child.onMeasure(result)
 
         if (lp.minSize.w > 0f && lp.minSize.w > minSize.w) {
-            minSize = FloatDim(lp.minSize.w + padding * 2f, minSize.h)
+            minSize = FloatDim(lp.minSize.w + paddingLeft + paddingRight, minSize.h)
         }
 
         if (lp.minSize.h > 0f && lp.minSize.h > minSize.h) {
-            minSize = FloatDim(minSize.w, lp.minSize.h + padding * 2f)
+            minSize = FloatDim(minSize.w, lp.minSize.h + paddingTop + paddingBottom)
         }
 
         if (lp.maxSize.w > 0f && lp.maxSize.w > maxSize.w) {
-            maxSize = FloatDim(lp.maxSize.w + padding * 2f, maxSize.h)
+            maxSize = FloatDim(lp.maxSize.w + paddingLeft + paddingRight * 2f, maxSize.h)
         }
 
         if (lp.maxSize.h > 0f && lp.maxSize.h > maxSize.h) {
-            maxSize = FloatDim(maxSize.w, lp.maxSize.h + padding * 2f)
+            maxSize = FloatDim(maxSize.w, lp.maxSize.h + paddingTop + paddingBottom)
         }
 
         if (maxSize.w < minSize.w && maxSize.w > 0f)
@@ -64,11 +75,11 @@ class PaddingLayout (val child: View, val padding: Float = 15f): View() {
 
     override fun onLayout(newSize: FloatDim) {
         super.onLayout(newSize)
-        child.onLayout(FloatDim(newSize.w - padding * 2f, newSize.h - padding * 2f))
+        child.onLayout(FloatDim(newSize.w - paddingLeft - paddingRight, newSize.h - paddingTop - paddingBottom))
     }
 
     override fun onDraw(g: Graphics2D) {
-        val clipBounds = g.clipBounds
+        val clipBounds = g.clip
 
         if (layoutSize.w < 0f || layoutSize.h < 0f)
             return
@@ -81,12 +92,12 @@ class PaddingLayout (val child: View, val padding: Float = 15f): View() {
             g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
         }
         // translate the canvas
-        g.translate(padding.toDouble() + child.translationX.toDouble(), padding.toDouble() + child.translationY.toDouble())
+        g.translate(paddingLeft + child.translationX.toDouble(), paddingTop + child.translationY.toDouble())
         // intersect the child bounds clip
         // g.clipRect(0, 0, child.layoutSize.w.toInt(), child.layoutSize.h.toInt())
         // draw the child
         child.onDraw(g)
-        g.translate(-padding.toDouble() - child.translationX.toDouble(), -padding.toDouble() - child.translationY.toDouble())
+        g.translate(-paddingLeft.toDouble() - child.translationX.toDouble(), -paddingTop.toDouble() - child.translationY.toDouble())
 
         // reset the clip
         g.clip = clipBounds
@@ -96,16 +107,16 @@ class PaddingLayout (val child: View, val padding: Float = 15f): View() {
 
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {
         super.onMouseDragged(e, mPos)
-        if (mPos.x >= padding && mPos.x <= layoutSize.w - padding &&
-                mPos.y >= padding && mPos.y <= layoutSize.h - padding) {
+        if (mPos.x >= paddingLeft && mPos.x <= layoutSize.w - paddingRight &&
+                mPos.y >= paddingTop && mPos.y <= layoutSize.h - paddingBottom) {
             if (!wasOnCompBefore) {
-                child.onMouseEnter(e, Point(mPos.x - padding.toInt(), mPos.y - padding.toInt()))
+                child.onMouseEnter(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
                 wasOnCompBefore = true
             }
-            child.onMouseDragged(e, Point(mPos.x - padding.toInt(), mPos.y - padding.toInt()))
+            child.onMouseDragged(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
         } else {
             if (wasOnCompBefore) {
-                child.onMouseExit(e, Point(mPos.x - padding.toInt(), mPos.y - padding.toInt()))
+                child.onMouseExit(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
                 wasOnCompBefore = false
             }
         }
@@ -113,16 +124,16 @@ class PaddingLayout (val child: View, val padding: Float = 15f): View() {
 
     override fun onMouseMoved(e: MouseEvent, mPos: Point) {
         super.onMouseMoved(e, mPos)
-        if (mPos.x >= padding && mPos.x <= layoutSize.w - padding &&
-                mPos.y >= padding && mPos.y <= layoutSize.h - padding) {
+        if (mPos.x >= paddingLeft && mPos.x <= layoutSize.w - paddingRight &&
+                mPos.y >= paddingTop && mPos.y <= layoutSize.h - paddingBottom) {
             if (!wasOnCompBefore) {
-                child.onMouseEnter(e, Point(mPos.x - padding.toInt(), mPos.y - padding.toInt()))
+                child.onMouseEnter(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
                 wasOnCompBefore = true
             }
-            child.onMouseMoved(e, Point(mPos.x - padding.toInt(), mPos.y - padding.toInt()))
+            child.onMouseMoved(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
         } else {
             if (wasOnCompBefore) {
-                child.onMouseExit(e, Point(mPos.x - padding.toInt(), mPos.y - padding.toInt()))
+                child.onMouseExit(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
                 wasOnCompBefore = false
             }
         }
@@ -130,15 +141,15 @@ class PaddingLayout (val child: View, val padding: Float = 15f): View() {
 
     override fun onMousePress(e: MouseEvent, mPos: Point) {
         super.onMousePress(e, mPos)
-        if (mPos.x >= padding && mPos.x <= layoutSize.w - padding &&
-                mPos.y >= padding && mPos.y <= layoutSize.h - padding)
-            child.onMousePress(e, Point(mPos.x - padding.toInt(), mPos.y - padding.toInt()))
+        if (mPos.x >= paddingLeft && mPos.x <= layoutSize.w - paddingRight &&
+                mPos.y >= paddingTop && mPos.y <= layoutSize.h - paddingBottom)
+            child.onMousePress(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
     }
 
     override fun onMouseRelease(e: MouseEvent, mPos: Point) {
         super.onMouseRelease(e, mPos)
-        if (mPos.x >= padding && mPos.x <= layoutSize.w - padding &&
-                mPos.y >= padding && mPos.y <= layoutSize.h - padding)
-            child.onMouseRelease(e, Point(mPos.x - padding.toInt(), mPos.y - padding.toInt()))
+        if (mPos.x >= paddingLeft && mPos.x <= layoutSize.w - paddingRight &&
+                mPos.y >= paddingTop && mPos.y <= layoutSize.h - paddingBottom)
+            child.onMouseRelease(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
     }
 }

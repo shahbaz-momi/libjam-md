@@ -243,13 +243,13 @@ object DarkMaterialTheme : Theme() {
     //// Colors ////
     private val primaryColor = Color.decode("#212121")!!
     private val darkPrimaryColor = Color.decode("#1E1E1E")!! // could be #000000 for a true dark feel
-    private val accentColor = Color.decode("#B71C1C")!!.darker()!! // dark color for a dark atmosphere/environment
+    private val accentColor = Color.decode("#B71C1C")!! // dark color for a dark atmosphere/environment
     private val titleColor = Color.decode("#FFFFFF")!!
     private val subtitleColor = Color.decode("#EEEEEE")!!
     private val primaryTextColor = Color.decode("#FFFFFF")!!
     private val secondaryTextColor = Color.decode("#EEEEEE")!!
     private val backgroundColor = Color.decode("#303030")!!
-    private val dividerColor = Color.decode("#BDBDBD")!!
+    private val dividerColor = Color.decode("#444444")!!
     private val rippleColor = Color.decode("#EEEEEE")!!
 
     //// Fonts ////

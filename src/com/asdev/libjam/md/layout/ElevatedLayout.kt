@@ -4,11 +4,13 @@ import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.ShadowDrawable
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
+import com.asdev.libjam.md.util.Debug
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.MouseEvent
+import java.awt.geom.RoundRectangle2D
 
 /**
  * Created by Asdev on 10/14/16. All rights reserved.
@@ -18,7 +20,7 @@ import java.awt.event.MouseEvent
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.layout
  */
-class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Float = 0.25f, shadowYOffset: Float = 3f): View() {
+open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Float = 0.25f, val shadowYOffset: Float = 1f, val roundRadius: Float = 0f): View() {
 
     private val shadow: ShadowDrawable
 
@@ -71,21 +73,22 @@ class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Float = 
     }
 
     override fun onDraw(g: Graphics2D) {
-        val clipBounds = g.clipBounds
+        val clipBounds = g.clip
 
         if(layoutSize.w < 0f || layoutSize.h < 0f)
             return
 
         shadow.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
 
-        // draw the background behind the view
-        background?.draw(g, radius, radius, layoutSize.w - radius * 2f, layoutSize.h - radius * 2f)
         // translate the canvas
         g.translate(radius.toDouble() + child.translationX.toDouble(), radius.toDouble() + child.translationY.toDouble())
         // intersect the child bounds clip
-        g.clipRect(0, 0, child.layoutSize.w.toInt(), child.layoutSize.h.toInt())
+        g.clip(RoundRectangle2D.Float(0f, 0f, child.layoutSize.w, child.layoutSize.h, roundRadius, roundRadius)) // for a rounded frame
+        background?.draw(g, 0f, 0f, child.layoutSize.w, child.layoutSize.h)
         // draw the child
+        Debug.startTimer()
         child.onDraw(g)
+        Debug.stopTimer("[ElevatedLayout] Drawing child")
         g.translate(-radius.toDouble() - child.translationX.toDouble(), -radius.toDouble() - child.translationY.toDouble())
 
         // reset the clip
