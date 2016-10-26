@@ -41,6 +41,7 @@ TODO:
 - nav buttons // DONE
 - frame resizer // TODO next
 TODO NEXT performance debugging
+- HUGE: maybe migrate to GLG2D?
 // FRAME SHADOW TAKING A LONG ASS TIME
 - fix window intro animation flashing thing // FIXED WITH A DIRTY HACK
 - card views

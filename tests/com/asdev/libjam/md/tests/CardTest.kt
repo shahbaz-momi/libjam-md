@@ -89,8 +89,8 @@ fun main(args: Array<String>) {
 
     // show frame decoration above all
     // frame decoration can't be null because we have specified the rootview to use a custom deco
-    val deco = root.getFrameDecoration()!!
-    deco.setDrawAboveAll(false)
+//    val deco = root.getFrameDecoration()!!
+//    deco.setDrawAboveAll(false)
 
     root.showFrame()
 }

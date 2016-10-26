@@ -4,7 +4,6 @@ import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.ShadowDrawable
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
-import com.asdev.libjam.md.util.Debug
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
@@ -86,9 +85,7 @@ open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Flo
         g.clip(RoundRectangle2D.Float(0f, 0f, child.layoutSize.w, child.layoutSize.h, roundRadius, roundRadius)) // for a rounded frame
         background?.draw(g, 0f, 0f, child.layoutSize.w, child.layoutSize.h)
         // draw the child
-        Debug.startTimer()
         child.onDraw(g)
-        Debug.stopTimer("[ElevatedLayout] Drawing child")
         g.translate(-radius.toDouble() - child.translationX.toDouble(), -radius.toDouble() - child.translationY.toDouble())
 
         // reset the clip

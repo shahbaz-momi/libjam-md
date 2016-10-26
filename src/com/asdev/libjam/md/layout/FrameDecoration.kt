@@ -6,14 +6,12 @@ import com.asdev.libjam.md.base.STATE_ORIGINAL
 import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.theme.*
 import com.asdev.libjam.md.util.DIM_UNLIMITED
+import com.asdev.libjam.md.util.Debug
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.BUTTON_TYPE_FLAT
 import com.asdev.libjam.md.view.ButtonView
 import com.asdev.libjam.md.view.TextView
-import java.awt.Color
-import java.awt.Frame
-import java.awt.GraphicsEnvironment
-import java.awt.Point
+import java.awt.*
 import java.awt.event.MouseEvent
 import java.io.File
 import javax.imageio.ImageIO
@@ -166,6 +164,10 @@ class FrameDecoration(title: String, val frame: JFrame, val rootView: RootView):
                 // then the color
                 ColorDrawable(newTheme.getPrimaryColor())
         )
+    }
+
+    override fun onDraw(g: Graphics2D) {
+        super.onDraw(g)
     }
 
 }

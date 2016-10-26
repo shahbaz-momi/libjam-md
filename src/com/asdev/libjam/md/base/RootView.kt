@@ -1,7 +1,6 @@
 package com.asdev.libjam.md.base
 
 import com.asdev.libjam.md.animation.*
-import com.asdev.libjam.md.layout.ElevatedLayout
 import com.asdev.libjam.md.layout.FrameDecoration
 import com.asdev.libjam.md.layout.LinearLayout
 import com.asdev.libjam.md.layout.newLayoutParams
@@ -44,9 +43,9 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         frame.isUndecorated = customToolbar
 
         if(customToolbar) {
-            frame.background = Color(0, 0, 0, 0)
-            background = Color(0, 0, 0, 0)
-            isOpaque = false
+//            frame.background = Color(0, 0, 0, 0)
+//            background = Color(0, 0, 0, 0)
+//            isOpaque = false
 
             // add a frame decorator
             frameDecoration = FrameDecoration(title, frame, this)
@@ -59,7 +58,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             frame.addWindowFocusListener(this)
 
             // now add the content
-            rootView = ElevatedLayout(l, shadowYOffset = 0f)
+            // rootView = ElevatedLayout(l, shadowYOffset = 0f)
+            rootView = l
         } else {
             frameDecoration = null
             this.rootView = rootVG
@@ -320,7 +320,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     private var focused = true
 
     override fun paintComponent(g: Graphics?) {
-        val start = System.nanoTime()
+        val d = Debug()
+        d.startTimer()
 
         if(g == null || g !is Graphics2D)
             return
@@ -350,11 +351,10 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             requestPaint()
         }
 
+
         // call on draw on the root view group
         rootView.onDraw(g)
-
-        if(DEBUG)
-            println("[RootView] onDraw() took ${(System.nanoTime() - start) / 1000000.0}ms")
+        d.stopTimer("[RootView] On draw")
     }
 
     /**
@@ -435,8 +435,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             previousBounds = frame.bounds
 
             val bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
-            frame.setLocation(-15, -15)
-            frame.setSize(bounds.width + 30, bounds.height + 30)
+            frame.setLocation(0, 0)
+            frame.setSize(bounds.width, bounds.height)
             localState = STATE_MAXIMIZED
         } else if(newState == STATE_MAXIMIZED) {
             frame.bounds = previousBounds

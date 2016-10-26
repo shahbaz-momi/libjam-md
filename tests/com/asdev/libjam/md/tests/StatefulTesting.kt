@@ -37,12 +37,12 @@ fun main(args: Array<String>) {
     v.onPressListener = { mouseEvent: MouseEvent, point: Point -> print("Sup ")}
 
     layout.addChild(PaddingLayout(v, 30f))
-    val root = RootView("My Drive", Dimension(500, 500), layout, true)
+    val root = RootView("My Drive", Dimension(500, 500), layout, false)
 
     // show frame decoration above all
     // frame decoration can't be null because we have specified the rootview to use a custom deco
-    val deco = root.getFrameDecoration()!!
-    deco.setDrawAboveAll(false)
+//    val deco = root.getFrameDecoration()!!
+//    deco.setDrawAboveAll(false)
 
     root.showFrame()
 }
