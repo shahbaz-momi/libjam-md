@@ -3,7 +3,6 @@ package com.asdev.libjam.md.drawable
 import com.asdev.libjam.md.animation.DecelerateInterpolator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.animation.LinearInterpolator
-import com.asdev.libjam.md.util.Debug
 import com.asdev.libjam.md.view.View
 import java.awt.AlphaComposite
 import java.awt.Graphics2D
@@ -22,26 +21,20 @@ import javax.imageio.ImageIO
 /**
  * A nine-patch drawable containing the raw shadow.
  */
-val shadow = NinePatchDrawable(ImageIO.read(File("assets/shadow.9.png")))
+val shadow = NinePatchDrawable(ImageIO.read(File("assets/shadow.9.png")), false, false)
 
 /**
  * A class that draws a rectangular shadow.
  */
-open class ShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f, var yOffset: Float = 1f, val clipLeft: Boolean = false, val clipRight: Boolean = false, drawMiddlePatch: Boolean = true): Drawable() {
+open class ShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f, var yOffset: Float = 1f): Drawable() {
 
     /**
      * The composite that will be used when drawing the shadow.
      */
     private val composite: AlphaComposite
 
-    /**
-     * The local shadow to draw with.
-     */
-    private val shadowCache: NinePatchDrawable
-
     init {
         composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity)
-        shadowCache = NinePatchDrawable(shadow.ninepatch, true, drawMiddlePatch)
     }
 
     /**
@@ -49,20 +42,13 @@ open class ShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f, var yO
      */
     override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float) {
         // screw the clip for now, just extend dout by the padding
-        val prevClip = g.clip
         val prevComp = g.composite
-        val xOffset = if(clipLeft) radius.toInt() else 0
-        val wOffset = if(clipRight) radius.toInt() * 2 else 0
-        // g.clip = null
-        g.clipRect(x.toInt() - radius.toInt() + xOffset, y.toInt() - radius.toInt() + yOffset.toInt(), w.toInt() + radius.toInt() * 2 - wOffset, h.toInt() + radius.toInt() * 2 + yOffset.toInt())
         // apply the alpha composite
         g.composite = composite
 
         // draw the shadow with the props
-        shadowCache.draw(g, x - radius, y - radius + yOffset, w + radius * 2f, h + radius * 2f + yOffset)
+        shadow.draw(g, x - radius, y - radius + yOffset, w + radius * 2f, h + radius * 2f + yOffset)
 
-        // reapply the clip
-        g.clip = prevClip
         // clear the composite
         g.composite = prevComp
     }
@@ -72,17 +58,12 @@ open class ShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f, var yO
 /**
  * A class that draws an animated rectangular shadow.
  */
-open class AnimatedShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f, yOffset: Float = 1f, val clipLeft: Boolean = false, val clipRight: Boolean = false, drawMiddlePatch: Boolean = true): AnimatedDrawable() {
+open class AnimatedShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f, yOffset: Float = 1f): AnimatedDrawable() {
 
     /**
      * The composite that will be used when drawing the shadow.
      */
     private val composite: AlphaComposite
-
-    /**
-     * The local shadow to draw with.
-     */
-    private val shadowCache: NinePatchDrawable
 
     /**
      * The animator for the yOffset of this [Drawable].
@@ -98,7 +79,6 @@ open class AnimatedShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f
         this.yOffset = yOffset
 
         composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity)
-        shadowCache = NinePatchDrawable(shadow.ninepatch, true, drawMiddlePatch)
     }
 
     override fun requestFrame() = !yOffsetAnimator.hasEnded() && yOffsetAnimator.getStartTime() > 0L
@@ -110,15 +90,11 @@ open class AnimatedShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f
         // screw the clip for now, just extend out by the padding
         val prevClip = g.clip
         val prevComp = g.composite
-        val xOffset = if(clipLeft) radius.toInt() else 0
-        val wOffset = if(clipRight) radius.toInt() * 2 else 0
-        // g.clip = null
-        g.clipRect(x.toInt() - radius.toInt() + xOffset, y.toInt() - radius.toInt() + yOffset.toInt(), w.toInt() + radius.toInt() * 2 - wOffset, h.toInt() + radius.toInt() * 2 + yOffset.toInt())
         // apply the alpha composite
         g.composite = composite
 
         // draw the shadow with the props
-        shadowCache.draw(g, x - radius, y - radius + yOffset, w + radius * 2f, h + radius * 2f + yOffset)
+        shadow.draw(g, x - radius, y - radius + yOffset, w + radius * 2f, h + radius * 2f + yOffset)
 
         // reapply the clip
         g.clip = prevClip
@@ -130,7 +106,7 @@ open class AnimatedShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f
 /**
  * An animated shadow drawable that creates a hovering animation based off of the state.
  */
-class AnimatedHoverShadowDrawable(radius: Float = 10f, opacity: Float = 0.3f, val yOffsetNormal: Float = 1f, val yOffsetHover: Float = 5f, val viewYTransNormal: Float = 0f, val viewYTransHover: Float = -4f, val animDuration: Float = 200f): AnimatedShadowDrawable(radius, opacity, yOffsetNormal, false, false, false) {
+class AnimatedHoverShadowDrawable(radius: Float = 10f, opacity: Float = 0.3f, val yOffsetNormal: Float = 1f, val yOffsetHover: Float = 5f, val viewYTransNormal: Float = 0f, val viewYTransHover: Float = -4f, val animDuration: Float = 200f): AnimatedShadowDrawable(radius, opacity, yOffsetNormal) {
 
     /**
      * Creates a hovering animation based off of the state.

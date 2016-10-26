@@ -39,11 +39,11 @@ TODO:
 - animate window in - upward reveal (reveals up like how apps launch in Marshmellow and Nougat) // DONE
 - animate window out - slide out? // CHANGE IT NOT SUPER HAPPY
 - nav buttons // DONE
-- frame resizer // TODO next
-TODO NEXT performance debugging
-- HUGE: maybe migrate to GLG2D?
-// FRAME SHADOW TAKING A LONG ASS TIME
+- Added GLG2D Support // USE THIS OVER STANDARD JAVA2D ROOTVIEW
+- View overClipping - Clip larger than the view for overdrawing other views.
+- Redo the nav button actions to work with the new root view
 - fix window intro animation flashing thing // FIXED WITH A DIRTY HACK
+- frame resizer
 - card views
 - right-click menu / dropdown menu
 - scroll views

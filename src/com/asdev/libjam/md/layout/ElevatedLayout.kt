@@ -19,12 +19,12 @@ import java.awt.geom.RoundRectangle2D
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.layout
  */
-open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Float = 0.25f, val shadowYOffset: Float = 1f, val roundRadius: Float = 0f): View() {
+open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Float = 0.25f, shadowYOffset: Float = 1f, val roundRadius: Float = 0f): View() {
 
     private val shadow: ShadowDrawable
 
     init {
-        shadow = ShadowDrawable(radius, opacity, shadowYOffset, false, false, false)
+        shadow = ShadowDrawable(radius, opacity, shadowYOffset)
         background = ColorDrawable(THEME.getBackgroundColor())
     }
 

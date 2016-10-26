@@ -93,8 +93,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
 
         frame.add(this)
 
-        frame.addMouseListener(this)
-        frame.addMouseMotionListener(this)
+        addMouseListener(this)
+        addMouseMotionListener(this)
 
         // double buffering
         isDoubleBuffered = true

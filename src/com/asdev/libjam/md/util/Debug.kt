@@ -13,12 +13,12 @@ package com.asdev.libjam.md.util
  * Enables debug logging.
  * NOTICE: Using DEBUG will cause significant lag because there will be a lot of output on each onMeasure(), onLayout(), and onDraw()
  */
-const val DEBUG = true
+const val DEBUG = false
 
 /**
  * Enables debug drawing layout boundaries.
  */
-const val DEBUG_LAYOUT_BOXES = false
+const val DEBUG_LAYOUT_BOXES = true
 
 class Debug {
 
