@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<title>FrameDecoration - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.layout</a>&nbsp;/&nbsp;<a href=".">FrameDecoration</a><br/>
+<br/>
+<h1>FrameDecoration</h1>
+<code><span class="keyword">class </span><span class="identifier">FrameDecoration</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-linear-layout/index.html"><span class="identifier">LinearLayout</span></a></code>
+<p>A custom material design frame decoration.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">FrameDecoration</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.FrameDecoration$<init>(kotlin.String, javax.swing.JFrame, com.asdev.libjam.md.base.RootView)/title">title</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.FrameDecoration$<init>(kotlin.String, javax.swing.JFrame, com.asdev.libjam.md.base.RootView)/frame">frame</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JFrame.html"><span class="identifier">JFrame</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.FrameDecoration$<init>(kotlin.String, javax.swing.JFrame, com.asdev.libjam.md.base.RootView)/rootView">rootView</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.base/-root-view/index.html"><span class="identifier">RootView</span></a><span class="symbol">?</span><span class="symbol">)</span></code>
+<p>A custom material design frame decoration.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="frame.html">frame</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">frame</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JFrame.html"><span class="identifier">JFrame</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="root-view.html">rootView</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">rootView</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.base/-root-view/index.html"><span class="identifier">RootView</span></a><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="on-draw.html">onDraw</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.FrameDecoration$onDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Draws this layout along with its children. Will clip and translate the canvas to the child views bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-theme-change.html">onThemeChange</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onThemeChange</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.FrameDecoration$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/prevTheme">prevTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.FrameDecoration$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/newTheme">newTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Implementation of <a href="on-theme-change.html">onThemeChange</a>. Calls the <a href="#">View</a> implementation and then notifies its children of the theme change.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="set-draw-above-all.html">setDrawAboveAll</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setDrawAboveAll</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.FrameDecoration$setDrawAboveAll(kotlin.Boolean)/b">b</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sets whether to draw this frame decoration above all other views. Results in a shadow being cast on the content underneath.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-linear-layout/add-child.html">addChild</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">addChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$addChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Adds the specified child to this layout.
+$child the child <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> to add.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/get-children.html">getChildren</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getChildren</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Returns the children managed by this layout.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/on-layout.html">onLayout</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onLayout</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onLayout(com.asdev.libjam.md.util.FloatDim)/newSize">newSize</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Lays out this <a href="../-view-group/index.html">ViewGroup</a>. Will determine the new sizes and positions of the attached <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> children.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/on-measure.html">onMeasure</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMeasure</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMeasure(com.asdev.libjam.md.layout.LayoutParams)/result">result</span><span class="symbol">:</span>&nbsp;<a href="../-layout-params/index.html"><span class="identifier">LayoutParams</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-layout-params/index.html"><span class="identifier">LayoutParams</span></a></code>
+<p>Measures this layout and determines the minimum and maximum sizes along with additional parameters.
+This layout passes <a href="../-linear-layout-params/index.html">LinearLayoutParams</a> as its <a href="../-layout-params/index.html">LayoutParams</a> type.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/on-mouse-dragged.html">onMouseDragged</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseDragged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="../-linear-layout/on-mouse-dragged.html">onMouseDragged</a> then checks to find which child is being dragged on. Finally,
+it calls <a href="../-linear-layout/on-mouse-dragged.html">onMouseDragged</a> of that child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/on-mouse-exit.html">onMouseExit</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseExit</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseExit(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseExit(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="../-linear-layout/on-mouse-exit.html">onMouseExit</a> then checks to find which child is being exited on. Finally,
+it calls <a href="../-linear-layout/on-mouse-exit.html">onMouseExit</a> of that child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/on-mouse-moved.html">onMouseMoved</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseMoved</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseMoved(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseMoved(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="../-linear-layout/on-mouse-moved.html">onMouseMoved</a> then checks to find which child is being moved on. Finally,
+it calls <a href="../-linear-layout/on-mouse-moved.html">onMouseMoved</a> of that child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/on-mouse-press.html">onMousePress</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMousePress</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="../-linear-layout/on-mouse-press.html">onMousePress</a> then checks to find which child is being pressed on. Finally,
+it calls <a href="../-linear-layout/on-mouse-press.html">onMousePress</a> of that child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/on-mouse-release.html">onMouseRelease</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseRelease</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="../-linear-layout/on-mouse-release.html">onMouseRelease</a> then checks to find which child is being released on. Finally,
+it calls <a href="../-linear-layout/on-mouse-release.html">onMouseRelease</a> of that child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/remove-child.html">removeChild</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">removeChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$removeChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Removes the specified child.
+$child the child <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> to remove.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-layout/set-orientation.html">setOrientation</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setOrientation</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$setOrientation(kotlin.Int)/orientation">orientation</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Set the orientation of this view.
+$orientation the new orientation of this layout. May be either <a href="../-o-r-i-e-n-t-a-t-i-o-n_-v-e-r-t-i-c-a-l.html">ORIENTATION_VERTICAL</a> or <a href="../-o-r-i-e-n-t-a-t-i-o-n_-h-o-r-i-z-o-n-t-a-l.html">ORIENTATION_HORIZONTAL</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

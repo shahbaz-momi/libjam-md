@@ -1,0 +1,180 @@
+<HTML>
+<HEAD>
+<title>FloatValueAnimator - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.animation</a>&nbsp;/&nbsp;<a href=".">FloatValueAnimator</a><br/>
+<br/>
+<h1>FloatValueAnimator</h1>
+<code><span class="keyword">class </span><span class="identifier">FloatValueAnimator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-animator/index.html"><span class="identifier">Animator</span></a></code>
+<p>Animates a Float value from the given <a href="#">from</a> to the given <a href="#">to</a>. Can be used as a property delegate.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">FloatValueAnimator</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$<init>(kotlin.Float, com.asdev.libjam.md.animation.Interpolator, kotlin.Float, kotlin.Float, kotlin.Float)/duration">duration</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$<init>(kotlin.Float, com.asdev.libjam.md.animation.Interpolator, kotlin.Float, kotlin.Float, kotlin.Float)/interpolator">interpolator</span><span class="symbol">:</span>&nbsp;<a href="../-interpolator/index.html"><span class="identifier">Interpolator</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$<init>(kotlin.Float, com.asdev.libjam.md.animation.Interpolator, kotlin.Float, kotlin.Float, kotlin.Float)/startDelay">startDelay</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$<init>(kotlin.Float, com.asdev.libjam.md.animation.Interpolator, kotlin.Float, kotlin.Float, kotlin.Float)/from">from</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$<init>(kotlin.Float, com.asdev.libjam.md.animation.Interpolator, kotlin.Float, kotlin.Float, kotlin.Float)/to">to</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span></code>
+<p>Animates a Float value from the given <a href="-init-.html#com.asdev.libjam.md.animation.FloatValueAnimator$<init>(kotlin.Float, com.asdev.libjam.md.animation.Interpolator, kotlin.Float, kotlin.Float, kotlin.Float)/from">from</a> to the given <a href="-init-.html#com.asdev.libjam.md.animation.FloatValueAnimator$<init>(kotlin.Float, com.asdev.libjam.md.animation.Interpolator, kotlin.Float, kotlin.Float, kotlin.Float)/to">to</a>. Can be used as a property delegate.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="get-raw-value.html">getRawValue</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getRawValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Returns the raw (non-interpolated) value of this animation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="get-value.html">getValue</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Returns the interpolated value of this animation.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$getValue(kotlin.Any, kotlin.reflect.KProperty((kotlin.Any)))/thisRef">thisRef</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$getValue(kotlin.Any, kotlin.reflect.KProperty((kotlin.Any)))/property">property</span><span class="symbol">:</span>&nbsp;<span class="identifier">KProperty</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Returns the animated value of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="set-assigned-value.html">setAssignedValue</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setAssignedValue</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$setAssignedValue(kotlin.Float)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sets the assigned value of this Animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="set-from-value.html">setFromValue</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setFromValue</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$setFromValue(kotlin.Float)/from">from</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">FloatValueAnimator</span></code>
+<p>Resets the <a href="set-from-value.html#com.asdev.libjam.md.animation.FloatValueAnimator$setFromValue(kotlin.Float)/from">from</a> value of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="set-to-value.html">setToValue</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setToValue</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$setToValue(kotlin.Float)/to">to</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">FloatValueAnimator</span></code>
+<p>Resets the <a href="set-to-value.html#com.asdev.libjam.md.animation.FloatValueAnimator$setToValue(kotlin.Float)/to">to</a> value of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="set-value.html">setValue</a></td>
+<td>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">setValue</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$setValue(kotlin.Any, kotlin.reflect.KProperty((kotlin.Any)), kotlin.Float)/thisRef">thisRef</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$setValue(kotlin.Any, kotlin.reflect.KProperty((kotlin.Any)), kotlin.Float)/property">property</span><span class="symbol">:</span>&nbsp;<span class="identifier">KProperty</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$setValue(kotlin.Any, kotlin.reflect.KProperty((kotlin.Any)), kotlin.Float)/value">value</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Settings the value on this animator will cancel the animation and assign the value.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-animator/cancel.html">cancel</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">cancel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Cancels and resets this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/get-duration.html">getDuration</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDuration</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Returns the duration of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/get-interpolator.html">getInterpolator</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getInterpolator</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-interpolator/index.html"><span class="identifier">Interpolator</span></a></code>
+<p>Returns the interpolator of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/get-progress.html">getProgress</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getProgress</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Returns the progress (between 0.0 - 1.0) of this animation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/get-start-delay.html">getStartDelay</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getStartDelay</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Returns the start delay of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/get-start-time.html">getStartTime</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getStartTime</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Long</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/has-ended.html">hasEnded</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hasEnded</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Returns whether this animation has ended or not yet.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/loop.html">loop</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Loops/updates this animator. Calls this on the UILooper to keep it in sync.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/set-duration.html">setDuration</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setDuration</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.Animator$setDuration(kotlin.Float)/duration">duration</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-animator/index.html"><span class="identifier">Animator</span></a></code>
+<p>Resets the duration of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/set-interpolator.html">setInterpolator</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setInterpolator</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.Animator$setInterpolator(com.asdev.libjam.md.animation.Interpolator)/interpolator">interpolator</span><span class="symbol">:</span>&nbsp;<a href="../-interpolator/index.html"><span class="identifier">Interpolator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-animator/index.html"><span class="identifier">Animator</span></a></code>
+<p>Resets the interpolator of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/set-start-delay.html">setStartDelay</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">setStartDelay</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.Animator$setStartDelay(kotlin.Float)/delay">delay</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-animator/index.html"><span class="identifier">Animator</span></a></code>
+<p>Resets the start delay of this animator.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/start.html">start</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Starts this animations</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

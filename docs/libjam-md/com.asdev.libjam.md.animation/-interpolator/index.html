@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<title>Interpolator - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.animation</a>&nbsp;/&nbsp;<a href=".">Interpolator</a><br/>
+<br/>
+<h1>Interpolator</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Interpolator</span></code>
+<p>Created by Asdev on 10/16/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+<p>Authored by Shahbaz Momi as part of libjam-md
+under the package com.asdev.libjam.md.animation</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">Interpolator</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Created by Asdev on 10/16/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="get-value.html">getValue</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.Interpolator$getValue(kotlin.Float)/input">input</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Interpolates the given value (between 0.0 - 1.0) to the interpolated value between (0.0 - 1.0).
+The interpolated value should always give an output of 1.0 for the input of 1.0.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-accelerate-decelerate-interpolator/index.html">AccelerateDecelerateInterpolator</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">AccelerateDecelerateInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator where the rate of change starts and ends slowly but accelerates through the middle.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-accelerate-interpolator/index.html">AccelerateInterpolator</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">AccelerateInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator where the rate of change starts out slowly and and then accelerates.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-anticipate-interpolator/index.html">AnticipateInterpolator</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">AnticipateInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator where the change starts backward then flings forward.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-bounce-interpolator/index.html">BounceInterpolator</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">BounceInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator where the change bounces at the end.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-cycle-interpolator/index.html">CycleInterpolator</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">CycleInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator where the change bounces at the end.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-decelerate-interpolator/index.html">DecelerateInterpolator</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DecelerateInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator where the rate of change starts out quickly and and then decelerates.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-factorable-decelerate-interpolator/index.html">FactorableDecelerateInterpolator</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FactorableDecelerateInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator (with a decelerate factor) where the rate of change starts out quickly and and then decelerates.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-linear-interpolator/index.html">LinearInterpolator</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">LinearInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator where the input value is equal to the output value, therefore interpolating the value in a linear fashion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-overshoot-interpolator/index.html">OvershootInterpolator</a></td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">OvershootInterpolator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Interpolator</span></code>
+<p>An interpolator where the change flings forward and overshoots the last value then comes back.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

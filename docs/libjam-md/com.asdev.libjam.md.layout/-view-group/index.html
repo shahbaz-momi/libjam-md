@@ -30,7 +30,7 @@
 <a href="../../com.asdev.libjam.md.view/-view/background.html">background</a></td>
 <td>
 <code><span class="keyword">var </span><span class="identifier">background</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.drawable/-drawable/index.html"><span class="identifier">Drawable</span></a><span class="symbol">?</span></code>
-<p>The background drawable of this view. Defaults to the <a href="../../com.asdev.libjam.md.theme/-t-h-e-m-e.html">THEME</a> background color.</p>
+<p>The background drawable of this view. Defaults to the null.</p>
 </td>
 </tr>
 <tr>
@@ -62,6 +62,22 @@ try to grow the view to that size.</p>
 <td>
 <code><span class="keyword">var </span><span class="identifier">mouseListener</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-view-mouse-listener/index.html"><span class="identifier">ViewMouseListener</span></a><span class="symbol">?</span></code>
 <p>The mouse listener associated with this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-click-listener.html">onClickListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onClickListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when this view is clicked upon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-press-listener.html">onPressListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onPressListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when this view is pressed upon.</p>
 </td>
 </tr>
 <tr>

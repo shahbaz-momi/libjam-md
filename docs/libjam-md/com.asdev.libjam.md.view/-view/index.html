@@ -59,7 +59,7 @@ implements the bare minimum functionality, allowing for easy extensibility.</p>
 <a href="background.html">background</a></td>
 <td>
 <code><span class="keyword">var </span><span class="identifier">background</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.drawable/-drawable/index.html"><span class="identifier">Drawable</span></a><span class="symbol">?</span></code>
-<p>The background drawable of this view. Defaults to the <a href="../../com.asdev.libjam.md.theme/-t-h-e-m-e.html">THEME</a> background color.</p>
+<p>The background drawable of this view. Defaults to the null.</p>
 </td>
 </tr>
 <tr>
@@ -91,6 +91,22 @@ try to grow the view to that size.</p>
 <td>
 <code><span class="keyword">var </span><span class="identifier">mouseListener</span><span class="symbol">: </span><a href="-view-mouse-listener/index.html"><span class="identifier">ViewMouseListener</span></a><span class="symbol">?</span></code>
 <p>The mouse listener associated with this View.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-click-listener.html">onClickListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onClickListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when this view is clicked upon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-press-listener.html">onPressListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onPressListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when this view is pressed upon.</p>
 </td>
 </tr>
 <tr>
@@ -317,10 +333,18 @@ view should be 0, 0 when drawing something</p>
 <td>
 <a href="../../com.asdev.libjam.md.layout/-elevated-layout/index.html">ElevatedLayout</a></td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">ElevatedLayout</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">View</span></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ElevatedLayout</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">View</span></code>
 <p>Created by Asdev on 10/14/16. All rights reserved.
 Unauthorized copying via any medium is stricitly
 prohibited.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.layout/-padding-layout/index.html">PaddingLayout</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PaddingLayout</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">View</span></code>
+<p>A layout that has one child and that provides a padding around he child.</p>
 </td>
 </tr>
 <tr>

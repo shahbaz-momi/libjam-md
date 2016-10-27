@@ -1,0 +1,335 @@
+<HTML>
+<HEAD>
+<title>ElevatedLayout - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.layout</a>&nbsp;/&nbsp;<a href=".">ElevatedLayout</a><br/>
+<br/>
+<h1>ElevatedLayout</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ElevatedLayout</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code>
+<p>Created by Asdev on 10/14/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+<p>Authored by Shahbaz Momi as part of libjam-md
+under the package com.asdev.libjam.md.layout</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">ElevatedLayout</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$<init>(com.asdev.libjam.md.view.View, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$<init>(com.asdev.libjam.md.view.View, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/radius">radius</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span>&nbsp;<span class="symbol">=</span>&nbsp;15f<span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$<init>(com.asdev.libjam.md.view.View, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/opacity">opacity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span>&nbsp;<span class="symbol">=</span>&nbsp;0.25f<span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$<init>(com.asdev.libjam.md.view.View, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/shadowYOffset">shadowYOffset</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span>&nbsp;<span class="symbol">=</span>&nbsp;1f<span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$<init>(com.asdev.libjam.md.view.View, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/roundRadius">roundRadius</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span>&nbsp;<span class="symbol">=</span>&nbsp;0f<span class="symbol">)</span></code>
+<p>Created by Asdev on 10/14/16. All rights reserved.
+Unauthorized copying via any medium is stricitly
+prohibited.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="child.html">child</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">child</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="radius.html">radius</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">radius</span><span class="symbol">: </span><span class="identifier">Float</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="round-radius.html">roundRadius</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">roundRadius</span><span class="symbol">: </span><span class="identifier">Float</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/background.html">background</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">background</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.drawable/-drawable/index.html"><span class="identifier">Drawable</span></a><span class="symbol">?</span></code>
+<p>The background drawable of this view. Defaults to the null.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/layout-size.html">layoutSize</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">layoutSize</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a></code>
+<p>The size of this view set by the layout. Will be between min and max size once a layout pass has been conducted.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/max-size.html">maxSize</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">maxSize</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a></code>
+<p>The max and minimum sizes of this view. Consider the maximum size as the preferred size as the layout will always
+try to grow the view to that size.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/min-size.html">minSize</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">minSize</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/mouse-listener.html">mouseListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">mouseListener</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-view-mouse-listener/index.html"><span class="identifier">ViewMouseListener</span></a><span class="symbol">?</span></code>
+<p>The mouse listener associated with this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-click-listener.html">onClickListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onClickListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when this view is clicked upon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-press-listener.html">onPressListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onPressListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when this view is pressed upon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/state.html">state</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">state</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a></code>
+<p>The state of the current view.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/state-listener.html">stateListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">stateListener</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-state-listener/index.html"><span class="identifier">StateListener</span></a><span class="symbol">?</span></code>
+<p>The state listener associated with this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/translation-x.html">translationX</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">translationX</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>The translationX of this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/translation-x-animator.html">translationXAnimator</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">translationXAnimator</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.animation/-float-value-animator/index.html"><span class="identifier">FloatValueAnimator</span></a></code>
+<p>The <a href="../../com.asdev.libjam.md.animation/-float-value-animator/index.html">FloatValueAnimator</a> for <a href="../../com.asdev.libjam.md.view/-view/translation-x.html">translationX</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/translation-y.html">translationY</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">translationY</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>The translationY of this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/translation-y-animator.html">translationYAnimator</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">translationYAnimator</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.animation/-float-value-animator/index.html"><span class="identifier">FloatValueAnimator</span></a></code>
+<p>The <a href="../../com.asdev.libjam.md.animation/-float-value-animator/index.html">FloatValueAnimator</a> for <a href="../../com.asdev.libjam.md.view/-view/translation-y.html">translationY</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/visibility.html">visibility</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">visibility</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>Defines the visibility of this view. May either be VISIBLE or INVISIBLE</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/z-index.html">zIndex</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">zIndex</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>The ordering index of this view. The higher the index, the further on-top it is drawn.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="loop.html">loop</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>A function called on the UI thread 60 times a second to update this view.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-draw.html">onDraw</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when to draw the view. Graphics should be clipped and translated to this view. E.g. the origin of this
+view should be 0, 0 when drawing something</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-layout.html">onLayout</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onLayout</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onLayout(com.asdev.libjam.md.util.FloatDim)/newSize">newSize</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the layout has determined the size of this layout</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-measure.html">onMeasure</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMeasure</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMeasure(com.asdev.libjam.md.layout.LayoutParams)/result">result</span><span class="symbol">:</span>&nbsp;<a href="../-layout-params/index.html"><span class="identifier">LayoutParams</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-layout-params/index.html"><span class="identifier">LayoutParams</span></a></code>
+<p>Called by the layout before layout to signify that the view should determine its max and min sizes at this point.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-mouse-dragged.html">onMouseDragged</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseDragged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse is dragged within this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-mouse-moved.html">onMouseMoved</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseMoved</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMouseMoved(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMouseMoved(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse is moved within this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-mouse-press.html">onMousePress</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMousePress</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse is pressed within this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-mouse-release.html">onMouseRelease</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseRelease</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse is released within this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-theme-change.html">onThemeChange</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onThemeChange</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/prevTheme">prevTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/newTheme">newTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called by the <a href="#">RootView</a> when an <a href="../../com.asdev.libjam.md.theme/-theme/index.html">Theme</a> change occurs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/apply-layout-parameters.html">applyLayoutParameters</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">applyLayoutParameters</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$applyLayoutParameters(com.asdev.libjam.md.layout.GenericLayoutParamList)/params">params</span><span class="symbol">:</span>&nbsp;<a href="../-generic-layout-param-list/index.html"><span class="identifier">GenericLayoutParamList</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Applies the given layout parameters. Can be taken by onMeasure</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/compare-to.html">compareTo</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">compareTo</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$compareTo(com.asdev.libjam.md.view.View)/other">other</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>Compares this view against the other view based on the z-index.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-mouse-enter.html">onMouseEnter</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseEnter</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onMouseEnter(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View$onMouseEnter(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse enters this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-mouse-exit.html">onMouseExit</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseExit</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onMouseExit(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View$onMouseExit(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse exits this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-state-changed.html">onStateChanged</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onStateChanged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/previous">previous</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the state of this view has changed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/request-layout.html">requestLayout</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">requestLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sends a message to the root view to request a re-layout.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/request-repaint.html">requestRepaint</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">requestRepaint</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Requests a repaint (to the <a href="#">RootView</a>) of the entire frame. It broadcasts a message via the UI <a href="../../com.asdev.libjam.md.thread/-looper/index.html">Looper</a> to the
+<a href="#">RootView</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/send-message-to-root.html">sendMessageToRoot</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sendMessageToRoot</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$sendMessageToRoot(com.asdev.libjam.md.thread.Message)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.thread/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sends a message to the root view. MUST be run on the ui looper/thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/set-cursor.html">setCursor</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setCursor</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$setCursor(kotlin.Int)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sets the current mouse cursor.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

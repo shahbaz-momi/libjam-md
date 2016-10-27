@@ -25,14 +25,45 @@ under the package com.asdev.libjam.md.base</p>
 </tr>
 </tbody>
 </table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="on-dispose-listener.html">onDisposeListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onDisposeListener</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">Unit</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when the frame is disposed and the system is exiting.</p>
+</td>
+</tr>
+</tbody>
+</table>
 <h3>Functions</h3>
 <table>
 <tbody>
 <tr>
 <td>
+<a href="destroy.html">destroy</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">destroy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-frame.html">getFrame</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JFrame.html"><span class="identifier">JFrame</span></a></code></td>
+</tr>
+<tr>
+<td>
 <a href="get-frame-decoration.html">getFrameDecoration</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">getFrameDecoration</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.layout/-frame-decoration/index.html"><span class="identifier">FrameDecoration</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-local-frame-state.html">getLocalFrameState</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getLocalFrameState</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
 </tr>
 <tr>
 <td>
@@ -73,6 +104,12 @@ Will be after handleMessage but on the same thread.</p>
 <code><span class="keyword">fun </span><span class="identifier">loopsPerSecond</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
 <p>The number of loops to perform per second</p>
 </td>
+</tr>
+<tr>
+<td>
+<a href="minimize.html">minimize</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">minimize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>
@@ -130,6 +167,12 @@ Will be after handleMessage but on the same thread.</p>
 </tr>
 <tr>
 <td>
+<a href="set-local-frame-state.html">setLocalFrameState</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setLocalFrameState</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$setLocalFrameState(kotlin.Int)/newState">newState</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
 <a href="set-size.html">setSize</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">setSize</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$setSize(java.awt.Dimension)/d">d</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
@@ -157,6 +200,18 @@ Will be after handleMessage but on the same thread.</p>
 <code><span class="keyword">fun </span><span class="identifier">showFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Shows the frame (internal JFrame).</p>
 </td>
+</tr>
+<tr>
+<td>
+<a href="start-maximize-animation.html">startMaximizeAnimation</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">startMaximizeAnimation</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$startMaximizeAnimation(com.asdev.libjam.md.util.FloatDim)/size">size</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="start-minimize-animation.html">startMinimizeAnimation</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">startMinimizeAnimation</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>

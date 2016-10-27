@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<title>NinePatchDrawable - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.drawable</a>&nbsp;/&nbsp;<a href=".">NinePatchDrawable</a><br/>
+<br/>
+<h1>NinePatchDrawable</h1>
+<code><span class="keyword">class </span><span class="identifier">NinePatchDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-drawable/index.html"><span class="identifier">Drawable</span></a></code>
+<p>Accepts a standard Android nine-patch foreground and draws it as a nine-patch drawable. NOTE: this is slow, so using caching
+(by setting cache = true) if you are going to be constantly be repainting the foreground. This may improve performance just
+a bit.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">NinePatchDrawable</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.drawable.NinePatchDrawable$<init>(java.awt.image.BufferedImage, kotlin.Boolean, kotlin.Boolean)/ninepatch">ninepatch</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/image/BufferedImage.html"><span class="identifier">BufferedImage</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.NinePatchDrawable$<init>(java.awt.image.BufferedImage, kotlin.Boolean, kotlin.Boolean)/doCache">doCache</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span>&nbsp;<span class="symbol">=</span>&nbsp;false<span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.NinePatchDrawable$<init>(java.awt.image.BufferedImage, kotlin.Boolean, kotlin.Boolean)/drawMiddlePatch">drawMiddlePatch</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span>&nbsp;<span class="symbol">=</span>&nbsp;true<span class="symbol">)</span></code>
+<p>Accepts a standard Android nine-patch foreground and draws it as a nine-patch drawable. NOTE: this is slow, so using caching
+(by setting cache = true) if you are going to be constantly be repainting the foreground. This may improve performance just
+a bit.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="do-cache.html">doCache</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">doCache</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="draw-middle-patch.html">drawMiddlePatch</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">drawMiddlePatch</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="ninepatch.html">ninepatch</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">ninepatch</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/image/BufferedImage.html"><span class="identifier">BufferedImage</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="draw.html">draw</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">draw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.drawable.NinePatchDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.NinePatchDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/x">x</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.NinePatchDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/y">y</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.NinePatchDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/w">w</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.NinePatchDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/h">h</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Draws the nine patch to the specified bounding box.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

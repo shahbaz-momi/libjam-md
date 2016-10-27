@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<title>AnimatedShadowDrawable - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.drawable</a>&nbsp;/&nbsp;<a href=".">AnimatedShadowDrawable</a><br/>
+<br/>
+<h1>AnimatedShadowDrawable</h1>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AnimatedShadowDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-animated-drawable/index.html"><span class="identifier">AnimatedDrawable</span></a></code>
+<p>A class that draws an animated rectangular shadow.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">AnimatedShadowDrawable</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$<init>(kotlin.Float, kotlin.Float, kotlin.Float)/radius">radius</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span>&nbsp;<span class="symbol">=</span>&nbsp;10f<span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$<init>(kotlin.Float, kotlin.Float, kotlin.Float)/opacity">opacity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span>&nbsp;<span class="symbol">=</span>&nbsp;0.3f<span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$<init>(kotlin.Float, kotlin.Float, kotlin.Float)/yOffset">yOffset</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span>&nbsp;<span class="symbol">=</span>&nbsp;1f<span class="symbol">)</span></code>
+<p>A class that draws an animated rectangular shadow.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="radius.html">radius</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">radius</span><span class="symbol">: </span><span class="identifier">Float</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="y-offset.html">yOffset</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">yOffset</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>The y offset of the shadow.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="y-offset-animator.html">yOffsetAnimator</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">yOffsetAnimator</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.animation/-float-value-animator/index.html"><span class="identifier">FloatValueAnimator</span></a></code>
+<p>The animator for the yOffset of this <a href="../-drawable/index.html">Drawable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="draw.html">draw</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">draw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State, kotlin.Float)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State, kotlin.Float)/x">x</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State, kotlin.Float)/y">y</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State, kotlin.Float)/w">w</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State, kotlin.Float)/h">h</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State, kotlin.Float)/state">state</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedShadowDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State, kotlin.Float)/progress">progress</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Draws the shadow to the specified bounding box.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="request-frame.html">requestFrame</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">requestFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Returns whether or not to draw a new frame.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-animated-drawable/draw.html">draw</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">draw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State)/x">x</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State)/y">y</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State)/w">w</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State)/h">h</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.drawable.AnimatedDrawable$draw(java.awt.Graphics2D, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float, com.asdev.libjam.md.view.View.State)/state">state</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Draws this animatable drawable with the given state with an invalid progress (-1f).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-animated-hover-shadow-drawable/index.html">AnimatedHoverShadowDrawable</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AnimatedHoverShadowDrawable</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AnimatedShadowDrawable</span></code>
+<p>An animated shadow drawable that creates a hovering animation based off of the state.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
