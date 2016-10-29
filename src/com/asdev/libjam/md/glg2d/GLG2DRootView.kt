@@ -1,5 +1,6 @@
 package com.asdev.libjam.md.glg2d
 
+import com.asdev.libjam.md.base.WindowStateManager
 import com.asdev.libjam.md.layout.FrameDecoration
 import com.asdev.libjam.md.layout.LinearLayout
 import com.asdev.libjam.md.layout.newLayoutParams
@@ -44,12 +45,16 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, isUndecorated: Bo
 
     private var frameDecoration: FrameDecoration? = null
 
+    private val windowStateManager: WindowStateManager
+
     init {
         frame = JFrame(title)
         frame.isUndecorated = isUndecorated
 
+        windowStateManager = WindowStateManager(frame)
+
         if(isUndecorated) {
-            frameDecoration = FrameDecoration(title, frame, null)
+            frameDecoration = FrameDecoration(title, frame, windowStateManager)
 
             val container = LinearLayout()
             container.addChild(frameDecoration!!)
@@ -79,6 +84,8 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, isUndecorated: Bo
 
         setTheme(THEME)
     }
+
+    fun getWindowStateManager() = windowStateManager
 
     fun getFrameDecoration() = frameDecoration
 

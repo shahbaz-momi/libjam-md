@@ -1,8 +1,6 @@
 package com.asdev.libjam.md.layout
 
-import com.asdev.libjam.md.base.RootView
-import com.asdev.libjam.md.base.STATE_MAXIMIZED
-import com.asdev.libjam.md.base.STATE_ORIGINAL
+import com.asdev.libjam.md.base.WindowStateManager
 import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.theme.*
 import com.asdev.libjam.md.util.DIM_UNLIMITED
@@ -28,7 +26,7 @@ import javax.swing.JFrame
 /**
  * A custom material design frame decoration.
  */
-class FrameDecoration(title: String, val frame: JFrame, val rootView: RootView?): LinearLayout() {
+class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: WindowStateManager): LinearLayout() {
 
     private val navBar: RelativeLayout
     private val toolbar: RelativeLayout
@@ -57,6 +55,7 @@ class FrameDecoration(title: String, val frame: JFrame, val rootView: RootView?)
         navBar.minSize = navBar.maxSize
         toolbar.maxSize = FloatDim(-2f, 50f)
         toolbar.minSize = toolbar.maxSize
+        toolbar.overClipTop = 30f
         maxSize = FloatDim(-2f, 85f)
         minSize = maxSize
 
@@ -68,7 +67,7 @@ class FrameDecoration(title: String, val frame: JFrame, val rootView: RootView?)
         buttonMinimize.foreground = ImageDrawable(ImageIO.read(File("assets/minimize.png")), SCALE_TYPE_ORIGINAL)
         buttonMinimize.setThemeColor(COLOR_TITLE)
 
-        buttonMinimize.onClickListener = { mouseEvent: MouseEvent, point: Point -> rootView?.minimize()}
+        buttonMinimize.onClickListener = { mouseEvent: MouseEvent, point: Point -> windowStateManager.minimize() }
 
         val maximize = ImageDrawable(ImageIO.read(File("assets/maximize.png")), SCALE_TYPE_ORIGINAL)
         val unmaximize = ImageDrawable(ImageIO.read(File("assets/unmaximize.png")), SCALE_TYPE_ORIGINAL)
@@ -77,22 +76,20 @@ class FrameDecoration(title: String, val frame: JFrame, val rootView: RootView?)
         buttonMaximize.foreground = maximize
 
         buttonMaximize.onClickListener = { mouseEvent: MouseEvent, point: Point ->
-            if(rootView?.getLocalFrameState() == STATE_ORIGINAL) {
+            windowStateManager.maximize()
+            // if is maximized set the icon for it and vice versa
+            if(windowStateManager.getState() == WindowStateManager.State.STATE_MAXIMIZED) {
                 buttonMaximize.foreground = unmaximize
             } else {
                 buttonMaximize.foreground = maximize
-
             }
-
-            // set to maximize
-            rootView?.setLocalFrameState(STATE_MAXIMIZED)
         }
 
         buttonMaximize.setThemeColor(COLOR_TITLE)
 
         val buttonClose = ButtonView("", BUTTON_TYPE_FLAT)
         buttonClose.foreground = ImageDrawable(ImageIO.read(File("assets/close.png")), SCALE_TYPE_ORIGINAL)
-        buttonClose.onClickListener = {mouseEvent: MouseEvent, point: Point -> rootView?.destroy() }
+        buttonClose.onClickListener = {mouseEvent: MouseEvent, point: Point -> windowStateManager.exit() }
         buttonClose.setThemeColor(COLOR_TITLE)
         // override to a red ripple
         buttonClose.setThemeRippleColor(-1)
@@ -157,7 +154,10 @@ class FrameDecoration(title: String, val frame: JFrame, val rootView: RootView?)
         // set the navbar as dark primary
         navBar.background = ColorDrawable(newTheme.getDarkPrimaryColor())
         // the toolbar is just primary
-        toolbar.background = ColorDrawable(newTheme.getPrimaryColor())
+        toolbar.background = CompoundDrawable(
+                ShadowDrawable(),
+                ColorDrawable(newTheme.getPrimaryColor())
+        )
     }
 
     override fun onDraw(g: Graphics2D) {

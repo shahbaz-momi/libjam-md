@@ -40,8 +40,10 @@ TODO:
 - animate window out - slide out? // CHANGE IT NOT SUPER HAPPY
 - nav buttons // DONE
 - Added GLG2D Support // USE THIS OVER STANDARD JAVA2D ROOTVIEW
-- View overClipping - Clip larger than the view for overdrawing other views.
-- Redo the nav button actions to work with the new root view
+- View overClipping - Clip larger than the view for overdrawing other views. // DONE
+- Fix weird GLG2D line on shadows
+- Redo the nav button actions to work with the new root view // DONE WITH WINDOW STATE MANAGER
+- WindowStateManager needs animation support
 - fix window intro animation flashing thing // FIXED WITH A DIRTY HACK
 - frame resizer
 - card views

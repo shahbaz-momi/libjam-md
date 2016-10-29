@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<title>GLG2DRootView - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.glg2d</a>&nbsp;/&nbsp;<a href=".">GLG2DRootView</a><br/>
+<br/>
+<h1>GLG2DRootView</h1>
+<code><span class="keyword">class </span><span class="identifier">GLG2DRootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><a href="../../com.asdev.libjam.md.thread/-loopable/index.html"><span class="identifier">Loopable</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseListener.html"><span class="identifier">MouseListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseMotionListener.html"><span class="identifier">MouseMotionListener</span></a></code>
+<p>A RootView that uses the GLG2D Canvas.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">GLG2DRootView</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$<init>(com.asdev.libjam.md.view.View, kotlin.String, java.awt.Dimension, kotlin.Boolean)/view">view</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$<init>(com.asdev.libjam.md.view.View, kotlin.String, java.awt.Dimension, kotlin.Boolean)/title">title</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$<init>(com.asdev.libjam.md.view.View, kotlin.String, java.awt.Dimension, kotlin.Boolean)/dim">dim</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$<init>(com.asdev.libjam.md.view.View, kotlin.String, java.awt.Dimension, kotlin.Boolean)/isUndecorated">isUndecorated</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span>&nbsp;<span class="symbol">=</span>&nbsp;false<span class="symbol">)</span></code>
+<p>A RootView that uses the GLG2D Canvas.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="get-frame-decoration.html">getFrameDecoration</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFrameDecoration</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.layout/-frame-decoration/index.html"><span class="identifier">FrameDecoration</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-window-state-manager.html">getWindowStateManager</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getWindowStateManager</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.base/-window-state-manager/index.html"><span class="identifier">WindowStateManager</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="handle-message.html">handleMessage</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handleMessage</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$handleMessage(com.asdev.libjam.md.thread.Message)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.thread/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a message is sent to this looper
+Will be before loop and on the same thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="hide-frame.html">hideFrame</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hideFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Hides the frame (internal JFrame).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="loop.html">loop</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a loop is scheduled.
+Will be after handleMessage but on the same thread.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="loops-per-second.html">loopsPerSecond</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loopsPerSecond</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>The number of loops to perform per second</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="mouse-clicked.html">mouseClicked</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseClicked</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$mouseClicked(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-dragged.html">mouseDragged</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseDragged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$mouseDragged(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-entered.html">mouseEntered</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseEntered</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$mouseEntered(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-exited.html">mouseExited</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseExited</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$mouseExited(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-moved.html">mouseMoved</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseMoved</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$mouseMoved(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-pressed.html">mousePressed</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mousePressed</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$mousePressed(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-released.html">mouseReleased</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseReleased</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$mouseReleased(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="paint-component.html">paintComponent</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">paintComponent</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$paintComponent(java.awt.Graphics)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics.html"><span class="identifier">Graphics</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="set-cursor.html">setCursor</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setCursor</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$setCursor(kotlin.Int)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="set-size.html">setSize</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setSize</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$setSize(java.awt.Dimension)/d">d</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="set-theme.html">setTheme</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setTheme</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.glg2d.GLG2DRootView$setTheme(com.asdev.libjam.md.theme.Theme)/theme">theme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="show-frame.html">showFrame</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">showFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Shows the frame (internal JFrame).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

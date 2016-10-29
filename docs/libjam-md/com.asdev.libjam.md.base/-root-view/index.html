@@ -25,28 +25,9 @@ under the package com.asdev.libjam.md.base</p>
 </tr>
 </tbody>
 </table>
-<h3>Properties</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<a href="on-dispose-listener.html">onDisposeListener</a></td>
-<td>
-<code><span class="keyword">var </span><span class="identifier">onDisposeListener</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">Unit</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
-<p>Called when the frame is disposed and the system is exiting.</p>
-</td>
-</tr>
-</tbody>
-</table>
 <h3>Functions</h3>
 <table>
 <tbody>
-<tr>
-<td>
-<a href="destroy.html">destroy</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">destroy</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
-</tr>
 <tr>
 <td>
 <a href="get-frame.html">getFrame</a></td>
@@ -61,15 +42,15 @@ under the package com.asdev.libjam.md.base</p>
 </tr>
 <tr>
 <td>
-<a href="get-local-frame-state.html">getLocalFrameState</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">getLocalFrameState</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
-</tr>
-<tr>
-<td>
 <a href="get-size.html">getSize</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">getSize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="get-window-state-manager.html">getWindowStateManager</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getWindowStateManager</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-window-state-manager/index.html"><span class="identifier">WindowStateManager</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -164,12 +145,6 @@ Will be after handleMessage but on the same thread.</p>
 <a href="set-cursor.html">setCursor</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">setCursor</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$setCursor(kotlin.Int)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
-</tr>
-<tr>
-<td>
-<a href="set-local-frame-state.html">setLocalFrameState</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">setLocalFrameState</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$setLocalFrameState(kotlin.Int)/newState">newState</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
 </tr>
 <tr>
 <td>

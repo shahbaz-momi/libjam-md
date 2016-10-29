@@ -82,7 +82,7 @@ open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Flo
         // translate the canvas
         g.translate(radius.toDouble() + child.translationX.toDouble(), radius.toDouble() + child.translationY.toDouble())
         // intersect the child bounds clip
-        g.clip(RoundRectangle2D.Float(0f, 0f, child.layoutSize.w, child.layoutSize.h, roundRadius, roundRadius)) // for a rounded frame
+        g.clip(RoundRectangle2D.Float(0f - child.overClipLeft, 0f - child.overClipTop, child.layoutSize.w + child.overClipRight + child.overClipLeft, child.layoutSize.h + child.overClipBottom + child.overClipTop, roundRadius, roundRadius)) // for a rounded frame
         background?.draw(g, 0f, 0f, child.layoutSize.w, child.layoutSize.h)
         // draw the child
         child.onDraw(g)

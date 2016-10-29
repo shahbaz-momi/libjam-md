@@ -84,7 +84,7 @@ fun main(args: Array<String>) {
     card.addChild(divider)
     card.addChild(actions)
 
-    layout.addChild(PaddingLayout(ElevatedLayout(card, roundRadius = 5f), 30f))
+    layout.addChild(ElevatedLayout(card, roundRadius = 5f))
     val root = RootView("My Drive", Dimension(500, 500), layout, true)
 
     // show frame decoration above all

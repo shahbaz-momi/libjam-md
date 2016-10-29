@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<title>WindowStateManager - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.base</a>&nbsp;/&nbsp;<a href=".">WindowStateManager</a><br/>
+<br/>
+<h1>WindowStateManager</h1>
+<code><span class="keyword">class </span><span class="identifier">WindowStateManager</span></code>
+<p>Manages the state of the attached windows.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-state/index.html">State</a></td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">State</span></code>
+<p>State enumerations that can be used to set the state.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">WindowStateManager</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.WindowStateManager$<init>(javax.swing.JFrame)/frame">frame</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JFrame.html"><span class="identifier">JFrame</span></a><span class="symbol">)</span></code>
+<p>Manages the state of the attached windows.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="dispose-listener.html">disposeListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">disposeListener</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">Unit</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when the frame is scheduled to exit.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="frame.html">frame</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">frame</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JFrame.html"><span class="identifier">JFrame</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="window-state-listener.html">windowStateListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">windowStateListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="-state/index.html"><span class="identifier">State</span></a><span class="symbol">,</span>&nbsp;<a href="-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Calls this function when the state is changed</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="exit.html">exit</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">exit</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Exits the application.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="get-state.html">getState</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getState</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-state/index.html"><span class="identifier">State</span></a></code>
+<p>Returns the current state of the window.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="maximize.html">maximize</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">maximize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Maximizes the window.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="minimize.html">minimize</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">minimize</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Minimizes the window.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="set-state.html">setState</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setState</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.WindowStateManager$setState(com.asdev.libjam.md.base.WindowStateManager.State)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sets the state of the window.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

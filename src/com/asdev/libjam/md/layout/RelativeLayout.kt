@@ -569,7 +569,7 @@ class RelativeLayout: ViewGroup() {
             // translate it
             g.translate( p.x.toDouble() + c.translationX.toDouble(), p.y.toDouble() + c.translationY.toDouble())
             // intersect the clip
-            g.clipRect(0, 0, c.layoutSize.w.toInt(), c.layoutSize.h.toInt())
+            g.clipRect(0 - c.overClipLeft.toInt(), 0 - c.overClipTop.toInt(), c.layoutSize.w.toInt() + c.overClipRight.toInt() + c.overClipLeft.toInt(), c.layoutSize.h.toInt() + c.overClipBottom.toInt() + c.overClipTop.toInt())
             c.onDraw(g)
             g.translate( -p.x.toDouble() - c.translationX.toDouble(), -p.y.toDouble() - c.translationY.toDouble())
             // reset the clip

@@ -324,7 +324,7 @@ open class LinearLayout: ViewGroup() {
             // add the translation of the views
             g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())
             // intersect the child clip
-            g.clipRect(0, 0, c.layoutSize.w.toInt(), c.layoutSize.h.toInt())
+            g.clipRect(0 - c.overClipLeft.toInt(), 0 - c.overClipTop.toInt(), c.layoutSize.w.toInt() + c.overClipRight.toInt() + c.overClipLeft.toInt(), c.layoutSize.h.toInt() + c.overClipBottom.toInt() + c.overClipTop.toInt())
             c.onDraw(g)
             g.translate(-childrenCoords[i].x.toDouble() - c.translationX.toDouble(), -childrenCoords[i].y.toDouble() - c.translationY.toDouble())
 

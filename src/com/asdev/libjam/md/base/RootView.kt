@@ -31,24 +31,22 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     private val rootView: View
     private val looper: Looper
     private val frameDecoration: FrameDecoration?
-
-    /**
-     * Called when the frame is disposed and the system is exiting.
-     */
-    var onDisposeListener: ((Unit) -> Unit)? = null
+    private val windowStateManager: WindowStateManager
 
     constructor(title: String, size: Dimension, rootVG: View, customToolbar: Boolean) {
         frame = JFrame(title)
 
+        windowStateManager = WindowStateManager(frame)
+
         frame.isUndecorated = customToolbar
 
         if(customToolbar) {
-//            frame.background = Color(0, 0, 0, 0)
-//            background = Color(0, 0, 0, 0)
-//            isOpaque = false
+            frame.background = Color(0, 0, 0, 0)
+            background = Color(0, 0, 0, 0)
+            isOpaque = false
 
             // add a frame decorator
-            frameDecoration = FrameDecoration(title, frame, this)
+            frameDecoration = FrameDecoration(title, frame, windowStateManager)
 
             val l = LinearLayout()
             l.addChild(frameDecoration)
@@ -127,6 +125,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
 
         })
     }
+
+    fun getWindowStateManager() = windowStateManager
 
     fun getFrameDecoration() = frameDecoration
 
@@ -417,35 +417,5 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         focused = true
     }
 
-    fun destroy() {
-        onDisposeListener?.invoke(Unit)
-        frame.dispose()
-        System.exit(0)
-    }
-
     fun getFrame() = frame
-
-    private var localState = STATE_ORIGINAL
-    private var previousBounds = Rectangle(0, 0, 0, 0)
-
-    fun getLocalFrameState() = localState
-
-    fun setLocalFrameState(newState: Int) {
-        if(newState == STATE_MAXIMIZED && localState != STATE_MAXIMIZED) {
-            previousBounds = frame.bounds
-
-            val bounds = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds
-            frame.setLocation(0, 0)
-            frame.setSize(bounds.width, bounds.height)
-            localState = STATE_MAXIMIZED
-        } else if(newState == STATE_MAXIMIZED) {
-            frame.bounds = previousBounds
-
-            // set to original state
-            localState = STATE_ORIGINAL
-        }
-    }
 }
-
-const val STATE_ORIGINAL = 0
-const val STATE_MAXIMIZED = 1

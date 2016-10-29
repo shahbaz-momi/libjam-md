@@ -124,6 +124,26 @@ open class View: Comparable<View> {
     var onPressListener: ((MouseEvent, Point) -> Unit)? = null
 
     /**
+     * The amount to over-clip to the left.
+     */
+    var overClipLeft = 0f
+
+    /**
+     * The amount to over-clip to the right.
+     */
+    var overClipRight = 0f
+
+    /**
+     * The amount to over-clip to the top.
+     */
+    var overClipTop = 0f
+
+    /**
+     * The amount to over-clip to the bottom.
+     */
+    var overClipBottom = 0f
+
+    /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
      * @return the min and max sizes, respectively.
      */
