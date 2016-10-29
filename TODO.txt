@@ -41,8 +41,9 @@ TODO:
 - nav buttons // DONE
 - Added GLG2D Support // USE THIS OVER STANDARD JAVA2D ROOTVIEW
 - View overClipping - Clip larger than the view for overdrawing other views. // DONE
-- Fix weird GLG2D line on shadows
+- Fix weird GLG2D line on shadows // FIXED BY CLIPPING ONE OVER
 - Redo the nav button actions to work with the new root view // DONE WITH WINDOW STATE MANAGER
+- Frame drag resets state
 - WindowStateManager needs animation support
 - fix window intro animation flashing thing // FIXED WITH A DIRTY HACK
 - frame resizer

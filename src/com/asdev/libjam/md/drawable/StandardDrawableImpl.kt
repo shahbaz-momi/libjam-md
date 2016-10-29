@@ -271,6 +271,11 @@ class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = fal
         // 3 4 5
         // 6 7 8
 
+        val prevClip = g.clip
+
+        // clip one over to prevent wierd lines from appearing
+        g.clipRect(x.toInt() + 1, y.toInt() + 1, w.toInt() - 2, h.toInt() - 2)
+
         // left section
         val leftW = sizes[0].width
         val rightW = sizes[2].width
@@ -356,6 +361,7 @@ class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = fal
                 g.drawImage(cache, x.toInt(), y.toInt(), null)
             }
 
+            g.clip = prevClip
             return
         }
 
@@ -387,6 +393,8 @@ class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = fal
         // draw section 8
         g.drawImage(ninepatch, rightStartX, bottomStartY, rightEndX, bottomEndY, coords[8].x, coords[8].y, coords[8].x + sizes[8].width, coords[8].y + sizes[8].height, null)
         // g.drawImage(section[8], rightStartX, bottomStartY, (rightEndX - rightStartX), (bottomEndY - bottomStartY), null)
+
+        g.clip = prevClip
     }
 
 }

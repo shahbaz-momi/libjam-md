@@ -77,8 +77,11 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
 
         buttonMaximize.onClickListener = { mouseEvent: MouseEvent, point: Point ->
             windowStateManager.maximize()
+        }
+
+        windowStateManager.maximizeListener = { b: Boolean ->
             // if is maximized set the icon for it and vice versa
-            if(windowStateManager.getState() == WindowStateManager.State.STATE_MAXIMIZED) {
+            if(b) {
                 buttonMaximize.foreground = unmaximize
             } else {
                 buttonMaximize.foreground = maximize
@@ -120,15 +123,24 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
             private var startP = Point(-1, -1)
 
             override fun onMousePress(e: MouseEvent, p: Point) {
-                startP.x = e.x
-                startP.y = e.y
+                startP.x = e.xOnScreen - frame.locationOnScreen.x
+                startP.y = e.yOnScreen - frame.locationOnScreen.y
             }
 
             override fun onMouseRelease(e: MouseEvent, p: Point) {
             }
 
             override fun onMouseDragged(e: MouseEvent, p: Point) {
-                frame.setLocation(e.xOnScreen - startP.x, e.yOnScreen - startP.y)
+                if(e.yOnScreen <= 2) {
+                    if(windowStateManager.getState() != WindowStateManager.State.STATE_MAXIMIZED)
+                        windowStateManager.setState(WindowStateManager.State.STATE_MAXIMIZED)
+                } else if(windowStateManager.getState() == WindowStateManager.State.STATE_NORMAL) {
+                    windowStateManager.setState(WindowStateManager.State.STATE_NORMAL, Point(e.xOnScreen - startP.x, e.yOnScreen - startP.y))
+                }else if(windowStateManager.getState() == WindowStateManager.State.STATE_MAXIMIZED) {
+                    windowStateManager.setState(WindowStateManager.State.STATE_NORMAL, Point(e.xOnScreen - windowStateManager.getLastBounds().width / 2, e.yOnScreen - 16))
+                    startP.x = e.xOnScreen - frame.locationOnScreen.x
+                    startP.y = e.yOnScreen - frame.locationOnScreen.y
+                }
             }
 
             override fun onMouseMoved(e: MouseEvent, p: Point) {

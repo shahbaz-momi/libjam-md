@@ -24,7 +24,7 @@ import javax.imageio.ImageIO
  */
 
 fun main(args: Array<String>) {
-    THEME = DarkMaterialTheme
+    THEME = LightMaterialTheme
     // NOTE: always initiliaze the theme before creating any views // TODO: fix that
     THEME.init()
 
@@ -84,9 +84,9 @@ fun main(args: Array<String>) {
     card.addChild(divider)
     card.addChild(actions)
 
-    layout.addChild(PaddingLayout(ElevatedLayout(card, roundRadius = 5f), 30f))
+    layout.addChild(ElevatedLayout(card, roundRadius = 5f))
 
-    val root = GLG2DRootView(layout, "Hello!", Dimension(1920, 1080), true)
+    val root = GLG2DRootView(layout, "Hello!", Dimension(501, 502), true)
     root.showFrame()
 
     root.getFrameDecoration()?.setDrawAboveAll(true)
