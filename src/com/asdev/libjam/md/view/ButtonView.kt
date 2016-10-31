@@ -175,7 +175,7 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
             foreground?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
 
         // draw the ripple
-        ripple?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, state, 0f, mPos.x.toFloat(), mPos.y.toFloat())
+        ripple?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h, mPos.x.toFloat(), mPos.y.toFloat())
     }
 
 }

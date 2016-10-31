@@ -29,7 +29,7 @@ import javax.swing.JPanel
 /**
  * A RootView that uses the GLG2D Canvas.
  */
-class GLG2DRootView(view: View, title: String, dim: Dimension, isUndecorated: Boolean = false): JPanel(), Loopable, MouseListener, MouseMotionListener {
+class GLG2DRootView(view: View, title: String, dim: Dimension, val isUndecorated: Boolean = false): JPanel(), Loopable, MouseListener, MouseMotionListener {
 
     /**
      * The frame on the screen.
@@ -244,6 +244,15 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, isUndecorated: Bo
 
         // call on draw on the root view group
         rootView.onDraw(g)
+
+        // draw the resize tab
+        g.color = THEME.getDividerColor()
+        g.fillPolygon(
+                intArrayOf(size.width - 10, size.width, size.width),
+                intArrayOf(size.height, size.height, size.height - 10),
+                3
+        )
+
         d.stopTimer("[RootView] On draw")
     }
 
@@ -280,6 +289,10 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, isUndecorated: Bo
 
     }
 
+    private var hoveringResizer = false
+    private var resizerMouseStart = Point()
+    private var orgSize = Dimension()
+
     override fun mouseReleased(e: MouseEvent?) {
         // left click only
         if(e!!.button == MouseEvent.BUTTON1)
@@ -287,16 +300,50 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, isUndecorated: Bo
     }
 
     override fun mousePressed(e: MouseEvent?) {
-        // left click only
-        if(e!!.button == MouseEvent.BUTTON1)
+        if(e == null)
+            return
+
+        // if the mouse is hovering the cursor, then start the drag
+        if(hoveringResizer) {
+            resizerMouseStart = e.locationOnScreen
+            orgSize = frame.size
+        } else if(e.button == MouseEvent.BUTTON1) {
             rootView.onMousePress(e, e.point)
+        }
     }
 
     override fun mouseMoved(e: MouseEvent?) {
-        rootView.onMouseMoved(e!!, e.point)
+        // if mouse has moved to bottom right corner, set the cursor
+        if(e == null)
+            return
+
+        if(e.x >= size.width - 10 && e.y >= size.height - 10) {
+            // set the cursor
+            if(!hoveringResizer)
+                setCursor(Cursor.SE_RESIZE_CURSOR)
+            hoveringResizer = true
+
+        } else {
+            if(hoveringResizer)
+                setCursor(Cursor.DEFAULT_CURSOR)
+            hoveringResizer = false
+
+            rootView.onMouseMoved(e, e.point)
+        }
     }
 
     override fun mouseDragged(e: MouseEvent?) {
-        rootView.onMouseDragged(e!!, e.point)
+        if(e == null)
+            return
+
+        if(hoveringResizer) {
+            val newSize = Dimension(
+                    orgSize.width + (e.xOnScreen - resizerMouseStart.x),
+                    orgSize.height + (e.yOnScreen - resizerMouseStart.y)
+            )
+            frame.size = newSize
+        } else {
+            rootView.onMouseDragged(e, e.point)
+        }
     }
 }

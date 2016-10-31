@@ -43,10 +43,12 @@ TODO:
 - View overClipping - Clip larger than the view for overdrawing other views. // DONE
 - Fix weird GLG2D line on shadows // FIXED BY CLIPPING ONE OVER
 - Redo the nav button actions to work with the new root view // DONE WITH WINDOW STATE MANAGER
-- Frame drag resets state
-- WindowStateManager needs animation support
+- Frame drag resets state // DONE
+- WindowStateManager needs animation support // LATER WHEN ANIMATIONS ARE TO BE IMPLEMENTED
 - fix window intro animation flashing thing // FIXED WITH A DIRTY HACK
-- frame resizer
+- frame resizer // DONE
+- tool tips
+- tab view traversal
 - card views
 - right-click menu / dropdown menu
 - scroll views

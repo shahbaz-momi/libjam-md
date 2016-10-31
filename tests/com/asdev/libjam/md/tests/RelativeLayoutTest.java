@@ -103,7 +103,7 @@ public class RelativeLayoutTest {
         v.addChild(child6);
         v.addChild(l2);
 
-        RootView rootView = new RootView("Testing...", new Dimension(500, 500), v, false);
+        RootView rootView = new RootView("Testing...", new Dimension(500, 500), v, false, false);
         rootView.showFrame();
     }
 

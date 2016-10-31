@@ -72,12 +72,12 @@ class RippleDrawable(
     /**
      * Draws the ripple with the origin at the center of the drawing space.
      */
-    override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float, state: View.State, progress: Float) = draw(g, x, y, w, h, state, progress, x + w / 2f, y + h / 2f)
+    override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float, state: View.State, progress: Float) = draw(g, x, y, w, h, x + w / 2f, y + h / 2f)
 
     /**
      * Draws the ripple with the origin at the mx, my.
      */
-    fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float, state: View.State, progress: Float, mx: Float, my: Float) {
+    fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float, mx: Float, my: Float) {
         // draw the basic highlight
         g.color = highlight
         // apply the composite

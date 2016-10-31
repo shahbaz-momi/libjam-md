@@ -61,7 +61,7 @@ fun main(args: Array<String>) {
 
     val elevated = ElevatedLayout(dummy)
 
-    v.addChild(dummy)
+    v.addChild(elevated)
 
     toolbarContainer.addChild(v)
 

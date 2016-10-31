@@ -101,7 +101,7 @@ public class LinearLayoutTest {
         l.addChild(layout);
         l.addChild(lC3);
 
-        RootView rootView = new RootView("Linearlayout", new Dimension(500, 500), l, false);
+        RootView rootView = new RootView("Linearlayout", new Dimension(500, 500), l, false, false);
         rootView.showFrame();
     }
 }

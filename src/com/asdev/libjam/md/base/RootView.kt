@@ -1,6 +1,7 @@
 package com.asdev.libjam.md.base
 
 import com.asdev.libjam.md.animation.*
+import com.asdev.libjam.md.layout.ElevatedLayout
 import com.asdev.libjam.md.layout.FrameDecoration
 import com.asdev.libjam.md.layout.LinearLayout
 import com.asdev.libjam.md.layout.newLayoutParams
@@ -33,7 +34,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     private val frameDecoration: FrameDecoration?
     private val windowStateManager: WindowStateManager
 
-    constructor(title: String, size: Dimension, rootVG: View, customToolbar: Boolean) {
+    constructor(title: String, size: Dimension, rootVG: View, customToolbar: Boolean, windowShadow: Boolean = false) {
         frame = JFrame(title)
 
         windowStateManager = WindowStateManager(frame)
@@ -56,8 +57,10 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             frame.addWindowFocusListener(this)
 
             // now add the content
-            // rootView = ElevatedLayout(l, shadowYOffset = 0f)
-            rootView = l
+            if(windowShadow)
+                rootView = ElevatedLayout(l, shadowYOffset = 0f)
+            else
+                rootView = l
         } else {
             frameDecoration = null
             this.rootView = rootVG
@@ -354,6 +357,15 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
 
         // call on draw on the root view group
         rootView.onDraw(g)
+
+        // draw the resize tab
+        g.color = THEME.getDividerColor()
+        g.fillPolygon(
+                intArrayOf(size.width - 10, size.width, size.width),
+                intArrayOf(size.height, size.height, size.height - 10),
+                3
+        )
+
         d.stopTimer("[RootView] On draw")
     }
 
@@ -394,18 +406,56 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             rootView.onMouseRelease(e, e.point)
     }
 
+    private var hoveringResizer = false
+    private var resizerMouseStart = Point()
+    private var orgSize = Dimension()
+
     override fun mousePressed(e: MouseEvent?) {
-        // left click only
-        if(e!!.button == MouseEvent.BUTTON1)
+        if(e == null)
+            return
+
+        // if the mouse is hovering the cursor, then start the drag
+        if(hoveringResizer) {
+            resizerMouseStart = e.locationOnScreen
+            orgSize = frame.size
+        } else if(e.button == MouseEvent.BUTTON1) {
             rootView.onMousePress(e, e.point)
+        }
     }
 
     override fun mouseMoved(e: MouseEvent?) {
-        rootView.onMouseMoved(e!!, e.point)
+        // if mouse has moved to bottom right corner, set the cursor
+        if(e == null)
+            return
+
+        if(e.x >= size.width - 10 && e.y >= size.height - 10) {
+            // set the cursor
+            if(!hoveringResizer)
+                setCursor(Cursor.SE_RESIZE_CURSOR)
+            hoveringResizer = true
+
+        } else {
+            if(hoveringResizer)
+                setCursor(Cursor.DEFAULT_CURSOR)
+            hoveringResizer = false
+
+            rootView.onMouseMoved(e, e.point)
+        }
     }
 
     override fun mouseDragged(e: MouseEvent?) {
-        rootView.onMouseDragged(e!!, e.point)
+        if(e == null)
+            return
+
+        if(hoveringResizer) {
+            val newSize = Dimension(
+                    orgSize.width + (e.xOnScreen - resizerMouseStart.x),
+                    orgSize.height + (e.yOnScreen - resizerMouseStart.y)
+            )
+            frame.size = newSize
+        } else {
+            rootView.onMouseDragged(e, e.point)
+        }
     }
 
     override fun windowLostFocus(e: WindowEvent?) {
@@ -416,6 +466,4 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     override fun windowGainedFocus(e: WindowEvent?) {
         focused = true
     }
-
-    fun getFrame() = frame
 }
