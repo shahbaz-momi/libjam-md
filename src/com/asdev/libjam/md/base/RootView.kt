@@ -148,7 +148,13 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
      * Resizes this root view. Is thread-safe (actual resizing is done on Looper thread).
      */
     override fun setSize(d: Dimension?) {
-        looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_RESIZE).apply { data0 = d })
+        if(d == null)
+            throw IllegalArgumentException("Dimension cannot be null")
+
+        looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_RESIZE).apply { data0 = Dimension(
+                if(d.width % 2 == 0) d.width else d.width + 1,
+                if(d.height % 2 == 0) d.height else d.height + 1
+        ) })
     }
 
     /**
@@ -448,11 +454,14 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             return
 
         if(hoveringResizer) {
-            val newSize = Dimension(
+            val d = Dimension(
                     orgSize.width + (e.xOnScreen - resizerMouseStart.x),
                     orgSize.height + (e.yOnScreen - resizerMouseStart.y)
             )
-            frame.size = newSize
+            frame.size = Dimension(
+                    if(d.width % 2 == 0) d.width else d.width + 1,
+                    if(d.height % 2 == 0) d.height else d.height + 1
+            )
         } else {
             rootView.onMouseDragged(e, e.point)
         }

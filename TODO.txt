@@ -47,7 +47,8 @@ TODO:
 - WindowStateManager needs animation support // LATER WHEN ANIMATIONS ARE TO BE IMPLEMENTED
 - fix window intro animation flashing thing // FIXED WITH A DIRTY HACK
 - frame resizer // DONE
-- tool tips
+- long press / long click // DONE
+- global animation choreographer
 - tab view traversal
 - card views
 - right-click menu / dropdown menu

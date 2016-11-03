@@ -26,6 +26,11 @@ open class Animator(
          */
         private var startDelay: Float) {
 
+    /**
+     * The action to run on each loop while the animation is running.
+     */
+    var action: ((Animator) -> Unit)? = null
+
     private var startTime = -1L
     private var endTime = -1L
 
@@ -51,7 +56,7 @@ open class Animator(
     /**
      * Returns whether this animation has ended or not yet.
      */
-    open fun hasEnded() = System.nanoTime() >= endTime
+    open fun hasEnded() = System.nanoTime() >= endTime && endTime != -1L
 
     /**
      * Returns the progress (between 0.0 - 1.0) of this animation.
@@ -79,7 +84,10 @@ open class Animator(
      * Loops/updates this animator. Calls this on the UILooper to keep it in sync.
      */
     open fun loop() {
-        // we don't serve any special function
+        // call the action if the animation is still running
+        if(System.nanoTime() >= startTime && startTime != -1L && !hasEnded()) {
+            action?.invoke(this)
+        }
     }
 
     /**

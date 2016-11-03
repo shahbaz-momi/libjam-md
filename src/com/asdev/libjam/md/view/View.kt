@@ -1,5 +1,6 @@
 package com.asdev.libjam.md.view
 
+import com.asdev.libjam.md.animation.Animator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.animation.LinearInterpolator
 import com.asdev.libjam.md.drawable.AnimatedDrawable
@@ -41,15 +42,15 @@ const val VISIBILITY_INVISIBLE = 1
 const val MOUSE_CLICK_TIME = 400f
 
 /**
+ * The time that it takes for a press to be considered a long press.
+ */
+const val MOUSE_LONG_PRESS_TIME = 1000f
+
+/**
  * An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It
  * implements the bare minimum functionality, allowing for easy extensibility.
  */
 open class View: Comparable<View> {
-
-    /**
-     * Compares this view against the other view based on the z-index.
-     */
-    override fun compareTo(other: View) = zIndex.compareTo(other.zIndex)
 
     /**
      * The max and minimum sizes of this view. Consider the maximum size as the preferred size as the layout will always
@@ -119,9 +120,19 @@ open class View: Comparable<View> {
     var onClickListener: ((MouseEvent, Point) -> Unit)? = null
 
     /**
+     * Called when this view is long clicked upon.
+     */
+    var onLongClickListener: ((MouseEvent, Point) -> Unit)? = null
+
+    /**
      * Called when this view is pressed upon.
      */
     var onPressListener: ((MouseEvent, Point) -> Unit)? = null
+
+    /**
+     * Called when this view is long pressed upon.
+     */
+    var onLongPressListener: ((Unit) -> Unit)? = null
 
     /**
      * The amount to over-clip to the left.
@@ -218,6 +229,7 @@ open class View: Comparable<View> {
     }
 
     private var mousePressTime = -1L
+    private var hasLongPressed = false
 
     /**
      * Called when the mouse is pressed within this [View]'s bounds.
@@ -242,7 +254,11 @@ open class View: Comparable<View> {
 
         if(System.currentTimeMillis() - mousePressTime <= MOUSE_CLICK_TIME) {
             onClickListener?.invoke(e, mPos)
+        } else {
+            onLongClickListener?.invoke(e, mPos)
         }
+
+        hasLongPressed = false
     }
 
     /**
@@ -325,7 +341,29 @@ open class View: Comparable<View> {
                 requestRepaint()
             }
         }
+
+        // check the long mouse press
+        if(state == State.STATE_PRESSED && System.currentTimeMillis() - mousePressTime >= MOUSE_LONG_PRESS_TIME && !hasLongPressed) {
+            onLongPressListener?.invoke(Unit)
+            hasLongPressed = true
+        }
     }
+
+    /**
+     * Posts the animation to the Choregrapher and starts it if not already started. MUST be run on the UI Looper for it to work.
+     */
+    open fun runAnimation(a: Animator, startIt: Boolean) {
+        sendMessageToRoot(Message(MESSAGE_TYPE_ANIMATION, MESSAGE_ACTION_RUN_ANIMATION).apply { data0 = a })
+
+        if((a.getStartTime() == -1L || a.hasEnded()) && startIt) {
+            a.start()
+        }
+    }
+
+    /**
+     * Compares this view against the other view based on the z-index.
+     */
+    override fun compareTo(other: View) = zIndex.compareTo(other.zIndex)
 
     private var flagRequestingCursor = -1
 

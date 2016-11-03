@@ -1,5 +1,7 @@
 package com.asdev.libjam.md.tests
 
+import com.asdev.libjam.md.animation.AccelerateInterpolator
+import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.*
@@ -87,6 +89,19 @@ fun main(args: Array<String>) {
     layout.addChild(ElevatedLayout(card, roundRadius = 5f))
 
     val root = GLG2DRootView(layout, "Hello!", Dimension(501, 502), true)
+
+    val a = FloatValueAnimator(500f, AccelerateInterpolator, 0f, 0f, 100f)
+
+    a.action = {
+        buttonShare.maxSize.w = a.getValue() + 5f
+        buttonShare.requestLayout()
+    }
+
+    buttonShare.onLongPressListener = {
+        root.choreographer.run(a)
+        a.start()
+    }
+
     root.showFrame()
 
     root.getFrameDecoration()?.setDrawAboveAll(true)

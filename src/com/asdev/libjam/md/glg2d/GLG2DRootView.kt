@@ -1,5 +1,7 @@
 package com.asdev.libjam.md.glg2d
 
+import com.asdev.libjam.md.animation.AnimationChoreographer
+import com.asdev.libjam.md.animation.Animator
 import com.asdev.libjam.md.base.WindowStateManager
 import com.asdev.libjam.md.layout.FrameDecoration
 import com.asdev.libjam.md.layout.LinearLayout
@@ -29,7 +31,7 @@ import javax.swing.JPanel
 /**
  * A RootView that uses the GLG2D Canvas.
  */
-class GLG2DRootView(view: View, title: String, dim: Dimension, val isUndecorated: Boolean = false): JPanel(), Loopable, MouseListener, MouseMotionListener {
+class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: Boolean = false): JPanel(), Loopable, MouseListener, MouseMotionListener {
 
     /**
      * The frame on the screen.
@@ -47,11 +49,17 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, val isUndecorated
 
     private val windowStateManager: WindowStateManager
 
+    val choreographer = AnimationChoreographer()
+
     init {
         frame = JFrame(title)
         frame.isUndecorated = isUndecorated
 
         windowStateManager = WindowStateManager(frame)
+
+        frame.background = Color.WHITE
+        background = Color.WHITE
+        isDoubleBuffered = true
 
         if(isUndecorated) {
             frameDecoration = FrameDecoration(title, frame, windowStateManager)
@@ -70,9 +78,12 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, val isUndecorated
         looper.isDaemon = true
         looper.start()
 
-        size = dim
+        size = Dimension(
+                if(d.width % 2 == 0) d.width else d.width + 1,
+                if(d.height % 2 == 0) d.height else d.height + 1
+        )
 
-        frame.size = dim
+        frame.size = size
 
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.setLocationRelativeTo(null)
@@ -95,7 +106,11 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, val isUndecorated
 
     override fun setSize(d: Dimension) {
         super.setSize(d)
-        looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_RESIZE).apply { data0 = d })
+
+        looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_RESIZE).apply { data0 = Dimension(
+                if(d.width % 2 == 0) d.width else d.width + 1,
+                if(d.height % 2 == 0) d.height else d.height + 1
+        ) })
     }
 
     /**
@@ -141,7 +156,12 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, val isUndecorated
     }
 
     override fun loop() {
+        choreographer.loop()
         rootView.loop()
+
+        if(choreographer.requestFrame()) {
+            requestPaint()
+        }
     }
 
     override fun handleMessage(msg: Message) {
@@ -175,6 +195,10 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, val isUndecorated
                 val cursor = Cursor.getPredefinedCursor(cursorInt)
                 // set it
                 frame.cursor = cursor
+            }
+        } else if(msg.type == MESSAGE_TYPE_ANIMATION) {
+            if(msg.action == MESSAGE_ACTION_RUN_ANIMATION && msg.data0 is Animator) {
+                choreographer.run(msg.data0 as Animator)
             }
         }
     }
@@ -337,11 +361,15 @@ class GLG2DRootView(view: View, title: String, dim: Dimension, val isUndecorated
             return
 
         if(hoveringResizer) {
-            val newSize = Dimension(
+            val d = Dimension(
                     orgSize.width + (e.xOnScreen - resizerMouseStart.x),
                     orgSize.height + (e.yOnScreen - resizerMouseStart.y)
             )
-            frame.size = newSize
+
+            frame.size = Dimension(
+                    if(d.width % 2 == 0) d.width else d.width + 1,
+                    if(d.height % 2 == 0) d.height else d.height + 1
+            )
         } else {
             rootView.onMouseDragged(e, e.point)
         }
