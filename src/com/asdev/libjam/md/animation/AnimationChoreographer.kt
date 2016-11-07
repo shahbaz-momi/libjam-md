@@ -43,7 +43,7 @@ class AnimationChoreographer {
 
     fun requestFrame(): Boolean {
         for(anim in animatorStack)
-            if(!anim.hasEnded() && System.currentTimeMillis() >= anim.getStartDelay())
+            if(anim.isRunning())
                 return true
         return false
     }

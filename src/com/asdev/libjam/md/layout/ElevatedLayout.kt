@@ -8,6 +8,7 @@ import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
 import java.awt.Point
+import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
 import java.awt.geom.RoundRectangle2D
 
@@ -140,5 +141,36 @@ open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Flo
         if(mPos.x >= radius && mPos.x <= layoutSize.w - radius &&
                 mPos.y >= radius && mPos.y <= layoutSize.h - radius)
             child.onMouseRelease(e, Point(mPos.x - radius.toInt(), mPos.y - radius.toInt()))
+    }
+
+    override fun onKeyTyped(e: KeyEvent) {
+        super.onKeyTyped(e)
+
+        // if the state is focused, then send key event
+        if(child.state == State.STATE_FOCUSED) {
+            child.onKeyTyped(e)
+        }
+    }
+
+    override fun onKeyPressed(e: KeyEvent) {
+        super.onKeyPressed(e)
+
+        if(child.state == State.STATE_FOCUSED) {
+            child.onKeyPressed(e)
+        }
+    }
+
+    override fun onKeyReleased(e: KeyEvent) {
+        super.onKeyReleased(e)
+
+        if(child.state == State.STATE_FOCUSED) {
+            child.onKeyReleased(e)
+        }
+    }
+
+    override fun onTabTraversal(): Boolean {
+        super.onTabTraversal()
+        // just traverse to the child
+        return child.onTabTraversal()
     }
 }

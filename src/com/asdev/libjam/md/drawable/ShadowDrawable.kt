@@ -81,7 +81,7 @@ open class AnimatedShadowDrawable(var radius: Float = 10f, opacity: Float = 0.3f
         composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity)
     }
 
-    override fun requestFrame() = !yOffsetAnimator.hasEnded() && yOffsetAnimator.getStartTime() > 0L
+    override fun requestFrame() = yOffsetAnimator.isRunning()
 
     /**
      * Draws the shadow to the specified bounding box.

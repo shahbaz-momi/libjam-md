@@ -48,10 +48,12 @@ TODO:
 - fix window intro animation flashing thing // FIXED WITH A DIRTY HACK
 - frame resizer // DONE
 - long press / long click // DONE
-- global animation choreographer
+- global animation choreographer // SOMEWHAT DONE
+- key inputs // DONE
 - tab view traversal
 - card views
 - right-click menu / dropdown menu
+- fab
 - scroll views
 - list views
 - tool tips

@@ -13,6 +13,10 @@ import com.asdev.libjam.md.view.ButtonView
 import com.asdev.libjam.md.view.TextView
 import com.asdev.libjam.md.view.View
 import java.awt.Dimension
+import java.awt.Point
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
+import java.awt.event.MouseEvent
 import java.io.File
 import javax.imageio.ImageIO
 
@@ -86,6 +90,16 @@ fun main(args: Array<String>) {
     card.addChild(divider)
     card.addChild(actions)
 
+    card.keyListener = object : View.ViewKeyListener {
+        override fun onKeyTyped(e: KeyEvent) {
+            println("TYPED ${e.keyChar} ON CARD")
+        }
+        override fun onKeyPressed(e: KeyEvent) {
+        }
+        override fun onKeyReleased(e: KeyEvent) {
+        }
+    }
+
     layout.addChild(ElevatedLayout(card, roundRadius = 5f))
 
     val root = GLG2DRootView(layout, "Hello!", Dimension(501, 502), true)
@@ -97,7 +111,7 @@ fun main(args: Array<String>) {
         buttonShare.requestLayout()
     }
 
-    buttonShare.onLongPressListener = {
+    buttonShare.onClickListener = { mouseEvent: MouseEvent, point: Point ->
         root.choreographer.run(a)
         a.start()
     }

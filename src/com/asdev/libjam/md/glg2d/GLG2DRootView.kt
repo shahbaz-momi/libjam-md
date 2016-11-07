@@ -13,9 +13,7 @@ import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.View
 import org.jogamp.glg2d.GLG2DCanvas
 import java.awt.*
-import java.awt.event.MouseEvent
-import java.awt.event.MouseListener
-import java.awt.event.MouseMotionListener
+import java.awt.event.*
 import javax.swing.JFrame
 import javax.swing.JPanel
 
@@ -31,7 +29,8 @@ import javax.swing.JPanel
 /**
  * A RootView that uses the GLG2D Canvas.
  */
-class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: Boolean = false): JPanel(), Loopable, MouseListener, MouseMotionListener {
+class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: Boolean = false): JPanel(),
+        Loopable, MouseListener, MouseMotionListener, KeyListener {
 
     /**
      * The frame on the screen.
@@ -89,6 +88,9 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         frame.setLocationRelativeTo(null)
 
         frame.add(GLG2DCanvas(this))
+
+        frame.addKeyListener(this)
+        frame.focusTraversalKeysEnabled = false
 
         addMouseListener(this)
         addMouseMotionListener(this)
@@ -373,5 +375,32 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         } else {
             rootView.onMouseDragged(e, e.point)
         }
+    }
+
+    override fun keyTyped(e: KeyEvent?) {
+        // call on the root view regardless of state
+        rootView.onKeyTyped(e!!)
+    }
+
+    override fun keyPressed(e: KeyEvent?) {
+        if(e == null)
+            return
+
+        // check if tab for tab traversal
+        if(e.keyCode == KeyEvent.VK_TAB) {
+            if(DEBUG)
+                println("[RootView] Traversing Views...")
+
+            // call traverse on the root view
+            rootView.onTabTraversal()
+        }
+
+        // call on the root view regardless of state
+        rootView.onKeyPressed(e)
+    }
+
+    override fun keyReleased(e: KeyEvent?) {
+        // call on the root view regardless of state
+        rootView.onKeyReleased(e!!)
     }
 }

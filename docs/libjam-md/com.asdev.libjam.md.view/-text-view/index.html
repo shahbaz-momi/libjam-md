@@ -96,6 +96,12 @@
 </tr>
 <tr>
 <td>
+<a href="../-view/key-listener.html">keyListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">keyListener</span><span class="symbol">: </span><a href="../-view/-view-key-listener/index.html"><span class="identifier">ViewKeyListener</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
 <a href="../-view/layout-size.html">layoutSize</a></td>
 <td>
 <code><span class="keyword">var </span><span class="identifier">layoutSize</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a></code>
@@ -131,6 +137,22 @@ try to grow the view to that size.</p>
 <td>
 <code><span class="keyword">var </span><span class="identifier">onClickListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
 <p>Called when this view is clicked upon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view/on-long-click-listener.html">onLongClickListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onLongClickListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when this view is long clicked upon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view/on-long-press-listener.html">onLongPressListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onLongPressListener</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">Unit</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when this view is long pressed upon.</p>
 </td>
 </tr>
 <tr>
@@ -319,6 +341,30 @@ try to grow the view to that size.</p>
 </tr>
 <tr>
 <td>
+<a href="../-view/on-key-pressed.html">onKeyPressed</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyPressed</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onKeyPressed(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a pressed is typed and this View has the state STATE_FOCUSED.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view/on-key-released.html">onKeyReleased</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyReleased</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onKeyReleased(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a released is typed and this View has the state STATE_FOCUSED.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view/on-key-typed.html">onKeyTyped</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyTyped</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onKeyTyped(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when a key is typed and this View has the state STATE_FOCUSED.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="../-view/on-layout.html">onLayout</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onLayout</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onLayout(com.asdev.libjam.md.util.FloatDim)/newSize">newSize</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
@@ -391,6 +437,15 @@ try to grow the view to that size.</p>
 </tr>
 <tr>
 <td>
+<a href="../-view/on-tab-traversal.html">onTabTraversal</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onTabTraversal</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Called when tab was pressed and it was determined that this is the resultant View of the traversal. It should set
+the current state to HOVER. Returns whether or not this is the last View in a potential chain of Views.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="../-view/request-layout.html">requestLayout</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">requestLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
@@ -404,6 +459,14 @@ try to grow the view to that size.</p>
 <code><span class="keyword">fun </span><span class="identifier">requestRepaint</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Requests a repaint (to the <a href="#">RootView</a>) of the entire frame. It broadcasts a message via the UI <a href="../../com.asdev.libjam.md.thread/-looper/index.html">Looper</a> to the
 <a href="#">RootView</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view/run-animation.html">runAnimation</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">runAnimation</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$runAnimation(com.asdev.libjam.md.animation.Animator, kotlin.Boolean)/a">a</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.animation/-animator/index.html"><span class="identifier">Animator</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View$runAnimation(com.asdev.libjam.md.animation.Animator, kotlin.Boolean)/startIt">startIt</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Posts the animation to the Choregrapher and starts it if not already started. MUST be run on the UI Looper for it to work.</p>
 </td>
 </tr>
 <tr>

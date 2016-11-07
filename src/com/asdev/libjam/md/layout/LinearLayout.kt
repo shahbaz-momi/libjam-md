@@ -6,6 +6,7 @@ import com.asdev.libjam.md.view.View
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
+import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
 import java.util.*
 
@@ -505,4 +506,68 @@ open class LinearLayout: ViewGroup() {
         previousViewMousedOn = -1
     }
 
+    /**
+     * Calls [onKeyTyped] on all the children that are focused.
+     */
+    override fun onKeyTyped(e: KeyEvent) {
+        super.onKeyTyped(e)
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED)
+                c.onKeyTyped(e)
+    }
+
+    /**
+     * Calls [onKeyPressed] on all the children that are focused.
+     */
+    override fun onKeyPressed(e: KeyEvent) {
+        super.onKeyPressed(e)
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED)
+                c.onKeyPressed(e)
+    }
+
+    /**
+     * Calls [onKeyReleased] on all the children that are focused.
+     */
+    override fun onKeyReleased(e: KeyEvent) {
+        super.onKeyReleased(e)
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED)
+                c.onKeyReleased(e)
+    }
+
+    var currTraverse = -1
+
+    /**
+     * Traverses the Views within this layout.
+     */
+    override fun onTabTraversal(): Boolean {
+        // check the current traversal
+        if(currTraverse < children.size) {
+            if(currTraverse == -1) {
+                onStateChanged(state, State.STATE_HOVER)
+                currTraverse = 0
+            }
+
+            if(children[currTraverse].onTabTraversal()) {
+                println("[LinearLayout] Child finished traversal, incrementing!")
+                // increment the traversal
+                currTraverse++
+
+                return onTabTraversal()
+            } else {
+                println("[LinearLayout] Child is traversing!")
+            }
+
+            return false
+        } else {
+            println("[LinearLayout] Finished the traversal!")
+            currTraverse = -1
+            onStateChanged(state, State.STATE_NORMAL)
+            return true
+        }
+    }
 }

@@ -66,7 +66,7 @@ class RippleDrawable(
 
     override fun requestFrame(): Boolean {
         // update calcs in here
-        return !highlightOpacityAnimator.hasEnded() || !rippleAnimator.hasEnded() || !rippleOpacityAnimator.hasEnded()
+        return highlightOpacityAnimator.isRunning() || rippleAnimator.isRunning() || rippleOpacityAnimator.isRunning()
     }
 
     /**

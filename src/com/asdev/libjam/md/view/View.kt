@@ -15,6 +15,7 @@ import com.asdev.libjam.md.util.*
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
+import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
 
 /**
@@ -44,7 +45,7 @@ const val MOUSE_CLICK_TIME = 400f
 /**
  * The time that it takes for a press to be considered a long press.
  */
-const val MOUSE_LONG_PRESS_TIME = 1000f
+const val MOUSE_LONG_PRESS_TIME = 900f
 
 /**
  * An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It
@@ -153,6 +154,8 @@ open class View: Comparable<View> {
      * The amount to over-clip to the bottom.
      */
     var overClipBottom = 0f
+
+    var keyListener: ViewKeyListener? = null
 
     /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
@@ -330,7 +333,7 @@ open class View: Comparable<View> {
         translationXAnimator.loop()
         translationYAnimator.loop()
 
-        if(!translationXAnimator.hasEnded() || !translationYAnimator.hasEnded()) {
+        if(translationXAnimator.isRunning() || translationYAnimator.isRunning()) {
             // request a new frame
             requestRepaint()
         }
@@ -355,7 +358,7 @@ open class View: Comparable<View> {
     open fun runAnimation(a: Animator, startIt: Boolean) {
         sendMessageToRoot(Message(MESSAGE_TYPE_ANIMATION, MESSAGE_ACTION_RUN_ANIMATION).apply { data0 = a })
 
-        if((a.getStartTime() == -1L || a.hasEnded()) && startIt) {
+        if(!a.isRunning() && startIt) {
             a.start()
         }
     }
@@ -383,6 +386,41 @@ open class View: Comparable<View> {
     }
 
     /**
+     * Called when a key is typed and this View has the state STATE_FOCUSED.
+     */
+    open fun onKeyTyped(e: KeyEvent) {
+        keyListener?.onKeyTyped(e)
+    }
+
+    /**
+     * Called when a pressed is typed and this View has the state STATE_FOCUSED.
+     */
+    open fun onKeyPressed(e: KeyEvent) {
+        keyListener?.onKeyPressed(e)
+    }
+
+    /**
+     * Called when a released is typed and this View has the state STATE_FOCUSED.
+     */
+    open fun onKeyReleased(e: KeyEvent) {
+        keyListener?.onKeyReleased(e)
+    }
+
+    /**
+     * Called when tab was pressed and it was determined that this is the resultant View of the traversal. It should set
+     * the current state to HOVER. Returns whether or not this is the last View in a potential chain of Views.
+     */
+    open fun onTabTraversal(): Boolean {
+        if(state == State.STATE_NORMAL) {
+            onStateChanged(state, State.STATE_HOVER)
+            return false
+        } else {
+            onStateChanged(state, State.STATE_NORMAL)
+            return true
+        }
+    }
+
+    /**
      * Called when to draw the view. Graphics should be clipped and translated to this view. E.g. the origin of this
      * view should be 0, 0 when drawing something
      */
@@ -401,6 +439,10 @@ open class View: Comparable<View> {
         if(DEBUG_LAYOUT_BOXES) {
             g.color = Color.GREEN
             g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
+            if(state == State.STATE_HOVER) {
+                g.color = Color(hashCode())
+                g.fillRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
+            }
         }
     }
 
@@ -415,6 +457,17 @@ open class View: Comparable<View> {
         fun onMouseMoved(e: MouseEvent, p: Point)
         fun onMouseEnter(e: MouseEvent, p: Point)
         fun onMouseExit(e: MouseEvent, p: Point)
+    }
+
+    /***
+     * A key event listener.
+     */
+    interface ViewKeyListener {
+
+        fun onKeyTyped(e: KeyEvent)
+        fun onKeyPressed(e: KeyEvent)
+        fun onKeyReleased(e: KeyEvent)
+
     }
 
     /**

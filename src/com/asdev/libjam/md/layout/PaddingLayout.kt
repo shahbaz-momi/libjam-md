@@ -152,4 +152,9 @@ class PaddingLayout (val child: View, padding: Float = 15f): View() {
                 mPos.y >= paddingTop && mPos.y <= layoutSize.h - paddingBottom)
             child.onMouseRelease(e, Point(mPos.x - paddingLeft.toInt(), mPos.y - paddingTop.toInt()))
     }
+
+    override fun onTabTraversal(): Boolean {
+        super.onTabTraversal()
+        return child.onTabTraversal()
+    }
 }

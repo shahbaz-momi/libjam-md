@@ -1,0 +1,55 @@
+<HTML>
+<HEAD>
+<title>AnimationChoreographer - libjam-md</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.animation</a>&nbsp;/&nbsp;<a href=".">AnimationChoreographer</a><br/>
+<br/>
+<h1>AnimationChoreographer</h1>
+<code><span class="keyword">class </span><span class="identifier">AnimationChoreographer</span></code>
+<p>A class that manages and runs animations and animators. There should be one attached to each RootView. This should be
+run on the UILooper to avoid any concurrency issues.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">AnimationChoreographer</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>A class that manages and runs animations and animators. There should be one attached to each RootView. This should be
+run on the UILooper to avoid any concurrency issues.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="loop.html">loop</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Loops all of the animators within the stack.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="request-frame.html">requestFrame</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">requestFrame</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="run.html">run</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">run</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.AnimationChoreographer$run(com.asdev.libjam.md.animation.Animator)/anim">anim</span><span class="symbol">:</span>&nbsp;<a href="../-animator/index.html"><span class="identifier">Animator</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Runs the provided <a href="../-animator/index.html">Animator</a> by pushing it to the stack. They will be automatically removed at the end of the animation.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

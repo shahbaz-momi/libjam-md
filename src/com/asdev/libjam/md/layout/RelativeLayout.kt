@@ -6,6 +6,7 @@ import com.asdev.libjam.md.view.View
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
+import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
 import java.util.*
 
@@ -552,6 +553,72 @@ class RelativeLayout: ViewGroup() {
         if(previousViewMousedOn != -1)
             orderedChildren[previousViewMousedOn]!!.onMouseExit(e, mPos)
         previousViewMousedOn = -1
+    }
+
+    /**
+     * Calls [onKeyTyped] on all the children that are focused.
+     */
+    override fun onKeyTyped(e: KeyEvent) {
+        super.onKeyTyped(e)
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED)
+                c.onKeyTyped(e)
+    }
+
+    /**
+     * Calls [onKeyPressed] on all the children that are focused.
+     */
+    override fun onKeyPressed(e: KeyEvent) {
+        super.onKeyPressed(e)
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED)
+                c.onKeyPressed(e)
+    }
+
+    /**
+     * Calls [onKeyReleased] on all the children that are focused.
+     */
+    override fun onKeyReleased(e: KeyEvent) {
+        super.onKeyReleased(e)
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED)
+                c.onKeyReleased(e)
+    }
+
+    private var currTraverse = -1
+
+    /**
+     * Traverses the Views within this layout.
+     */
+    override fun onTabTraversal(): Boolean {
+        val occn = orderedChildren.filterNotNull()
+        // check the current traversal
+        if(currTraverse < occn.size) {
+            if(currTraverse == -1) {
+                onStateChanged(state, State.STATE_HOVER)
+                currTraverse = 0
+            }
+
+            if(occn[currTraverse].onTabTraversal()) {
+                println("[RelativeLayout] Child finished traversal, incrementing!")
+                // increment the traversal
+                currTraverse++
+
+                return onTabTraversal()
+            } else {
+                println("[RelativeLayout] Child is traversing!")
+            }
+
+            return false
+        } else {
+            println("[RelativeLayout] Finished the traversal!")
+            currTraverse = -1
+            onStateChanged(state, State.STATE_NORMAL)
+            return true
+        }
     }
 
     /**

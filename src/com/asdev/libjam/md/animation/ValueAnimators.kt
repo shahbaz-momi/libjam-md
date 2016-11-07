@@ -30,7 +30,7 @@ class FloatValueAnimator(duration: Float, interpolator: Interpolator, startDelay
      * Resets the [from] value of this animator.
      */
     fun setFromValue(from: Float): FloatValueAnimator {
-        if(!hasEnded())
+        if(isRunning())
             cancel()
 
         this.from = from
@@ -43,7 +43,7 @@ class FloatValueAnimator(duration: Float, interpolator: Interpolator, startDelay
      * Resets the [to] value of this animator.
      */
     fun setToValue(to: Float): FloatValueAnimator {
-        if(!hasEnded())
+        if(isRunning())
             cancel()
 
         assignedValue = to
@@ -59,7 +59,7 @@ class FloatValueAnimator(duration: Float, interpolator: Interpolator, startDelay
     }
 
     override fun getValue(): Float {
-        return if(hasEnded() || System.nanoTime() < getStartTime()) assignedValue else getInterpolator().getValue(getProgress()) * delta + from
+        return if(!isRunning()) assignedValue else getInterpolator().getValue(getProgress()) * delta + from
     }
 
     ////// Delegate functions /////
@@ -67,7 +67,7 @@ class FloatValueAnimator(duration: Float, interpolator: Interpolator, startDelay
      * Returns the animated value of this animator.
      */
     operator fun getValue(thisRef: Any?, property: KProperty<*>): Float {
-        return if(hasEnded() || System.nanoTime() < getStartTime()) assignedValue else getValue()
+        return if(!isRunning()) assignedValue else getValue()
     }
 
     /**

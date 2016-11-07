@@ -54,10 +54,18 @@
 </tr>
 <tr>
 <td>
+<a href="maximize-listener.html">maximizeListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">maximizeListener</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">Boolean</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>Called when the frame is maximized. The parameter specifies whether the frame is being maximized or minified.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="window-state-listener.html">windowStateListener</a></td>
 <td>
 <code><span class="keyword">var </span><span class="identifier">windowStateListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="-state/index.html"><span class="identifier">State</span></a><span class="symbol">,</span>&nbsp;<a href="-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
-<p>Calls this function when the state is changed</p>
+<p>Calls this function when the state is changed. The first parameter is the previous state and the second parameter is the new state.</p>
 </td>
 </tr>
 </tbody>
@@ -71,6 +79,14 @@
 <td>
 <code><span class="keyword">fun </span><span class="identifier">exit</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Exits the application.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="get-last-bounds.html">getLastBounds</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getLastBounds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Rectangle.html"><span class="identifier">Rectangle</span></a></code>
+<p>Returns the bounds of the window during the last state.</p>
 </td>
 </tr>
 <tr>
@@ -101,7 +117,7 @@
 <td>
 <a href="set-state.html">setState</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">setState</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.WindowStateManager$setState(com.asdev.libjam.md.base.WindowStateManager.State)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<code><span class="keyword">fun </span><span class="identifier">setState</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.WindowStateManager$setState(com.asdev.libjam.md.base.WindowStateManager.State, java.awt.Point)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="-state/index.html"><span class="identifier">State</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.base.WindowStateManager$setState(com.asdev.libjam.md.base.WindowStateManager.State, java.awt.Point)/newCoords">newCoords</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Sets the state of the window.</p>
 </td>
 </tr>

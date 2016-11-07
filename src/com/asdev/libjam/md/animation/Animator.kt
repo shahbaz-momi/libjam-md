@@ -58,6 +58,8 @@ open class Animator(
      */
     open fun hasEnded() = System.nanoTime() >= endTime && endTime != -1L
 
+    open fun isRunning() = !hasEnded() && System.nanoTime() >= startTime && startTime != -1L
+
     /**
      * Returns the progress (between 0.0 - 1.0) of this animation.
      */
@@ -85,7 +87,7 @@ open class Animator(
      */
     open fun loop() {
         // call the action if the animation is still running
-        if(System.nanoTime() >= startTime && startTime != -1L && !hasEnded()) {
+        if(isRunning()) {
             action?.invoke(this)
         }
     }
@@ -94,7 +96,7 @@ open class Animator(
      * Resets the duration of this animator.
      */
     open fun setDuration(duration: Float): Animator {
-        if(!hasEnded())
+        if(isRunning())
             cancel()
 
         this.duration = duration
@@ -106,7 +108,7 @@ open class Animator(
      * Resets the start delay of this animator.
      */
     open fun setStartDelay(delay: Float): Animator {
-        if(!hasEnded())
+        if(isRunning())
             cancel()
 
         this.startDelay = delay
@@ -118,7 +120,7 @@ open class Animator(
      * Resets the interpolator of this animator.
      */
     open fun setInterpolator(interpolator: Interpolator): Animator {
-        if(!hasEnded())
+        if(isRunning())
             cancel()
 
         this.interpolator = interpolator

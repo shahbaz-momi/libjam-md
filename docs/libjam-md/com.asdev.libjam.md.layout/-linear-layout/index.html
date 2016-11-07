@@ -24,6 +24,17 @@ specified by the orientation. Directly inherits <a href="../-view-group/index.ht
 </tr>
 </tbody>
 </table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="curr-traverse.html">currTraverse</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">currTraverse</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+</tbody>
+</table>
 <h3>Functions</h3>
 <table>
 <tbody>
@@ -50,6 +61,30 @@ $child the child <a href="../../com.asdev.libjam.md.view/-view/index.html">View<
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Draws this layout along with its children. Will clip and translate the canvas to the child views bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-key-pressed.html">onKeyPressed</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyPressed</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onKeyPressed(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="on-key-pressed.html">onKeyPressed</a> on all the children that are focused.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-key-released.html">onKeyReleased</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyReleased</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onKeyReleased(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="on-key-released.html">onKeyReleased</a> on all the children that are focused.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-key-typed.html">onKeyTyped</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyTyped</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onKeyTyped(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="on-key-typed.html">onKeyTyped</a> on all the children that are focused.</p>
 </td>
 </tr>
 <tr>
@@ -112,6 +147,14 @@ it calls <a href="on-mouse-press.html">onMousePress</a> of that child.</p>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseRelease</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.LinearLayout$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="on-mouse-release.html">onMouseRelease</a> then checks to find which child is being released on. Finally,
 it calls <a href="on-mouse-release.html">onMouseRelease</a> of that child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-tab-traversal.html">onTabTraversal</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onTabTraversal</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Traverses the Views within this layout.</p>
 </td>
 </tr>
 <tr>

@@ -85,7 +85,7 @@ fun main(args: Array<String>) {
     card.addChild(actions)
 
     layout.addChild(ElevatedLayout(card, roundRadius = 5f))
-    val root = RootView("My Drive", Dimension(500, 500), layout, true)
+    val root = RootView("My Drive", Dimension(500, 500), layout, true, true)
 
     // show frame decoration above all
     // frame decoration can't be null because we have specified the rootview to use a custom deco

@@ -57,10 +57,11 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             frame.addWindowFocusListener(this)
 
             // now add the content
-            if(windowShadow)
+            if(windowShadow) {
                 rootView = ElevatedLayout(l, shadowYOffset = 0f)
-            else
+            } else {
                 rootView = l
+            }
         } else {
             frameDecoration = null
             this.rootView = rootVG
@@ -148,13 +149,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
      * Resizes this root view. Is thread-safe (actual resizing is done on Looper thread).
      */
     override fun setSize(d: Dimension?) {
-        if(d == null)
-            throw IllegalArgumentException("Dimension cannot be null")
-
-        looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_RESIZE).apply { data0 = Dimension(
-                if(d.width % 2 == 0) d.width else d.width + 1,
-                if(d.height % 2 == 0) d.height else d.height + 1
-        ) })
+        looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_RESIZE).apply { data0 = d })
     }
 
     /**
@@ -268,8 +263,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     // runs the maximize clipping anim
     fun startMaximizeAnimation(size: FloatDim) {
         // if its already running then don't do it
-        if(!maxXAnim.hasEnded() || !maxWAnim.hasEnded() ||
-                !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
+        if(maxXAnim.isRunning() || maxWAnim.isRunning() ||
+                maxYAnim.isRunning() || maxHAnim.isRunning()) {
             return
         }
 
@@ -289,7 +284,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     fun startMinimizeAnimation() {
         minimizing = true
         // if its already running then don't do it
-        if(!minYAnim.hasEnded()) {
+        if(minYAnim.isRunning()) {
             return
         }
 
@@ -344,17 +339,19 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC)
 
         // check for animations
-        if(!maxXAnim.hasEnded() || !maxWAnim.hasEnded() ||
-            !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
+        if(maxXAnim.isRunning() || maxWAnim.isRunning() ||
+            maxYAnim.isRunning() || maxHAnim.isRunning()) {
             if((maxHAnim.getValue() > 0f || maxWAnim.getValue() > 0f) && frame.opacity == 0f) // frame flashing hack
                 frame.opacity = 1f
 
             // set the clip to the values
             g.setClip(maxXAnim.getValue().toInt(), maxYAnim.getValue().toInt(), maxWAnim.getValue().toInt(), maxHAnim.getValue().toInt())
             requestPaint()
+        } else {
+            g.setClip(0, 0, actualSize.w.toInt(), actualSize.h.toInt())
         }
 
-        if(!minYAnim.hasEnded()) {
+        if(minYAnim.isRunning()) {
             // translate it
             g.translate(0.0, -minYAnim.getValue().toDouble())
             requestPaint()
@@ -454,14 +451,11 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             return
 
         if(hoveringResizer) {
-            val d = Dimension(
+            val newSize = Dimension(
                     orgSize.width + (e.xOnScreen - resizerMouseStart.x),
                     orgSize.height + (e.yOnScreen - resizerMouseStart.y)
             )
-            frame.size = Dimension(
-                    if(d.width % 2 == 0) d.width else d.width + 1,
-                    if(d.height % 2 == 0) d.height else d.height + 1
-            )
+            frame.size = newSize
         } else {
             rootView.onMouseDragged(e, e.point)
         }
