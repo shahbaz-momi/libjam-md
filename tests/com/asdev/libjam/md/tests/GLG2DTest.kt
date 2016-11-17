@@ -30,7 +30,7 @@ import javax.imageio.ImageIO
  */
 
 fun main(args: Array<String>) {
-    THEME = LightMaterialTheme
+    THEME = DarkMaterialTheme
     // NOTE: always initiliaze the theme before creating any views // TODO: fix that
     THEME.init()
 

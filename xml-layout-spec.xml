@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- This is for example because there are two documents within a single file which should not be the case. Document should always be the root. -->
+<Root>
+    <!-- The xml root tag should always be of type document with spec to what type -->
+    <Document type="layouts">
+
+        <!-- There can be many layouts within a single document to prevent having a bunch of them and anything within them can be linked. Separate files
+        cannot be linked -->
+        <Layout name="main-layout">
+
+            <!-- The root view goes here -->
+            <LinearLayout
+                    orientation="horizontal"
+                    overClipLeft="12"
+                    overClipRight="12">
+
+                <!-- Additional views go within the thang -->
+                <View
+                        background="{ImageDrawable('assets/roadtrip.png',SCALE_TYPE_COVER)}"
+                        translationX="-12"
+                />
+
+                <!-- Example declaration of a custom view. -->
+                <com.asdev.libjam.md.tests.CustomView />
+
+            </LinearLayout>
+        </Layout>
+
+        <Layout name="on-boarding">
+
+            <!-- The root top view goes here again -->
+            <RelativeLayout>
+
+                <!-- You can get special properties/values from the theme by using @theme. In this case, we overrided primary dark in the below color document.
+                It will also automatically resolve colors (beginning with #).
+                Gravities are mapped out using:
+                (left|middle|right)-(top|middle|bottom)
+                X values on the left, Y values on the right.
+                You can pass code as parameters which will be executed, or colors which will be parsed, theme properties which will be parsed as literals,
+                or float/integer literals which will be parsed as literals.
+                Code to be executed must be passed in curly braces.
+                -->
+                <TextView
+                        gravity="middle-top"
+                        text="Hey there. Check this cool app out."
+                        text-color="@theme/title-text-color"
+                        text-font="@theme/title-font"
+                        background="{ColorDrawable(@theme/primary-dark)}"
+                        max-height="36"
+                />
+
+                <!-- Just as an example, you can include other layouts within others. You can override attrs as well. -->
+                <Include
+                        name="main-layout"
+                        gravity="middle-middle" />
+
+            </RelativeLayout>
+
+        </Layout>
+
+    </Document>
+
+    <!-- Another xml file could contain a color document. -->
+    <Document type="colors">
+
+        <!-- Example entry of a color -->
+        <Color name="primary-dark">#4FA3C9</Color>
+
+    </Document>
+
+</Root>

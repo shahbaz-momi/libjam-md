@@ -603,18 +603,18 @@ class RelativeLayout: ViewGroup() {
             }
 
             if(occn[currTraverse].onTabTraversal()) {
-                println("[RelativeLayout] Child finished traversal, incrementing!")
+                debug("[RelativeLayout] Child finished traversal, incrementing!")
                 // increment the traversal
                 currTraverse++
 
                 return onTabTraversal()
             } else {
-                println("[RelativeLayout] Child is traversing!")
+                debug("[RelativeLayout] Child is traversing!")
             }
 
             return false
         } else {
-            println("[RelativeLayout] Finished the traversal!")
+            debug("[RelativeLayout] Finished the traversal!")
             currTraverse = -1
             onStateChanged(state, State.STATE_NORMAL)
             return true

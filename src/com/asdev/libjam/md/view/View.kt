@@ -155,6 +155,9 @@ open class View: Comparable<View> {
      */
     var overClipBottom = 0f
 
+    /**
+     * An interface that listens to key press events.
+     */
     var keyListener: ViewKeyListener? = null
 
     /**

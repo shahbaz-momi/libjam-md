@@ -50,11 +50,16 @@ TODO:
 - long press / long click // DONE
 - global animation choreographer // SOMEWHAT DONE
 - key inputs // DONE
-- tab view traversal
-- card views
+- tab view traversal // MOSTLY DONE
+- card views // IN TEST
+- universal over draw components
+    - finding the location of a View on screen
 - right-click menu / dropdown menu
 - fab
 - scroll views
-- list views
+- list views // PRETTY MUCH A LINEAR LAYOUT
+- xml based view inflation
 - tool tips
+    - separate module
+    - establish spec
 - more material ui components

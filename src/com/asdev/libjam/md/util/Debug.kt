@@ -18,7 +18,12 @@ const val DEBUG = false
 /**
  * Enables debug drawing layout boundaries.
  */
-const val DEBUG_LAYOUT_BOXES = false
+const val DEBUG_LAYOUT_BOXES = true
+
+fun debug(msg: String) {
+    if(DEBUG)
+        println(msg)
+}
 
 class Debug {
 

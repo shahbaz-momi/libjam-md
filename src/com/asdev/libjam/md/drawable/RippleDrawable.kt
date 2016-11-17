@@ -106,14 +106,14 @@ class RippleDrawable(
 
         rippleX -= 10
 
-        g.clipRect(rippleX.toInt(),
+        g.clipRect(rippleX,
                 y.toInt(),
                 10,
                 h.toInt())
 
         // draw a circle at the end of each ripple
         g.fillOval(
-                (rippleX).toInt(),
+                rippleX,
                 y.toInt() - h.toInt() / 2,
                 h.toInt(),
                 h.toInt() * 2

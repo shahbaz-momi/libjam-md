@@ -90,10 +90,7 @@ open class LinearLayout: ViewGroup() {
         var minH = 0f
 
         for((index, c) in children.withIndex()) {
-            val lp = c.onMeasure(childrenLP[index])
-
-            if(lp !is LinearLayoutParams)
-                throw IllegalStateException("Children of LinearLayout must return LinearLayoutParams in onMeasure(). This was not the case.")
+            val lp = c.onMeasure(childrenLP[index]) as? LinearLayoutParams ?: throw IllegalStateException("Children of LinearLayout must return LinearLayoutParams in onMeasure(). This was not the case.")
 
             if (c.minSize.w > 0f) {
                 if(orientation == ORIENTATION_HORIZONTAL) {
@@ -553,18 +550,18 @@ open class LinearLayout: ViewGroup() {
             }
 
             if(children[currTraverse].onTabTraversal()) {
-                println("[LinearLayout] Child finished traversal, incrementing!")
+                debug("[LinearLayout] Child finished traversal, incrementing!")
                 // increment the traversal
                 currTraverse++
 
                 return onTabTraversal()
             } else {
-                println("[LinearLayout] Child is traversing!")
+                debug("[LinearLayout] Child is traversing!")
             }
 
             return false
         } else {
-            println("[LinearLayout] Finished the traversal!")
+            debug("[LinearLayout] Finished the traversal!")
             currTraverse = -1
             onStateChanged(state, State.STATE_NORMAL)
             return true
