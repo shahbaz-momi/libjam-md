@@ -7,7 +7,9 @@ import com.asdev.libjam.md.view.View
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
+import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
+import java.awt.event.MouseWheelEvent
 
 /**
  * Created by Asdev on 10/21/16. All rights reserved.
@@ -139,6 +141,21 @@ class PaddingLayout (val child: View, padding: Float = 15f): View() {
         }
     }
 
+    override fun onKeyTyped(e: KeyEvent) {
+        super.onKeyTyped(e)
+        child.onKeyTyped(e)
+    }
+
+    override fun onKeyPressed(e: KeyEvent) {
+        super.onKeyPressed(e)
+        child.onKeyPressed(e)
+    }
+
+    override fun onKeyReleased(e: KeyEvent) {
+        super.onKeyReleased(e)
+        child.onKeyReleased(e)
+    }
+
     override fun onMousePress(e: MouseEvent, mPos: Point) {
         super.onMousePress(e, mPos)
         if (mPos.x >= paddingLeft && mPos.x <= layoutSize.w - paddingRight &&
@@ -156,5 +173,13 @@ class PaddingLayout (val child: View, padding: Float = 15f): View() {
     override fun onTabTraversal(): Boolean {
         super.onTabTraversal()
         return child.onTabTraversal()
+    }
+
+    /**
+     * Scrolls the child of this layout.
+     */
+    override fun onScroll(e: MouseWheelEvent) {
+        super.onScroll(e)
+        child.onScroll(e)
     }
 }

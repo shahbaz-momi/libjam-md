@@ -11,7 +11,6 @@ import java.awt.Cursor
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.MouseEvent
-import java.awt.geom.RoundRectangle2D
 
 /**
  * Created by Asdev on 10/20/16. All rights reserved.
@@ -135,7 +134,7 @@ class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(tex
     fun setThemeBackgroundColor(color: Int) {
         themeBgColor = color
         if(themeBgColor != -1)
-            setBackgroundColor(THEME.getAccentColor())
+            setBackgroundColor(THEME.getColor(color))
     }
 
     /**

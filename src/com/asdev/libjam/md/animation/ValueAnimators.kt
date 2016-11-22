@@ -24,6 +24,7 @@ class FloatValueAnimator(duration: Float, interpolator: Interpolator, startDelay
 
     init {
         delta = to - from
+        assignedValue = from
     }
 
     /**

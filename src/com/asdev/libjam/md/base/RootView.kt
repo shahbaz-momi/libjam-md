@@ -26,7 +26,7 @@ import javax.swing.JPanel
  * The root view that creates and attaches to a swing window.
  */
 
-class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocusListener {
+class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocusListener, MouseWheelListener {
 
     private val frame: JFrame
     private val rootView: View
@@ -97,6 +97,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
 
         addMouseListener(this)
         addMouseMotionListener(this)
+        frame.addMouseWheelListener(this)
 
         // double buffering
         isDoubleBuffered = true
@@ -468,5 +469,10 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
 
     override fun windowGainedFocus(e: WindowEvent?) {
         focused = true
+    }
+
+    // scrolling events
+    override fun mouseWheelMoved(e: MouseWheelEvent?) {
+        rootView.onScroll(e!!)
     }
 }

@@ -15,7 +15,6 @@ import com.asdev.libjam.md.view.View
 import java.awt.Dimension
 import java.awt.Point
 import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
 import java.awt.event.MouseEvent
 import java.io.File
 import javax.imageio.ImageIO
@@ -92,7 +91,8 @@ fun main(args: Array<String>) {
 
     card.keyListener = object : View.ViewKeyListener {
         override fun onKeyTyped(e: KeyEvent) {
-            println("TYPED ${e.keyChar} ON CARD")
+            content.text = content.text + e.keyChar
+            content.requestRepaint()
         }
         override fun onKeyPressed(e: KeyEvent) {
         }

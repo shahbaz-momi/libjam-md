@@ -17,6 +17,7 @@ import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
+import java.awt.event.MouseWheelEvent
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -159,6 +160,11 @@ open class View: Comparable<View> {
      * An interface that listens to key press events.
      */
     var keyListener: ViewKeyListener? = null
+
+    /**
+     * A listener for scroll events upon this View.
+     */
+    var scrollListener: ((MouseWheelEvent) -> Unit)? = null
 
     /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
@@ -421,6 +427,13 @@ open class View: Comparable<View> {
             onStateChanged(state, State.STATE_NORMAL)
             return true
         }
+    }
+
+    /**
+     * Called when the mouse is scrolled upon this View.
+     */
+    open fun onScroll(e: MouseWheelEvent) {
+        scrollListener?.invoke(e)
     }
 
     /**

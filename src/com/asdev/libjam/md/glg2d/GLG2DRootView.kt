@@ -30,7 +30,7 @@ import javax.swing.JPanel
  * A RootView that uses the GLG2D Canvas.
  */
 class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: Boolean = false): JPanel(),
-        Loopable, MouseListener, MouseMotionListener, KeyListener {
+        Loopable, MouseListener, MouseMotionListener, KeyListener, MouseWheelListener {
 
     /**
      * The frame on the screen.
@@ -91,6 +91,7 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
 
         frame.addKeyListener(this)
         frame.focusTraversalKeysEnabled = false
+        frame.addMouseWheelListener(this)
 
         addMouseListener(this)
         addMouseMotionListener(this)
@@ -402,5 +403,10 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     override fun keyReleased(e: KeyEvent?) {
         // call on the root view regardless of state
         rootView.onKeyReleased(e!!)
+    }
+
+    // scrolling events
+    override fun mouseWheelMoved(e: MouseWheelEvent?) {
+        rootView.onScroll(e!!)
     }
 }

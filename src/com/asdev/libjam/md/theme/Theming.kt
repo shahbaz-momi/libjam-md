@@ -163,6 +163,15 @@ abstract class Theme {
 
     //// Misc ////
 
+    /**
+     * The width of the scroll bars.
+     */
+    abstract fun getScrollBarWidth(): Int
+
+    /**
+     * The rounded radius of the scroll bars.
+     */
+    abstract fun getScrollBarCornerRadius(): Int
 }
 
 /**
@@ -228,6 +237,10 @@ object LightMaterialTheme : Theme() {
     override fun getSecondaryTextFont() = secondaryTextFont
 
     //// Misc ////
+
+    override fun getScrollBarWidth() = 10
+
+    override fun getScrollBarCornerRadius() = 5
 
     override fun toString(): String {
         return "LightMaterialTheme"
@@ -298,6 +311,10 @@ object DarkMaterialTheme : Theme() {
     override fun getSecondaryTextFont() = secondaryTextFont
 
     //// Misc ////
+
+    override fun getScrollBarWidth() = 10
+
+    override fun getScrollBarCornerRadius() = 5
 
     override fun toString(): String {
         return "DarkMaterialTheme"

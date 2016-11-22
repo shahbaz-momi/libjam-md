@@ -1,13 +1,19 @@
 package com.asdev.libjam.md.layout
 
+import com.asdev.libjam.md.animation.DecelerateInterpolator
+import com.asdev.libjam.md.animation.FloatValueAnimator
+import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
+import java.awt.AlphaComposite
+import java.awt.Cursor
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
+import java.awt.event.MouseWheelEvent
 
 /**
  * Created by Asdev on 11/16/16. All rights reserved.
@@ -17,6 +23,14 @@ import java.awt.event.MouseEvent
  * Authored by Shahbaz Momi as part of libjam-md
  * under the package com.asdev.libjam.md.layout
  */
+
+/**
+ * The amount that will be scrolled upon an arrow key press.
+ */
+const val KEY_SCROLL_AMT = 7f
+
+const val SCROLLBAR_NORMAL_OPACITY = 0.7f
+const val SCROLLBAR_HOVER_OPACITY = 0.9f
 
 /**
  * A layout which allows for scrolling if the minimum size of the child does not fit the available size.
@@ -69,6 +83,41 @@ class ScrollLayout(val child: View) : ViewGroup() {
     private var maxScrollY = 0f
 
     /**
+     * The width of the horizontal scrollbar.
+     */
+    private var scrollBarWidth = 0f
+
+    /**
+     * The x-coordinate of the horizontal scrollbar.
+     */
+    private var scrollBarX = 0f
+
+    /**
+     * Whether or not the mouse is hovering the horizontal scrollbar.
+     */
+    private var scrollBarHoveredH = false
+
+    /**
+     * The height of the vertical scrollbar.
+     */
+    private var scrollBarHeight = 0f
+
+    /**
+     * The y-coordinate of the vertical scrollbar.
+     */
+    private var scrollBarY = 0f
+
+    /**
+     * Whether or not the mouse is hovering the vertical scrollbar.
+     */
+    private var scrollBarHovered = false
+
+    /**
+     * The animator for the scroll bar opacity
+     */
+    private val scrollBarOpacityAnim = FloatValueAnimator(200f, DecelerateInterpolator, 0f, 0f, 0f)
+
+    /**
      * Throws an exception because you cannot add a view to a ScrollLayout.
      */
     override fun addChild(child: View) {
@@ -89,48 +138,173 @@ class ScrollLayout(val child: View) : ViewGroup() {
 
     override fun onMouseEnter(e: MouseEvent, mPos: Point) {
         super.onMouseEnter(e, mPos)
+        // animate the bar in
+        scrollBarOpacityAnim.setFromValue(0f).setToValue(SCROLLBAR_NORMAL_OPACITY).start()
+
+        // shift the coordinates of the mouse event by the scroll
+        child.onMouseEnter(e, Point(mPos.x + scrollX.toInt(), mPos.y + scrollY.toInt()))
     }
 
     override fun onMouseExit(e: MouseEvent, mPos: Point) {
         super.onMouseExit(e, mPos)
+        scrollBarOpacityAnim.setFromValue(SCROLLBAR_NORMAL_OPACITY).setToValue(0f).start()
+
+        // shift the coordinates of the mouse event by the scroll
+        child.onMouseExit(e, Point(mPos.x + scrollX.toInt(), mPos.y + scrollY.toInt()))
     }
 
     override fun onMouseRelease(e: MouseEvent, mPos: Point) {
         super.onMouseRelease(e, mPos)
+        if(scrollBarHovered) {
+            // consume the event
+            // trigger the reset of the mouse
+            onMouseMoved(e, mPos)
+        } else if(scrollBarHoveredH) {
+            onMouseMoved(e, mPos)
+        } else {
+            // shift the coordinates of the mouse event by the scroll
+            child.onMouseRelease(e, Point(mPos.x + scrollX.toInt(), mPos.y + scrollY.toInt()))
+        }
     }
+
+    private var pressSource = Point()
+    private var scrollUnits = 0f
+    private var scrollUnitsH = 0f
 
     override fun onMousePress(e: MouseEvent, mPos: Point) {
         super.onMousePress(e, mPos)
+        if(scrollBarHovered) {
+            pressSource = mPos
+        } else if(scrollBarHoveredH) {
+            pressSource = mPos
+        } else {
+            // shift the coordinates of the mouse event by the scroll
+            child.onMousePress(e, Point(mPos.x + scrollX.toInt(), mPos.y + scrollY.toInt()))
+        }
     }
 
     override fun onTabTraversal(): Boolean {
-        return super.onTabTraversal()
+        super.onTabTraversal()
+        return child.onTabTraversal()
     }
 
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {
         super.onMouseDragged(e, mPos)
+        if(scrollBarHovered) {
+            // get y delta from source point
+            val yDelta = mPos.y - pressSource.y
+            // calculate the percentage of each pixel
+            scroll(0f, yDelta.toFloat() * scrollUnits)
+            pressSource = mPos
+            requestRepaint()
+        } else if(scrollBarHoveredH) {
+            val xDelta = mPos.x - pressSource.x
+            scroll(xDelta.toFloat() * scrollUnitsH, 0f)
+            pressSource = mPos
+            requestRepaint()
+        } else {
+            // shift the coordinates of the mouse event by the scroll
+            child.onMouseDragged(e, Point(mPos.x + scrollX.toInt(), mPos.y + scrollY.toInt()))
+        }
     }
 
     override fun onMouseMoved(e: MouseEvent, mPos: Point) {
         super.onMouseMoved(e, mPos)
+        // shift the coordinates of the mouse event by the scroll
+        child.onMouseMoved(e, Point(mPos.x + scrollX.toInt(), mPos.y + scrollY.toInt()))
+        // check if moved over to right side
+        if(mPos.x >= layoutSize.w - THEME.getScrollBarWidth() * 2.5f) {
+            if(!scrollBarHovered) {
+                setCursor(Cursor.HAND_CURSOR)
+                scrollBarOpacityAnim.setFromValue(SCROLLBAR_NORMAL_OPACITY).setToValue(SCROLLBAR_HOVER_OPACITY).start()
+            }
+            scrollBarHovered = true
+            requestRepaint()
+        } else if(mPos.y >= layoutSize.h - THEME.getScrollBarWidth() * 3f) {
+            if(!scrollBarHoveredH) {
+                setCursor(Cursor.HAND_CURSOR)
+                scrollBarOpacityAnim.setFromValue(SCROLLBAR_NORMAL_OPACITY).setToValue(SCROLLBAR_HOVER_OPACITY).start()
+            }
+
+            scrollBarHoveredH = true
+            requestRepaint()
+        } else {
+            if(scrollBarHovered) {
+                setCursor(Cursor.DEFAULT_CURSOR)
+                scrollBarOpacityAnim.setFromValue(SCROLLBAR_HOVER_OPACITY).setToValue(SCROLLBAR_NORMAL_OPACITY).start()
+            }
+
+            scrollBarHovered = false
+
+            if(scrollBarHoveredH) {
+                setCursor(Cursor.DEFAULT_CURSOR)
+                scrollBarOpacityAnim.setFromValue(SCROLLBAR_HOVER_OPACITY).setToValue(SCROLLBAR_NORMAL_OPACITY).start()
+            }
+
+            scrollBarHoveredH = false
+        }
     }
 
     override fun onKeyPressed(e: KeyEvent) {
         super.onKeyPressed(e)
+        if(e.keyCode == KeyEvent.VK_DOWN) {
+            scroll(0f, KEY_SCROLL_AMT)
+        } else if(e.keyCode == KeyEvent.VK_UP) {
+            scroll(0f, -KEY_SCROLL_AMT)
+        } else if(e.keyCode == KeyEvent.VK_RIGHT) {
+            scroll(KEY_SCROLL_AMT, 0f)
+        } else if(e.keyCode == KeyEvent.VK_LEFT) {
+            scroll(-KEY_SCROLL_AMT, 0f)
+        } else {
+            child.onKeyPressed(e)
+        }
     }
 
     override fun onKeyTyped(e: KeyEvent) {
         super.onKeyTyped(e)
+        child.onKeyTyped(e)
     }
 
     override fun onKeyReleased(e: KeyEvent) {
         super.onKeyReleased(e)
+        child.onKeyReleased(e)
     }
 
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
         super.onThemeChange(prevTheme, newTheme)
+        child.onThemeChange(prevTheme, newTheme)
     }
 
+    /**
+     * Loops itself and its child.
+     */
+    override fun loop() {
+        super.loop()
+        child.loop()
+
+        scrollBarOpacityAnim.loop()
+        if(scrollBarOpacityAnim.isRunning()) {
+            requestRepaint()
+        }
+    }
+
+    /**
+     * Scrolls the child within this layout.
+     */
+    override fun onScroll(e: MouseWheelEvent) {
+        // scroll this view, when max scroll reached scroll the child
+        if((scrollY == maxScrollY && e.unitsToScroll > 0) ||
+                (scrollY <= 0f && e.unitsToScroll < 0)) {
+            // scroll the child
+            child.onScroll(e)
+        } else {
+            scroll(0f, (e.scrollAmount * e.unitsToScroll).toFloat())
+        }
+    }
+
+    /**
+     * Measures the child using [LinearLayoutParams] to determine the gravity and minimum size.
+     */
     override fun onMeasure(result: LayoutParams): LayoutParams {
         // use linear layout params because it contains gravity, the only thing we need
         childParams = child.onMeasure(newLinearLayoutParams()) as LinearLayoutParams
@@ -141,16 +315,25 @@ class ScrollLayout(val child: View) : ViewGroup() {
         return super.onMeasure(result)
     }
 
+    /**
+     * Lays out the child within this scroll view.
+     */
     override fun onLayout(newSize: FloatDim) {
         super.onLayout(newSize)
 
         // check to see if this size fits the min size
         // also check the max size. Apply the gravity if this size is over the max size of the child
 
+        scrollBarHeight = 0f
+        scrollBarY = 0f
+
+        scrollBarWidth = 0f
+        scrollBarX = 0f
+
         // reset vars
         childW = newSize.w
         childX = 0f
-        scrollX = 0f
+        // scrollX = 0f
         maxScrollX = 0f
 
         // check if min width is larger
@@ -172,7 +355,7 @@ class ScrollLayout(val child: View) : ViewGroup() {
         // reset vars
         childH = newSize.h
         childY = 0f
-        scrollY = 0f
+        // scrollY = 0f
         maxScrollY = 0f
 
         // check if min width is larger
@@ -191,8 +374,31 @@ class ScrollLayout(val child: View) : ViewGroup() {
             childY = calculateYComp(childParams.gravity, 0f, newSize.h, childH)
         }
 
+        scrollUnits = childH / newSize.h
+
+        // scrollbar height should be difference between child h and actual h
+        scrollBarHeight = newSize.h / childH
+
+        if(scrollBarHeight >= 1f)
+            scrollBarHeight = 0f
+        else if(scrollBarHeight < 0.15f)
+            scrollBarHeight = 0.15f
+        // apply to actual units
+        scrollBarHeight *= newSize.h
+
+        scrollUnitsH = childW / newSize.w
+
+        scrollBarWidth = newSize.w / childW
+        if(scrollBarWidth >= 1f)
+            scrollBarWidth = 0f
+        else if(scrollBarWidth < 0.15f)
+            scrollBarWidth = 0.15f
+        scrollBarWidth *= newSize.w
+
         // layout child according to the child W and H
         child.onLayout(FloatDim(childW, childH))
+
+        scrollTo(scrollX, scrollY)
     }
 
     /**
@@ -259,6 +465,24 @@ class ScrollLayout(val child: View) : ViewGroup() {
             scrollX = 0f
         if(scrollY < 0f)
             scrollY = 0f
+
+        // find the new y coord of bar
+        val diff = layoutSize.h - scrollBarHeight
+        val perc = scrollY / maxScrollY
+        scrollBarY = diff * perc
+
+        val diffH = layoutSize.w - scrollBarWidth
+        val percH = scrollX / maxScrollX
+        scrollBarX = diffH * percH
+
+        requestRepaint()
+    }
+
+    /**
+     * Scrolls to the specified point.
+     */
+    fun scrollTo(xScroll: Float, yScroll: Float) {
+        scroll(xScroll - scrollX, yScroll - scrollY)
     }
 
     /**
@@ -285,6 +509,41 @@ class ScrollLayout(val child: View) : ViewGroup() {
         // undo translations
         g.translate(scrollX.toInt(), scrollY.toInt())
         g.translate(-childX.toInt() - child.translationX.toInt(), -childY.toInt() - child.translationY.toInt())
+
+        // draw scroll bar if this is focused or hovered or pressed
+        if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning()) && scrollBarHeight > 0f) {
+            g.color = THEME.getDividerColor()
+            val prevComp = g.composite
+            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, scrollBarOpacityAnim.getValue())
+
+            g.fillRoundRect(
+                    layoutSize.w.toInt() - THEME.getScrollBarWidth() + ((1f - (scrollBarOpacityAnim.getValue() - SCROLLBAR_NORMAL_OPACITY) * 5f) * THEME.getScrollBarCornerRadius()).toInt(),
+                    scrollBarY.toInt(),
+                    THEME.getScrollBarWidth() + THEME.getScrollBarCornerRadius(),
+                    scrollBarHeight.toInt(),
+                    THEME.getScrollBarCornerRadius(),
+                    THEME.getScrollBarCornerRadius()
+            )
+
+            g.composite = prevComp
+        }
+
+        if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning()) && scrollBarWidth > 0f) {
+            g.color = THEME.getDividerColor()
+            val prevComp = g.composite
+            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, scrollBarOpacityAnim.getValue())
+
+            g.fillRoundRect(
+                    scrollBarX.toInt(),
+                    layoutSize.h.toInt() - THEME.getScrollBarWidth() + ((1f - (scrollBarOpacityAnim.getValue() - SCROLLBAR_NORMAL_OPACITY) * 5f) * THEME.getScrollBarCornerRadius()).toInt(),
+                    scrollBarWidth.toInt(),
+                    THEME.getScrollBarWidth() + THEME.getScrollBarCornerRadius(),
+                    THEME.getScrollBarCornerRadius(),
+                    THEME.getScrollBarCornerRadius()
+            )
+
+            g.composite = prevComp
+        }
 
         // undo clip op
         g.clip = prevClip

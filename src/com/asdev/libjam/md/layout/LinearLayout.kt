@@ -8,6 +8,7 @@ import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
+import java.awt.event.MouseWheelEvent
 import java.util.*
 
 /**
@@ -59,6 +60,15 @@ open class LinearLayout: ViewGroup() {
      */
     override fun removeChild(child: View) {
         children.remove(child)
+        requestLayout()
+    }
+
+    /**
+     * Removes all of the children from this layout.
+     */
+    fun removeAllChildren() {
+        children.clear()
+        requestLayout()
     }
 
     /**
@@ -510,7 +520,7 @@ open class LinearLayout: ViewGroup() {
         super.onKeyTyped(e)
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
                 c.onKeyTyped(e)
     }
 
@@ -521,7 +531,7 @@ open class LinearLayout: ViewGroup() {
         super.onKeyPressed(e)
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
                 c.onKeyPressed(e)
     }
 
@@ -532,7 +542,7 @@ open class LinearLayout: ViewGroup() {
         super.onKeyReleased(e)
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
                 c.onKeyReleased(e)
     }
 
@@ -565,6 +575,21 @@ open class LinearLayout: ViewGroup() {
             currTraverse = -1
             onStateChanged(state, State.STATE_NORMAL)
             return true
+        }
+    }
+
+    /**
+     * Scrolls the proper child of this layout.
+     */
+    override fun onScroll(e: MouseWheelEvent) {
+        super.onScroll(e)
+        // find the focused view
+        for(c in children) {
+            if(c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
+                // scroll it
+                c.onScroll(e)
+                return
+            }
         }
     }
 }

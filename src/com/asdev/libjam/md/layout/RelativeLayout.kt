@@ -8,6 +8,7 @@ import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
+import java.awt.event.MouseWheelEvent
 import java.util.*
 
 /**
@@ -562,7 +563,7 @@ class RelativeLayout: ViewGroup() {
         super.onKeyTyped(e)
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
                 c.onKeyTyped(e)
     }
 
@@ -573,7 +574,7 @@ class RelativeLayout: ViewGroup() {
         super.onKeyPressed(e)
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
                 c.onKeyPressed(e)
     }
 
@@ -584,7 +585,7 @@ class RelativeLayout: ViewGroup() {
         super.onKeyReleased(e)
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
                 c.onKeyReleased(e)
     }
 
@@ -618,6 +619,24 @@ class RelativeLayout: ViewGroup() {
             currTraverse = -1
             onStateChanged(state, State.STATE_NORMAL)
             return true
+        }
+    }
+
+    /**
+     * Scrolls the proper child of this layout.
+     */
+    override fun onScroll(e: MouseWheelEvent) {
+        super.onScroll(e)
+        // find the focused view
+        for(c in orderedChildren) {
+            if(c == null)
+                continue
+
+            if(c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
+                // scroll it
+                c.onScroll(e)
+                return
+            }
         }
     }
 

@@ -56,10 +56,11 @@ TODO:
     - finding the location of a View on screen
 - right-click menu / dropdown menu
 - fab
-- scroll views
+- scroll views // MOSTLY DONE - HORIZONTAL SCROLLBAR
 - list views // PRETTY MUCH A LINEAR LAYOUT
+- wrapping text view / multi-line text view
 - xml based view inflation
-- tool tips
     - separate module
     - establish spec
+- tool tips
 - more material ui components
