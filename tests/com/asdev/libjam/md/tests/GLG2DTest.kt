@@ -120,3 +120,73 @@ fun main(args: Array<String>) {
 
     root.getFrameDecoration()?.setDrawAboveAll(true)
 }
+
+fun createCardView(): View {
+    val card = LinearLayout()
+
+    card.maxSize = FloatDim(280f, 400f)
+
+    val cardHeader = RelativeLayout()
+    cardHeader.id = "View:CardBg"
+    cardHeader.minSize = FloatDim(DIM_UNLIMITED.w, 130f)
+    cardHeader.maxSize = FloatDim(DIM_UNLIMITED.w, 130f)
+    cardHeader.background = ImageDrawable(ImageIO.read(File("assets/welcome_card.jpg")), SCALE_TYPE_COVER)
+
+    val title = TextView("Welcome")
+    title.setThemeColor(COLOR_TITLE)
+    title.gravity = GRAVITY_BOTTOM_LEFT
+    title.setPadding(15f)
+    title.setThemeFont(FONT_SUBTITLE)
+
+    title.applyLayoutParameters(
+            GenericLayoutParamList() with ("gravity" to GRAVITY_BOTTOM_LEFT)
+    )
+
+    cardHeader.addChild(title)
+
+    val content = TextView("Hey there! How are you doing?")
+    content.id = "View:CardContent"
+    content.gravity = GRAVITY_TOP_LEFT
+    content.setPadding(10f)
+    content.paddingBottom = 20f
+
+    val actions = LinearLayout()
+    actions.setOrientation(ORIENTATION_VERTICAL)
+    actions.maxSize = FloatDim(DIM_UNLIMITED.w, 40f)
+
+    val buttonOpen = ButtonView("OPEN", BUTTON_TYPE_FLAT)
+    buttonOpen.maxSize = FloatDim(60f, DIM_UNLIMITED.h)
+    buttonOpen.setThemeFont(FONT_SECONDARY)
+
+    val buttonShare = ButtonView("SHARE", BUTTON_TYPE_FLAT)
+    buttonShare.maxSize = FloatDim(60f, DIM_UNLIMITED.h)
+    buttonShare.setThemeFont(FONT_SECONDARY)
+
+    actions.addChild(buttonOpen)
+    actions.addChild(buttonShare)
+    actions.addChild(View())
+
+    card.addChild(cardHeader)
+    card.addChild(content)
+
+    // add divider
+    val divider = View()
+    divider.background = ColorDrawable(THEME.getDividerColor())
+    divider.maxSize = FloatDim(DIM_UNLIMITED.w, 1f)
+
+    card.addChild(divider)
+    card.addChild(actions)
+
+    card.keyListener = object : View.ViewKeyListener {
+        override fun onKeyTyped(e: KeyEvent) {
+            content.text = content.text + e.keyChar
+            content.requestRepaint()
+        }
+        override fun onKeyPressed(e: KeyEvent) {
+        }
+        override fun onKeyReleased(e: KeyEvent) {
+        }
+    }
+
+    return ElevatedLayout(card, roundRadius = 5f)
+}

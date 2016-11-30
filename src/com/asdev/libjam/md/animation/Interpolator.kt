@@ -41,7 +41,7 @@ object AccelerateInterpolator: Interpolator() {
  */
 object AnticipateInterpolator: Interpolator() {
 
-    override fun getValue(input: Float) = input * input * (3.0f * input - 2.0f).toFloat()
+    override fun getValue(input: Float) = input * input * (3.0f * input - 2.0f)
 
 }
 
@@ -88,6 +88,16 @@ class FactorableDecelerateInterpolator(val factor: Float): Interpolator() {
 
     override fun getValue(input: Float) = (1.0f - Math.pow((1.0f - input).toDouble(), (2f * factor).toDouble())).toFloat()
 
+}
+
+/**
+ * An interpolator (with a accelerate factor) where the rate of change starts out slowly and and then accelerates.
+ */
+class FactorableAccelerateInterpolator(factor: Float) : Interpolator() {
+
+    val doubleFactor = factor * 2f
+
+    override fun getValue(input: Float)= Math.pow(input.toDouble(), doubleFactor.toDouble()).toFloat()
 }
 
 /**

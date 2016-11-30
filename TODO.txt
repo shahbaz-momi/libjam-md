@@ -51,13 +51,20 @@ TODO:
 - global animation choreographer // SOMEWHAT DONE
 - key inputs // DONE
 - tab view traversal // MOSTLY DONE
-- card views // IN TEST
+- card views // CREATED - JUST NEED A CLASS FOR CREATING VIEWS
 - universal over draw components
     - finding the location of a View on screen
+    - useful for popup menus and such
 - right-click menu / dropdown menu
 - fab
-- scroll views // MOSTLY DONE - HORIZONTAL SCROLLBAR
-- list views // PRETTY MUCH A LINEAR LAYOUT
+- loading views
+    - circular loading view
+    - horizontal loading bar
+    - indeterminate loading bar
+- scroll views // DONE
+- list views // DONE
+- view ids // PRETTY MUCH DONE
+    - findViewById(id: String)
 - wrapping text view / multi-line text view
 - xml based view inflation
     - separate module

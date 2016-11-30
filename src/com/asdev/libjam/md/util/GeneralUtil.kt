@@ -3,6 +3,7 @@ package com.asdev.libjam.md.util
 import java.awt.Color
 import java.awt.GraphicsEnvironment
 import java.awt.image.BufferedImage
+import java.util.*
 
 /**
  * Created by Asdev on 10/16/16. All rights reserved.
@@ -27,3 +28,5 @@ fun copyImage(bi: BufferedImage) = BufferedImage(bi.colorModel, bi.copyData(null
  * Creates a blank [BufferedImage] that is compatible with the graphics environment.
  */
 fun createCompatibleImage(width: Int, height: Int) = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.defaultConfiguration.createCompatibleImage(width, height, java.awt.Transparency.TRANSLUCENT)
+
+fun generateRandomId() = UUID.randomUUID().toString()

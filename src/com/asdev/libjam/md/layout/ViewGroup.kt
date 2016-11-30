@@ -68,4 +68,26 @@ abstract class ViewGroup: View() {
 
         return getChildren()[i]
     }
+
+    /**
+     * Returns the view with the specified id, or null if none found.
+     */
+    open fun findViewById(id: String): View? {
+        if(this.id == id) {
+            return this
+        }
+
+        for(i in 0 until getChildCount()) {
+            val child = getChildAtIndex(i)
+            if(child is ViewGroup) {
+                val v = child.findViewById(id)
+                if(v != null)
+                    return v
+            } else if(child.id == id){
+                return child
+            }
+        }
+
+        return null
+    }
 }

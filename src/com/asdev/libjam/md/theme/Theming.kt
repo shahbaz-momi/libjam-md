@@ -172,6 +172,21 @@ abstract class Theme {
      * The rounded radius of the scroll bars.
      */
     abstract fun getScrollBarCornerRadius(): Int
+
+    /**
+     * The radius of circular progress views.
+     */
+    abstract fun getCircularProgressRadius(): Float
+
+    /**
+     * The stroke width of circular progress views.
+     */
+    abstract fun getCircularProgressStrokeWidth(): Float
+
+    /**
+     * The width of the progress bar.
+     */
+    abstract fun getProgressBarWidth(): Float
 }
 
 /**
@@ -241,6 +256,12 @@ object LightMaterialTheme : Theme() {
     override fun getScrollBarWidth() = 10
 
     override fun getScrollBarCornerRadius() = 5
+
+    override fun getCircularProgressRadius() = 30f
+
+    override fun getCircularProgressStrokeWidth() = 5f
+
+    override fun getProgressBarWidth() = 5f
 
     override fun toString(): String {
         return "LightMaterialTheme"
@@ -315,6 +336,12 @@ object DarkMaterialTheme : Theme() {
     override fun getScrollBarWidth() = 10
 
     override fun getScrollBarCornerRadius() = 5
+
+    override fun getCircularProgressRadius() = 30f
+
+    override fun getCircularProgressStrokeWidth() = 5f
+
+    override fun getProgressBarWidth() = 5f
 
     override fun toString(): String {
         return "DarkMaterialTheme"

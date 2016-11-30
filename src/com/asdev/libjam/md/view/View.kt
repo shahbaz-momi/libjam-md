@@ -52,7 +52,11 @@ const val MOUSE_LONG_PRESS_TIME = 900f
  * An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It
  * implements the bare minimum functionality, allowing for easy extensibility.
  */
-open class View: Comparable<View> {
+open class View (
+        /**
+         * The id associated with this id.
+         */
+        var id: String = "View:${generateRandomId()}"): Comparable<View> {
 
     /**
      * The max and minimum sizes of this view. Consider the maximum size as the preferred size as the layout will always
@@ -338,6 +342,11 @@ open class View: Comparable<View> {
             flagRequestingCursor = -1
         }
 
+        if(postAnim != null) {
+            runAnimation(postAnim!!, false)
+            postAnim = null
+        }
+
         // loop the animators
         translationXAnimator.loop()
         translationYAnimator.loop()
@@ -362,13 +371,25 @@ open class View: Comparable<View> {
     }
 
     /**
-     * Posts the animation to the Choregrapher and starts it if not already started. MUST be run on the UI Looper for it to work.
+     * An animation to post to be run later.
+     */
+    private var postAnim: Animator? = null
+
+    /**
+     * Posts the animation to the Choregrapher and starts it if not already started. Will be posted if the current Thread
+     * is not the looper.
      */
     open fun runAnimation(a: Animator, startIt: Boolean) {
-        sendMessageToRoot(Message(MESSAGE_TYPE_ANIMATION, MESSAGE_ACTION_RUN_ANIMATION).apply { data0 = a })
+        if(myLooper() is Looper) {
+            sendMessageToRoot(Message(MESSAGE_TYPE_ANIMATION, MESSAGE_ACTION_RUN_ANIMATION).apply { data0 = a })
 
-        if(!a.isRunning() && startIt) {
-            a.start()
+            if(!a.isRunning() && startIt) {
+                a.start()
+            }
+        } else {
+            postAnim = a
+            if(!a.isRunning() && startIt)
+                a.start()
         }
     }
 

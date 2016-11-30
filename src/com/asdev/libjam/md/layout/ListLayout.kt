@@ -1,6 +1,9 @@
 package com.asdev.libjam.md.layout
 
+import com.asdev.libjam.md.drawable.ColorDrawable
+import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
+import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
@@ -29,7 +32,7 @@ import java.awt.event.MouseWheelEvent
  * A class that accepts a ListLayoutAdapter and lays out the children in a list fashion. Normally, you should wrap this
  * in a ScrollLayout to add scrolling functionality.
  */
-class ListLayout (val listLayoutAdapter: ListLayoutAdapter): View() {
+class ListLayout (val listLayoutAdapter: ListLayoutAdapter, val itemDividers: Boolean = false): View() {
 
     /**
      * The underlying layout which manages the dimensions of the children.
@@ -53,6 +56,14 @@ class ListLayout (val listLayoutAdapter: ListLayoutAdapter): View() {
             listLayoutAdapter.bindView(v, i)
             // add it to the layout
             layout.addChild(v)
+            if(i != listLayoutAdapter.getItemCount() - 1 && itemDividers) {
+                // add divider
+                val div = View()
+                div.background = ColorDrawable(THEME.getDividerColor())
+                div.minSize = FloatDim(DIM_UNLIMITED.w, 1f)
+                div.maxSize = div.minSize
+                layout.addChild(div)
+            }
         }
     }
 
