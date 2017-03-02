@@ -170,6 +170,10 @@ class ListLayout (val listLayoutAdapter: ListLayoutAdapter, val itemDividers: Bo
         layout.onDraw(g)
     }
 
+    override fun onPostDraw(g: Graphics2D) {
+        layout.onPostDraw(g)
+        super.onPostDraw(g)
+    }
 }
 
 /**

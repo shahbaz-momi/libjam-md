@@ -95,6 +95,20 @@ open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Flo
         g.clip = clipBounds
     }
 
+    override fun onPostDraw(g: Graphics2D) {
+        if(layoutSize.w < 0f || layoutSize.h < 0f)
+            return
+
+        // translate the canvas
+        g.translate(radius.toDouble() + child.translationX.toDouble(), radius.toDouble() + child.translationY.toDouble())
+        // draw the child
+        child.onPostDraw(g)
+        g.translate(-radius.toDouble() - child.translationX.toDouble(), -radius.toDouble() - child.translationY.toDouble())
+
+        // reset the clip
+        super.onPostDraw(g)
+    }
+
     private var wasOnCompBefore = false
 
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {

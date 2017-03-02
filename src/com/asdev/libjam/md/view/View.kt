@@ -178,7 +178,7 @@ open class View (
     open fun onMeasure(result: LayoutParams): LayoutParams = result.apply { minSize = this@View.minSize; maxSize = this@View.maxSize; applyAdditional(paramList); }
 
     /**
-     * Called when the layout has determined the size of this layout
+     * Called when the layout has determined the size of this layout.
      */
     open fun onLayout(newSize: FloatDim) {
         if(DEBUG) {
@@ -186,6 +186,13 @@ open class View (
         }
 
         layoutSize = newSize
+    }
+
+    /**
+     * Called when the layout has been determined and the layout pass has been run.
+     */
+    open fun onPostLayout() {
+
     }
 
     /**
@@ -475,12 +482,18 @@ open class View (
             bg?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
 
         if(DEBUG_LAYOUT_BOXES) {
+            g.color = Color(hashCode())
+            g.fillRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
+        }
+    }
+
+    /**
+     * Called when the initial drawn has already occurred, and this drawing pass is used to draw over the previous one.
+     */
+    open fun onPostDraw(g: Graphics2D) {
+        if(DEBUG_LAYOUT_BOXES) {
             g.color = Color.GREEN
             g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
-            if(state == State.STATE_HOVER) {
-                g.color = Color(hashCode())
-                g.fillRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
-            }
         }
     }
 

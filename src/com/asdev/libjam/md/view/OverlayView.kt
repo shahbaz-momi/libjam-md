@@ -50,7 +50,6 @@ open class OverlayView (
      * Called when this OverlayView is attached to its parent.
      */
     open fun onAttach() {
-
     }
 
     /**

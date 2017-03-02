@@ -303,6 +303,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
         val start = System.nanoTime()
 
         rootView.onLayout(actualSize)
+        rootView.onPostLayout()
 
         if(DEBUG)
             println("[RootView] On layout took ${(System.nanoTime() - start) / 1000000.0}ms")
@@ -361,6 +362,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
 
         // call on draw on the root view group
         rootView.onDraw(g)
+        rootView.onPostDraw(g)
 
         // draw the resize tab
         g.color = THEME.getDividerColor()

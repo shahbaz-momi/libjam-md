@@ -403,52 +403,6 @@ class ScrollLayout(val child: View) : ViewGroup() {
     }
 
     /**
-     * Calculates the x-component of the corresponding gravity.
-     * @param bX bounding box X
-     * @param bW bounding box W
-     * @param oW object W
-     */
-    private fun calculateXComp(gravity: Int, bX: Float, bW: Float, oW: Float): Float {
-        if(gravity == GRAVITY_TOP_LEFT ||
-                gravity == GRAVITY_MIDDLE_LEFT ||
-                gravity == GRAVITY_BOTTOM_LEFT) {
-            // just return bounding box x
-            return bX
-        } else if(gravity == GRAVITY_TOP_RIGHT ||
-                gravity == GRAVITY_MIDDLE_RIGHT ||
-                gravity == GRAVITY_BOTTOM_RIGHT) {
-            // align to the right
-            return bX + bW - oW
-        } else {
-            // gravity has to be a center
-            return bX + bW / 2f - oW / 2f
-        }
-    }
-
-    /**
-     * Calculates the y-component of the corresponding gravity.
-     * @param bY bounding box Y
-     * @param bH bounding box H
-     * @param oH object H
-     */
-    private fun calculateYComp(gravity: Int, bY: Float, bH: Float, oH: Float): Float {
-        if(gravity == GRAVITY_TOP_LEFT ||
-                gravity == GRAVITY_TOP_MIDDLE ||
-                gravity == GRAVITY_TOP_RIGHT) {
-            // just return 0f
-            return bY
-        } else if(gravity == GRAVITY_MIDDLE_LEFT ||
-                gravity == GRAVITY_MIDDLE_MIDDLE ||
-                gravity == GRAVITY_MIDDLE_RIGHT) {
-            // align to the middle
-            return bY + bH / 2f - oH / 2f
-        } else {
-            // align to bottom
-            return bY + bH - oH
-        }
-    }
-
-    /**
      * Returns the amount horizontally scrolled.
      */
     fun getScrollX() = scrollX
@@ -566,6 +520,21 @@ class ScrollLayout(val child: View) : ViewGroup() {
 
         // undo clip op
         g.clip = prevClip
+    }
+
+    override fun onPostDraw(g: Graphics2D) {
+        // translate the canvas to dest spot
+        g.translate(childX.toInt() + child.translationX.toInt(), childY.toInt() + child.translationY.toInt())
+        // translate again to apply scroll. Scroll is negative because we want to reverse the direction of the actual
+        // scrolling gesture
+        g.translate(-scrollX.toInt(), -scrollY.toInt())
+        // finally draw child
+        child.onPostDraw(g)
+        // undo translations
+        g.translate(scrollX.toInt(), scrollY.toInt())
+        g.translate(-childX.toInt() - child.translationX.toInt(), -childY.toInt() - child.translationY.toInt())
+
+        super.onPostDraw(g)
     }
 
 }

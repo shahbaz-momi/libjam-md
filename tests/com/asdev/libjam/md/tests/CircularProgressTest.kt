@@ -6,6 +6,7 @@ import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.*
+import java.awt.Color
 import java.awt.Dimension
 import java.awt.Point
 import java.awt.event.MouseEvent
@@ -40,6 +41,7 @@ fun main(args: Array<String>) {
 
 
     val layout = LinearLayout()
+    layout.id = "LinearLayoutContainer"
     layout.addChild(child)
     layout.addChild(desc)
 
@@ -53,6 +55,14 @@ fun main(args: Array<String>) {
     layout.addChild(PaddingLayout(button, 50f))
 
     layout.background = ColorDrawable(THEME.getBackgroundColor())
+
+    val overlay = OverlayView(bindViewId = desc.id)
+    overlay.maxSize = FloatDim(100f, 100f)
+    overlay.applyLayoutParameters(
+            GenericLayoutParamList() with ("gravity" to GRAVITY_BOTTOM_LEFT)
+    )
+    overlay.background = ColorDrawable(Color.PINK)
+    layout.setOverlayView(overlay)
 
     val frame = GLG2DRootView(layout, "Progress Test", Dimension(500, 500), true)
     frame.showFrame()

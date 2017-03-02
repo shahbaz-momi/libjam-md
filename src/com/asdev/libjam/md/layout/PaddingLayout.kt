@@ -99,6 +99,21 @@ class PaddingLayout (val child: View, padding: Float = 15f): View() {
         g.clip = clipBounds
     }
 
+    override fun onPostDraw(g: Graphics2D) {
+        if (layoutSize.w < 0f || layoutSize.h < 0f)
+            return
+
+        // translate the canvas
+        g.translate(paddingLeft + child.translationX.toDouble(), paddingTop + child.translationY.toDouble())
+        // intersect the child bounds clip
+        // g.clipRect(0, 0, child.layoutSize.w.toInt(), child.layoutSize.h.toInt())
+        // draw the child
+        child.onPostDraw(g)
+        g.translate(-paddingLeft.toDouble() - child.translationX.toDouble(), -paddingTop.toDouble() - child.translationY.toDouble())
+
+        super.onPostDraw(g)
+    }
+
     private var wasOnCompBefore = false
 
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {

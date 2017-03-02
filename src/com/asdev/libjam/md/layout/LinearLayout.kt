@@ -358,50 +358,26 @@ open class LinearLayout: ViewGroup() {
         g.clip = clipBounds
     }
 
-    /**
-     * Calculates the x-component of the corresponding gravity.
-     * @param bX bounding box X
-     * @param bW bounding box W
-     * @param oW object W
-     */
-    private fun calculateXComp(gravity: Int, bX: Float, bW: Float, oW: Float): Float {
-        if(gravity == GRAVITY_TOP_LEFT ||
-                gravity == GRAVITY_MIDDLE_LEFT ||
-                gravity == GRAVITY_BOTTOM_LEFT) {
-            // just return bounding box x
-            return bX
-        } else if(gravity == GRAVITY_TOP_RIGHT ||
-                gravity == GRAVITY_MIDDLE_RIGHT ||
-                gravity == GRAVITY_BOTTOM_RIGHT) {
-            // align to the right
-            return bX + bW - oW
-        } else {
-            // gravity has to be a center
-            return bX + bW / 2f - oW / 2f
-        }
-    }
+    override fun onPostDraw(g: Graphics2D) {
+        if(visibility != VISIBILITY_VISIBLE)
+            return
 
-    /**
-     * Calculates the y-component of the corresponding gravity.
-     * @param bY bounding box Y
-     * @param bH bounding box H
-     * @param oH object H
-     */
-    private fun calculateYComp(gravity: Int, bY: Float, bH: Float, oH: Float): Float {
-        if(gravity == GRAVITY_TOP_LEFT ||
-                gravity == GRAVITY_TOP_MIDDLE ||
-                gravity == GRAVITY_TOP_RIGHT) {
-            // just return 0f
-            return bY
-        } else if(gravity == GRAVITY_MIDDLE_LEFT ||
-                gravity == GRAVITY_MIDDLE_MIDDLE ||
-                gravity == GRAVITY_MIDDLE_RIGHT) {
-            // align to the middle
-            return bY + bH / 2f - oH / 2f
-        } else {
-            // align to bottom
-            return bY + bH - oH
+        // draw the children by z order
+        for(c in children.sorted()) {
+            val i = children.indexOf(c)
+            // add the translation of the views
+            g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())
+            // intersect the child clip
+            c.onPostDraw(g)
+            g.translate(-childrenCoords[i].x.toDouble() - c.translationX.toDouble(), -childrenCoords[i].y.toDouble() - c.translationY.toDouble())
         }
+
+        if(DEBUG_LAYOUT_BOXES) {
+            g.color = Color.RED
+            g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
+        }
+
+        super.onPostDraw(g)
     }
 
     /**

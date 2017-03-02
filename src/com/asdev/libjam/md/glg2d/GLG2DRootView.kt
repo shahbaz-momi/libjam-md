@@ -213,12 +213,11 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         val start = System.nanoTime()
 
         rootView.onLayout(FloatDim(size.width.toFloat(), size.height.toFloat()))
+        rootView.onPostLayout()
+
 
         if(DEBUG)
             println("[RootView] On layout took ${(System.nanoTime() - start) / 1000000.0}ms")
-
-        // post layout
-        // TODO rootView.onPostLayout()
 
         // repaint because of a layout change
         requestPaint()
@@ -274,6 +273,7 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
 
         // call on draw on the root view group
         rootView.onDraw(g)
+        rootView.onPostDraw(g)
 
         // draw the resize tab
         g.color = THEME.getDividerColor()

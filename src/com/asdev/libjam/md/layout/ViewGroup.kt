@@ -1,11 +1,12 @@
 package com.asdev.libjam.md.layout
 
 import com.asdev.libjam.md.theme.Theme
-import com.asdev.libjam.md.util.FloatDim
-import com.asdev.libjam.md.util.FloatPoint
+import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.OverlayView
 import com.asdev.libjam.md.view.VISIBILITY_INVISIBLE
+import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
+import java.awt.Graphics2D
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -55,9 +56,9 @@ abstract class ViewGroup: View() {
      * Sets the local OverlayView to the given one.
      */
     fun setOverlayView(v: OverlayView) {
-        overlayView?.onAttach()
-        overlayView = v
         overlayView?.onDetach()
+        overlayView = v
+        overlayView?.onAttach()
         requestLayout()
     }
 
@@ -181,10 +182,141 @@ abstract class ViewGroup: View() {
      * Measures this ViewGroup along with its OverlayView.
      */
     override fun onMeasure(result: LayoutParams): LayoutParams {
-        overlayViewParams = overlayView?.onMeasure(newRelativeLayoutParams()) as? RelativeLayoutParams?: throw IllegalArgumentException("OverlayView must return relative layout params!")
+        if(overlayView != null)
+            overlayViewParams = overlayView?.onMeasure(newRelativeLayoutParams()) as? RelativeLayoutParams?: throw IllegalArgumentException("OverlayView must return relative layout params!")
         overlayView?.visibility = VISIBILITY_INVISIBLE
 
         return super.onMeasure(result)
     }
 
+    override fun onPostLayout() {
+        super.onPostLayout()
+
+        val children = getChildren()
+        for(c in children) {
+            if(c is ViewGroup)
+                c.onPostLayout()
+        }
+
+        val hardRef = overlayView
+        var size = layoutSize.copy()
+
+        // determine the size of the overlay
+        if(hardRef != null) {
+            val dims = overlayViewParams
+            // do a size check
+            if(!(dims.minSize to dims.maxSize fits size)) {
+                // if size is smaller than use the min size otherwise use the max size
+                var newW = size.w
+                var newH = size.h
+                if(size.w <= dims.minSize.w && dims.minSize != DIM_UNSET && dims.minSize != DIM_UNLIMITED) {
+                    // use min w
+                    newW = dims.minSize.w
+                } else if(size.w >= dims.maxSize.w && dims.maxSize != DIM_UNSET && dims.maxSize != DIM_UNLIMITED) {
+                    newW = dims.maxSize.w
+                }
+
+                if(size.h <= dims.minSize.h && dims.minSize != DIM_UNSET && dims.minSize != DIM_UNLIMITED) {
+                    newH = dims.minSize.h
+                } else if(size.h >= dims.maxSize.h && dims.maxSize != DIM_UNSET && dims.maxSize != DIM_UNLIMITED) {
+                    newH = dims.maxSize.h
+                }
+
+                size = FloatDim(newW, newH)
+            }
+        }
+
+        // find the bound view if one exists for the overlay view
+        if(hardRef != null && hardRef.bindViewId != null) {
+            val bindId = hardRef.bindViewId!!
+            val view = findViewById(bindId)
+
+            // find the bind view
+            if(view != null) {
+                // get the position of it
+                val viewPos = findViewPosition(view)!!
+                // anchor it to that position with the gravity
+                val position = FloatPoint(calculateXComp(overlayViewParams.gravity, viewPos.x, view.layoutSize.w, size.w), calculateYComp(overlayViewParams.gravity, viewPos.y, view.layoutSize.h, size.h))
+                // perform the layout and post layout
+                hardRef.onLayout(size)
+                hardRef.onPostLayout(position, view)
+            } else {
+                //no bind view
+                // size is established, so anchor by the set gravity
+                val position = FloatPoint(calculateXComp(overlayViewParams.gravity, 0f, layoutSize.w, size.w), calculateYComp(overlayViewParams.gravity, 0f, layoutSize.h, size.h))
+                // perform the on post
+                hardRef.onLayout(size)
+                hardRef.onPostLayout(position, null)
+            }
+        } else if(hardRef != null) {
+            //no bind view
+            // size is established, so anchor by the set gravity
+            val position = FloatPoint(calculateXComp(overlayViewParams.gravity, 0f, layoutSize.w, size.w), calculateYComp(overlayViewParams.gravity, 0f, layoutSize.h, size.h))
+            // perform the on post
+            hardRef.onLayout(size)
+            hardRef.onPostLayout(position, null)
+        }
+
+        // make it visible again
+        hardRef?.visibility = VISIBILITY_VISIBLE
+    }
+
+    /**
+     * Calculates the x-component of the corresponding gravity.
+     * @param bX bounding box X
+     * @param bW bounding box W
+     * @param oW object W
+     */
+    protected fun calculateXComp(gravity: Int, bX: Float, bW: Float, oW: Float): Float {
+        if(gravity == GRAVITY_TOP_LEFT ||
+                gravity == GRAVITY_MIDDLE_LEFT ||
+                gravity == GRAVITY_BOTTOM_LEFT) {
+            // just return bounding box x
+            return bX
+        } else if(gravity == GRAVITY_TOP_RIGHT ||
+                gravity == GRAVITY_MIDDLE_RIGHT ||
+                gravity == GRAVITY_BOTTOM_RIGHT) {
+            // align to the right
+            return bX + bW - oW
+        } else {
+            // gravity has to be a center
+            return bX + bW / 2f - oW / 2f
+        }
+    }
+
+    /**
+     * Calculates the y-component of the corresponding gravity.
+     * @param bY bounding box Y
+     * @param bH bounding box H
+     * @param oH object H
+     */
+    protected fun calculateYComp(gravity: Int, bY: Float, bH: Float, oH: Float): Float {
+        if(gravity == GRAVITY_TOP_LEFT ||
+                gravity == GRAVITY_TOP_MIDDLE ||
+                gravity == GRAVITY_TOP_RIGHT) {
+            // just return 0f
+            return bY
+        } else if(gravity == GRAVITY_MIDDLE_LEFT ||
+                gravity == GRAVITY_MIDDLE_MIDDLE ||
+                gravity == GRAVITY_MIDDLE_RIGHT) {
+            // align to the middle
+            return bY + bH / 2f - oH / 2f
+        } else {
+            // align to bottom
+            return bY + bH - oH
+        }
+    }
+
+    override fun onPostDraw(g: Graphics2D) {
+        super.onPostDraw(g)
+
+        val hardRef = overlayView
+        if(hardRef != null) {
+            g.translate(hardRef.position.x.toDouble() + hardRef.translationX, hardRef.position.y.toDouble() + hardRef.translationY)
+            // no clip cuz its a overlay view
+            hardRef.onDraw(g)
+            hardRef.onPostDraw(g)
+            g.translate(-hardRef.position.x.toDouble() - hardRef.translationX, -hardRef.position.y.toDouble() - hardRef.translationY)
+        }
+    }
 }

@@ -684,4 +684,23 @@ class RelativeLayout: ViewGroup() {
 
         g.clip = clipBounds
     }
+
+    override fun onPostDraw(g: Graphics2D) {
+        if(visibility != VISIBILITY_VISIBLE)
+            return
+
+        for((i, c) in orderedChildren.withIndex()) {
+            if(c == null)
+                continue
+
+            val p = childCoords[i]!!
+
+            // translate it
+            g.translate( p.x.toDouble() + c.translationX.toDouble(), p.y.toDouble() + c.translationY.toDouble())
+            c.onPostDraw(g)
+            g.translate( -p.x.toDouble() - c.translationX.toDouble(), -p.y.toDouble() - c.translationY.toDouble())
+        }
+
+        super.onPostDraw(g)
+    }
 }
