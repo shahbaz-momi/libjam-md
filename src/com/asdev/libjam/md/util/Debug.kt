@@ -33,8 +33,8 @@ class Debug {
         time = System.nanoTime()
     }
 
-    fun stopTimer(tag: String) {
-        if(DEBUG)
+    fun stopTimer(tag: String, forceOutput: Boolean = false) {
+        if(DEBUG || forceOutput)
             println("$tag took ${(System.nanoTime() - time) / 1000000.0}ms")
     }
 

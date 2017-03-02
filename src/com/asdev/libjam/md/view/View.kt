@@ -50,7 +50,8 @@ const val MOUSE_LONG_PRESS_TIME = 900f
 
 /**
  * An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It
- * implements the bare minimum functionality, allowing for easy extensibility.
+ * implements the bare minimum functionality, allowing for easy extensibility. It does NOT have a context or a reference
+ * to its parent View/ViewGroup.
  */
 open class View (
         /**

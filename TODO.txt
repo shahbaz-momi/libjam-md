@@ -53,21 +53,31 @@ TODO:
 - tab view traversal // MOSTLY DONE
 - card views // CREATED - JUST NEED A CLASS FOR CREATING VIEWS
 - universal over draw components
-    - finding the location of a View on screen
+    - finding the location of a View on screen // DONE
     - useful for popup menus and such
+- OverlayLayout: using an overlay layer which allows for a dialog/View to be drawn on top
+    - snackbars
+    - drawer
 - right-click menu / dropdown menu
 - fab
-- loading views
+- loading views // DONE
     - circular loading view
     - horizontal loading bar
     - indeterminate loading bar
 - scroll views // DONE
-- list views // DONE
+- list views // DONE -- MORE EFFICIENT RENDERING THO
 - view ids // PRETTY MUCH DONE
     - findViewById(id: String)
 - wrapping text view / multi-line text view
+    - min and max sizes based off of text
+    - alignment of text // center, left align, right align, etc
+    - fitting text within given dimensions
+    - line heights, keming, etc.
+    - these calculations should be performed in onLayout!!! It would be to blocking for onDraw
 - xml based view inflation
     - separate module
     - establish spec
+- concept of layouts in the RootView for easy switching
 - tool tips
+    - need to find x and y coordinates
 - more material ui components

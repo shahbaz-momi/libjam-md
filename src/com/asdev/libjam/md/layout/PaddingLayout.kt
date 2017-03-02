@@ -3,6 +3,7 @@ package com.asdev.libjam.md.layout
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.DEBUG_LAYOUT_BOXES
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.View
 import java.awt.Color
 import java.awt.Graphics2D
@@ -25,17 +26,10 @@ import java.awt.event.MouseWheelEvent
  */
 class PaddingLayout (val child: View, padding: Float = 15f): View() {
 
-    var paddingLeft: Float
-    var paddingRight: Float
-    var paddingTop: Float
-    var paddingBottom: Float
-
-    init {
-        paddingLeft = padding
-        paddingBottom = padding
-        paddingRight = padding
-        paddingTop = padding
-    }
+    var paddingLeft: Float = padding
+    var paddingRight: Float = padding
+    var paddingTop: Float = padding
+    var paddingBottom: Float = padding
 
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
         super.onThemeChange(prevTheme, newTheme)
@@ -182,4 +176,9 @@ class PaddingLayout (val child: View, padding: Float = 15f): View() {
         super.onScroll(e)
         child.onScroll(e)
     }
+
+    /**
+     * Returns the position of the child within this PaddingLayout.
+     */
+    fun findChildPosition() = FloatPoint(paddingLeft, paddingTop)
 }

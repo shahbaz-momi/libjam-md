@@ -217,6 +217,9 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         if(DEBUG)
             println("[RootView] On layout took ${(System.nanoTime() - start) / 1000000.0}ms")
 
+        // post layout
+        // TODO rootView.onPostLayout()
+
         // repaint because of a layout change
         requestPaint()
     }

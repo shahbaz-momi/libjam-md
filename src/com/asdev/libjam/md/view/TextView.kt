@@ -65,6 +65,8 @@ open class TextView(var text: String): View() {
         setThemeColor(themeColor)
 
         zIndex = 1
+
+        layoutText()
     }
 
     fun setPadding(padding: Float) {
@@ -96,6 +98,13 @@ open class TextView(var text: String): View() {
      * Returns the theme color this [TextView] will use to draw the text.
      */
     fun getThemeColor() = themeColor
+
+    /**
+     * Measures and layouts out the text.
+     */
+    fun layoutText() {
+        // calculate the line height of the text
+    }
 
     /**
      * [TextView] implementation of [onThemeChange]. Will update the [Font] and [Color] used by this [TextView].

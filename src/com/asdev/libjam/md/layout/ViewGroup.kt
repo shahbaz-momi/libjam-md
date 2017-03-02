@@ -1,6 +1,10 @@
 package com.asdev.libjam.md.layout
 
 import com.asdev.libjam.md.theme.Theme
+import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.util.FloatPoint
+import com.asdev.libjam.md.view.OverlayView
+import com.asdev.libjam.md.view.VISIBILITY_INVISIBLE
 import com.asdev.libjam.md.view.View
 
 /**
@@ -16,6 +20,16 @@ import com.asdev.libjam.md.view.View
  * A [View] that holds multiple other [View] children.
  */
 abstract class ViewGroup: View() {
+
+    /**
+     * The overlay of this ViewGroup.
+     */
+    private var overlayView: OverlayView? = null
+
+    /**
+     * The internal layout params for the overlay.
+     */
+    private var overlayViewParams = newRelativeLayoutParams()
 
     /**
      * Adds the specified child to this [ViewGroup]
@@ -38,6 +52,21 @@ abstract class ViewGroup: View() {
     open fun getChildCount() = getChildren().size
 
     /**
+     * Sets the local OverlayView to the given one.
+     */
+    fun setOverlayView(v: OverlayView) {
+        overlayView?.onAttach()
+        overlayView = v
+        overlayView?.onDetach()
+        requestLayout()
+    }
+
+    /**
+     * Returns the local OverlayView.
+     */
+    fun getOverlayView() = overlayView
+
+    /**
      * Implementation of [onThemeChange]. Calls the [View] implementation and then notifies its children of the theme change.
      */
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
@@ -46,6 +75,8 @@ abstract class ViewGroup: View() {
         // theme change the children as well
         for(c in getChildren())
             c.onThemeChange(prevTheme, newTheme)
+
+        overlayView?.onThemeChange(prevTheme, newTheme)
     }
 
     /**
@@ -57,6 +88,8 @@ abstract class ViewGroup: View() {
         for(i in 0 until getChildCount()) {
             getChildAtIndex(i).loop()
         }
+
+        overlayView?.loop()
     }
 
     /**
@@ -90,4 +123,68 @@ abstract class ViewGroup: View() {
 
         return null
     }
+
+    /**
+     * Returns the local coordinates of the specified child excluding the local translations, or null if none found.
+     */
+    abstract fun findChildPosition(child: View): FloatPoint?
+
+    /**
+     * Returns the coordinates relative to this view group of the view if it is a child of this ViewGroup or one of its descendants.
+     */
+    open fun findViewPosition(v: View): FloatPoint? {
+        return findViewPosition0(v, FloatPoint(0f, 0f))
+    }
+
+    /**
+     * Internal method for finding the view position.
+     */
+    protected open fun findViewPosition0(v: View, yourPos: FloatPoint): FloatPoint? {
+        // check if the view is a child of ours
+        val pos = findChildPosition(v)
+        if(pos != null) {
+            return pos add yourPos
+        } else {
+            val children = getChildren()
+            for(c in children) {
+                if(c is ViewGroup) {
+                    val p = c.findViewPosition0(v, yourPos add findChildPosition(c)!!)
+                    if(p != null)
+                        return p
+                } else if(c is PaddingLayout) {
+                    // special case for paddinglayout, which actually isnt a layout
+                    if(c.child == v) {
+                        return yourPos add c.findChildPosition() add findChildPosition(c)!!
+                    } else if(c.child is ViewGroup) {
+                        val p = c.child.findViewPosition0(v, yourPos add findChildPosition(c)!! add c.findChildPosition())
+                        if(p != null)
+                            return p
+                    }
+                } else if(c is ElevatedLayout) {
+                    // special case for elevation layout, which actually isnt a layout
+                    if(c.child == v) {
+                        return yourPos add c.findChildPosition() add findChildPosition(c)!!
+                    } else if(c.child is ViewGroup) {
+                        val p = c.child.findViewPosition0(v, yourPos add findChildPosition(c)!! add c.findChildPosition())
+                        if(p != null)
+                            return p
+                    }
+                }
+            }
+        }
+
+        // not found, return null
+        return null
+    }
+
+    /**
+     * Measures this ViewGroup along with its OverlayView.
+     */
+    override fun onMeasure(result: LayoutParams): LayoutParams {
+        overlayViewParams = overlayView?.onMeasure(newRelativeLayoutParams()) as? RelativeLayoutParams?: throw IllegalArgumentException("OverlayView must return relative layout params!")
+        overlayView?.visibility = VISIBILITY_INVISIBLE
+
+        return super.onMeasure(result)
+    }
+
 }

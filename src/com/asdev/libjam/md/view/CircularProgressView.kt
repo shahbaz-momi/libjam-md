@@ -3,6 +3,7 @@ package com.asdev.libjam.md.view
 import com.asdev.libjam.md.animation.DecelerateInterpolator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.animation.LinearInterpolator
+import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.COLOR_ACCENT
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
@@ -39,6 +40,20 @@ class CircularProgressView : View() {
      * The color of the circle to draw.
      */
     var color: Color = THEME.getAccentColor()
+
+    /**
+     * The gravity in which to fit the circle within.
+     */
+    var gravity = GRAVITY_MIDDLE_MIDDLE
+
+
+    /**
+     * The paddings to use when drawing the circle.
+     */
+    var paddingTop = 0f
+    var paddingBottom = 0f
+    var paddingRight = 0f
+    var paddingLeft = 0f
 
     /*
      * The properties to use from the theme.
@@ -190,9 +205,55 @@ class CircularProgressView : View() {
 
     override fun onLayout(newSize: FloatDim) {
         super.onLayout(newSize)
-        // center the arc within the size
-        arcX = (newSize.w - circleRadius * 2f) / 2f
-        arcY = (newSize.h - circleRadius * 2f) / 2f
+        // calculate the position of the arc with the specified gravity and padding
+        arcX = calculateXComp(gravity, paddingLeft, newSize.w - paddingLeft - paddingRight, circleRadius * 2f + paddingRight)
+        arcY = calculateYComp(gravity, paddingTop, newSize.h - paddingTop - paddingBottom, circleRadius * 2f + paddingBottom)
+    }
+
+    /**
+     * Calculates the x-component of the corresponding gravity.
+     * @param bX bounding box X
+     * @param bW bounding box W
+     * @param oW object W
+     */
+    private fun calculateXComp(gravity: Int, bX: Float, bW: Float, oW: Float): Float {
+        if(gravity == GRAVITY_TOP_LEFT ||
+                gravity == GRAVITY_MIDDLE_LEFT ||
+                gravity == GRAVITY_BOTTOM_LEFT) {
+            // just return bounding box x
+            return bX
+        } else if(gravity == GRAVITY_TOP_RIGHT ||
+                gravity == GRAVITY_MIDDLE_RIGHT ||
+                gravity == GRAVITY_BOTTOM_RIGHT) {
+            // align to the right
+            return bX + bW - oW
+        } else {
+            // gravity has to be a center
+            return bX + bW / 2f - oW / 2f
+        }
+    }
+
+    /**
+     * Calculates the y-component of the corresponding gravity.
+     * @param bY bounding box Y
+     * @param bH bounding box H
+     * @param oH object H
+     */
+    private fun calculateYComp(gravity: Int, bY: Float, bH: Float, oH: Float): Float {
+        if(gravity == GRAVITY_TOP_LEFT ||
+                gravity == GRAVITY_TOP_MIDDLE ||
+                gravity == GRAVITY_TOP_RIGHT) {
+            // just return 0f
+            return bY
+        } else if(gravity == GRAVITY_MIDDLE_LEFT ||
+                gravity == GRAVITY_MIDDLE_MIDDLE ||
+                gravity == GRAVITY_MIDDLE_RIGHT) {
+            // align to the middle
+            return bY + bH / 2f - oH / 2f
+        } else {
+            // align to bottom
+            return bY + bH - oH
+        }
     }
 
     /**

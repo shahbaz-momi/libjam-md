@@ -60,6 +60,7 @@ open class LinearLayout: ViewGroup() {
      */
     override fun removeChild(child: View) {
         children.remove(child)
+        previousViewMousedOn = -1
         requestLayout()
     }
 
@@ -82,7 +83,16 @@ open class LinearLayout: ViewGroup() {
      */
     override fun addChild(child: View) {
         children.add(child)
-        // request a layout to accodomate for the new view
+        // request a layout to accomodate for the new view
+        requestLayout()
+    }
+
+
+    /**
+     * Adds the specified child to this layout at the given index.
+     */
+    fun addChildAtIndex(view: View, index: Int) {
+        children.add(index, view)
         requestLayout()
     }
 
@@ -591,5 +601,16 @@ open class LinearLayout: ViewGroup() {
                 return
             }
         }
+    }
+
+    override fun findChildPosition(child: View): FloatPoint? {
+        val index = children.indexOf(child)
+
+        // make sure that the child is part of this layout
+        if(index == -1) {
+            return null
+        }
+
+        return childrenCoords[index]
     }
 }

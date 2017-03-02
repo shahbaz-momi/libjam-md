@@ -112,6 +112,7 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
         navBar.addChild(navBarButtonsContainer)
 
         // make a listener to drag the window on mouse dragged
+        // TODO: move this to the global frame onListen as this is causing lag
         navBar.mouseListener = object : ViewMouseListener {
 
             override fun onMouseEnter(e: MouseEvent, p: Point) {

@@ -51,7 +51,11 @@ class RelativeLayout: ViewGroup() {
      */
     private var minChildSize = DIM_UNSET
 
-    override fun removeChild(child: View) { children.remove(child) }
+    override fun removeChild(child: View) {
+        children.remove(child)
+        previousViewMousedOn = -1
+        requestLayout()
+    }
 
     override fun getChildren() = children.toTypedArray()
 
@@ -638,6 +642,17 @@ class RelativeLayout: ViewGroup() {
                 return
             }
         }
+    }
+
+    override fun findChildPosition(child: View): FloatPoint? {
+        val index = orderedChildren.indexOf(child)
+
+        // make sure that the child is part of this layout
+        if(index == -1) {
+            return null
+        }
+
+        return childCoords[index]
     }
 
     /**

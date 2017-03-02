@@ -162,7 +162,7 @@ public class StressTest {
   @Test
   public void imageTest() throws Exception {
     final int numimages = 200;
-    final Image image = ImageIO.read(new File("assets/shadow.png"));
+    final Image image = ImageIO.read(new File("assets/texture.png"));
     TimedPainter painter = new TimedPainter() {
       @Override
       protected void paint(Graphics2D g2d) {

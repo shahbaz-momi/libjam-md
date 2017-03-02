@@ -5,6 +5,7 @@ import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
 import java.awt.Point
@@ -53,7 +54,7 @@ class ListLayout (val listLayoutAdapter: ListLayoutAdapter, val itemDividers: Bo
         // construct the children and add it
         for(i in 0 until listLayoutAdapter.getItemCount()) {
             val v = listLayoutAdapter.constructView(i)
-            listLayoutAdapter.bindView(v, i)
+            listLayoutAdapter.bindView(this, v, i)
             // add it to the layout
             layout.addChild(v)
             if(i != listLayoutAdapter.getItemCount() - 1 && itemDividers) {
@@ -159,6 +160,11 @@ class ListLayout (val listLayoutAdapter: ListLayoutAdapter, val itemDividers: Bo
         layout.loop()
     }
 
+    /**
+     * Finds the position of the specified child relative to this View.
+     */
+    fun findChildPosition(child: View) = layout.findChildPosition(child)
+
     override fun onDraw(g: Graphics2D) {
         super.onDraw(g)
         layout.onDraw(g)
@@ -180,6 +186,10 @@ interface ListLayoutAdapter {
      * Called when the binding of the data at the index to the provided view is requested.
      */
     fun bindView(
+            /**
+             * The ListLayout itself.
+             */
+            parent: ListLayout,
             /**
              * The view to bind the data with.
              */

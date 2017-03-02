@@ -34,7 +34,7 @@ const val BUTTON_TYPE_FLAT = 1
 /**
  * A simple button widget.
  */
-class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(text) {
+open class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(text) {
 
     private var themeBgColor = COLOR_ACCENT
 

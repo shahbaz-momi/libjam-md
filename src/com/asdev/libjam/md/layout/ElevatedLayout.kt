@@ -5,6 +5,7 @@ import com.asdev.libjam.md.drawable.ShadowDrawable
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
 import java.awt.Point
@@ -172,4 +173,6 @@ open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Flo
         super.onScroll(e)
         child.onScroll(e)
     }
+
+    fun findChildPosition() = FloatPoint(radius, radius)
 }

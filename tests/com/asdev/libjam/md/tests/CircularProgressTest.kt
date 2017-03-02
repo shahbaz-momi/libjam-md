@@ -1,21 +1,14 @@
 package com.asdev.libjam.md.tests
 
 import com.asdev.libjam.md.drawable.ColorDrawable
-import com.asdev.libjam.md.drawable.ImageDrawable
-import com.asdev.libjam.md.drawable.SCALE_TYPE_ORIGINAL
 import com.asdev.libjam.md.glg2d.GLG2DRootView
-import com.asdev.libjam.md.layout.GRAVITY_MIDDLE_MIDDLE
-import com.asdev.libjam.md.layout.GenericLayoutParamList
-import com.asdev.libjam.md.layout.LinearLayout
-import com.asdev.libjam.md.layout.ScrollLayout
-import com.asdev.libjam.md.theme.COLOR_TITLE
+import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.THEME
-import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.*
 import java.awt.Dimension
-import java.io.File
-import javax.imageio.ImageIO
+import java.awt.Point
+import java.awt.event.MouseEvent
 
 /**
  * Created by Asdev on 11/17/16. All rights reserved.
@@ -34,7 +27,11 @@ fun main(args: Array<String>) {
     child.applyLayoutParameters(
             GenericLayoutParamList() with ("gravity" to GRAVITY_MIDDLE_MIDDLE)
     )
+    child.gravity = GRAVITY_BOTTOM_MIDDLE
+    child.paddingBottom = 12f
 
+    val desc = TextView("Searching")
+    desc.gravity = GRAVITY_TOP_MIDDLE
     val child2 = ProgressView(PROGRESS_TYPE_INDETERMINATE)
     child2.setProgress(0.5f)
     child2.applyLayoutParameters(
@@ -44,7 +41,17 @@ fun main(args: Array<String>) {
 
     val layout = LinearLayout()
     layout.addChild(child)
-    layout.addChild(child2)
+    layout.addChild(desc)
+
+    val button = ButtonView("ProgressView")
+    button.minSize = FloatDim(100f, 30f)
+    button.maxSize = FloatDim(100f, 30f)
+    button.onClickListener = { e: MouseEvent, p: Point ->
+        button.text = "${p.x} ${p.y}"
+    }
+
+    layout.addChild(PaddingLayout(button, 50f))
+
     layout.background = ColorDrawable(THEME.getBackgroundColor())
 
     val frame = GLG2DRootView(layout, "Progress Test", Dimension(500, 500), true)

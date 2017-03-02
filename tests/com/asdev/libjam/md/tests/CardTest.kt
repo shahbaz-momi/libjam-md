@@ -5,6 +5,7 @@ import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.*
 import com.asdev.libjam.md.util.DIM_UNLIMITED
+import com.asdev.libjam.md.util.Debug
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.BUTTON_TYPE_FLAT
 import com.asdev.libjam.md.view.ButtonView
@@ -93,4 +94,10 @@ fun main(args: Array<String>) {
 //    deco.setDrawAboveAll(false)
 
     root.showFrame()
+
+    val d = Debug()
+    Thread.sleep(1000)
+    d.startTimer()
+    println("Position of child: ${layout.findViewPosition(buttonShare)}")
+    d.stopTimer("Finding position of child", true)
 }

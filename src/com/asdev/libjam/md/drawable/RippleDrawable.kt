@@ -18,7 +18,7 @@ import java.awt.Graphics2D
  * under the package com.asdev.libjam.md.drawable
  */
 
-const val HIGHLIGHT_OPACITY = 0.13f
+const val HIGHLIGHT_OPACITY = 0.1f
 const val RIPPLE_OPACITY = 0.2f
 
 /**
@@ -144,7 +144,7 @@ class RippleDrawable(
 
         g.clipRect(x.toInt(), y.toInt(), w.toInt(), h.toInt())
 
-        g.fillRect(rippleX.toInt() + 10, y.toInt() - 1, rippleW.toInt() - 20, h.toInt() + 2)
+        g.fillRect(rippleX + 10, y.toInt() - 1, rippleW.toInt() - 20, h.toInt() + 2)
 
         g.composite = prevComp
         g.clip = prevClipBounds

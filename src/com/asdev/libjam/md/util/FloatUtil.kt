@@ -60,6 +60,15 @@ data class FloatPoint(
          */
         var y: Float) {
 
+    infix fun add(other: FloatPoint) = FloatPoint(x + other.x, y + other.y)
+
+    infix fun subtract(other: FloatPoint) = FloatPoint(x - other.x, y - other.y)
+
+    infix fun multiply(other: FloatPoint) = FloatPoint(x * other.x, y * other.y)
+
+    infix fun divide(other: FloatPoint) = FloatPoint(x / other.x, y / other.y)
+
+
     override fun toString(): String {
         return "FloatPoint[x=$x,y=$y]"
     }

@@ -5,6 +5,7 @@ import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
 import java.awt.AlphaComposite
@@ -448,6 +449,16 @@ class ScrollLayout(val child: View) : ViewGroup() {
     }
 
     /**
+     * Returns the amount horizontally scrolled.
+     */
+    fun getScrollX() = scrollX
+
+    /**
+     * Returns the amount vertically scrolled.
+     */
+    fun getScrollY() = scrollY
+
+    /**
      * Scrolls this layout by the given amount.
      */
     fun scroll(xAmt: Float, yAmt: Float) {
@@ -483,6 +494,14 @@ class ScrollLayout(val child: View) : ViewGroup() {
      */
     fun scrollTo(xScroll: Float, yScroll: Float) {
         scroll(xScroll - scrollX, yScroll - scrollY)
+    }
+
+    override fun findChildPosition(child: View): FloatPoint? {
+        if(child == this.child) {
+            return FloatPoint(childX, childY)
+        }
+
+        return null
     }
 
     /**
