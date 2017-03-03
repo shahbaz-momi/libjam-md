@@ -30,7 +30,7 @@ abstract class ViewGroup: View() {
     /**
      * The internal layout params for the overlay.
      */
-    private var overlayViewParams = newRelativeLayoutParams()
+    private var overlayViewParams = newOverlayLayoutParams()
 
     /**
      * Adds the specified child to this [ViewGroup]
@@ -141,6 +141,10 @@ abstract class ViewGroup: View() {
      * Internal method for finding the view position.
      */
     protected open fun findViewPosition0(v: View, yourPos: FloatPoint): FloatPoint? {
+        if(v == this) {
+            return yourPos
+        }
+
         // check if the view is a child of ours
         val pos = findChildPosition(v)
         if(pos != null) {
@@ -183,8 +187,8 @@ abstract class ViewGroup: View() {
      */
     override fun onMeasure(result: LayoutParams): LayoutParams {
         if(overlayView != null)
-            overlayViewParams = overlayView?.onMeasure(newRelativeLayoutParams()) as? RelativeLayoutParams?: throw IllegalArgumentException("OverlayView must return relative layout params!")
-        overlayView?.visibility = VISIBILITY_INVISIBLE
+            overlayViewParams = overlayView?.onMeasure(newOverlayLayoutParams()) as? OverlayLayoutParams?: throw IllegalArgumentException("OverlayView must return overlay layout params!")
+        // overlayView?.visibility = VISIBILITY_INVISIBLE
 
         return super.onMeasure(result)
     }
@@ -237,6 +241,9 @@ abstract class ViewGroup: View() {
                 val viewPos = findViewPosition(view)!!
                 // anchor it to that position with the gravity
                 val position = FloatPoint(calculateXComp(overlayViewParams.gravity, viewPos.x, view.layoutSize.w, size.w), calculateYComp(overlayViewParams.gravity, viewPos.y, view.layoutSize.h, size.h))
+                // account for the anchor
+                position.x = calculateAnchorX(overlayViewParams.anchor, position.x, size.w, viewPos.x, view.layoutSize.w)
+                position.y = calculateAnchorY(overlayViewParams.anchor, position.y, size.h, viewPos.y, view.layoutSize.h)
                 // perform the layout and post layout
                 hardRef.onLayout(size)
                 hardRef.onPostLayout(position, view)
@@ -259,6 +266,26 @@ abstract class ViewGroup: View() {
 
         // make it visible again
         hardRef?.visibility = VISIBILITY_VISIBLE
+    }
+
+    protected fun calculateAnchorY(anchor: Int, originalY: Float, objectH: Float, boxY: Float, boxH: Float): Float {
+        if(anchor == ANCHOR_ABOVE) {
+            return boxY - objectH
+        } else if(anchor == ANCHOR_BELOW) {
+            return boxY + boxH
+        }
+
+        return originalY
+    }
+
+    protected fun calculateAnchorX(anchor: Int, originalX: Float, objectW: Float, boxX: Float, boxW: Float): Float {
+        if(anchor == ANCHOR_TO_LEFT) {
+            return boxX - objectW
+        } else if(anchor == ANCHOR_TO_RIGHT) {
+            return boxX + boxW
+        }
+
+        return originalX
     }
 
     /**

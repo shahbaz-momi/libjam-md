@@ -72,6 +72,47 @@ class RelativeLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: In
 
 fun newRelativeLayoutParams() = RelativeLayoutParams(DIM_UNSET, DIM_UNSET, GRAVITY_MIDDLE_MIDDLE)
 
+val ANCHOR_INSIDE = 0
+val ANCHOR_ABOVE = 1
+val ANCHOR_BELOW =  2
+val ANCHOR_TO_LEFT = 3
+val ANCHOR_TO_RIGHT = 4
+
+val LAYOUT_PARAM_ANCHOR = "anchor"
+
+class OverlayLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int = GRAVITY_MIDDLE_MIDDLE, var anchor: Int = ANCHOR_INSIDE): LayoutParams(minSize, maxSize) {
+
+    override fun newInstance() = newOverlayLayoutParams()
+
+    override fun applyAdditional(params: GenericLayoutParamList?) {
+        if(DEBUG) {
+            println("[RelativeLayoutParams] Applying additional layout params from generic layout param list: $params")
+        }
+        if(params == null)
+            return
+
+        // check if there is a gravity
+        if(params.hasParam(LAYOUT_PARAM_GRAVITY)) {
+            val p = params.getParam(LAYOUT_PARAM_GRAVITY)
+            // apply it
+            if(p != null && p is Int) {
+                gravity = p
+            }
+        }
+
+        if(params.hasParam(LAYOUT_PARAM_ANCHOR)) {
+            val p = params.getParam(LAYOUT_PARAM_ANCHOR)
+            // apply it
+            if(p != null && p is Int) {
+                anchor = p
+            }
+        }
+    }
+}
+
+fun newOverlayLayoutParams() = OverlayLayoutParams(DIM_UNSET, DIM_UNSET, GRAVITY_MIDDLE_MIDDLE, ANCHOR_INSIDE)
+
+
 class LinearLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int = GRAVITY_MIDDLE_MIDDLE): LayoutParams(minSize, maxSize) {
 
     override fun applyAdditional(params: GenericLayoutParamList?) {

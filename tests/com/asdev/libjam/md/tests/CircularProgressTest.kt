@@ -1,9 +1,16 @@
 package com.asdev.libjam.md.tests
 
+import com.asdev.libjam.md.animation.AccelerateInterpolator
+import com.asdev.libjam.md.animation.DecelerateInterpolator
+import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.drawable.ColorDrawable
+import com.asdev.libjam.md.drawable.CompoundDrawable
+import com.asdev.libjam.md.drawable.RoundedRectangleDrawable
+import com.asdev.libjam.md.drawable.ShadowDrawable
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.THEME
+import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.*
 import java.awt.Color
@@ -26,7 +33,7 @@ fun main(args: Array<String>) {
 
     val child = CircularProgressView()
     child.applyLayoutParameters(
-            GenericLayoutParamList() with ("gravity" to GRAVITY_MIDDLE_MIDDLE)
+            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to GRAVITY_MIDDLE_MIDDLE)
     )
     child.gravity = GRAVITY_BOTTOM_MIDDLE
     child.paddingBottom = 12f
@@ -36,7 +43,7 @@ fun main(args: Array<String>) {
     val child2 = ProgressView(PROGRESS_TYPE_INDETERMINATE)
     child2.setProgress(0.5f)
     child2.applyLayoutParameters(
-            GenericLayoutParamList() with ("gravity" to GRAVITY_MIDDLE_MIDDLE)
+            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to GRAVITY_MIDDLE_MIDDLE)
     )
 
 
@@ -45,25 +52,39 @@ fun main(args: Array<String>) {
     layout.addChild(child)
     layout.addChild(desc)
 
-    val button = ButtonView("ProgressView")
+    layout.background = ColorDrawable(THEME.getBackgroundColor())
+
+    val overlay = TextView("This is a snackbar!")
+    overlay.bindViewId = layout.id
+    overlay.gravity = GRAVITY_MIDDLE_LEFT
+    overlay.paddingLeft = 12f
+    overlay.setThemeColor(-1)
+    overlay.color = Color(230, 230, 230)
+    overlay.maxSize = FloatDim(1000000f, 40f)
+    overlay.applyLayoutParameters(
+            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to GRAVITY_BOTTOM_MIDDLE)
+                                        with (LAYOUT_PARAM_ANCHOR to ANCHOR_INSIDE)
+    )
+    overlay.background = CompoundDrawable(
+            ShadowDrawable(yOffset = -3f),
+            ColorDrawable(Color.DARK_GRAY)
+    )
+    overlay.translationY = 10000f // move offscreen
+    layout.setOverlayView(overlay)
+
+    val button = ButtonView("Show snackbar")
     button.minSize = FloatDim(100f, 30f)
     button.maxSize = FloatDim(100f, 30f)
     button.onClickListener = { e: MouseEvent, p: Point ->
-        button.text = "${p.x} ${p.y}"
+        overlay.translationYAnimator.setFromValue(overlay.layoutSize.h).setToValue(0f).setDuration(300f).setInterpolator(DecelerateInterpolator).start()
+        val anim = FloatValueAnimator(300f, DecelerateInterpolator, 2300f, 0f, overlay.layoutSize.h)
+        anim.action = {overlay.translationY = it.getValue()}
+        overlay.runAnimation(anim, true)
     }
 
-    layout.addChild(PaddingLayout(button, 50f))
-
-    layout.background = ColorDrawable(THEME.getBackgroundColor())
-
-    val overlay = OverlayView(bindViewId = desc.id)
-    overlay.maxSize = FloatDim(100f, 100f)
-    overlay.applyLayoutParameters(
-            GenericLayoutParamList() with ("gravity" to GRAVITY_BOTTOM_LEFT)
-    )
-    overlay.background = ColorDrawable(Color.PINK)
-    layout.setOverlayView(overlay)
+    layout.addChild(PaddingLayout(button, 100f))
 
     val frame = GLG2DRootView(layout, "Progress Test", Dimension(500, 500), true)
     frame.showFrame()
+
 }

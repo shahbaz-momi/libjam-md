@@ -23,7 +23,7 @@ import java.awt.Graphics2D
 /**
  * A [View] that displays the specified text.
  */
-open class TextView(var text: String): View() {
+open class TextView(var text: String): OverlayView() {
 
     /**
      * The [Font] to be used by this view.
