@@ -5,12 +5,10 @@ import com.asdev.libjam.md.animation.DecelerateInterpolator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.CompoundDrawable
-import com.asdev.libjam.md.drawable.RoundedRectangleDrawable
 import com.asdev.libjam.md.drawable.ShadowDrawable
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.THEME
-import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.*
 import java.awt.Color
@@ -37,18 +35,13 @@ fun main(args: Array<String>) {
     )
     child.gravity = GRAVITY_BOTTOM_MIDDLE
     child.paddingBottom = 12f
+    child.minSize = FloatDim(0f, child.circleRadius * 2.5f)
 
     val desc = TextView("Searching")
     desc.gravity = GRAVITY_TOP_MIDDLE
-    val child2 = ProgressView(PROGRESS_TYPE_INDETERMINATE)
-    child2.setProgress(0.5f)
-    child2.applyLayoutParameters(
-            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to GRAVITY_MIDDLE_MIDDLE)
-    )
-
 
     val layout = LinearLayout()
-    layout.id = "LinearLayoutContainer"
+    layout.addChild(View())
     layout.addChild(child)
     layout.addChild(desc)
 
@@ -75,9 +68,9 @@ fun main(args: Array<String>) {
     val button = ButtonView("Show snackbar")
     button.minSize = FloatDim(100f, 30f)
     button.maxSize = FloatDim(100f, 30f)
-    button.onClickListener = { e: MouseEvent, p: Point ->
-        overlay.translationYAnimator.setFromValue(overlay.layoutSize.h).setToValue(0f).setDuration(300f).setInterpolator(DecelerateInterpolator).start()
-        val anim = FloatValueAnimator(300f, DecelerateInterpolator, 2300f, 0f, overlay.layoutSize.h)
+    button.onClickListener = { _: MouseEvent, _: Point ->
+        overlay.translationYAnimator.setFromValue(overlay.layoutSize.h + 20f).setToValue(0f).setDuration(300f).setInterpolator(DecelerateInterpolator).start()
+        val anim = FloatValueAnimator(300f, AccelerateInterpolator, 2300f, 0f, overlay.layoutSize.h + 20f)
         anim.action = {overlay.translationY = it.getValue()}
         overlay.runAnimation(anim, true)
     }

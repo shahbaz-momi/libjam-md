@@ -237,6 +237,8 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_SET_CURSOR).apply { data0 = cursor })
     }
 
+    private val PULL_TAB_COMPOSITE = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.3f)
+
     override fun paintComponent(g: Graphics?) {
         val d = Debug()
         d.startTimer()
@@ -276,7 +278,8 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         rootView.onPostDraw(g)
 
         // draw the resize tab
-        g.color = THEME.getDividerColor()
+        g.color = Color.BLACK
+        g.composite = PULL_TAB_COMPOSITE
         g.fillPolygon(
                 intArrayOf(size.width - 10, size.width, size.width),
                 intArrayOf(size.height, size.height, size.height - 10),
