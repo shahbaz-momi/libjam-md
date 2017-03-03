@@ -665,8 +665,12 @@ class RelativeLayout: ViewGroup() {
         val clipBounds = g.clip
         super.onDraw(g)
 
-        for(c in children.sorted()) {
-            val p = childCoords[orderedChildren.indexOf(c)]!!
+        // ignore z-indexes cuz these should not draw over each other
+        for((i, c) in orderedChildren.withIndex()) {
+            if(c == null)
+                continue
+
+            val p = childCoords[i]!!
             // translate it
             g.translate( p.x.toDouble() + c.translationX.toDouble(), p.y.toDouble() + c.translationY.toDouble())
             // intersect the clip

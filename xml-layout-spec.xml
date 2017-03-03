@@ -7,7 +7,7 @@
 
         <!-- There can be many layouts within a single document to prevent having a bunch of them and anything within them can be linked. Separate files
         cannot be linked -->
-        <Layout name="main-layout">
+        <Layout name="main-layout" theme="@themes/example-theme">
 
             <!-- The root view goes here -->
             <LinearLayout
@@ -17,17 +17,21 @@
 
                 <!-- Additional views go within the thang -->
                 <View
-                        background="{ImageDrawable('assets/roadtrip.png',SCALE_TYPE_COVER)}"
+                        background="${ImageDrawable('assets/roadtrip.png',SCALE_TYPE_COVER)}"
                         translationX="-12"
                 />
 
-                <!-- Example declaration of a custom view. -->
-                <com.asdev.libjam.md.tests.CustomView />
+                <!-- Example declaration of a custom view with custom properties. -->
+                <com.asdev.libjam.md.tests.CustomView
+                    customProperty="@ints/example-int"
+                    customStringProperty="@strings/example-string"
+                    customCodeProperty="${println('Hello, World!')}"
+                />
 
             </LinearLayout>
         </Layout>
 
-        <Layout name="on-boarding">
+        <Layout name="on-boarding" theme="@themes/light-material">
 
             <!-- The root top view goes here again -->
             <RelativeLayout>
@@ -46,7 +50,7 @@
                         text="Hey there. Check this cool app out."
                         text-color="@theme/title-text-color"
                         text-font="@theme/title-font"
-                        background="{ColorDrawable(@theme/primary-dark)}"
+                        background="${ColorDrawable(@theme/primary-dark)}"
                         max-height="36"
                 />
 
@@ -67,6 +71,35 @@
         <!-- Example entry of a color -->
         <Color name="primary-dark">#4FA3C9</Color>
 
+    </Document>
+
+    <!-- Another xml file could contain a strings document. -->
+    <Document type="strings">
+        <!-- Example entry of an string. -->
+        <String name="example-string">Example strings</String>
+    </Document>
+
+    <!-- Another xml file could contain a ints document. -->
+    <Document type="ints">
+        <!-- Example entry of an int. -->
+        <Int name="example-int">18</Int>
+    </Document>
+
+    <!-- Contains themes which will extend the default one. Values can be accessed using @theme/ -->
+    <Document type="themes">
+        <!-- An example theme definition that could later be set to. -->
+        <Theme name="example-theme" base="@themes/light-material">
+            <Color name="primary-dark-color">@colors/primary-dark</Color>
+        </Theme>
+    </Document>
+
+    <!-- Declare styleable attributes for Views in this document. -->
+    <Document type="attrs">
+        <Styleable class="com.asdev.libjam.md.tests.CustomView">
+            <Property name="customProperty" type="int" />
+            <Property name="customStringProperty" type="string" />
+            <Property name="customCodeProperty" type="runnable" />
+        </Styleable>
     </Document>
 
 </Root>
