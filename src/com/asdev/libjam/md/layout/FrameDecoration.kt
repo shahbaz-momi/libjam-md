@@ -28,14 +28,11 @@ import javax.swing.JFrame
  */
 class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: WindowStateManager): LinearLayout() {
 
-    private val navBar: RelativeLayout
-    private val toolbar: RelativeLayout
-    private val titleText: TextView
+    private val navBar: RelativeLayout = RelativeLayout()
+    private val toolbar: RelativeLayout = RelativeLayout()
+    private val titleText: TextView = TextView(title)
 
     init {
-        navBar = RelativeLayout()
-        toolbar = RelativeLayout()
-        titleText = TextView(title)
 
         // set fonts and colors of title text
         titleText.setThemeColor(COLOR_TITLE)

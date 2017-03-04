@@ -24,10 +24,9 @@ import java.awt.geom.RoundRectangle2D
  */
 open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Float = 0.25f, shadowYOffset: Float = 1f, val roundRadius: Float = 0f): View() {
 
-    private val shadow: ShadowDrawable
+    private val shadow: ShadowDrawable = ShadowDrawable(radius, opacity, shadowYOffset)
 
     init {
-        shadow = ShadowDrawable(radius, opacity, shadowYOffset)
         background = ColorDrawable(THEME.getBackgroundColor())
     }
 

@@ -200,9 +200,7 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
                 frame.cursor = cursor
             }
         } else if(msg.type == MESSAGE_TYPE_ANIMATION) {
-            if(msg.action == MESSAGE_ACTION_RUN_ANIMATION && msg.data0 is Animator) {
-                choreographer.run(msg.data0 as Animator)
-            }
+            choreographer.handleMessage(msg)
         }
     }
 

@@ -47,31 +47,64 @@ fun main(args: Array<String>) {
 
     layout.background = ColorDrawable(THEME.getBackgroundColor())
 
-    val overlay = TextView("This is a snackbar!")
-    overlay.bindViewId = layout.id
-    overlay.gravity = GRAVITY_MIDDLE_LEFT
-    overlay.paddingLeft = 12f
-    overlay.setThemeColor(-1)
-    overlay.color = Color(230, 230, 230)
+    val snackbarText = TextView("This is a snackbar!")
+    snackbarText.gravity = GRAVITY_MIDDLE_LEFT
+    snackbarText.paddingLeft = 12f
+    snackbarText.setThemeColor(-1)
+    snackbarText.color = Color(230, 230, 230)
+
+    val overlay = OverlayLinearLayout()
+    overlay.setOrientation(ORIENTATION_VERTICAL)
+
     overlay.maxSize = FloatDim(1000000f, 40f)
+
     overlay.applyLayoutParameters(
             GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to GRAVITY_BOTTOM_MIDDLE)
                                         with (LAYOUT_PARAM_ANCHOR to ANCHOR_INSIDE)
     )
+
     overlay.background = CompoundDrawable(
             ShadowDrawable(yOffset = -3f),
             ColorDrawable(Color.DARK_GRAY)
     )
+
     overlay.translationY = 10000f // move offscreen
+
+    overlay.addChild(snackbarText)
+    overlay.addChild(View())
+
+    val dismissButton = ButtonView("DISMISS", BUTTON_TYPE_FLAT)
+    dismissButton.maxSize = FloatDim(100f, 1000000f)
+    dismissButton.setThemeRippleColor(-1)
+    dismissButton.setRippleColor(Color.WHITE)
+
+    dismissButton.onClickListener = { _: MouseEvent, _:Point ->
+        // cancel any snackbar hide animations
+        overlay.cancelAnimation("Animator:SnackBarHide")
+
+        // run a snack bar dismiss animation
+        val anim = FloatValueAnimator(300f, AccelerateInterpolator, 0f, 0f, overlay.layoutSize.h + 20f)
+        anim.action = {overlay.translationY = it.getValue()}
+        anim.id = "Animator:SnackBarDismiss"
+
+        overlay.runAnimation(anim, true)
+    }
+
+    overlay.addChild(dismissButton)
+
     layout.setOverlayView(overlay)
 
     val button = ButtonView("Show snackbar")
     button.minSize = FloatDim(100f, 30f)
     button.maxSize = FloatDim(100f, 30f)
     button.onClickListener = { _: MouseEvent, _: Point ->
-        overlay.translationYAnimator.setFromValue(overlay.layoutSize.h + 20f).setToValue(0f).setDuration(300f).setInterpolator(DecelerateInterpolator).start()
+        if(overlay.translationY != 0f && !overlay.translationYAnimator.isRunning())
+            overlay.translationYAnimator.setFromValue(overlay.layoutSize.h + 20f).setToValue(0f).setDuration(300f).setInterpolator(DecelerateInterpolator).start()
+
         val anim = FloatValueAnimator(300f, AccelerateInterpolator, 2300f, 0f, overlay.layoutSize.h + 20f)
         anim.action = {overlay.translationY = it.getValue()}
+        anim.id = "Animator:SnackBarHide"
+
         overlay.runAnimation(anim, true)
     }
 

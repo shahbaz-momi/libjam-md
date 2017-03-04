@@ -34,6 +34,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
     private val frameDecoration: FrameDecoration?
     private val windowStateManager: WindowStateManager
 
+    val choreographer = AnimationChoreographer()
+
     constructor(title: String, size: Dimension, rootVG: View, customToolbar: Boolean, windowShadow: Boolean = false) {
         frame = JFrame(title)
 
@@ -249,6 +251,8 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
                 // set it
                 frame.cursor = cursor
             }
+        } else if(msg.type == MESSAGE_TYPE_ANIMATION) {
+            choreographer.handleMessage(msg)
         }
     }
 

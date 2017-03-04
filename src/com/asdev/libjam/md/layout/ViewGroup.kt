@@ -3,7 +3,6 @@ package com.asdev.libjam.md.layout
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.OverlayView
-import com.asdev.libjam.md.view.VISIBILITY_INVISIBLE
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
@@ -167,11 +166,11 @@ abstract class ViewGroup: View() {
                     }
                 } else if(c is ElevatedLayout) {
                     // special case for elevation layout, which actually isnt a layout
-                    if(c.child == v) {
+                    if (c.child == v) {
                         return yourPos add c.findChildPosition() add findChildPosition(c)!!
-                    } else if(c.child is ViewGroup) {
+                    } else if (c.child is ViewGroup) {
                         val p = c.child.findViewPosition0(v, yourPos add findChildPosition(c)!! add c.findChildPosition())
-                        if(p != null)
+                        if (p != null)
                             return p
                     }
                 }

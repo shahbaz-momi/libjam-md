@@ -3,10 +3,12 @@ package com.asdev.libjam.md.view
 import com.asdev.libjam.md.animation.Animator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.animation.LinearInterpolator
+import com.asdev.libjam.md.base.RootView
 import com.asdev.libjam.md.drawable.AnimatedDrawable
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.Drawable
 import com.asdev.libjam.md.drawable.StatefulDrawable
+import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.GenericLayoutParamList
 import com.asdev.libjam.md.layout.LayoutParams
 import com.asdev.libjam.md.theme.Theme
@@ -355,6 +357,11 @@ open class View (
             postAnim = null
         }
 
+        if(postCancelAnimId != null) {
+            cancelAnimation(postCancelAnimId!!)
+            postCancelAnimId = null
+        }
+
         // loop the animators
         translationXAnimator.loop()
         translationYAnimator.loop()
@@ -382,10 +389,11 @@ open class View (
      * An animation to post to be run later.
      */
     private var postAnim: Animator? = null
+    private var postCancelAnimId: String? = null
 
     /**
      * Posts the animation to the Choregrapher and starts it if not already started. Will be posted if the current Thread
-     * is not the looper.
+     * is not the looper. If an animation with the same id is already running, this animation will not be run.
      */
     open fun runAnimation(a: Animator, startIt: Boolean) {
         if(myLooper() is Looper) {
@@ -399,6 +407,37 @@ open class View (
             if(!a.isRunning() && startIt)
                 a.start()
         }
+    }
+
+    /**
+     * Cancels any animation with the given id.
+     */
+    open fun cancelAnimation(animationId: String) {
+        if(myLooper() is Looper) {
+            sendMessageToRoot(Message(MESSAGE_TYPE_ANIMATION, MESSAGE_ACTION_CANCEL_ANIMATION).apply { data0 = animationId })
+        } else {
+            postCancelAnimId = animationId
+        }
+    }
+
+    /**
+     * Returns whether the specified animation is running or not. MUST be run on the UILooper, otherwise an IllegalStateException
+     * will be thrown.
+     */
+    open fun isAnimationRunning(animationId: String): Boolean {
+        val looper = myLooper() ?: throw IllegalStateException("isAnimationRunning() must be called from the UI Looper!")
+        val rootView = looper.loopable
+
+        if(rootView is RootView) {
+            val choreographer = rootView.choreographer
+            return choreographer.isAnimationRunning(animationId)
+        } else if(rootView is GLG2DRootView) {
+            val choreographer = rootView.choreographer
+            return choreographer.isAnimationRunning(animationId)
+        }
+
+        // should never reach this point as the loopable should be a root view
+        throw IllegalStateException("No RootView found bound with the current Looper when performing isAnimationRunning()!")
     }
 
     /**

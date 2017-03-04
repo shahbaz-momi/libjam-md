@@ -440,6 +440,18 @@ class RelativeLayout: ViewGroup() {
      */
     override fun onMousePress(e: MouseEvent, mPos: Point) {
         super.onMousePress(e, mPos)
+
+        // check the overlay first
+        val overlay = getOverlayView()
+        if(overlay != null) {
+            if(mPos.x >= overlay.position.x + overlay.translationX && mPos.x <= overlay.position.x + overlay.translationX + overlay.layoutSize.w
+                    && mPos.y >= overlay.position.y + overlay.translationY && mPos.y <= overlay.position.y + overlay.translationY + overlay.layoutSize.h) {
+                // in the overlay
+                overlay.onMousePress(e, Point((mPos.x - overlay.position.x - overlay.translationX).toInt(), (mPos.y - overlay.position.y - overlay.translationY).toInt()))
+                return
+            }
+        }
+
         // check the bounds of each child view and see if it fits
         for(i in 0 until orderedChildren.size) {
             val c = orderedChildren[i] ?: continue
@@ -459,6 +471,18 @@ class RelativeLayout: ViewGroup() {
      */
     override fun onMouseRelease(e: MouseEvent, mPos: Point) {
         super.onMouseRelease(e, mPos)
+
+        // check the overlay first
+        val overlay = getOverlayView()
+        if(overlay != null) {
+            if(mPos.x >= overlay.position.x + overlay.translationX && mPos.x <= overlay.position.x + overlay.translationX + overlay.layoutSize.w
+                    && mPos.y >= overlay.position.y + overlay.translationY && mPos.y <= overlay.position.y + overlay.translationY + overlay.layoutSize.h) {
+                // in the overlay
+                overlay.onMouseRelease(e, Point((mPos.x - overlay.position.x - overlay.translationX).toInt(), (mPos.y - overlay.position.y - overlay.translationY).toInt()))
+                return
+            }
+        }
+
         // check the bounds of each child view and see if it fits
         for(i in 0 until orderedChildren.size) {
             val c = orderedChildren[i] ?: continue
@@ -478,11 +502,46 @@ class RelativeLayout: ViewGroup() {
     private var previousViewMousedOn = -1
 
     /**
+     * Stores whether the mouse was hovering on the overlay.
+     */
+    private var wasOnOverlay = false
+
+    /**
      * Calls [View]'s implementation of [onMouseMoved] then checks to find which child is being moved on. Finally,
      * it calls [onMouseMoved] of that child.
      */
     override fun onMouseMoved(e: MouseEvent, mPos: Point) {
         super.onMouseMoved(e, mPos)
+
+        // check the overlay first
+        val overlay = getOverlayView()
+        if(overlay != null) {
+            if(mPos.x >= overlay.position.x + overlay.translationX && mPos.x <= overlay.position.x + overlay.translationX + overlay.layoutSize.w
+                    && mPos.y >= overlay.position.y + overlay.translationY && mPos.y <= overlay.position.y + overlay.translationY + overlay.layoutSize.h) {
+                // in the overlay
+                // its currently on the overlay
+                if(!wasOnOverlay) {
+                    // wasn't on the overlay before, update the previous view moused on
+                    if(previousViewMousedOn != -1) {
+                        children[previousViewMousedOn].onMouseExit(e, mPos)
+                    }
+
+                    wasOnOverlay = true
+                    previousViewMousedOn = -1
+                    overlay.onMouseEnter(e, mPos)
+                }
+
+                overlay.onMouseMoved(e, Point((mPos.x - overlay.position.x - overlay.translationX).toInt(), (mPos.y - overlay.position.y - overlay.translationY).toInt()))
+                return
+            } else {
+                // not on overlay
+                if(wasOnOverlay) {
+                    overlay.onMouseExit(e, mPos)
+                    wasOnOverlay = false
+                }
+            }
+        }
+
         var viewMouseOn = -1
         // check the bounds of each child view and see if it fits
         for(i in 0 until orderedChildren.size) {
@@ -519,6 +578,36 @@ class RelativeLayout: ViewGroup() {
      */
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {
         super.onMouseDragged(e, mPos)
+
+        // check the overlay first
+        val overlay = getOverlayView()
+        if(overlay != null) {
+            if(mPos.x >= overlay.position.x + overlay.translationX && mPos.x <= overlay.position.x + overlay.translationX + overlay.layoutSize.w
+                    && mPos.y >= overlay.position.y + overlay.translationY && mPos.y <= overlay.position.y + overlay.translationY + overlay.layoutSize.h) {
+                // in the overlay
+                // its currently on the overlay
+                if(!wasOnOverlay) {
+                    // wasn't on the overlay before, update the previous view moused on
+                    if(previousViewMousedOn != -1) {
+                        children[previousViewMousedOn].onMouseExit(e, mPos)
+                    }
+
+                    wasOnOverlay = true
+                    previousViewMousedOn = -1
+                    overlay.onMouseEnter(e, mPos)
+                }
+
+                overlay.onMouseDragged(e, Point((mPos.x - overlay.position.x - overlay.translationX).toInt(), (mPos.y - overlay.position.y - overlay.translationY).toInt()))
+                return
+            } else {
+                // not on overlay
+                if(wasOnOverlay) {
+                    overlay.onMouseExit(e, mPos)
+                    wasOnOverlay = false
+                }
+            }
+        }
+
         var viewMouseOn = -1
         // check the bounds of each child view and see if it fits
         for(i in 0 until orderedChildren.size) {

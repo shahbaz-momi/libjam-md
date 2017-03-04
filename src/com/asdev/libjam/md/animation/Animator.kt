@@ -1,5 +1,7 @@
 package com.asdev.libjam.md.animation
 
+import com.asdev.libjam.md.util.generateRandomId
+
 /**
  * Created by Asdev on 10/17/16. All rights reserved.
  * Unauthorized copying via any medium is stricitly
@@ -27,6 +29,11 @@ open class Animator(
         private var startDelay: Float) {
 
     /**
+     * The id associated with this animator. May be used for comparing animators and removing/adjusting based of this id.
+     */
+    var id = "Animation:${generateRandomId()}"
+
+    /**
      * The action to run on each loop while the animation is running.
      */
     var action: ((Animator) -> Unit)? = null
@@ -51,6 +58,8 @@ open class Animator(
     open fun cancel() {
         startTime = -1L
         endTime = -1L
+        // invoke a cancelling action
+        action?.invoke(this)
     }
 
     /**
@@ -144,4 +153,14 @@ open class Animator(
     fun getInterpolator() = interpolator
 
     fun getStartTime() = startTime
+
+    override fun equals(other: Any?): Boolean {
+        if(other is Animator)  {
+            return other.id == id
+        } else {
+            return super.equals(other)
+        }
+    }
+
+    override fun hashCode() = id.hashCode()
 }

@@ -26,17 +26,19 @@ data class Message (val type: String, val action: String) {
 }
 
 /** Common [Message] types */
-val MESSAGE_TYPE_VIEW = "View:Msg"
-val MESSAGE_TYPE_ROOT_VIEW = "RootView:Msg"
-val MESSAGE_TYPE_ANIMATION = "Animation:Msg"
+const val MESSAGE_TYPE_VIEW = "View:Msg"
+const val MESSAGE_TYPE_ROOT_VIEW = "RootView:Msg"
+const val MESSAGE_TYPE_ANIMATION = "Animation:Msg"
 
 /** Common [Message] actions */
-val MESSAGE_ACTION_REPAINT = "View:Repaint"
-val MESSAGE_ACTION_REQUEST_LAYOUT = "View:Layout"
-val MESSAGE_ACTION_RESIZE = "RootView:Resize"
-val MESSAGE_ACTION_THEME_CHANGED = "RootView:ThemeChanged"
-val MESSAGE_ACTION_SET_CURSOR = "RootView:SetCursor"
-val MESSAGE_ACTION_RUN_ANIMATION = "Animation:RunAttached"
+const val MESSAGE_ACTION_REPAINT = "View:Repaint"
+const val MESSAGE_ACTION_REQUEST_LAYOUT = "View:Layout"
+const val MESSAGE_ACTION_RESIZE = "RootView:Resize"
+const val MESSAGE_ACTION_THEME_CHANGED = "RootView:ThemeChanged"
+const val MESSAGE_ACTION_SET_CURSOR = "RootView:SetCursor"
+const val MESSAGE_ACTION_RUN_ANIMATION = "Animation:RunAttached"
+const val MESSAGE_ACTION_CANCEL_ANIMATION = "Animation:CancelAttached"
+const val MESSAGE_ACTION_IS_ANIMATION_RUNNING = "Animation:IsAttachedRunning"
 
 /** Common [Message]s */
 val MESSAGE_REQUEST_LAYOUT = Message(MESSAGE_TYPE_VIEW, MESSAGE_ACTION_REQUEST_LAYOUT)
