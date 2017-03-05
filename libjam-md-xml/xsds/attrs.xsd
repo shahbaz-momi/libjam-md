@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://asdev.ca/libjam-md/schemas/attrs.xsd">
+
+    <xs:element name="Attributes">
+        <xs:complexType>
+            <xs:element name="Styleable">
+                <xs:complexType>
+                    <xs:element name="Property">
+                        <xs:complexType>
+                            <xs:attribute name="type" use="required">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="int" />
+                                        <xs:enumeration value="string" />
+                                        <xs:enumeration value="drawable" />
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="name" type="xs:string" use="required" />
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:attribute name="class" type="xs:string" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

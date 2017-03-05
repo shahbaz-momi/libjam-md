@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Layouts xmlns="http://asdev.ca/libjam-md/schemas/layouts.xsd">
+
+    <Layout name="layout_on_boarding" theme="${R.themes.light_material}">
+
+        <!-- The root top view goes here again -->
+        <RelativeLayout>
+
+            <!-- You can get special properties/values from the theme by using @theme. In this case, we overrided primary dark in the below color document.
+            It will also automatically resolve colors (beginning with #).
+            Gravities are mapped out using:
+            (top|middle|bottom)-(left|middle|right)
+            Y values on the left, X values on the right.
+            You can pass code as parameters which will be executed, or colors which will be parsed, theme properties which will be parsed as literals,
+            or float/integer literals which will be parsed as literals.
+            Code to be executed must be passed in curly braces.
+            -->
+
+            <TextView
+                    visibility="visible"
+                    gravity="middle-middle"
+                    text-gravity="middle-left"
+                    text="Hey there. Check this cool app out."
+                    text-color="${R.theme.title_text_color}"
+                    text-font="${R.theme.title_font}"
+                    background="${ColorDrawable(R.color.primary_dark)}"
+            />
+
+            <!-- Just as an example, you can include other layouts within others. You can override attrs as well. -->
+            <Include
+                    name="layout_main"
+                    gravity="middle-middle"
+                    />
+
+            <ProgressView
+                    id="ProgressView"
+                    progress="1.0"
+            />
+
+            <LinearLayout orientation="horizontal"
+            id="LinearLayout1"
+            maxSize="100x100">
+            </LinearLayout>
+
+            <Overlay>
+                <OverlayLinearLayout orientation="horizontal">
+
+                </OverlayLinearLayout>
+            </Overlay>
+
+        </RelativeLayout>
+
+    </Layout>
+
+</Layouts>

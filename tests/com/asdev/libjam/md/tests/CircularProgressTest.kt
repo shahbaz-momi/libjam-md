@@ -26,7 +26,6 @@ import java.awt.event.MouseEvent
  */
 
 fun main(args: Array<String>) {
-
     THEME.init()
 
     val child = CircularProgressView()
@@ -83,8 +82,8 @@ fun main(args: Array<String>) {
         overlay.cancelAnimation("Animator:SnackBarHide")
 
         // run a snack bar dismiss animation
-        val anim = FloatValueAnimator(300f, AccelerateInterpolator, 0f, 0f, overlay.layoutSize.h + 20f)
-        anim.action = {overlay.translationY = it.getValue()}
+        val anim = FloatValueAnimator(300f, AccelerateInterpolator, 0f, overlay.translationY, overlay.layoutSize.h + 20f)
+        anim.action = { overlay.translationY = it.getValue() }
         anim.id = "Animator:SnackBarDismiss"
 
         overlay.runAnimation(anim, true)
@@ -109,6 +108,9 @@ fun main(args: Array<String>) {
     }
 
     layout.addChild(PaddingLayout(button, 100f))
+
+    println(R.ints.example_int) // accessing a value from a resource file
+    println(R.strings.example_string)
 
     val frame = GLG2DRootView(layout, "Progress Test", Dimension(500, 500), true)
     frame.showFrame()

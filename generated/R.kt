@@ -20,11 +20,11 @@ object R {
     }
 
     /**
-     * Sub-object containing color codes.
+     * Sub-object containing color.
      */
     object colors {
 
-        val primary_dark = Color.getColor("#4FA3C9")
+        val primary_dark = Color.decode("#4FA3C9")
 
     }
 
@@ -148,23 +148,30 @@ object R {
          */
         const val type_int = "int"
         const val type_string = "string"
-        const val type_runnable = "runnable"
+        const val type_drawable = "drawable"
 
         /**
          * Example custom class.
          */
         object com_asdev_libjam_md_tests_CustomView {
 
-            /**
-             * The properties/attrs of that class.
-             */
-            val properties = arrayOf(
-                    ("customProperty" to type_int),
-                    ("customStringProperty" to type_string),
-                    ("customCodeProperty" to type_runnable)
-            )
+            val className = "com.asdev.libjam.md.tests.CustomView"
+
+            val customProperty = generateRandomId() to type_int
+            val customStringProperty = generateRandomId() to type_string
+
 
         }
+
+    }
+
+    /**
+     * Sub-object containing ids of Views as defined in XML layout files. The id will will always be the same
+     * as the ones defined in the id tag, this is for mere convience.
+     */
+    object id {
+
+        val ProgressView = "ProgressView"
 
     }
 

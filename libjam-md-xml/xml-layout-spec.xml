@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!-- This is for example because there are two documents within a single file which should not be the case. Document should always be the root. -->
+<!-- The name nor directory of the file does not matter - only the type under the root 'Document' tag -->
 <Root>
     <!-- The xml root tag should always be of type document with spec to what type -->
     <Document type="layouts">
 
         <!-- There can be many layouts within a single document to prevent having a bunch of them and anything within them can be linked. Separate files
         cannot be linked -->
-        <Layout name="main-layout" theme="${R.themes.example_theme}">
+        <Layout name="layout_main" theme="${R.themes.example_theme}">
 
             <!-- The root view goes here -->
             <LinearLayout
@@ -25,7 +26,6 @@
                 <com.asdev.libjam.md.tests.CustomView
                     customProperty="${R.ints.example_int}"
                     customStringProperty="${R.strings.example_string}"
-                    customCodeProperty="${println('Hello, World!')}"
                 />
 
             </LinearLayout>
@@ -98,7 +98,6 @@
         <Styleable class="com.asdev.libjam.md.tests.CustomView">
             <Property name="customProperty" type="int" />
             <Property name="customStringProperty" type="string" />
-            <Property name="customCodeProperty" type="runnable" />
         </Styleable>
     </Document>
 

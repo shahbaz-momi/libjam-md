@@ -55,8 +55,8 @@ TODO:
 - universal over draw components
     - finding the location of a View on screen // DONE
     - useful for popup menus and such
-- OverlayLayout: using an overlay layer which allows for a dialog/View to be drawn on top
-    - snackbars
+- OverlayLayout: using an overlay layer which allows for a dialog/View to be drawn on top // DONE - OverlayViewGroup
+    - snackbars // TextView and a ButtonView in a OverlayLinearLayout
     - drawer
 - right-click menu / dropdown menu
 - fab
@@ -77,7 +77,7 @@ TODO:
 - xml based view inflation
     - separate module
     - establish spec
-- concept of layouts in the RootView for easy switching
+- concept of layouts in the RootView for easy switching // IN PROGRESS
 - tool tips
     - need to find x and y coordinates
 - more material ui components

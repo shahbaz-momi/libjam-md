@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Layouts xmlns="http://asdev.ca/libjam-md/schemas/layouts.xsd">
+
+    <!-- There can be many layouts within a single document to prevent having a bunch of them and anything within them can be linked.  -->
+    <Layout name="layout_main" theme="${R.themes.example_theme}">
+
+        <!-- The root view goes here -->
+
+            <LinearLayout
+                    orientation="horizontal">
+
+                <CustomView class="com.asdev.libjam.md.tests.CustomView"
+                            minSize="30x30"
+                            maxSize="100x100"
+                            background="${ImageDrawable('assets/texture.png')}"/>
+
+            </LinearLayout>
+
+    </Layout>
+
+</Layouts>

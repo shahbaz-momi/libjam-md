@@ -1,0 +1,59 @@
+
+// the transpiler will automatically scan the xml folder and subfolders for xml files, and using them if they have the
+// root 'Document' tag, and will get their type under the 'type' attribute. The file name or file directory do not matter,
+// they are only for organization.
+
+// any time a ${x} is done, the x will be code that is executed.
+
+building the root object:
+
+import com.asdev.libjam.md.theme.THEME
+import com.asdev.libjam.md.theme.Theme
+import com.asdev.libjam.md.util.generateRandomId
+import java.awt.Color
+import java.awt.Font
+import java.io.File
+
+/**
+ *   Auto-generated resources file, DO NOT MODIFY. CHANGES WILL BE OVERWRITTEN.
+ */
+object R {
+
+    $1%s
+
+}
+
+/////// LAYOUT STUFF ////////
+
+building a layout object:
+
+/**
+ * Sub-object containing layout codes.
+ */
+object layout {
+
+    $1%s
+
+}
+
+building a layout value:
+
+val $1%s = generatedRandomId()
+
+/////// COLORS STUFF ////////
+
+building a colors object:
+
+/**
+ * Sub-object containing colors.
+ */
+object colors {
+
+    $1%s
+
+}
+
+building a color value: // check for illegal color values before transpiling
+
+val %1$s = Color.getColor("%2$s")
+

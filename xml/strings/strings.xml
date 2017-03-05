@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Another xml file could contain a strings document. -->
+<Strings xmlns="http://asdev.ca/libjam-md/schemas/strings.xsd">
+    <!-- Example entry of an string. -->
+    <String name="example-string">Example string!</String>
+    <String name="example-string2">sad</String>
+</Strings>

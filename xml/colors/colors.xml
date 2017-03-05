@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Another xml file could contain a color document. -->
+<Colors xmlns="http://asdev.ca/libjam-md/schemas/colors.xsd">
+
+    <!-- Example entry of a color -->
+    <Color name="primary-dark">#4FA3C9</Color>
+    <Color name="primary">#9DA3F3</Color>
+
+</Colors>
