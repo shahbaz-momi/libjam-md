@@ -11,6 +11,7 @@ import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.*
+import res.R
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Point
@@ -30,13 +31,13 @@ fun main(args: Array<String>) {
 
     val child = CircularProgressView()
     child.applyLayoutParameters(
-            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to GRAVITY_MIDDLE_MIDDLE)
+            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to R.gravity.middle_middle)
     )
     child.gravity = GRAVITY_BOTTOM_MIDDLE
     child.paddingBottom = 12f
     child.minSize = FloatDim(0f, child.circleRadius * 2.5f)
 
-    val desc = TextView("Searching")
+    val desc = TextView(R.strings.searching)
     desc.gravity = GRAVITY_TOP_MIDDLE
 
     val layout = LinearLayout()
@@ -46,7 +47,7 @@ fun main(args: Array<String>) {
 
     layout.background = ColorDrawable(THEME.getBackgroundColor())
 
-    val snackbarText = TextView("This is a snackbar!")
+    val snackbarText = TextView(R.strings.snackbar_test)
     snackbarText.gravity = GRAVITY_MIDDLE_LEFT
     snackbarText.paddingLeft = 12f
     snackbarText.setThemeColor(-1)
@@ -58,7 +59,7 @@ fun main(args: Array<String>) {
     overlay.maxSize = FloatDim(1000000f, 40f)
 
     overlay.applyLayoutParameters(
-            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to GRAVITY_BOTTOM_MIDDLE)
+            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to R.gravity.bottom_middle)
                                         with (LAYOUT_PARAM_ANCHOR to ANCHOR_INSIDE)
     )
 
@@ -70,9 +71,8 @@ fun main(args: Array<String>) {
     overlay.translationY = 10000f // move offscreen
 
     overlay.addChild(snackbarText)
-    overlay.addChild(View())
 
-    val dismissButton = ButtonView("DISMISS", BUTTON_TYPE_FLAT)
+    val dismissButton = ButtonView(R.strings.dismiss_buttom, BUTTON_TYPE_FLAT)
     dismissButton.maxSize = FloatDim(100f, 1000000f)
     dismissButton.setThemeRippleColor(-1)
     dismissButton.setRippleColor(Color.WHITE)
@@ -114,5 +114,4 @@ fun main(args: Array<String>) {
 
     val frame = GLG2DRootView(layout, "Progress Test", Dimension(500, 500), true)
     frame.showFrame()
-
 }

@@ -8,7 +8,7 @@
 
         <!-- There can be many layouts within a single document to prevent having a bunch of them and anything within them can be linked. Separate files
         cannot be linked -->
-        <Layout name="layout_main" theme="${R.themes.example_theme}">
+        <Layout name="layout_main" theme="${res.R.themes.example_theme}">
 
             <!-- The root view goes here -->
             <LinearLayout
@@ -24,14 +24,14 @@
 
                 <!-- Example declaration of a custom view with custom properties. -->
                 <com.asdev.libjam.md.tests.CustomView
-                    customProperty="${R.ints.example_int}"
-                    customStringProperty="${R.strings.example_string}"
+                    customProperty="${res.R.ints.example_int}"
+                    customStringProperty="${res.R.strings.example_string}"
                 />
 
             </LinearLayout>
         </Layout>
 
-        <Layout name="on-boarding" theme="${R.themes.light_material}">
+        <Layout name="on-boarding" theme="${res.R.themes.light_material}">
 
             <!-- The root top view goes here again -->
             <RelativeLayout>
@@ -48,9 +48,9 @@
                 <TextView
                         gravity="middle-top"
                         text="Hey there. Check this cool app out."
-                        text-color="${R.theme.title_text_color}"
-                        text-font="${R.theme.title_font}"
-                        background="${ColorDrawable(R.color.primary_dark)}"
+                        text-color="${res.R.theme.title_text_color}"
+                        text-font="${res.R.theme.title_font}"
+                        background="${ColorDrawable(res.R.color.primary_dark)}"
                         max-height="36"
                 />
 

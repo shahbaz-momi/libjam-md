@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layouts xmlns="http://asdev.ca/libjam-md/schemas/layouts.xsd">
 
-    <Layout name="layout_on_boarding" theme="${R.themes.light_material}">
+    <Layout name="layout_on_boarding" theme="${res.R.themes.light_material}">
 
         <!-- The root top view goes here again -->
         <RelativeLayout>
@@ -21,9 +21,9 @@
                     gravity="middle-middle"
                     text-gravity="middle-left"
                     text="Hey there. Check this cool app out."
-                    text-color="${R.theme.title_text_color}"
-                    text-font="${R.theme.title_font}"
-                    background="${ColorDrawable(R.color.primary_dark)}"
+                    text-color="${res.R.theme.title_text_color}"
+                    text-font="${res.R.theme.title_font}"
+                    background="${ColorDrawable(res.R.color.primary_dark)}"
             />
 
             <!-- Just as an example, you can include other layouts within others. You can override attrs as well. -->

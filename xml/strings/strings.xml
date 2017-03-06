@@ -4,4 +4,8 @@
     <!-- Example entry of an string. -->
     <String name="example-string">Example string!</String>
     <String name="example-string2">sad</String>
+    <String name="example-string3">Example string 3!</String>
+    <String name="searching">Searching...</String>
+    <String name="snackbar-test">Super long snackbar string/text can go here...</String>
+    <String name="dismiss-buttom">DISMISS</String>
 </Strings>

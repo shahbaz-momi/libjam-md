@@ -5,5 +5,11 @@
     <!-- Example entry of a color -->
     <Color name="primary-dark">#4FA3C9</Color>
     <Color name="primary">#9DA3F3</Color>
+    <Color name="example-hex-color">#FF00FF</Color>
+    <Color name="example-rgb-color">rgb(255, 255, 255)</Color>
+    <Color name="example-float-rgb-color">rgb(1.0, 1.0, 1.0)</Color>
+    <Color name="example-rgba-color">rgba(255, 200, 240, 255)</Color>
+    <Color name="example-float-rgba-color">rgba(0.43, 0.29, 0.29, 1.0)</Color>
+    <Color name="example-hsb-color">hsb(2.0, 1.0, 1.0)</Color>
 
 </Colors>

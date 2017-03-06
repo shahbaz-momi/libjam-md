@@ -194,7 +194,6 @@ open class View (
      * Called when the layout has been determined and the layout pass has been run.
      */
     open fun onPostLayout() {
-
     }
 
     /**

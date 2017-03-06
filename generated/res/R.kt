@@ -1,3 +1,6 @@
+package res
+
+import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.generateRandomId
@@ -6,9 +9,9 @@ import java.awt.Font
 import java.io.File
 
 /**
- * Example auto-generated R object.
+ * Example auto-generated res.R object.
  */
-object R {
+object ExampleR {
 
     /**
      * Sub-object containing layout codes.
@@ -47,17 +50,22 @@ object R {
     }
 
     /**
-     * Sub-object containing themes.
+     * Sub-object with ports over values from THEME to XML compatible elements.
+     * Usage: ${res.R.theme.title_text_color}
      */
-    object themes {
-
+    object theme {
         /**
          * The base props for later usage
          */
 
-        // these two are used in the layout, the rest would be there too
         var title_text_color = THEME.getTitleColor()
         var title_font = THEME.getTitleFont()
+    }
+
+    /**
+     * Sub-object containing themes.
+     */
+    object themes {
 
         /**
          * Example theme as defined in the theme based off of the LightMaterialTheme
@@ -66,7 +74,7 @@ object R {
 
             //// Colors ////
             private val primaryColor = Color.decode("#2196F3")!!
-            private val darkPrimaryColor = R.colors.primary_dark // as defined in the theme prop
+            private val darkPrimaryColor = colors.primary_dark // as defined in the theme prop
             private val accentColor = Color.decode("#FFC107")!!
             private val titleColor = Color.decode("#FFFFFF")!!
             private val subtitleColor = Color.decode("#BBDEFB")!!
@@ -149,6 +157,10 @@ object R {
         const val type_int = "int"
         const val type_string = "string"
         const val type_drawable = "drawable"
+        const val type_gravity = "gravity"
+        const val type_font = "font"
+        const val type_color = "color"
+        const val type_float = "float"
 
         /**
          * Example custom class.
@@ -157,8 +169,8 @@ object R {
 
             val className = "com.asdev.libjam.md.tests.CustomView"
 
-            val customProperty = generateRandomId() to type_int
-            val customStringProperty = generateRandomId() to type_string
+            val customProperty = "customProperty" to type_int
+            val customStringProperty = "customStringProperty" to type_string
 
 
         }
@@ -172,6 +184,26 @@ object R {
     object id {
 
         val ProgressView = "ProgressView"
+
+    }
+
+    /**
+     * Sub-object containing valid gravities. Gravities may be expressed as [top|middle|bottom]-[left|middle|right] or
+     * ${res.R.gravity.xxx}
+     */
+    object gravity {
+
+        val top_left = GRAVITY_TOP_LEFT
+        val top_middle = GRAVITY_TOP_MIDDLE
+        val top_right = GRAVITY_TOP_RIGHT
+
+        val middle_left = GRAVITY_MIDDLE_LEFT
+        val middle_middle = GRAVITY_MIDDLE_MIDDLE
+        val middle_right = GRAVITY_MIDDLE_RIGHT
+
+        val bottom_left = GRAVITY_BOTTOM_LEFT
+        val bottom_middle = GRAVITY_BOTTOM_MIDDLE
+        val bottom_right = GRAVITY_BOTTOM_RIGHT
 
     }
 

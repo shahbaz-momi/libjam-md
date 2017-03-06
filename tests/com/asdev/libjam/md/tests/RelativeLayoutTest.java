@@ -90,7 +90,6 @@ public class RelativeLayoutTest {
 
         child8.setBackground(new ColorDrawable(Color.ORANGE));
 
-
         l2.addChild(child7);
         l2.addChild(child8);
 

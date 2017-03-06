@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Attributes xmlns="http://asdev.ca/libjam-md/schemas/attrs.xsd">
+
+    <Styleable class="com.asdev.libjam.md.view.View">
+
+        <Property name="visibility" type="int" />
+        <Property name="id" type="string" />
+        <Property type="string" name="minSize" />
+        <Property type="string" name="maxSize" />
+        <Property type="drawable" name="background" />
+        <Property type="int" name="z-index" />
+        <Property type="int" name="translation-x" />
+        <Property type="int" name="translation-y" />
+        <Property type="int" name="overclip-left" />
+        <Property type="int" name="overclip-right" />
+        <Property type="int" name="overclip-top" />
+        <Property type="int" name="overclip-bottom" />
+        <Property type="gravity" name="gravity" />
+
+
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.view.OverlayView" base="com.asdev.libjam.md.view.View" />
+
+    <Styleable class="com.asdev.libjam.md.view.TextView" base="com.asdev.libjam.md.view.View">
+
+        <Property type="int" name="padding-left" />
+        <Property type="int" name="padding-right" />
+        <Property type="int" name="padding-top" />
+        <Property type="int" name="padding-bottom" />
+
+        <Property type="gravity" name="text-gravity" />
+        <Property type="string" name="text" />
+        <Property type="font" name="text-font" />
+        <Property type="int" name="text-size" />
+        <Property type="color" name="text-color" />
+
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.view.ButtonView" base="com.asdev.libjam.md.view.TextView" />
+
+    <Styleable class="com.asdev.libjam.md.view.CircularProgressView" base="com.asdev.libjam.md.view.View">
+        <Property type="int" name="padding-left" />
+        <Property type="int" name="padding-right" />
+        <Property type="int" name="padding-top" />
+        <Property type="int" name="padding-bottom" />
+
+        <Property type="int" name="circle-radius" />
+        <Property type="int" name="circle-stroke-width" />
+        <Property type="color" name="circle-color" />
+        <Property type="gravity" name="circle-gravity" />
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.view.ProgressView" base="com.asdev.libjam.md.view.View">
+        <Property type="int" name="padding-left" />
+        <Property type="int" name="padding-right" />
+        <Property type="int" name="padding-top" />
+        <Property type="int" name="padding-bottom" />
+
+        <Property type="string" name="type" />
+        <Property type="float" name="progress" />
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.layout.LinearLayout" base="com.asdev.libjam.md.view.View">
+        <Property type="string" name="orientation" />
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.layout.OverlayLinearLayout" base="com.asdev.libjam.md.view.View">
+        <Property type="string" name="orientation" />
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.layout.PaddingLayout" base="com.asdev.libjam.md.view.View">
+        <Property type="int" name="padding-left" />
+        <Property type="int" name="padding-right" />
+        <Property type="int" name="padding-top" />
+        <Property type="int" name="padding-bottom" />
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.layout.ElevatedLayout" base="com.asdev.libjam.md.view.View">
+        <Property type="int" name="shadow-radius" />
+        <Property type="int" name="shadow-opacity" />
+        <Property type="int" name="shadow-y-offset" />
+        <Property type="int" name="rounded-corner-radius" />
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.layout.RelativeLayout" base="com.asdev.libjam.md.view.View" />
+
+    <Styleable class="com.asdev.libjam.md.layout.ScrollLayout" base="com.asdev.libjam.md.view.View" />
+
+</Attributes>
