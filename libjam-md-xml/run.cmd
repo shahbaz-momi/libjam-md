@@ -1,0 +1,1 @@
+java -jar "C:\Users\Shahbaz Momi\IdeaProjects\libjam-md\out\artifacts\libjam_md_xml_jar\libjam-md-xml.jar" %1 %2 %3 %4
