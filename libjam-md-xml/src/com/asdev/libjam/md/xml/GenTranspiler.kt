@@ -25,6 +25,14 @@ val R_OBJECT_TEMPLATE = "package res\n" +
         "import java.awt.Font\n" +
         "import java.io.File\n" +
         "\n" +
+        "const val type_int = \"int\"\n" +
+        "const val type_string = \"string\"\n" +
+        "const val type_drawable = \"drawable\"\n" +
+        "const val type_gravity = \"gravity\"\n" +
+        "const val type_font = \"font\"\n" +
+        "const val type_color = \"color\"\n" +
+        "const val type_float = \"float\"\n" +
+        "\n" +
         "object R {\n" +
         "%1\$s" +
         "\n\tobject gravity {\n" +
@@ -61,6 +69,10 @@ val INT_OBJECT_TEMPLATE = "\tobject ints {\n" +
 val ROOT_ELEMENT_ATTRS = "Attributes"
 val ELEMENT_ATTR_ENTRY = "Styleable"
 val ELEMENT_PROPERTY_ENTRY = "Property"
+
+val ATTR_OBJECT_DEFINITION_TEMPLATE = "\t\tobject %1\$s {"
+val ATTR_OBJECT_ENDING_TEMPLATE = "\t\t}"
+val ATTR_ENTRY_TEMPLATE = "\t\t\tval %1\$s = \"%2\$s\" to %3\$s"
 
 val ROOT_ELEMENT_COLORS = "Colors"
 val ELEMENT_COLOR_ENTRY = "Color"
@@ -180,7 +192,12 @@ fun run(inputDir: File, outputDir: File) {
                 }
 
                 ROOT_ELEMENT_ATTRS -> {
-
+                    try {
+                        parseAttrs(rootElement)
+                    } catch (e: XMLParseException) {
+                        e.printStackTrace()
+                        System.exit(-1)
+                    }
                 }
 
                 ROOT_ELEMENT_LAYOUTS -> {
@@ -192,6 +209,131 @@ fun run(inputDir: File, outputDir: File) {
 
         }
     }
+}
+
+val attrEntries = HashMap<String, String>() // contains the entries with the keys being the formattedClassName, and the
+                                            // value being the contents of the object
+val attrEntryName = ArrayList<String>()
+
+const val type_int = "int"
+const val type_string = "string"
+const val type_drawable = "drawable"
+const val type_gravity = "gravity"
+const val type_font = "font"
+const val type_color = "color"
+const val type_float = "float"
+
+val propertyTypes = arrayOf(type_int, type_string, type_drawable, type_drawable, type_gravity, type_font, type_color, type_float)
+
+fun parseAttrs(element: Element) {
+    val nodes = element.getElementsByTagName(ELEMENT_ATTR_ENTRY)
+    for(i in 0 until nodes.length) {
+        val node = nodes.item(i) as Element
+
+        val builder = StringBuilder()
+
+        // get the class of the styleable
+        val className = node.attributes.getNamedItem("class") ?: throw XMLParseException("All Styleable entries must have a class. Entry number ${i + 1} does not.")
+
+        // make sure it has content
+
+        val formattedClassName = formatClassName(className.textContent)
+
+        if(attrEntryName.contains(formattedClassName)) {
+            throw XMLParseException("$ELEMENT_ATTR_ENTRY entry already exists with the name $formattedClassName")
+        }
+
+        println("Adding styleable: $formattedClassName")
+
+        // check if there is a base class
+        val baseClass = node.attributes.getNamedItem("base")
+
+
+        if(baseClass != null) {
+            val formattedBaseClass = formatClassName(baseClass.textContent)
+            // search the entries for the base class
+            if(!attrEntries.containsKey(formattedBaseClass)) {
+                throw XMLParseException("No base entry of $formattedBaseClass found (as requested by $formattedClassName). Please define it before referencing it.")
+            }
+
+            // add the content to the builder
+            builder.append(attrEntries[formattedBaseClass])
+            builder.append("\n")
+        }
+
+        // go through each value and add it
+        val propsList = node.getElementsByTagName(ELEMENT_PROPERTY_ENTRY)
+        for(j in 0 until propsList.length) {
+            val propElement = propsList.item(j)
+
+            // grab the type and name
+            val propName = propElement.attributes.getNamedItem("name") ?: throw XMLParseException("All Property entries must have a name attribute. Entry number ${i + 1}:${j + 1} does not.")
+            val propType = propElement.attributes.getNamedItem("type") ?: throw XMLParseException("All Property entries must have a type attribute. Entry number ${i + 1}:${j + 1} does not.")
+
+            val name = propName.textContent
+            val nameFormatted = name.replace("-", "_")
+            val type = propType.textContent
+
+            if(containsSpecialCharacters(nameFormatted)) {
+                throw XMLParseException("Property $name contains special characters which aren't allowed.")
+            }
+
+            // validate the prop type
+            if(!propertyTypes.contains(type)) {
+                throw XMLParseException("Unknown property type: $type for property $name for styleable $formattedClassName")
+            }
+
+            println("Adding property: $name")
+
+            // validated, proceed to add it to the builder
+            builder.append(ATTR_ENTRY_TEMPLATE.format(nameFormatted, name, "type_$type"))
+            builder.append("\n")
+        }
+
+        // put it in the map
+        attrEntries.put(formattedClassName, builder.toString())
+    }
+}
+
+fun buildAttrsObject(): String {
+    val builder = StringBuilder("\tobject attrs {\n")
+    for ((k, v) in attrEntries) {
+        // add the class definition
+        builder.append(ATTR_OBJECT_DEFINITION_TEMPLATE.format(k))
+        builder.append("\n")
+        builder.append(v)
+        builder.append(ATTR_OBJECT_ENDING_TEMPLATE)
+        builder.append("\n\n")
+    }
+
+    builder.append("\t}\n")
+
+    return builder.toString()
+}
+
+fun formatClassName(s: String): String {
+    var actual = s
+    // if it starts with the default packages, scrub them
+    if(actual.startsWith("com.asdev.libjam.md.view.")) {
+        // remove it
+        actual = actual.replace("com.asdev.libjam.md.view.", "")
+
+        if(actual.contains(".")) {
+            // if it is still a subpackage, revert
+            actual = s
+        }
+    } else if(actual.startsWith("com.asdev.libjam.md.layout.")) {
+        // remove it
+        actual = actual.replace("com.asdev.libjam.md.layout.", "")
+
+        if(actual.contains(".")) {
+            // if it is still a subpackage, revert
+            actual = s
+        }
+    }
+
+    // replace the . with underscores
+    return actual.replace(".", "_")
 }
 
 
@@ -209,7 +351,7 @@ fun parseColors(element: Element) {
         val node = nodes.item(i)
 
         // get the name attribute
-        val colorName = node.attributes.getNamedItem("name").textContent
+        val colorName = node.attributes.getNamedItem("name")
         // grab the contents of the string
         val colorContent = node.textContent
 
@@ -223,7 +365,7 @@ fun parseColors(element: Element) {
         }
 
         // replace any dashes with underscores to fit naming convenetions
-        val formattedName = colorName.replace("-", "_")
+        val formattedName = colorName.textContent.replace("-", "_")
 
         if(colorEntryNames.contains(formattedName)) {
             throw XMLParseException("Color entry already exists with the name $formattedName")
@@ -349,7 +491,7 @@ fun parseInts(element: Element) {
         val node = nodes.item(i)
 
         // get the name attribute
-        val intName = node.attributes.getNamedItem("name").textContent
+        val intName = node.attributes.getNamedItem("name")
         // grab the contents of the string
         val intContent = node.textContent
 
@@ -363,7 +505,7 @@ fun parseInts(element: Element) {
         }
 
         // replace any dashes with underscores to fit naming convenetions
-        val formattedName = intName.replace("-", "_")
+        val formattedName = intName.textContent.replace("-", "_")
         // make sure there aren't any special characters
         if(containsSpecialCharacters(formattedName))
             throw XMLParseException("Int name $formattedName contains illegal characters! Only alphanumeric characters are allowed and -_")
@@ -411,7 +553,7 @@ fun parseStrings(element: Element) {
         val node = nodes.item(i)
 
         // get the name attribute
-        val stringName = node.attributes.getNamedItem("name").textContent
+        val stringName = node.attributes.getNamedItem("name")
         // grab the contents of the string
         val stringContent = node.textContent
 
@@ -425,7 +567,7 @@ fun parseStrings(element: Element) {
         }
 
         // replace any dashes with underscores to fit naming convenetions
-        val formattedName = stringName.replace("-", "_")
+        val formattedName = stringName.textContent.replace("-", "_")
         // make sure there aren't any special characters
         if(containsSpecialCharacters(formattedName))
             throw XMLParseException("String name $formattedName contains illegal characters! Only alphanumeric characters are allowed and -_")
@@ -452,7 +594,7 @@ fun buildStringObject(): String {
 }
 
 fun buildRObject(): String {
-    val contents = buildStringObject() + "\n" + buildIntsObject() + "\n" + buildColorsObject()
+    val contents = buildStringObject() + "\n" + buildIntsObject() + "\n" + buildColorsObject() + "\n" + buildAttrsObject()
     // TODO: add other objects
     return R_OBJECT_TEMPLATE.format(contents)
 }

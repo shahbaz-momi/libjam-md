@@ -17,7 +17,6 @@
         <Property type="int" name="overclip-bottom" />
         <Property type="gravity" name="gravity" />
 
-
     </Styleable>
 
     <Styleable class="com.asdev.libjam.md.view.OverlayView" base="com.asdev.libjam.md.view.View" />
