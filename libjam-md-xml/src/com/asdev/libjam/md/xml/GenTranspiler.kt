@@ -83,6 +83,7 @@ val COLOR_OBJECT_TEMPLATE = "\tobject colors {\n" +
         "\t}\n"
 
 val ROOT_ELEMENT_LAYOUTS = "Layouts"
+val ELEMENT_LAYOUT_ENTRY = "Layout"
 
 
 fun main(args: Array<String>) {
@@ -201,13 +202,26 @@ fun run(inputDir: File, outputDir: File) {
                 }
 
                 ROOT_ELEMENT_LAYOUTS -> {
-
+                    try {
+                        parseLayouts(rootElement)
+                    } catch (e: XMLParseException) {
+                        e.printStackTrace()
+                        System.exit(-1)
+                    }
                 }
             }
 
             println("Parsed successfully!")
 
         }
+    }
+}
+
+fun parseLayouts(element: Element) {
+    val nodes = element.getElementsByTagName(ELEMENT_LAYOUT_ENTRY)
+    for(i in 0 until nodes.length) {
+        val child = nodes.item(i) as Element
+        // get the name and the optional theme
     }
 }
 
