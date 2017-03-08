@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Default View props of all views of libjam-md. -->
 <Attributes xmlns="http://asdev.ca/libjam-md/schemas/attrs.xsd">
 
     <Styleable class="com.asdev.libjam.md.view.View">

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Default colors of libjam-md. -->
+<Colors xmlns="http://asdev.ca/libjam-md/schemas/colors.xsd">
+
+    <!-- Colors in the material light theme. -->
+    <Color name="light-material-primary">#2196F3</Color>
+    <Color name="light-material-primary-dark">#1976D2</Color>
+    <Color name="light-material-accent">#FFC107</Color>
+    <Color name="light-material-title">#FFFFFF</Color>
+    <Color name="light-material-subtitle">#BBDEFB</Color>
+    <Color name="light-material-primary-text">#212121</Color>
+    <Color name="light-material-secondary-text">#757575</Color>
+    <Color name="light-material-background">#EEEEEE</Color>
+    <Color name="light-material-divider">#BDBDBD</Color>
+    <Color name="light-material-ripple">#444444</Color>
+
+    <!-- Colors in the material dark theme. -->
+    <Color name="dark-material-primary">#212121</Color>
+    <Color name="dark-material-primary-dark">#1E1E1E</Color>
+    <Color name="dark-material-accent">#B71C1C</Color>
+    <Color name="dark-material-title">#FFFFFF</Color>
+    <Color name="dark-material-subtitle">#EEEEEE</Color>
+    <Color name="dark-material-primary-text">#FFFFFF</Color>
+    <Color name="dark-material-secondary-text">#EEEEEE</Color>
+    <Color name="dark-material-background">#303030</Color>
+    <Color name="dark-material-divider">#444444</Color>
+    <Color name="dark-material-ripple">#EEEEEE</Color>
+
+</Colors>

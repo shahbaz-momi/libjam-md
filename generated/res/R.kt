@@ -4,6 +4,7 @@ import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.generateRandomId
+import com.asdev.libjam.md.drawable.newImageDrawable
 import java.awt.Color
 import java.awt.Font
 import java.io.File
@@ -18,7 +19,7 @@ object ExampleR {
      */
     object layout {
 
-        val main_layout = generateRandomId()
+        val main_layout = "main_layout" to "\${R.theme.example_theme}"
 
     }
 
@@ -54,12 +55,18 @@ object ExampleR {
      * Usage: ${res.R.theme.title_text_color}
      */
     object theme {
-        /**
-         * The base props for later usage
-         */
 
-        var title_text_color = THEME.getTitleColor()
-        var title_font = THEME.getTitleFont()
+        val primary = THEME.getPrimaryColor()
+        val primary_dark = THEME.getDarkPrimaryColor()
+        val accent = THEME.getAccentColor()
+        val title = THEME.getTitleColor()
+        val subtitle = THEME.getSubtitleColor()
+        val primary_text = THEME.getPrimaryTextColor()
+        val secondary_text = THEME.getSecondaryTextColor()
+        val background = THEME.getBackgroundColor()
+        val divider = THEME.getDividerColor()
+        val ripple = THEME.getRippleColor()
+
     }
 
     /**

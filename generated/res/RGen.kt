@@ -3,6 +3,8 @@ import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.generateRandomId
+import com.asdev.libjam.md.drawable.newImageDrawable
+import com.asdev.libjam.md.util.loadFontFile
 import java.awt.Color
 import java.awt.Font
 import java.io.File
@@ -33,14 +35,34 @@ object R {
 	}
 
 	object colors {
-		val primary_dark = Color(79, 163, 201)
-		val primary = Color(157, 163, 243)
-		val example_hex_color = Color(255, 0, 255)
-		val example_rgb_color = Color(255, 255, 255)
-		val example_float_rgb_color = Color(255, 255, 255)
+		val light_material_primary = Color(33, 150, 243, 255)
+		val light_material_primary_dark = Color(25, 118, 210, 255)
+		val light_material_accent = Color(255, 193, 7, 255)
+		val light_material_title = Color(255, 255, 255, 255)
+		val light_material_subtitle = Color(187, 222, 251, 255)
+		val light_material_primary_text = Color(33, 33, 33, 255)
+		val light_material_secondary_text = Color(117, 117, 117, 255)
+		val light_material_background = Color(238, 238, 238, 255)
+		val light_material_divider = Color(189, 189, 189, 255)
+		val light_material_ripple = Color(68, 68, 68, 255)
+		val dark_material_primary = Color(33, 33, 33, 255)
+		val dark_material_primary_dark = Color(30, 30, 30, 255)
+		val dark_material_accent = Color(183, 28, 28, 255)
+		val dark_material_title = Color(255, 255, 255, 255)
+		val dark_material_subtitle = Color(238, 238, 238, 255)
+		val dark_material_primary_text = Color(255, 255, 255, 255)
+		val dark_material_secondary_text = Color(238, 238, 238, 255)
+		val dark_material_background = Color(48, 48, 48, 255)
+		val dark_material_divider = Color(68, 68, 68, 255)
+		val dark_material_ripple = Color(238, 238, 238, 255)
+		val primary_dark = Color(79, 163, 201, 255)
+		val primary = Color(157, 163, 243, 255)
+		val example_hex_color = Color(255, 0, 255, 255)
+		val example_rgb_color = Color(255, 255, 255, 255)
+		val example_float_rgb_color = Color(255, 255, 255, 255)
 		val example_rgba_color = Color(255, 200, 240, 255)
 		val example_float_rgba_color = Color(110, 74, 74, 255)
-		val example_hsb_color = Color(255, 0, 0)
+		val example_hsb_color = Color(255, 0, 0, 255)
 	}
 
 	object attrs {
@@ -140,6 +162,39 @@ object R {
 			val padding_bottom = "padding-bottom" to type_int
 		}
 
+		object View {
+			val visibility = "visibility" to type_int
+			val id = "id" to type_string
+			val minSize = "minSize" to type_string
+			val maxSize = "maxSize" to type_string
+			val background = "background" to type_drawable
+			val z_index = "z-index" to type_int
+			val translation_x = "translation-x" to type_int
+			val translation_y = "translation-y" to type_int
+			val overclip_left = "overclip-left" to type_int
+			val overclip_right = "overclip-right" to type_int
+			val overclip_top = "overclip-top" to type_int
+			val overclip_bottom = "overclip-bottom" to type_int
+			val gravity = "gravity" to type_gravity
+		}
+
+		object com_asdev_libjam_md_tests_CustomViewTest {
+			val visibility = "visibility" to type_int
+			val id = "id" to type_string
+			val minSize = "minSize" to type_string
+			val maxSize = "maxSize" to type_string
+			val background = "background" to type_drawable
+			val z_index = "z-index" to type_int
+			val translation_x = "translation-x" to type_int
+			val translation_y = "translation-y" to type_int
+			val overclip_left = "overclip-left" to type_int
+			val overclip_right = "overclip-right" to type_int
+			val overclip_top = "overclip-top" to type_int
+			val overclip_bottom = "overclip-bottom" to type_int
+			val gravity = "gravity" to type_gravity
+
+		}
+
 		object RelativeLayout {
 			val visibility = "visibility" to type_int
 			val id = "id" to type_string
@@ -199,22 +254,6 @@ object R {
 			val gravity = "gravity" to type_gravity
 
 			val orientation = "orientation" to type_string
-		}
-
-		object View {
-			val visibility = "visibility" to type_int
-			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
-			val background = "background" to type_drawable
-			val z_index = "z-index" to type_int
-			val translation_x = "translation-x" to type_int
-			val translation_y = "translation-y" to type_int
-			val overclip_left = "overclip-left" to type_int
-			val overclip_right = "overclip-right" to type_int
-			val overclip_top = "overclip-top" to type_int
-			val overclip_bottom = "overclip-bottom" to type_int
-			val gravity = "gravity" to type_gravity
 		}
 
 		object ScrollLayout {
@@ -292,6 +331,36 @@ object R {
 
 	}
 
+	object layout {
+		val layout_main = "layout_main"
+		val layout_on_boarding = "layout_on_boarding"
+	}
+
+	object id {
+		val root_linear_layout = "root-linear-layout"
+		val custom_view = "custom-view"
+		val greeting_text = "greeting-text"
+		val progress_view = "progress-view"
+	}
+
+	object drawables {
+		val texture = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\texture.png")
+		val welcome_card = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\welcome_card.jpg")
+	}
+
+	object fonts {
+		val OpenSans_Bold = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Bold.ttf")
+		val OpenSans_BoldItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-BoldItalic.ttf")
+		val OpenSans_ExtraBold = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-ExtraBold.ttf")
+		val OpenSans_ExtraBoldItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-ExtraBoldItalic.ttf")
+		val OpenSans_Italic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Italic.ttf")
+		val OpenSans_Light = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Light.ttf")
+		val OpenSans_LightItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-LightItalic.ttf")
+		val OpenSans_Regular = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Regular.ttf")
+		val OpenSans_Semibold = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Semibold.ttf")
+		val OpenSans_SemiboldItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-SemiboldItalic.ttf")
+	}
+
 	object gravity {
 
 		val top_left = GRAVITY_TOP_LEFT
@@ -304,5 +373,23 @@ object R {
 		val bottom_middle = GRAVITY_BOTTOM_MIDDLE
 		val bottom_right = GRAVITY_BOTTOM_RIGHT
 
+	}
+
+	object theme {
+		val primary = THEME.getPrimaryColor()
+		val primary_dark = THEME.getDarkPrimaryColor()
+		val accent = THEME.getAccentColor()
+		val title = THEME.getTitleColor()
+		val subtitle = THEME.getSubtitleColor()
+		val primary_text = THEME.getPrimaryTextColor()
+		val secondary_text = THEME.getSecondaryTextColor()
+		val background = THEME.getBackgroundColor()
+		val divider = THEME.getDividerColor()
+		val ripple = THEME.getRippleColor()
+
+		val font_primary = THEME.getPrimaryTextFont()
+		val font_secondary = THEME.getSecondaryTextFont()
+		val font_title = THEME.getTitleFont()
+		val font_subtitle = THEME.getSubtitleFont()
 	}
 }

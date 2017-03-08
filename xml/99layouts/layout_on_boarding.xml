@@ -33,12 +33,11 @@
                     />
 
             <ProgressView
-                    id="ProgressView"
+                    id="progress-view"
                     progress="1.0"
             />
 
             <LinearLayout orientation="horizontal"
-            id="LinearLayout1"
             maxSize="100x100">
             </LinearLayout>
 

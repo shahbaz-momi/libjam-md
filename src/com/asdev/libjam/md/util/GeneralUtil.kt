@@ -1,8 +1,10 @@
 package com.asdev.libjam.md.util
 
 import java.awt.Color
+import java.awt.Font
 import java.awt.GraphicsEnvironment
 import java.awt.image.BufferedImage
+import java.io.File
 import java.util.*
 
 /**
@@ -30,3 +32,8 @@ fun copyImage(bi: BufferedImage) = BufferedImage(bi.colorModel, bi.copyData(null
 fun createCompatibleImage(width: Int, height: Int) = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice.defaultConfiguration.createCompatibleImage(width, height, java.awt.Transparency.TRANSLUCENT)
 
 fun generateRandomId() = UUID.randomUUID().toString()
+
+/**
+ * Loads a TrueType font from the given path.
+ */
+fun loadFontFile(path: String) = Font.createFont(Font.TRUETYPE_FONT, File(path))

@@ -7,6 +7,8 @@ import java.awt.Dimension
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.image.BufferedImage
+import java.io.File
+import javax.imageio.ImageIO
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -21,13 +23,9 @@ import java.awt.image.BufferedImage
 /**
  * A standard drawable that draws a solid color.
  */
-class ColorDrawable: Drawable {
+class ColorDrawable(c: Color) : Drawable() {
 
-    var color: Color
-
-    constructor(c: Color) {
-        color = c
-    }
+    var color: Color = c
 
     override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float) {
         g.color = color
@@ -40,6 +38,14 @@ const val SCALE_TYPE_CONTAIN = 0
 const val SCALE_TYPE_COVER = 1
 const val SCALE_TYPE_FIT = 2
 const val SCALE_TYPE_ORIGINAL = 3
+
+/**
+ * Creates a new ImageDrawable from the given file at the path.
+ */
+fun newImageDrawable(path: String): ImageDrawable {
+    val img = ImageIO.read(File(path))
+    return ImageDrawable(img)
+}
 
 class ImageDrawable: Drawable {
 
@@ -107,13 +113,7 @@ class ImageDrawable: Drawable {
 /**
  * Turns multiple drawables into one.
  */
-class CompoundDrawable(vararg drawables: Drawable): Drawable() {
-
-    private val drawables: Array<out Drawable>
-
-    init {
-        this.drawables = drawables
-    }
+class CompoundDrawable(vararg private val drawables: Drawable): Drawable() {
 
     override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float) {
         for(d in drawables)
@@ -247,8 +247,8 @@ class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = fal
         }
 
         // check if any of the findings error
-        if(sizes.filter { it.width <= 0 || it.height <= 0 }.size > 0 ||
-            coords.filter { it.x < 0 || it.y < 0 }.size > 0) {
+        if(sizes.filter { it.width <= 0 || it.height <= 0 }.isNotEmpty() ||
+                coords.filter { it.x < 0 || it.y < 0 }.isNotEmpty()) {
             // throw an illegal argument exception
             throw IllegalArgumentException("The passed NinePatch isn't a valid nine patch!")
         }

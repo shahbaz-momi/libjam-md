@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Attributes xmlns="http://asdev.ca/libjam-md/schemas/attrs.xsd">
+
+    <Styleable class="com.asdev.libjam.md.tests.CustomViewTest" base="com.asdev.libjam.md.view.View">
+    </Styleable>
+
+</Attributes>

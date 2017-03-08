@@ -1,0 +1,72 @@
+References:
+
+Strings:
+In Kotlin:
+R.strings.xxx
+In XML:
+${R.strings.xxx}
+
+Ints:
+In Kotlin:
+R.ints.xxx
+In XML:
+${R.ints.xxx}
+
+Colors:
+In Kotlin:
+R.colors.xxx
+R.theme.xxx
+
+In XML:
+${R.colors.xxx}
+${R.theme.xxx}
+#RRGGBBAA
+#RRGGBB
+rgb(r, g, b) - both floats (0.0 - 1.0) and ints (0 - 255)
+rgba(r, g, b, a) - both floats (0.0 - 1.0) and ints (0 - 255)
+hsb(h, s, b) - floats
+
+Drawables:
+
+- Place png, jpg, jpeg, and gif files in the input folder
+
+In Kotlin:
+R.drawables.xxx
+
+In XML:
+${R.drawables.xxx}
+ColorDrawables:
+${R.colors.xxx}
+${R.theme.xxx}
+#RRGGBBAA
+#RRGGBB
+rgb(r, g, b) - both floats (0.0 - 1.0) and ints (0 - 255)
+rgba(r, g, b, a) - both floats (0.0 - 1.0) and ints (0 - 255)
+hsb(h, s, b) - floats
+
+Fonts:
+
+- Place ttf files in the input folder
+
+In Kotlin:
+R.fonts.xxx
+
+In XML:
+${R.fonts.xxx}
+${R.theme.xxx}
+${R.fonts.xxx:size} - size = float size to derive
+${R.theme.xxx:size} - size = float size to derive
+size may be an integer reference or explicit number
+
+Dimensions:
+
+In Kotlin:
+FloatDim(w, h)
+R.dims.xxx
+
+In XML:
+${R.dims.xxx}
+${R.ints.w}x${R.ints.h}
+100x100 - two ints separated by x
+
+All handled by the XMLResParser class

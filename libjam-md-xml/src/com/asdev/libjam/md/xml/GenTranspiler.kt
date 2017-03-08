@@ -1,6 +1,7 @@
 package com.asdev.libjam.md.xml
 
 import org.w3c.dom.Element
+import org.w3c.dom.Node
 import java.awt.Color
 import java.io.BufferedWriter
 import java.io.File
@@ -21,6 +22,8 @@ val R_OBJECT_TEMPLATE = "package res\n" +
         "import com.asdev.libjam.md.theme.THEME\n" +
         "import com.asdev.libjam.md.theme.Theme\n" +
         "import com.asdev.libjam.md.util.generateRandomId\n" +
+        "import com.asdev.libjam.md.drawable.newImageDrawable\n" +
+        "import com.asdev.libjam.md.util.loadFontFile\n" +
         "import java.awt.Color\n" +
         "import java.awt.Font\n" +
         "import java.io.File\n" +
@@ -47,6 +50,24 @@ val R_OBJECT_TEMPLATE = "package res\n" +
         "\t\tval bottom_middle = GRAVITY_BOTTOM_MIDDLE\n" +
         "\t\tval bottom_right = GRAVITY_BOTTOM_RIGHT\n" +
         "\n" +
+        "\t}\n" +
+        "\n" +
+        "\tobject theme {\n" +
+        "\t\tval primary = THEME.getPrimaryColor()\n" +
+        "\t\tval primary_dark = THEME.getDarkPrimaryColor()\n" +
+        "\t\tval accent = THEME.getAccentColor()\n" +
+        "\t\tval title = THEME.getTitleColor()\n" +
+        "\t\tval subtitle = THEME.getSubtitleColor()\n" +
+        "\t\tval primary_text = THEME.getPrimaryTextColor()\n" +
+        "\t\tval secondary_text = THEME.getSecondaryTextColor()\n" +
+        "\t\tval background = THEME.getBackgroundColor()\n" +
+        "\t\tval divider = THEME.getDividerColor()\n" +
+        "\t\tval ripple = THEME.getRippleColor()\n" +
+        "\n" +
+        "\t\tval font_primary = THEME.getPrimaryTextFont()\n" +
+        "\t\tval font_secondary = THEME.getSecondaryTextFont()\n" +
+        "\t\tval font_title = THEME.getTitleFont()\n" +
+        "\t\tval font_subtitle = THEME.getSubtitleFont()\n" +
         "\t}\n" +
         "}"
 
@@ -84,6 +105,20 @@ val COLOR_OBJECT_TEMPLATE = "\tobject colors {\n" +
 
 val ROOT_ELEMENT_LAYOUTS = "Layouts"
 val ELEMENT_LAYOUT_ENTRY = "Layout"
+
+val LAYOUT_ENTRY_TEMPLATE = "val %1\$s = \"%2\$s\""
+val LAYOUT_OBJECT_TEMPLATE = "\tobject layout {\n" +
+        "%1\$s\n" +
+        "\t}\n"
+
+val ID_ENTRY_TEMPLATE = "val %1\$s = \"%2\$s\""
+val ID_OBJECT_TEMPLATE = "\tobject id {\n" +
+        "%1\$s\n" +
+        "\t}\n"
+
+val DRAWABLE_ENTRY_TEMPLATE = "val %1\$s = newImageDrawable(\"%2\$s\")"
+
+val FONT_ENTRY_TEMPLATE = "val %1\$s = loadFontFile(\"%2\$s\")"
 
 
 fun main(args: Array<String>) {
@@ -144,17 +179,24 @@ fun main(args: Array<String>) {
  */
 private val documentBuilderFactory = DocumentBuilderFactory.newInstance()
 
+private val drawableFiles = ArrayList<File>()
+private val fontFiles = ArrayList<File>()
 /**
  * Parses the files in the input directory/file out to the output directory.
  */
 fun run(inputDir: File, outputDir: File) {
     // get all directories and files in this dir that end with xml or are directories
-    val files = inputDir.listFiles { f: File, s: String -> f.isDirectory || s.endsWith(".xml", true) }
+    val files = inputDir.listFiles { f, s -> f.isDirectory || s.endsWith(".xml", true) }
+    val drawables = inputDir.listFiles { _, s -> s.endsWith(".png", true) || s.endsWith(".jpg", true) || s.endsWith(".jpeg", true) || s.endsWith(".gif", true) }
+    val fonts = inputDir.listFiles { _, s -> s.endsWith(".ttf", true) }
 
     for (file in files) {
         if (file.isDirectory) {
             run(file, outputDir)
         } else {
+            if(!file.extension.equals("xml", true))
+                continue
+
             println("Parsing file $file")
             // read the contents of the file
             val docBuilder = documentBuilderFactory.newDocumentBuilder()
@@ -209,20 +251,78 @@ fun run(inputDir: File, outputDir: File) {
                         System.exit(-1)
                     }
                 }
+
             }
 
             println("Parsed successfully!")
 
         }
     }
+
+    if(drawables != null && drawables.isNotEmpty()) {
+        drawableFiles.addAll(drawables)
+    }
+
+    if(fonts != null && fonts.isNotEmpty()) {
+        fontFiles.addAll(fonts)
+    }
 }
+
+val layoutEntries = ArrayList<String>()
+val layoutEntryNames = ArrayList<String>()
+val ids = ArrayList<String>()
 
 fun parseLayouts(element: Element) {
     val nodes = element.getElementsByTagName(ELEMENT_LAYOUT_ENTRY)
     for(i in 0 until nodes.length) {
         val child = nodes.item(i) as Element
         // get the name and the optional theme
+        val layoutName = child.attributes.getNamedItem("name") ?: throw XMLParseException("All Layout entries must have a name.")
+
+        val formattedName = layoutName.textContent.replace("-", "_")
+
+        if(layoutEntryNames.contains(formattedName)) {
+            throw XMLParseException("A Layout with the name $formattedName already exits.")
+        }
+
+        // TODO: theme
+        layoutEntries.add(LAYOUT_ENTRY_TEMPLATE.format(formattedName, layoutName.textContent))
+
+        // parse the ids within the layout
+        parseIds(child)
     }
+}
+
+fun parseIds(node: Node) {
+    // get the attributes of the node
+    val attrs = node.attributes
+    if(attrs != null) {
+        val idRaw = attrs.getNamedItem("id")
+        if(idRaw != null) {
+            val id = idRaw.textContent
+            val formattedId = id.replace("-", "_")
+            println("Found View with id: $id")
+            ids.add(ID_ENTRY_TEMPLATE.format(formattedId, id))
+        }
+    }
+
+    // get the children nodes and parse their ids
+    val children = node.childNodes
+    if(children != null) {
+        for(i in 0 until children.length) {
+            parseIds(children.item(i))
+        }
+    }
+}
+
+fun buildLayoutObject(): String {
+    val contents = layoutEntries.joinToString(separator = "\n\t\t", prefix = "\t\t")
+    return LAYOUT_OBJECT_TEMPLATE.format(contents)
+}
+
+fun buildIdObject(): String {
+    val contents = ids.joinToString(separator = "\n\t\t", prefix = "\t\t")
+    return ID_OBJECT_TEMPLATE.format(contents)
 }
 
 val attrEntries = HashMap<String, String>() // contains the entries with the keys being the formattedClassName, and the
@@ -385,103 +485,103 @@ fun parseColors(element: Element) {
             throw XMLParseException("Color entry already exists with the name $formattedName")
         }
 
-        var colorString = ""
-
-        // check if its a hex color
-        if(colorContent.startsWith("#")) {
-            if(colorContent.length == 7) {
-                val color = Color.decode(colorContent)
-                // standard rgb color
-                colorString = "Color(${color.red}, ${color.green}, ${color.blue})"
-            } else if(colorContent.length == 9) {
-                // rgb color with alpha
-                // get the last two characters for the alpha
-                val alphaStr = colorContent.substring(7, 9)
-                val colorStr = colorContent.substring(0, 7)
-
-                val color = Color.decode(colorStr) // decode the color part
-                val alpha = Integer.parseInt(alphaStr, 16) // parse the alpha str as a hex int
-                colorString = "Color(${color.red}, ${color.green}, ${color.blue}, $alpha)"
-            } else {
-                throw XMLParseException("Invalid hex color for $formattedName: $colorContent. It must either be #RRGGBB or #RRGGBBAA.")
-            }
-        } else if(colorContent.startsWith("rgba", true)) {
-            // grab the content between brackets
-            val params = colorContent.substring( colorContent.indexOf("(") + 1, colorContent.indexOf(")") )
-            val components = params.split(",").map(String::trim) // split based off of commas and trim the contents
-
-            if(components.size != 4) {
-                throw XMLParseException("Invalid RGBA Color for name $formattedName: $colorContent. It must have for parameters, as rgba(r, g, b, a)")
-            }
-
-            val red = components[0].toFloat()
-            val green = components[1].toFloat()
-            val blue = components[2].toFloat()
-            val alpha = components[3].toFloat()
-
-            if(red > 255 || green > 255 || blue > 255 || alpha > 255) {
-                throw XMLParseException("Invalid RGBA Color for name $formattedName: $colorContent. Either red, green, blue, green is outside of the valid range.")
-            }
-
-            // check if its a float color
-            if(red <= 1.0 && green <= 1.0 && blue <= 1.0 && alpha <= 1.0) {
-                val color = Color(red, green, blue, alpha)
-                colorString = "Color(${color.red}, ${color.green}, ${color.blue}, ${color.alpha})"
-            } else {
-                // not a float color, a standard int color
-                val color = Color(red.toInt(), green.toInt(), blue.toInt(), alpha.toInt())
-                colorString = "Color(${color.red}, ${color.green}, ${color.blue}, ${color.alpha})"
-            }
-        } else if(colorContent.startsWith("rgb", true)) {
-            // grab the content between brackets
-            val params = colorContent.substring( colorContent.indexOf("(") + 1, colorContent.indexOf(")") )
-            val components = params.split(",").map(String::trim) // split based off of commas and trim the contents
-
-            if(components.size != 3) {
-                throw XMLParseException("Invalid RGB Color for name $formattedName: $colorContent. It must have for parameters, as rgb(r, g, b)")
-            }
-
-            val red = components[0].toFloat()
-            val green = components[1].toFloat()
-            val blue = components[2].toFloat()
-
-            if(red > 255 || green > 255 || blue > 255) {
-                throw XMLParseException("Invalid RGB Color for name $formattedName: $colorContent. Either red, green, blue, green is outside of the valid range.")
-            }
-
-            // check if its a float color
-            if(red <= 1.0 && green <= 1.0 && blue <= 1.0) {
-                val color = Color(red, green, blue)
-                colorString = "Color(${color.red}, ${color.green}, ${color.blue})"
-            } else {
-                // not a float color, a standard int color
-                val color = Color(red.toInt(), green.toInt(), blue.toInt())
-                colorString = "Color(${color.red}, ${color.green}, ${color.blue})"
-            }
-        } else if(colorContent.startsWith("hsb", true)) {
-            // grab the content between brackets
-            val params = colorContent.substring( colorContent.indexOf("(") + 1, colorContent.indexOf(")") )
-            val components = params.split(",").map(String::trim) // split based off of commas and trim the contents
-
-            if(components.size != 3) {
-                throw XMLParseException("Invalid HSB Color for name $formattedName: $colorContent. It must have for parameters, as hsb(h, s, b)")
-            }
-
-            val hue = components[0].toFloat()
-            val saturation = components[1].toFloat()
-            val brightness = components[2].toFloat()
-
-            val color = Color(Color.HSBtoRGB(hue, saturation, brightness))
-            colorString = "Color(${color.red}, ${color.green}, ${color.blue})"
-        } else {
-            throw XMLParseException("Unknown Color type for name $formattedName: $colorString. It must be one of #, rgb, rgba, or hsb")
-        }
+        val color = parseColorString(colorContent)
+        val colorString = "Color(${color.red}, ${color.green}, ${color.blue}, ${color.alpha})"
 
         println("Added color: $colorString as $formattedName")
         // add to the entries
         val statement = COLOR_ENTRY_TEMPLATE.format(formattedName, colorString) // first parameter is the name, second is the content
         colorEntries.add(statement)
         colorEntryNames.add(formattedName)
+    }
+}
+
+/**
+ * Parses the given color string into a literal Color object.
+ */
+fun parseColorString(colorContent: String): Color {
+
+    // check if its a hex color
+    if(colorContent.startsWith("#")) {
+        if(colorContent.length == 7) {
+            return Color.decode(colorContent)
+        } else if(colorContent.length == 9) {
+            // rgb color with alpha
+            // get the last two characters for the alpha
+            val alphaStr = colorContent.substring(7, 9)
+            val colorStr = colorContent.substring(0, 7)
+
+            val color = Color.decode(colorStr) // decode the color part
+            val alpha = Integer.parseInt(alphaStr, 16) // parse the alpha str as a hex int
+            return Color(color.red, color.green, color.blue, alpha)
+        } else {
+            throw XMLParseException("Invalid hex color $colorContent. It must either be #RRGGBB or #RRGGBBAA.")
+        }
+    } else if(colorContent.startsWith("rgba", true)) {
+        // grab the content between brackets
+        val params = colorContent.substring( colorContent.indexOf("(") + 1, colorContent.indexOf(")") )
+        val components = params.split(",").map(String::trim) // split based off of commas and trim the contents
+
+        if(components.size != 4) {
+            throw XMLParseException("Invalid RGBA Color $colorContent. It must have for parameters, as rgba(r, g, b, a)")
+        }
+
+        val red = components[0].toFloat()
+        val green = components[1].toFloat()
+        val blue = components[2].toFloat()
+        val alpha = components[3].toFloat()
+
+        if(red > 255 || green > 255 || blue > 255 || alpha > 255) {
+            throw XMLParseException("Invalid RGBA Color $colorContent. Either red, green, blue, green is outside of the valid range.")
+        }
+
+        // check if its a float color
+        if(red <= 1.0 && green <= 1.0 && blue <= 1.0 && alpha <= 1.0) {
+            return Color(red, green, blue, alpha)
+        } else {
+            // not a float color, a standard int color
+            return Color(red.toInt(), green.toInt(), blue.toInt(), alpha.toInt())
+        }
+    } else if(colorContent.startsWith("rgb", true)) {
+        // grab the content between brackets
+        val params = colorContent.substring( colorContent.indexOf("(") + 1, colorContent.indexOf(")") )
+        val components = params.split(",").map(String::trim) // split based off of commas and trim the contents
+
+        if(components.size != 3) {
+            throw XMLParseException("Invalid RGB Color $colorContent. It must have for parameters, as rgb(r, g, b)")
+        }
+
+        val red = components[0].toFloat()
+        val green = components[1].toFloat()
+        val blue = components[2].toFloat()
+
+        if(red > 255 || green > 255 || blue > 255) {
+            throw XMLParseException("Invalid RGB Color $colorContent. Either red, green, blue, green is outside of the valid range.")
+        }
+
+        // check if its a float color
+        if(red <= 1.0 && green <= 1.0 && blue <= 1.0) {
+            return Color(red, green, blue)
+        } else {
+            // not a float color, a standard int color
+            return Color(red.toInt(), green.toInt(), blue.toInt())
+        }
+    } else if(colorContent.startsWith("hsb", true)) {
+        // grab the content between brackets
+        val params = colorContent.substring( colorContent.indexOf("(") + 1, colorContent.indexOf(")") )
+        val components = params.split(",").map(String::trim) // split based off of commas and trim the contents
+
+        if(components.size != 3) {
+            throw XMLParseException("Invalid HSB Color $colorContent. It must have for parameters, as hsb(h, s, b)")
+        }
+
+        val hue = components[0].toFloat()
+        val saturation = components[1].toFloat()
+        val brightness = components[2].toFloat()
+
+        return Color(Color.HSBtoRGB(hue, saturation, brightness))
+    } else {
+        throw XMLParseException("Unknown Color type $colorContent. It must be one of #, rgb, rgba, or hsb")
     }
 }
 
@@ -607,9 +707,40 @@ fun buildStringObject(): String {
     return STRING_OBJECT_TEMPLATE.format(entries)
 }
 
+fun buildDrawablesObject(): String {
+    val builder = StringBuilder()
+    builder.append("\tobject drawables {\n")
+    for(f in drawableFiles) {
+        val name = f.nameWithoutExtension.replace("-", "_")
+        val path = escapeMetaCharacters(f.absolutePath)
+        builder.append("\t\t")
+        builder.append(DRAWABLE_ENTRY_TEMPLATE.format(name, path))
+        builder.append("\n")
+    }
+
+    builder.append("\t}\n")
+    return builder.toString()
+}
+
+fun buildFontsObject(): String {
+    val builder = StringBuilder()
+    builder.append("\tobject fonts {\n")
+    for(f in fontFiles) {
+        val name = f.nameWithoutExtension.replace("-", "_")
+        val path = escapeMetaCharacters(f.absolutePath)
+        builder.append("\t\t")
+        builder.append(FONT_ENTRY_TEMPLATE.format(name, path))
+        builder.append("\n")
+    }
+
+    builder.append("\t}\n")
+    return builder.toString()
+}
+
 fun buildRObject(): String {
-    val contents = buildStringObject() + "\n" + buildIntsObject() + "\n" + buildColorsObject() + "\n" + buildAttrsObject()
-    // TODO: add other objects
+    val contents = buildStringObject() + "\n" + buildIntsObject() + "\n" + buildColorsObject() + "\n" +
+            buildAttrsObject() + "\n" + buildLayoutObject() + "\n" + buildIdObject() + "\n" +
+            buildDrawablesObject() + "\n" + buildFontsObject()
     return R_OBJECT_TEMPLATE.format(contents)
 }
 
