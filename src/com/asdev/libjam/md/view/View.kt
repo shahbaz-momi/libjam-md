@@ -9,7 +9,7 @@ import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.Drawable
 import com.asdev.libjam.md.drawable.StatefulDrawable
 import com.asdev.libjam.md.glg2d.GLG2DRootView
-import com.asdev.libjam.md.layout.GenericLayoutParamList
+import com.asdev.libjam.md.layout.GenericParamList
 import com.asdev.libjam.md.layout.LayoutParams
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.thread.*
@@ -207,14 +207,14 @@ open class View (
     }
 
     /**
-     * The addition parameter list ([GenericLayoutParamList]) attached to this view. Will be applied in [onMeasure].
+     * The addition parameter list ([GenericParamList]) attached to this view. Will be applied in [onMeasure].
      */
-    private var paramList: GenericLayoutParamList? = null
+    private var paramList: GenericParamList? = null
 
     /**
      * Applies the given layout parameters. Can be taken by onMeasure
      */
-    open fun applyLayoutParameters(params: GenericLayoutParamList) {
+    open fun applyParameters(params: GenericParamList) {
         if(DEBUG) {
             println("[View] Got new layout parameters: $params")
         }

@@ -30,4 +30,11 @@ fun main(args: Array<String>) {
     println(R.fonts.OpenSans_Regular.size)
     println(parseFontReference("\${R.fonts.OpenSans_Regular:\${R.ints.example_int}}").size)
     println(parseFontReference("\${R.theme.font_primary:\${R.ints.example_int}}").size)
+
+    println(R.dims.example_dim)
+    println(parseDimReference("\${R.dims.example_dim}"))
+    println(parseDimReference("100.5fx100.5f"))
+    println(parseDimReference("\${R.ints.example_int}x\${R.ints.example_int}"))
+
+    val v = inflateLayout(R.layout.layout_main)
 }

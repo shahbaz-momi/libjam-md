@@ -9,7 +9,6 @@ import com.asdev.libjam.md.drawable.SCALE_TYPE_COVER
 import com.asdev.libjam.md.drawable.ShadowDrawable
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.*
-import com.asdev.libjam.md.theme.DarkMaterialTheme
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.*
@@ -32,8 +31,8 @@ fun main(args: Array<String>) {
     THEME.init()
 
     val child = CircularProgressView()
-    child.applyLayoutParameters(
-            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to R.gravity.middle_middle)
+    child.applyParameters(
+            GenericParamList() with (LAYOUT_PARAM_GRAVITY to R.gravity.middle_middle)
     )
     child.gravity = GRAVITY_BOTTOM_MIDDLE
     child.paddingBottom = 12f
@@ -65,8 +64,8 @@ fun main(args: Array<String>) {
 
     overlay.maxSize = FloatDim(1000000f, 40f)
 
-    overlay.applyLayoutParameters(
-            GenericLayoutParamList() with (LAYOUT_PARAM_GRAVITY to R.gravity.bottom_middle) // use either R.gravity.xxx or GRAVITY_XXX
+    overlay.applyParameters(
+            GenericParamList() with (LAYOUT_PARAM_GRAVITY to R.gravity.bottom_middle) // use either R.gravity.xxx or GRAVITY_XXX
                                         with (LAYOUT_PARAM_ANCHOR to ANCHOR_INSIDE)
     )
 

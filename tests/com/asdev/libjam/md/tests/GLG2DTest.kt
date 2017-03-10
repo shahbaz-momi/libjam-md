@@ -51,8 +51,8 @@ fun main(args: Array<String>) {
     title.setPadding(15f)
     title.setThemeFont(FONT_SUBTITLE)
 
-    title.applyLayoutParameters(
-            GenericLayoutParamList() with ("gravity" to GRAVITY_BOTTOM_LEFT)
+    title.applyParameters(
+            GenericParamList() with ("gravity" to GRAVITY_BOTTOM_LEFT)
     )
 
     cardHeader.addChild(title)
@@ -138,8 +138,8 @@ fun createCardView(): View {
     title.setPadding(15f)
     title.setThemeFont(FONT_SUBTITLE)
 
-    title.applyLayoutParameters(
-            GenericLayoutParamList() with ("gravity" to GRAVITY_BOTTOM_LEFT)
+    title.applyParameters(
+            GenericParamList() with ("gravity" to GRAVITY_BOTTOM_LEFT)
     )
 
     cardHeader.addChild(title)

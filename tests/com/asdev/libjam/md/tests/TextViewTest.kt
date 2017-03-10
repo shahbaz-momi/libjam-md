@@ -44,9 +44,9 @@ fun main(args: Array<String>) {
     toolbar.minSize = FloatDim(-2f, 50f)
     toolbar.maxSize = FloatDim(-2f, 50f)
 
-    val list = GenericLayoutParamList()
+    val list = GenericParamList()
     list.putParam("gravity", GRAVITY_MIDDLE_LEFT)
-    toolbar.applyLayoutParameters(list)
+    toolbar.applyParameters(list)
 
     // toolbar.addChild(textView)
 

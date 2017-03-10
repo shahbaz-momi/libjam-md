@@ -40,8 +40,8 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
         titleText.gravity = GRAVITY_MIDDLE_LEFT
         titleText.setPadding(20f)
         // set the gravity of title text to middle left
-        titleText.applyLayoutParameters(
-                GenericLayoutParamList() with ("gravity" to GRAVITY_MIDDLE_LEFT)
+        titleText.applyParameters(
+                GenericParamList() with ("gravity" to GRAVITY_MIDDLE_LEFT)
         )
 
         // set the background colors for the navbar and toolbars
@@ -97,8 +97,8 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
 
         val navBarButtonsContainer = LinearLayout()
         navBarButtonsContainer.setOrientation(ORIENTATION_VERTICAL)
-        navBarButtonsContainer.applyLayoutParameters(
-                GenericLayoutParamList() with ("gravity" to GRAVITY_MIDDLE_RIGHT)
+        navBarButtonsContainer.applyParameters(
+                GenericParamList() with ("gravity" to GRAVITY_MIDDLE_RIGHT)
         )
 
         navBarButtonsContainer.maxSize = FloatDim(120f, DIM_UNLIMITED.h)

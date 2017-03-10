@@ -20,7 +20,7 @@ open class LayoutParams(var minSize: FloatDim, var maxSize: FloatDim) {
 
     open fun newInstance() = newLayoutParams()
 
-    open fun applyAdditional(params: GenericLayoutParamList?) {
+    open fun applyAdditional(params: GenericParamList?) {
 
     }
 }
@@ -52,7 +52,7 @@ class RelativeLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: In
 
     override fun newInstance() = newRelativeLayoutParams()
 
-    override fun applyAdditional(params: GenericLayoutParamList?) {
+    override fun applyAdditional(params: GenericParamList?) {
         if(DEBUG) {
             println("[RelativeLayoutParams] Applying additional layout params from generic layout param list: $params")
         }
@@ -84,7 +84,7 @@ class OverlayLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int
 
     override fun newInstance() = newOverlayLayoutParams()
 
-    override fun applyAdditional(params: GenericLayoutParamList?) {
+    override fun applyAdditional(params: GenericParamList?) {
         if(DEBUG) {
             println("[RelativeLayoutParams] Applying additional layout params from generic layout param list: $params")
         }
@@ -115,7 +115,7 @@ fun newOverlayLayoutParams() = OverlayLayoutParams(DIM_UNSET, DIM_UNSET, GRAVITY
 
 class LinearLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int = GRAVITY_MIDDLE_MIDDLE): LayoutParams(minSize, maxSize) {
 
-    override fun applyAdditional(params: GenericLayoutParamList?) {
+    override fun applyAdditional(params: GenericParamList?) {
         if(DEBUG) {
             println("[LinearLayoutParams] Applying additional layout params from generic layout param list: $params")
         }
@@ -137,30 +137,30 @@ class LinearLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int 
 
 fun newLinearLayoutParams() = LinearLayoutParams(DIM_UNSET, DIM_UNSET, GRAVITY_MIDDLE_MIDDLE)
 
-class GenericLayoutParamList {
+open class GenericParamList {
 
     // a map of the actual values
-    private val map = HashMap<String, Any>()
+    protected val map = HashMap<String, Any>()
 
     /**
      * Puts a layout parameter onto this list.
      */
-    fun putParam(name: String, value: Any) = map.put(name, value)
+    open fun putParam(name: String, value: Any) = map.put(name, value)
 
     /**
      * Returns whether this list has a parameter.
      */
-    fun hasParam(name: String) = map.containsKey(name)
+    open fun hasParam(name: String) = map.containsKey(name)
 
     /**
      * Clears a layout parameter from this list.
      */
-    fun clearParam(name: String) = map.remove(name)
+    open fun clearParam(name: String) = map.remove(name)
 
     /**
      * Gets a layout parameter from this list or null if it isn't present.
      */
-    fun getParam(name: String): Any? {
+    open fun getParam(name: String): Any? {
         val value = map.getOrDefault(name, Unit)
 
         if(value == Unit)
@@ -169,7 +169,7 @@ class GenericLayoutParamList {
         return value
     }
 
-    infix fun with(param: Pair<String, Any>): GenericLayoutParamList {
+    open infix fun with(param: Pair<String, Any>): GenericParamList {
         putParam(param.first, param.second)
         return this
     }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Another xml file could contain a dims document. -->
+<Dims xmlns="http://asdev.ca/libjam-md/schemas/dims.xsd">
+    <!-- Example entry of an dim. -->
+    <Dim name="example-dim">100.5x100.5</Dim>
+</Dims>

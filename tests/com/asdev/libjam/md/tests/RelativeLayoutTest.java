@@ -2,7 +2,7 @@ package com.asdev.libjam.md.tests;
 
 import com.asdev.libjam.md.base.RootView;
 import com.asdev.libjam.md.drawable.ColorDrawable;
-import com.asdev.libjam.md.layout.GenericLayoutParamList;
+import com.asdev.libjam.md.layout.GenericParamList;
 import com.asdev.libjam.md.layout.RelativeLayout;
 import com.asdev.libjam.md.util.FloatDim;
 import com.asdev.libjam.md.view.View;
@@ -29,64 +29,64 @@ public class RelativeLayoutTest {
 
         // add a child
         View child = new View();
-        GenericLayoutParamList list = new GenericLayoutParamList();
+        GenericParamList list = new GenericParamList();
         list.putParam("gravity", 0);
-        child.applyLayoutParameters(list);
+        child.applyParameters(list);
 
         child.setBackground(new ColorDrawable(Color.BLACK));
 
         View child2 = new View();
-        GenericLayoutParamList list2 = new GenericLayoutParamList();
+        GenericParamList list2 = new GenericParamList();
         list2.putParam("gravity", 1);
-        child2.applyLayoutParameters(list2);
+        child2.applyParameters(list2);
 
         child2.setBackground(new ColorDrawable(Color.BLUE));
 
         View child3 = new View();
-        GenericLayoutParamList list3 = new GenericLayoutParamList();
+        GenericParamList list3 = new GenericParamList();
         list3.putParam("gravity", 2);
-        child3.applyLayoutParameters(list3);
+        child3.applyParameters(list3);
 
         child3.setBackground(new ColorDrawable(Color.RED));
 
         View child4 = new View();
-        GenericLayoutParamList list4 = new GenericLayoutParamList();
+        GenericParamList list4 = new GenericParamList();
         list4.putParam("gravity", 3);
-        child4.applyLayoutParameters(list4);
+        child4.applyParameters(list4);
 
         child4.setBackground(new ColorDrawable(Color.GREEN));
 
         View child5 = new View();
-        GenericLayoutParamList list5 = new GenericLayoutParamList();
+        GenericParamList list5 = new GenericParamList();
         list5.putParam("gravity", 5);
-        child5.applyLayoutParameters(list5);
+        child5.applyParameters(list5);
 
         child5.setBackground(new ColorDrawable(Color.YELLOW));
 
         View child6 = new View();
-        GenericLayoutParamList list6 = new GenericLayoutParamList();
+        GenericParamList list6 = new GenericParamList();
         list6.putParam("gravity", 6);
-        child6.applyLayoutParameters(list6);
+        child6.applyParameters(list6);
 
         child6.setBackground(new ColorDrawable(Color.CYAN));
 
         RelativeLayout l2 = new RelativeLayout();
-        GenericLayoutParamList l = new GenericLayoutParamList();
+        GenericParamList l = new GenericParamList();
         l.putParam("gravity", 8);
-        l2.applyLayoutParameters(l);
+        l2.applyParameters(l);
         l2.setBackground(new ColorDrawable(Color.DARK_GRAY));
 
         View child7 = new View();
-        GenericLayoutParamList list7 = new GenericLayoutParamList();
+        GenericParamList list7 = new GenericParamList();
         list7.putParam("gravity", 0);
-        child7.applyLayoutParameters(list7);
+        child7.applyParameters(list7);
 
         child7.setBackground(new ColorDrawable(Color.MAGENTA));
 
         View child8 = new View();
-        GenericLayoutParamList list8 = new GenericLayoutParamList();
+        GenericParamList list8 = new GenericParamList();
         list8.putParam("gravity", 8);
-        child8.applyLayoutParameters(list8);
+        child8.applyParameters(list8);
 
         child8.setBackground(new ColorDrawable(Color.ORANGE));
 

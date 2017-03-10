@@ -2,6 +2,7 @@ package com.asdev.libjam.md.xml
 
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.Drawable
+import com.asdev.libjam.md.util.FloatDim
 import res.R
 import java.awt.Color
 import java.awt.Font
@@ -301,5 +302,43 @@ fun parseFontReference(ref: String): Font {
         }
     } else {
         throw XMLParseException("Invalid font code reference: $ref. Must reference a R.fonts object.")
+    }
+}
+
+private val dimsClass = R.dims.javaClass
+
+/**
+ * Parses the given dimension string into a literal FloatDim object.
+ */
+fun parseDimReference(ref: String): FloatDim {
+    if(ref.startsWith("\${") && ref.endsWith("}")) {
+        // is a reference to an object
+        // grab the actual code reference
+        val codeRef = ref.substring( ref.indexOf("{") + 1, ref.lastIndexOf("}") )
+        // must be reference to the R object
+        if(codeRef.startsWith("R.dims.")) {
+            val fieldName = codeRef.replace("R.dims.", "").replace("-", "_") // get the name and format it
+            // use reflection to get the field
+            try {
+                val field = dimsClass.getDeclaredField(fieldName)
+                // force access
+                field.isAccessible = true
+                return field.get(null) as FloatDim
+            } catch (e: NoSuchFieldException) {
+                throw XMLParseException("Invalid dim code reference: $codeRef. No such dim.")
+            }
+        }
+    }
+
+    // split on x
+    if(ref.contains("\$")) {
+        // contains a reference
+        val parts = ref.replace(" ", "").split("}x\$", ignoreCase = true)
+        val w = parseIntReference(parts[0] + "}")
+        val h = parseIntReference("\$" + parts[1])
+        return FloatDim(w.toFloat(), h.toFloat())
+    } else {
+        val parts = ref.split("x")
+        return FloatDim(parts[0].toFloat(), parts[1].toFloat())
     }
 }

@@ -8,6 +8,7 @@ import com.asdev.libjam.md.util.loadFontFile
 import java.awt.Color
 import java.awt.Font
 import java.io.File
+import com.asdev.libjam.md.util.FloatDim
 
 const val type_int = "int"
 const val type_string = "string"
@@ -16,6 +17,7 @@ const val type_gravity = "gravity"
 const val type_font = "font"
 const val type_color = "color"
 const val type_float = "float"
+const val type_dim = "dim"
 
 object R {
 	object strings {
@@ -332,8 +334,8 @@ object R {
 	}
 
 	object layout {
-		val layout_main = "layout_main"
-		val layout_on_boarding = "layout_on_boarding"
+		val layout_main = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_main.xml"
+		val layout_on_boarding = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_on_boarding.xml"
 	}
 
 	object id {
@@ -359,6 +361,10 @@ object R {
 		val OpenSans_Regular = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Regular.ttf")
 		val OpenSans_Semibold = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Semibold.ttf")
 		val OpenSans_SemiboldItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-SemiboldItalic.ttf")
+	}
+
+	object dims {
+		val example_dim = FloatDim(100.5f, 100.5f)
 	}
 
 	object gravity {

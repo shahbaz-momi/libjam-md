@@ -8,6 +8,8 @@ import java.io.File
 import java.io.FileWriter
 import javax.xml.parsers.DocumentBuilderFactory
 
+
+
 /**
  * Created by Asdev on 03/03/17. All rights reserved.
  * Unauthorized copying via any medium is stricitly
@@ -27,6 +29,7 @@ val R_OBJECT_TEMPLATE = "package res\n" +
         "import java.awt.Color\n" +
         "import java.awt.Font\n" +
         "import java.io.File\n" +
+        "import com.asdev.libjam.md.util.FloatDim\n" +
         "\n" +
         "const val type_int = \"int\"\n" +
         "const val type_string = \"string\"\n" +
@@ -35,6 +38,7 @@ val R_OBJECT_TEMPLATE = "package res\n" +
         "const val type_font = \"font\"\n" +
         "const val type_color = \"color\"\n" +
         "const val type_float = \"float\"\n" +
+        "const val type_dim = \"dim\"\n" +
         "\n" +
         "object R {\n" +
         "%1\$s" +
@@ -84,6 +88,14 @@ val ELEMENT_INT_ENTRY = "Int"
 
 val INT_ENTRY_TEMPLATE = "val %1\$s = %2\$s"
 val INT_OBJECT_TEMPLATE = "\tobject ints {\n" +
+        "%1\$s\n" +
+        "\t}\n"
+
+val ROOT_ELEMENT_DIMS = "Dims"
+val ELEMENT_DIM_ENTRY = "Dim"
+
+val DIM_ENTRY_TEMPLATE = "val %1\$s = %2\$s"
+val DIM_OBJECT_TEMPLATE = "\tobject dims {\n" +
         "%1\$s\n" +
         "\t}\n"
 
@@ -245,7 +257,16 @@ fun run(inputDir: File, outputDir: File) {
 
                 ROOT_ELEMENT_LAYOUTS -> {
                     try {
-                        parseLayouts(rootElement)
+                        parseLayouts(rootElement, outputDir)
+                    } catch (e: XMLParseException) {
+                        e.printStackTrace()
+                        System.exit(-1)
+                    }
+                }
+
+                ROOT_ELEMENT_DIMS -> {
+                    try {
+                        parseDims(rootElement)
                     } catch (e: XMLParseException) {
                         e.printStackTrace()
                         System.exit(-1)
@@ -268,11 +289,72 @@ fun run(inputDir: File, outputDir: File) {
     }
 }
 
+val dimEntries = ArrayList<String>()
+val dimEntryNames = ArrayList<String>()
+
+/**
+ * Parses a file of ints using the given element.
+ */
+fun parseDims(element: Element) {
+
+    // get all children that are Strings
+    val nodes = element.getElementsByTagName(ELEMENT_DIM_ENTRY)
+    for (i in 0 until nodes.length) {
+        val node = nodes.item(i)
+
+        // get the name attribute
+        val dimName = node.attributes.getNamedItem("name")
+        // grab the contents of the string
+        val dimContent = node.textContent
+
+        // make sure it has a name
+        if (dimName == null) {
+            throw XMLParseException("All Dim entries must have a name attribute. Entry number ${i + 1} does not.")
+        }
+        // make sure it has content
+        if(dimContent == null || dimContent.isEmpty()) {
+            throw XMLParseException("All Dim entries must have content. Entry number ${i + 1} does not.")
+        }
+
+        // replace any dashes with underscores to fit naming convenetions
+        val formattedName = dimName.textContent.replace("-", "_")
+        // make sure there aren't any special characters
+        if(containsSpecialCharacters(formattedName))
+            throw XMLParseException("Dim name $formattedName contains illegal characters! Only alphanumeric characters are allowed and -_")
+
+        if(dimEntryNames.contains(formattedName)) {
+            throw XMLParseException("Dim entry already exists with the name $formattedName")
+        }
+
+        // parse the dimension
+        val parts = dimContent.split("x", ignoreCase = true)
+        if(parts.size != 2) {
+            throw XMLParseException("Dim entries must be seperated by an x, with the W then H. $dimContent is not.")
+        }
+
+        // make sure they are valid floats
+        val w = parts[0].toFloat()
+        val h = parts[1].toFloat()
+
+        // add to the entries
+        val statement = DIM_ENTRY_TEMPLATE.format(formattedName, "FloatDim(${w}f, ${h}f)") // first parameter is the name, second is the content
+        dimEntries.add(statement)
+        dimEntryNames.add(formattedName)
+    }
+}
+
+fun buildDimsObject(): String {
+    // take the int entries, merge them with \n, and then replace the template for the object
+    val entries = dimEntries.joinToString(separator = "\n\t\t", prefix = "\t\t")
+    return DIM_OBJECT_TEMPLATE.format(entries)
+}
+
+
 val layoutEntries = ArrayList<String>()
 val layoutEntryNames = ArrayList<String>()
 val ids = ArrayList<String>()
 
-fun parseLayouts(element: Element) {
+fun parseLayouts(element: Element, outputDir: File) {
     val nodes = element.getElementsByTagName(ELEMENT_LAYOUT_ENTRY)
     for(i in 0 until nodes.length) {
         val child = nodes.item(i) as Element
@@ -285,8 +367,17 @@ fun parseLayouts(element: Element) {
             throw XMLParseException("A Layout with the name $formattedName already exits.")
         }
 
+        val file = File(outputDir, formattedName + ".xml")
+
         // TODO: theme
-        layoutEntries.add(LAYOUT_ENTRY_TEMPLATE.format(formattedName, layoutName.textContent))
+        layoutEntries.add(LAYOUT_ENTRY_TEMPLATE.format(formattedName, escapeMetaCharacters(file.absolutePath)))
+
+        val contents = innerXml(child)
+
+        val writer = BufferedWriter(FileWriter(file))
+        writer.write(contents)
+        writer.flush()
+        writer.close()
 
         // parse the ids within the layout
         parseIds(child)
@@ -336,6 +427,7 @@ const val type_gravity = "gravity"
 const val type_font = "font"
 const val type_color = "color"
 const val type_float = "float"
+const val type_dim = "dim"
 
 val propertyTypes = arrayOf(type_int, type_string, type_drawable, type_drawable, type_gravity, type_font, type_color, type_float)
 
@@ -740,7 +832,7 @@ fun buildFontsObject(): String {
 fun buildRObject(): String {
     val contents = buildStringObject() + "\n" + buildIntsObject() + "\n" + buildColorsObject() + "\n" +
             buildAttrsObject() + "\n" + buildLayoutObject() + "\n" + buildIdObject() + "\n" +
-            buildDrawablesObject() + "\n" + buildFontsObject()
+            buildDrawablesObject() + "\n" + buildFontsObject() + "\n" + buildDimsObject()
     return R_OBJECT_TEMPLATE.format(contents)
 }
 
@@ -766,4 +858,37 @@ fun escapeMetaCharacters(string: String): String {
     str = str.replace("\n", "\\n")
 
     return str
+}
+
+private fun innerXml(node: Node): String {
+    var s = ""
+    val childs = node.childNodes
+    for (i in 0..childs.length - 1) {
+        s += serializeNode(childs.item(i)) + "\n"
+    }
+    return s
+}
+
+private fun serializeNode(node: Node): String {
+    var s = ""
+    if (node.nodeName == "#text") return node.textContent
+    if(node.nodeName == "#comment") return ""
+
+    s += "<" + node.nodeName + " "
+    val attributes = node.attributes
+    if (attributes != null) {
+        for (i in 0..attributes.length - 1) {
+            s += attributes.item(i).nodeName + "=\"" + attributes.item(i).nodeValue + "\" "
+        }
+    }
+    val childs = node.childNodes
+    if (childs == null || childs.length == 0) {
+        s += "/>"
+        return s
+    }
+    s += ">"
+    for (i in 0..childs.length - 1)
+        s += serializeNode(childs.item(i))
+    s += "</" + node.nodeName + ">"
+    return s
 }
