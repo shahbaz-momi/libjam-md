@@ -8,4 +8,5 @@
     <String name="searching">Searching...</String>
     <String name="snackbar-test">Super long snackbar string/text can go here...</String>
     <String name="dismiss-buttom">DISMISS</String>
+    <String name="button-text">This does nothing</String>
 </Strings>

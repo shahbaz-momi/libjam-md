@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Layouts xmlns="http://asdev.ca/libjam-md/schemas/layouts.xsd">
+
+    <!-- There can be many layouts within a single document to prevent having a bunch of them and anything within them can be linked.  -->
+    <Layout name="layout_testing" theme="${R.themes.example_theme}">
+
+        <!-- The root view goes here -->
+        <LinearLayout orientation="horizontal" background="${R.theme.background}">
+
+            <ProgressView
+            gravity="middle-middle"
+            type="indeterminate"
+            padding-left="20"
+            padding-right="20"/>
+
+            <TextView text="${R.strings.searching}"
+            gravity="middle-middle"
+            text-gravity="middle-middle"/>
+
+            <RelativeLayout>
+                <ButtonView text="${R.strings.button-text}" maxSize="160x30"
+                gravity="middle-middle"
+                type="raised" overclip-bottom="20" overclip-left="20" overclip-right="20" overclip-top="20"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </Layout>
+
+</Layouts>

@@ -5,7 +5,7 @@
 
 
         
-<LinearLayout background="${R.theme.background}" id="root-linear-layout" orientation="horizontal" >
+<LinearLayout background="${R.theme.background}" gravity="middle-middle" id="root-linear-layout" orientation="horizontal" >
 
             <TextView gravity="middle-middle" id="greeting-text" text="${R.strings.example-string}" text-color="${R.theme.primary_text}" text-font="${R.theme.font_title:14}" text-gravity="middle-middle" />
 

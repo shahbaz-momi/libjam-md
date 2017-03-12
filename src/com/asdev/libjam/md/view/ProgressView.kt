@@ -78,7 +78,8 @@ class ProgressView(
 
     private fun updateType() {
         if(type == PROGRESS_TYPE_INDETERMINATE) {
-            anim.start()
+            if(!anim.isRunning())
+                anim.start()
         } else {
             anim.cancel()
         }

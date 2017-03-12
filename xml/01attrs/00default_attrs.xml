@@ -36,7 +36,9 @@
 
     </Styleable>
 
-    <Styleable class="com.asdev.libjam.md.view.ButtonView" base="com.asdev.libjam.md.view.TextView" />
+    <Styleable class="com.asdev.libjam.md.view.ButtonView" base="com.asdev.libjam.md.view.TextView">
+        <Property type="string" name="type" />
+    </Styleable>
 
     <Styleable class="com.asdev.libjam.md.view.CircularProgressView" base="com.asdev.libjam.md.view.View">
         <Property type="int" name="padding-left" />

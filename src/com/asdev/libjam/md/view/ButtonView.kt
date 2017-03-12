@@ -2,10 +2,13 @@ package com.asdev.libjam.md.view
 
 import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.layout.GRAVITY_MIDDLE_MIDDLE
+import com.asdev.libjam.md.layout.GenericParamList
 import com.asdev.libjam.md.theme.COLOR_ACCENT
 import com.asdev.libjam.md.theme.COLOR_RIPPLE
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
+import com.asdev.libjam.md.xml.XMLParamList
+import res.R
 import java.awt.Color
 import java.awt.Cursor
 import java.awt.Graphics2D
@@ -34,7 +37,20 @@ const val BUTTON_TYPE_FLAT = 1
 /**
  * A simple button widget.
  */
-open class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextView(text) {
+open class ButtonView(): TextView() {
+
+    private var type = BUTTON_TYPE_RAISED
+
+    constructor(text: String, type: Int = BUTTON_TYPE_RAISED): this() {
+        this.text = text
+        this.type = type
+
+        updateSettings()
+    }
+
+    init {
+        updateSettings()
+    }
 
     private var themeBgColor = COLOR_ACCENT
 
@@ -48,7 +64,26 @@ open class ButtonView(text: String, val type: Int = BUTTON_TYPE_RAISED): TextVie
      */
     var foreground: Drawable? = null
 
-    init {
+    override fun applyParameters(params: GenericParamList) {
+        super.applyParameters(params)
+
+        if(params is XMLParamList) {
+            if(params.hasParam(R.attrs.ButtonView.type)) {
+                type = if(params.getString(R.attrs.ButtonView.type) == "flat") BUTTON_TYPE_FLAT else BUTTON_TYPE_RAISED
+                updateSettings()
+            }
+        }
+    }
+
+    /**
+     * Sets the type of this button.
+     */
+    private fun setType(type: Int) {
+        this.type = type
+        updateSettings()
+    }
+
+    private fun updateSettings() {
         // set the background to a hover shadow and a rounded rectangle based on the accent color
         if(type == BUTTON_TYPE_RAISED)
             background =

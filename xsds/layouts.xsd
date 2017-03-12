@@ -111,6 +111,14 @@
                                     <xs:attribute name="text" use="required" type="xs:string" />
                                     <xs:attribute name="text-color" use="optional" type="xs:string" />
                                     <xs:attribute name="text-font" use="optional" type="xs:string" />
+                                    <xs:attribute name="type" use="optional">
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="flat" />
+                                                <xs:enumeration value="raised" />
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
                                 </xs:extension>
                             </xs:simpleContent>
                         </xs:complexType>

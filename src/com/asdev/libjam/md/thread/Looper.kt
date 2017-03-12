@@ -26,16 +26,12 @@ class Looper(val loopable: Loopable): Thread() {
     /**
      * The delay between each [Loopable] loop().
      */
-    private val loopDelay: Long
+    private val loopDelay: Long = (1000.0 / loopable.loopsPerSecond()).toLong()
 
     /**
      * The message queue for this [Looper]. This will store messages until the next loop() and then call handleMessage() of the [Loopable].
      */
     private val msgQueue = ConcurrentLinkedQueue<Message>()
-
-    init {
-        loopDelay = (1000.0 / loopable.loopsPerSecond()).toLong()
-    }
 
     /**
      * Post a message to this looper's queue. Will be handled by the Loopable.

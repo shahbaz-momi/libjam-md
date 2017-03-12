@@ -9,6 +9,7 @@
         <LinearLayout
                 background="${R.theme.background}"
                 id="root-linear-layout"
+                gravity="middle-middle"
                 orientation="horizontal">
 
             <TextView

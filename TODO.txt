@@ -65,7 +65,7 @@ TODO:
     - horizontal loading bar
     - indeterminate loading bar
 - scroll views // DONE
-- list views // DONE -- MORE EFFICIENT RENDERING THO
+- list views // DONE -- MORE EFFICIENT RENDERING THO - draw only visible views
 - view ids // PRETTY MUCH DONE
     - findViewById(id: String)
 - wrapping text view / multi-line text view
@@ -74,7 +74,7 @@ TODO:
     - fitting text within given dimensions
     - line heights, keming, etc.
     - these calculations should be performed in onLayout!!! It would be to blocking for onDraw
-- xml based view inflation
+- xml based view inflation // MOSTLY DONE - need to adapt some views for xml inflation tho
     - separate module
     - establish spec
 - concept of layouts in the RootView for easy switching // IN PROGRESS

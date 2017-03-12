@@ -38,7 +38,7 @@ fun main(args: Array<String>) {
     println(parseDimReference("100.5fx100.5f"))
     println(parseDimReference("\${R.ints.example_int}x\${R.ints.example_int}"))
 
-    val v = inflateLayout(R.layout.layout_main)
+    val v = inflateLayout(R.layout.layout_testing)
     val frame = GLG2DRootView(v, "Testing", Dimension(500, 500), true)
     frame.showFrame()
 }
