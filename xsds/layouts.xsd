@@ -111,7 +111,6 @@
                                     <xs:attribute name="text" use="required" type="xs:string" />
                                     <xs:attribute name="text-color" use="optional" type="xs:string" />
                                     <xs:attribute name="text-font" use="optional" type="xs:string" />
-                                    <xs:attribute name="text-size" use="optional" type="xs:integer" />
                                 </xs:extension>
                             </xs:simpleContent>
                         </xs:complexType>
@@ -141,8 +140,6 @@
                                 <xs:extension base="view_type">
                                     <xs:attribute name="padding-left" use="optional" type="xs:integer" default="0" />
                                     <xs:attribute name="padding-right" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-top" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-bottom" use="optional" type="xs:integer" default="0" />
 
                                     <xs:attribute name="type" use="optional" default="determinate">
                                         <xs:simpleType>

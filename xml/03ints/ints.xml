@@ -3,4 +3,5 @@
 <Ints xmlns="http://asdev.ca/libjam-md/schemas/ints.xsd">
     <!-- Example entry of an int. -->
     <Int name="example-int">18</Int>
+    <Int name="example-int2">19</Int>
 </Ints>

@@ -1,10 +1,13 @@
 package com.asdev.libjam.md.view
 
 import com.asdev.libjam.md.animation.*
+import com.asdev.libjam.md.layout.GenericParamList
 import com.asdev.libjam.md.theme.COLOR_ACCENT
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.xml.XMLParamList
+import res.R
 import java.awt.AlphaComposite
 import java.awt.Graphics2D
 
@@ -38,7 +41,7 @@ class ProgressView(
         /**
          * The type of progress view.
          */
-        val type: Int = PROGRESS_TYPE_INDETERMINATE) : View() {
+        private var type: Int = PROGRESS_TYPE_INDETERMINATE) : View() {
 
     /**
      * The amount of spacing between the progress bar to the left.
@@ -70,8 +73,38 @@ class ProgressView(
     private var anim = FloatValueAnimator(1500f, LinearInterpolator, 0f, 0f, 1f)
 
     init {
+        updateType()
+    }
+
+    private fun updateType() {
         if(type == PROGRESS_TYPE_INDETERMINATE) {
             anim.start()
+        } else {
+            anim.cancel()
+        }
+    }
+
+    override fun applyParameters(params: GenericParamList) {
+        super.applyParameters(params)
+
+        if(params is XMLParamList) {
+            if(params.hasParam(R.attrs.ProgressView.padding_left)) {
+                paddingLeft = params.getInt(R.attrs.ProgressView.padding_left)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.ProgressView.padding_right)) {
+                paddingRight = params.getInt(R.attrs.ProgressView.padding_right)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.ProgressView.type)) {
+                type = if(params.getString(R.attrs.ProgressView.type) == "determinate") PROGRESS_TYPE_DETERMINATE else PROGRESS_TYPE_INDETERMINATE
+                updateType()
+            }
+
+            if(params.hasParam(R.attrs.ProgressView.progress)) {
+                val prog = params.getFloat(R.attrs.ProgressView.progress)!!
+                setProgress(prog)
+            }
         }
     }
 

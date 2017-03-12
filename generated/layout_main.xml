@@ -5,12 +5,9 @@
 
 
         
-<LinearLayout gravity="middle-middle" id="root-linear-layout" orientation="horizontal">
+<LinearLayout background="${R.theme.background}" id="root-linear-layout" orientation="horizontal" >
 
-            <CustomView background="${R.drawables.texture}" class="com.asdev.libjam.md.tests.CustomView" id="custom-view" maxSize="100x100" minSize="30x30" >
-            </CustomView>
-
-            <TextView id="greeting-text" text="${R.strings.example-string}" text-color="${R.theme.title_text_color}" text-font="${R.theme.title_font:14}" text-gravity="middle-middle" />
+            <TextView gravity="middle-middle" id="greeting-text" text="${R.strings.example-string}" text-color="${R.theme.primary_text}" text-font="${R.theme.font_title:14}" text-gravity="middle-middle" />
 
         </LinearLayout>
 

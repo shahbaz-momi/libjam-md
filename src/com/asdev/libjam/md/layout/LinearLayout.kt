@@ -3,6 +3,8 @@ package com.asdev.libjam.md.layout
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
+import com.asdev.libjam.md.xml.XMLParamList
+import res.R
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
@@ -44,6 +46,17 @@ open class LinearLayout: ViewGroup() {
      * The orientation in which to layout out the items. May be either [ORIENTATION_VERTICAL] or [ORIENTATION_HORIZONTAL]
      */
     private var orientation = ORIENTATION_HORIZONTAL
+
+    override fun applyParameters(params: GenericParamList) {
+        super.applyParameters(params)
+
+        if(params is XMLParamList) {
+            if(params.hasParam(R.attrs.LinearLayout.orientation)) {
+                val orientation = if(params.getString(R.attrs.LinearLayout.orientation) == "horizontal") ORIENTATION_HORIZONTAL else ORIENTATION_VERTICAL
+                setOrientation(orientation)
+            }
+        }
+    }
 
     /**
      * Set the orientation of this view.

@@ -69,10 +69,10 @@ object R {
 
 	object attrs {
 		object ProgressView {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -85,17 +85,15 @@ object R {
 
 			val padding_left = "padding-left" to type_int
 			val padding_right = "padding-right" to type_int
-			val padding_top = "padding-top" to type_int
-			val padding_bottom = "padding-bottom" to type_int
 			val type = "type" to type_string
 			val progress = "progress" to type_float
 		}
 
 		object CircularProgressView {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -117,10 +115,10 @@ object R {
 		}
 
 		object ButtonView {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -138,16 +136,15 @@ object R {
 			val text_gravity = "text-gravity" to type_gravity
 			val text = "text" to type_string
 			val text_font = "text-font" to type_font
-			val text_size = "text-size" to type_int
 			val text_color = "text-color" to type_color
 
 		}
 
 		object PaddingLayout {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -165,10 +162,10 @@ object R {
 		}
 
 		object View {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -181,10 +178,10 @@ object R {
 		}
 
 		object com_asdev_libjam_md_tests_CustomViewTest {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -198,10 +195,10 @@ object R {
 		}
 
 		object RelativeLayout {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -215,10 +212,10 @@ object R {
 		}
 
 		object TextView {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -236,15 +233,14 @@ object R {
 			val text_gravity = "text-gravity" to type_gravity
 			val text = "text" to type_string
 			val text_font = "text-font" to type_font
-			val text_size = "text-size" to type_int
 			val text_color = "text-color" to type_color
 		}
 
 		object OverlayLinearLayout {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -259,10 +255,10 @@ object R {
 		}
 
 		object ScrollLayout {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -276,10 +272,10 @@ object R {
 		}
 
 		object OverlayView {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -293,10 +289,10 @@ object R {
 		}
 
 		object LinearLayout {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -311,10 +307,10 @@ object R {
 		}
 
 		object ElevatedLayout {
-			val visibility = "visibility" to type_int
+			val visibility = "visibility" to type_string
 			val id = "id" to type_string
-			val minSize = "minSize" to type_string
-			val maxSize = "maxSize" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
 			val background = "background" to type_drawable
 			val z_index = "z-index" to type_int
 			val translation_x = "translation-x" to type_int
@@ -340,7 +336,6 @@ object R {
 
 	object id {
 		val root_linear_layout = "root-linear-layout"
-		val custom_view = "custom-view"
 		val greeting_text = "greeting-text"
 		val progress_view = "progress-view"
 	}

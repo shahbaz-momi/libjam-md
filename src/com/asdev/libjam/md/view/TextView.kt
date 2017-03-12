@@ -7,6 +7,8 @@ import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.DEBUG_LAYOUT_BOXES
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.xml.XMLParamList
+import res.R
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
@@ -23,7 +25,16 @@ import java.awt.Graphics2D
 /**
  * A [View] that displays the specified text.
  */
-open class TextView(var text: String): OverlayView() {
+open class TextView(): OverlayView() {
+
+    constructor(text: String): this() {
+        this.text = text
+    }
+
+    /**
+     * The text to be displayed in this view.
+     */
+    var text = ""
 
     /**
      * The [Font] to be used by this view.
@@ -67,6 +78,41 @@ open class TextView(var text: String): OverlayView() {
         zIndex = 1
 
         layoutText()
+    }
+
+    override fun applyParameters(params: GenericParamList) {
+        super.applyParameters(params)
+
+        if(params is XMLParamList) {
+            params.setToString(R.attrs.TextView.text, this::text)
+            params.setToInt(R.attrs.TextView.text_gravity, this::gravity)
+
+            if(params.hasParam(R.attrs.TextView.text_font)) {
+                setThemeFont(-1)
+                params.setToFont(R.attrs.TextView.text_font, this::font)
+            }
+
+            if(params.hasParam(R.attrs.TextView.text_color)) {
+                setThemeColor(-1)
+                params.setToColor(R.attrs.TextView.text_color, this::color)
+            }
+
+            if(params.hasParam(R.attrs.TextView.padding_bottom)) {
+                paddingBottom = params.getInt(R.attrs.TextView.padding_bottom)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.TextView.padding_top)) {
+                paddingTop = params.getInt(R.attrs.TextView.padding_top)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.TextView.padding_left)) {
+                paddingLeft = params.getInt(R.attrs.TextView.padding_left)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.TextView.padding_right)) {
+                paddingRight = params.getInt(R.attrs.TextView.padding_right)!!.toFloat()
+            }
+        }
     }
 
     fun setPadding(padding: Float) {

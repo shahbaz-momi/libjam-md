@@ -8,6 +8,8 @@ import com.asdev.libjam.md.theme.COLOR_ACCENT
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.xml.XMLParamList
+import res.R
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
@@ -92,6 +94,46 @@ class CircularProgressView : View() {
     init {
         startAngleAnim.start()
         updateAnim()
+    }
+
+    override fun applyParameters(params: GenericParamList) {
+        super.applyParameters(params)
+
+        if(params is XMLParamList) {
+            if(params.hasParam(R.attrs.CircularProgressView.padding_bottom)) {
+                paddingBottom = params.getInt(R.attrs.CircularProgressView.padding_bottom)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.CircularProgressView.padding_top)) {
+                paddingTop = params.getInt(R.attrs.CircularProgressView.padding_top)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.CircularProgressView.padding_left)) {
+                paddingLeft = params.getInt(R.attrs.CircularProgressView.padding_left)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.CircularProgressView.padding_right)) {
+                paddingRight = params.getInt(R.attrs.CircularProgressView.padding_right)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.CircularProgressView.circle_stroke_width)) {
+                setUseThemeCircleStrokeWidth(false)
+                circleStrokeWidth = params.getInt(R.attrs.CircularProgressView.circle_stroke_width)!!.toFloat()
+                updateStroke()
+            }
+
+            if(params.hasParam(R.attrs.CircularProgressView.circle_radius)) {
+                setUseThemeCircleRadius(false)
+                circleRadius = params.getInt(R.attrs.CircularProgressView.circle_radius)!!.toFloat()
+            }
+
+            params.setToInt(R.attrs.CircularProgressView.circle_gravity, this::gravity)
+
+            if(params.hasParam(R.attrs.CircularProgressView.circle_color)) {
+                setThemeColor(-1)
+                color = params.getColor(R.attrs.CircularProgressView.circle_color)!!
+            }
+        }
     }
 
     /**

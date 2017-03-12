@@ -14,6 +14,8 @@ import com.asdev.libjam.md.layout.LayoutParams
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.thread.*
 import com.asdev.libjam.md.util.*
+import com.asdev.libjam.md.xml.XMLParamList
+import res.R
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
@@ -81,7 +83,7 @@ open class View (
     /**
      * The background drawable of this view. Defaults to the null.
      */
-    var background: Drawable? = null // should it be ColorDrawable(THEME.getBackgroundColor())?
+        var background: Drawable? = null // should it be ColorDrawable(THEME.getBackgroundColor())?
 
     /**
      * The ordering index of this view. The higher the index, the further on-top it is drawn.
@@ -216,10 +218,48 @@ open class View (
      */
     open fun applyParameters(params: GenericParamList) {
         if(DEBUG) {
-            println("[View] Got new layout parameters: $params")
+            println("[View] Got new parameters: $params")
         }
 
         paramList = params
+
+        if(params is XMLParamList) {
+            params.setToString(R.attrs.View.id, this::id)
+
+            if(params.hasParam(R.attrs.View.visibility)) {
+                val vis = params.getString(R.attrs.View.visibility)
+                visibility = if (vis == "visible") 0 else 1
+            }
+
+            params.setToDim(R.attrs.View.minSize, this::minSize)
+            params.setToDim(R.attrs.View.maxSize, this::maxSize)
+            params.setToDrawable(R.attrs.View.background, this::background)
+            params.setToInt(R.attrs.View.z_index, this::zIndex)
+
+            if(params.hasParam(R.attrs.View.translation_x)) {
+                translationX = params.getInt(R.attrs.View.translation_x)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.View.translation_y)) {
+                translationY = params.getInt(R.attrs.View.translation_y)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.View.overclip_bottom)) {
+                overClipBottom = params.getInt(R.attrs.View.overclip_bottom)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.View.overclip_top)) {
+                overClipTop = params.getInt(R.attrs.View.overclip_top)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.View.overclip_left)) {
+                overClipLeft = params.getInt(R.attrs.View.overclip_left)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.View.overclip_right)) {
+                overClipRight = params.getInt(R.attrs.View.overclip_right)!!.toFloat()
+            }
+        }
     }
 
     /**

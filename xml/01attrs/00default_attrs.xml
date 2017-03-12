@@ -4,10 +4,10 @@
 
     <Styleable class="com.asdev.libjam.md.view.View">
 
-        <Property name="visibility" type="int" />
+        <Property name="visibility" type="string" />
         <Property name="id" type="string" />
-        <Property type="string" name="minSize" />
-        <Property type="string" name="maxSize" />
+        <Property type="dim" name="minSize" />
+        <Property type="dim" name="maxSize" />
         <Property type="drawable" name="background" />
         <Property type="int" name="z-index" />
         <Property type="int" name="translation-x" />
@@ -32,7 +32,6 @@
         <Property type="gravity" name="text-gravity" />
         <Property type="string" name="text" />
         <Property type="font" name="text-font" />
-        <Property type="int" name="text-size" />
         <Property type="color" name="text-color" />
 
     </Styleable>
@@ -54,8 +53,6 @@
     <Styleable class="com.asdev.libjam.md.view.ProgressView" base="com.asdev.libjam.md.view.View">
         <Property type="int" name="padding-left" />
         <Property type="int" name="padding-right" />
-        <Property type="int" name="padding-top" />
-        <Property type="int" name="padding-bottom" />
 
         <Property type="string" name="type" />
         <Property type="float" name="progress" />

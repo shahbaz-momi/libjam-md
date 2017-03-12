@@ -1,8 +1,10 @@
 import com.asdev.libjam.md.drawable.ImageDrawable
+import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.theme.COLOR_PRIMARY
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.xml.*
 import res.R
+import java.awt.Dimension
 
 fun main(args: Array<String>) {
     THEME.init()
@@ -37,4 +39,6 @@ fun main(args: Array<String>) {
     println(parseDimReference("\${R.ints.example_int}x\${R.ints.example_int}"))
 
     val v = inflateLayout(R.layout.layout_main)
+    val frame = GLG2DRootView(v, "Testing", Dimension(500, 500), true)
+    frame.showFrame()
 }

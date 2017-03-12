@@ -5,6 +5,8 @@ import com.asdev.libjam.md.util.DEBUG_LAYOUT_BOXES
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.View
+import com.asdev.libjam.md.xml.XMLParamList
+import res.R
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.Point
@@ -30,6 +32,28 @@ class PaddingLayout (val child: View, padding: Float = 15f): View() {
     var paddingRight: Float = padding
     var paddingTop: Float = padding
     var paddingBottom: Float = padding
+
+    override fun applyParameters(params: GenericParamList) {
+        super.applyParameters(params)
+
+        if(params is XMLParamList) {
+            if(params.hasParam(R.attrs.PaddingLayout.padding_bottom)) {
+                paddingBottom = params.getInt(R.attrs.PaddingLayout.padding_bottom)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.PaddingLayout.padding_top)) {
+                paddingTop = params.getInt(R.attrs.PaddingLayout.padding_top)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.PaddingLayout.padding_left)) {
+                paddingLeft = params.getInt(R.attrs.PaddingLayout.padding_left)!!.toFloat()
+            }
+
+            if(params.hasParam(R.attrs.PaddingLayout.padding_right)) {
+                paddingRight = params.getInt(R.attrs.PaddingLayout.padding_right)!!.toFloat()
+            }
+        }
+    }
 
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
         super.onThemeChange(prevTheme, newTheme)

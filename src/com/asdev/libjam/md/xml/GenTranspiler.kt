@@ -429,7 +429,7 @@ const val type_color = "color"
 const val type_float = "float"
 const val type_dim = "dim"
 
-val propertyTypes = arrayOf(type_int, type_string, type_drawable, type_drawable, type_gravity, type_font, type_color, type_float)
+val propertyTypes = arrayOf(type_int, type_string, type_drawable, type_drawable, type_gravity, type_font, type_color, type_float, type_dim)
 
 fun parseAttrs(element: Element) {
     val nodes = element.getElementsByTagName(ELEMENT_ATTR_ENTRY)

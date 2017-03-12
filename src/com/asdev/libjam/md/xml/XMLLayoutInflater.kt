@@ -1,6 +1,6 @@
 package com.asdev.libjam.md.xml
 
-import com.asdev.libjam.md.layout.ViewGroup
+import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.view.View
 import org.w3c.dom.Element
 import java.io.File
@@ -28,11 +28,18 @@ fun inflateLayout(layoutRef: String): View {
 
     val rootElement = document.documentElement
 
-    // inflate the single element
+    return inflateLayout0(rootElement)
+}
+
+private fun inflateLayout0(rootElement: Element): View {
     val root = inflateSingleElement(rootElement)
 
-    if(root is ViewGroup) {
-        // TODO
+    if(root is ViewGroup && rootElement.hasChildNodes()) {
+        val children = rootElement.childNodes
+        for(i in 0 until children.length) {
+            val child = children.item(i) as? Element ?: continue
+            root.addChild(inflateLayout0(child))
+        }
     }
 
     return root
@@ -48,11 +55,19 @@ private fun inflateSingleElement(element: Element): View {
 
     val definedParams = ArrayList<Pair<String, String>>()
 
+    val className: String
+
     // get the name of the element
-    val className = getQualifiedName(tagName)
+    if(tagName == "CustomView") {
+        className = element.attributes.getNamedItem("class").textContent
+        element.attributes.removeNamedItem("class")
+    } else {
+        className = getQualifiedName(tagName)
+    }
+
     // find the attributes
     // check if its from the default packages
-    if(!tagName.contains(".")) {
+    if(!tagName.contains(".") && tagName != "CustomView") {
         // not a fully qualified name so it must be from the default packages
         // lookup the name in the attrs class
         try {
@@ -70,11 +85,11 @@ private fun inflateSingleElement(element: Element): View {
 
         } catch (e: ClassNotFoundException) {
             // lookup failed; no such class
-            throw XMLParseException("View class not found in attributes: $tagName")
+            throw XMLParseException("View class not found in attributes: $className")
         }
     } else {
         try {
-            val clazz = Class.forName(className.replace(".",  "_"))
+            val clazz = Class.forName("res.R\$attrs\$" + className.replace(".",  "_"))
             // get the defined params
             val fields = clazz.declaredFields
 
@@ -88,7 +103,7 @@ private fun inflateSingleElement(element: Element): View {
 
         } catch (e: ClassNotFoundException) {
             // lookup failed; no such class
-            throw XMLParseException("View class not found in attributes: $tagName")
+            throw XMLParseException("View class not found in attributes: $className")
         }
     }
 
@@ -99,7 +114,7 @@ private fun inflateSingleElement(element: Element): View {
         val attrName = attr.nodeName
         val attrValue = attr.textContent
 
-        val definition = definedParams.find { it.first == attrName } ?: throw XMLParseException("Attribute $attrName is not defined in the attrs class for view $tagName")
+        val definition = definedParams.find { it.first == attrName } ?: throw XMLParseException("Attribute $attrName is not defined in the attrs class for view $className")
         // use the definition type to figure out type
         val type = definition.second
 
@@ -130,7 +145,20 @@ private fun inflateSingleElement(element: Element): View {
             }
 
             type_gravity -> {
-                list.putParam(definition, attrValue)
+                var integer = -1
+                when(attrValue) {
+                    "top-left" -> integer = GRAVITY_TOP_LEFT
+                    "top-middle" -> integer = GRAVITY_TOP_MIDDLE
+                    "top-right" -> integer = GRAVITY_TOP_RIGHT
+                    "middle-left" -> integer = GRAVITY_MIDDLE_LEFT
+                    "middle-middle" -> integer = GRAVITY_MIDDLE_MIDDLE
+                    "middle-right" -> integer = GRAVITY_MIDDLE_RIGHT
+                    "bottom-left" -> integer = GRAVITY_BOTTOM_LEFT
+                    "bottom-middle" -> integer = GRAVITY_BOTTOM_MIDDLE
+                    "bottom-right" -> integer = GRAVITY_BOTTOM_RIGHT
+                }
+
+                list.putParam(definition, integer)
             }
 
             type_dim -> {

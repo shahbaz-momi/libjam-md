@@ -5,6 +5,8 @@ import com.asdev.libjam.md.layout.GenericParamList
 import com.asdev.libjam.md.util.FloatDim
 import java.awt.Color
 import java.awt.Font
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.KMutableProperty0
 
 /**
  * Created by Asdev on 03/09/17. All rights reserved.
@@ -65,6 +67,31 @@ class XMLParamList: GenericParamList() {
         }
     }
 
+    fun setToInt(name: Pair<String, String>, prop: KMutableProperty<Int>) {
+        if(hasParam(name)) {
+            prop.setter.call(getInt(name))
+        }
+    }
+
+    fun getFloat(name: Pair<String, String>): Float? {
+        if(!hasParam(name))
+            return null
+
+        val value = getParam(name)
+        // check the value
+        if(value is Float) {
+            return value
+        } else {
+            return null
+        }
+    }
+
+    fun setToFloat(name: Pair<String, String>, prop: KMutableProperty<Float>) {
+        if(hasParam(name)) {
+            prop.setter.call(getFloat(name))
+        }
+    }
+
     fun getString(name: Pair<String, String>): String? {
         if(!hasParam(name))
             return null
@@ -75,6 +102,12 @@ class XMLParamList: GenericParamList() {
             return value
         } else {
             return null
+        }
+    }
+
+    fun setToString(name: Pair<String, String>, prop: KMutableProperty<String>) {
+        if(hasParam(name)) {
+            prop.setter.call(getString(name))
         }
     }
 
@@ -91,6 +124,12 @@ class XMLParamList: GenericParamList() {
         }
     }
 
+    fun setToColor(name: Pair<String, String>, prop: KMutableProperty<Color>) {
+        if(hasParam(name)) {
+            prop.setter.call(getColor(name))
+        }
+    }
+
     fun getDrawable(name: Pair<String, String>): Drawable? {
         if(!hasParam(name))
             return null
@@ -101,6 +140,12 @@ class XMLParamList: GenericParamList() {
             return value
         } else {
             return null
+        }
+    }
+
+    fun setToDrawable(name: Pair<String, String>, prop: KMutableProperty0<Drawable?>) {
+        if(hasParam(name)) {
+            prop.setter.call(getDrawable(name))
         }
     }
 
@@ -117,6 +162,12 @@ class XMLParamList: GenericParamList() {
         }
     }
 
+    fun setToFont(name: Pair<String, String>, prop: KMutableProperty<Font>) {
+        if(hasParam(name)) {
+            prop.setter.call(getFont(name))
+        }
+    }
+
     fun getDim(name: Pair<String, String>): FloatDim? {
         if(!hasParam(name))
             return null
@@ -127,6 +178,12 @@ class XMLParamList: GenericParamList() {
             return value
         } else {
             return null
+        }
+    }
+
+    fun setToDim(name: Pair<String, String>, prop: KMutableProperty<FloatDim>) {
+        if(hasParam(name)) {
+            prop.setter.call(getDim(name))
         }
     }
 
