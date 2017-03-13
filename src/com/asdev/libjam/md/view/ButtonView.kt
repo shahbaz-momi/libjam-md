@@ -93,7 +93,7 @@ open class ButtonView(): TextView() {
                     )
         // if its a flat style then background should be null
         else if(type == BUTTON_TYPE_FLAT) {
-            setThemeColor(COLOR_ACCENT)
+            setThemeColor(getThemeColor())
             background = null
         }
 

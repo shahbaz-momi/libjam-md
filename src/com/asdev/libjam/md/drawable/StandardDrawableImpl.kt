@@ -63,6 +63,16 @@ class ImageDrawable: Drawable {
     }
 
     /**
+     * Returns a clone of this ImageDrawable without cloning the image.
+     */
+    fun softClone() = ImageDrawable(img, scaleType)
+
+    /**
+     * Returns a clone of this ImageDrawable without cloning the image using the given scale type.
+     */
+    fun softClone(scaleType: Int) = ImageDrawable(img, scaleType)
+
+    /**
      * Draws the foreground to this drawable according to the scale type.
      */
     override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float) {

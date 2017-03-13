@@ -36,7 +36,13 @@ const val SCROLLBAR_HOVER_OPACITY = 0.9f
 /**
  * A layout which allows for scrolling if the minimum size of the child does not fit the available size.
  */
-class ScrollLayout(val child: View) : ViewGroup() {
+class ScrollLayout() : ViewGroup() {
+
+    private lateinit var child: View
+
+    constructor(child: View): this() {
+        this.child = child
+    }
 
     /**
      * The cached parameters of the child view.
@@ -122,7 +128,7 @@ class ScrollLayout(val child: View) : ViewGroup() {
      * Throws an exception because you cannot add a view to a ScrollLayout.
      */
     override fun addChild(child: View) {
-        throw IllegalStateException("You cannot add a view to a ScrollLayout!")
+        this.child = child
     }
 
     /**

@@ -5,7 +5,6 @@ import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
-import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
 import java.awt.Point
@@ -165,6 +164,16 @@ class ListLayout (val listLayoutAdapter: ListLayoutAdapter, val itemDividers: Bo
      */
     fun findChildPosition(child: View) = layout.findChildPosition(child)
 
+    /**
+     * Attempts to find a child with the given id.
+     */
+    fun findChildById(id: String) = layout.findViewById(id)
+
+    /**
+     * Finds the position of the specified view relative to this View.
+     */
+    fun findViewPosition(v: View) = layout.findViewPosition(v)
+
     override fun onDraw(g: Graphics2D) {
         super.onDraw(g)
         layout.onDraw(g)
@@ -208,5 +217,5 @@ interface ListLayoutAdapter {
      */
     fun constructView(index: Int): View
 
-    // fun destroyView // later for view recycling
+    // fun destroyView(index: Int) // later for view recycling
 }

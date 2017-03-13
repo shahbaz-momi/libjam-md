@@ -230,7 +230,7 @@
 
         <xs:attribute name="id" type="xs:ID" use="optional" />
 
-        <xs:attribute name="minSize" type="xs:string" use="optional" default="-1x-1">
+        <xs:attribute name="minSize" use="optional" default="-1x-1">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:pattern value="\dx\d" />
@@ -238,7 +238,7 @@
             </xs:simpleType>
         </xs:attribute>
 
-        <xs:attribute name="maxSize" type="xs:string" use="optional" default="-1x-1">
+        <xs:attribute name="maxSize" use="optional" default="-1x-1">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:pattern value="\dx\d" />

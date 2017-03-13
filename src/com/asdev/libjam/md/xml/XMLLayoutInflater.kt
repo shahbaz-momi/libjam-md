@@ -4,6 +4,7 @@ import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.view.View
 import org.w3c.dom.Element
 import java.io.File
+import java.util.*
 import javax.xml.parsers.DocumentBuilderFactory
 
 /**
@@ -40,6 +41,8 @@ private fun inflateLayout0(rootElement: Element): View {
             val child = children.item(i) as? Element ?: continue
             root.addChild(inflateLayout0(child))
         }
+    } else if(rootElement.hasChildNodes()) {
+        throw XMLParseException("Non-ViewGroup element cannot have children. ${rootElement.tagName} does.")
     }
 
     return root
@@ -48,6 +51,7 @@ private fun inflateLayout0(rootElement: Element): View {
 /**
  * Inflates the single element with its attributes.
  */
+@Suppress("UNCHECKED_CAST") // we know the type because it is auto-generated
 private fun inflateSingleElement(element: Element): View {
     // list to store the attributes in
     val list = XMLParamList()

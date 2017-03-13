@@ -370,6 +370,8 @@ fun parseLayouts(element: Element, outputDir: File) {
 
         val file = File(outputDir, formattedName + ".xml")
 
+        println("Adding layout: $formattedName")
+
         // TODO: theme
         layoutEntries.add(LAYOUT_ENTRY_TEMPLATE.format(formattedName, escapeMetaCharacters(file.absolutePath)))
 

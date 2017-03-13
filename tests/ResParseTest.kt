@@ -1,44 +1,41 @@
-import com.asdev.libjam.md.drawable.ImageDrawable
+import com.asdev.libjam.md.drawable.SCALE_TYPE_COVER
 import com.asdev.libjam.md.glg2d.GLG2DRootView
-import com.asdev.libjam.md.theme.COLOR_PRIMARY
+import com.asdev.libjam.md.layout.LinearLayout
+import com.asdev.libjam.md.layout.ViewGroup
+import com.asdev.libjam.md.theme.DarkMaterialTheme
 import com.asdev.libjam.md.theme.THEME
+import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.view.ButtonView
+import com.asdev.libjam.md.view.TextView
 import com.asdev.libjam.md.xml.*
 import res.R
 import java.awt.Dimension
 
 fun main(args: Array<String>) {
+    THEME = DarkMaterialTheme
     THEME.init()
 
-    println(R.strings.example_string)
-    println(parseStringReference("Example string!"))
-    println(parseStringReference("\${R.strings.example_string}"))
+    // inflate and grab an xml layout
+    val start = System.nanoTime()
+    val v = inflateLayout(R.layout.layout_perf_testing) as ViewGroup
+    println("Took " + ((System.nanoTime() - start) / 1000000.0) + "ms for XML Layout inflation.")
 
-    // testing some ints
-    println(R.ints.example_int)
-    println(parseIntReference("18"))
-    println(parseIntReference("\${R.ints.example_int}"))
+//    // example of finding a view from a inflated xml layout
+//    val button = v.findViewById(R.id.testing_button) as? ButtonView?: return
+//    // example on click event.
+//    button.onClickListener = { _, _ ->
+//        // create a soft clone of a texture and apply it to this as the background
+//        v.background = R.drawables.texture.softClone(SCALE_TYPE_COVER)
+//    }
 
-    println(R.colors.light_material_primary)
-    println(parseColorReference("#2196F3"))
-    println(parseColorReference("\${R.colors.light_material_primary}"))
+    val childContainer = v.findViewById(R.id.child_container) as? LinearLayout?: return
+    for(i in 1 until childContainer.getChildCount()) {
+        val c = childContainer.getChildAtIndex(i)
+        c.onClickListener = { _, _ -> childContainer.addChild(TextView("Synthetic child").apply { minSize = FloatDim(-1f, 100f) }) }
+        (c as TextView).text = "Hello again $i"
+        c.requestLayout()
+    }
 
-    println(R.theme.primary)
-    println(THEME.getColor(COLOR_PRIMARY))
-    println(parseColorReference("\${R.theme.primary}"))
-
-    println(R.drawables.welcome_card.img.width)
-    println((parseDrawableReference("\${R.drawables.welcome_card}") as ImageDrawable).img.width)
-
-    println(R.fonts.OpenSans_Regular.size)
-    println(parseFontReference("\${R.fonts.OpenSans_Regular:\${R.ints.example_int}}").size)
-    println(parseFontReference("\${R.theme.font_primary:\${R.ints.example_int}}").size)
-
-    println(R.dims.example_dim)
-    println(parseDimReference("\${R.dims.example_dim}"))
-    println(parseDimReference("100.5fx100.5f"))
-    println(parseDimReference("\${R.ints.example_int}x\${R.ints.example_int}"))
-
-    val v = inflateLayout(R.layout.layout_testing)
-    val frame = GLG2DRootView(v, "Testing", Dimension(500, 500), true)
+    val frame = GLG2DRootView(v, "ResParseTestKt", Dimension(500, 500), true)
     frame.showFrame()
 }

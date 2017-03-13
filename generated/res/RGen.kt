@@ -27,7 +27,7 @@ object R {
 		val searching = "Searching..."
 		val snackbar_test = "Super long snackbar string/text can go here..."
 		val dismiss_buttom = "DISMISS"
-		val button_text = "This does nothing"
+		val button_text = "Change background"
 	}
 
 	object ints {
@@ -333,12 +333,15 @@ object R {
 		val layout_main = "C:\\Users\\Hardish\\IdeaProjects\\libjam-md\\generated\\layout_main.xml"
 		val layout_on_boarding = "C:\\Users\\Hardish\\IdeaProjects\\libjam-md\\generated\\layout_on_boarding.xml"
 		val layout_testing = "C:\\Users\\Hardish\\IdeaProjects\\libjam-md\\generated\\layout_testing.xml"
+		val layout_perf_testing = "C:\\Users\\Hardish\\IdeaProjects\\libjam-md\\generated\\layout_perf_testing.xml"
 	}
 
 	object id {
 		val root_linear_layout = "root-linear-layout"
 		val greeting_text = "greeting-text"
 		val progress_view = "progress-view"
+		val testing_button = "testing-button"
+		val child_container = "child-container"
 	}
 
 	object drawables {
