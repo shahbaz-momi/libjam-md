@@ -1,11 +1,11 @@
 package com.asdev.libjam.md.glg2d
 
 import com.asdev.libjam.md.animation.AnimationChoreographer
-import com.asdev.libjam.md.animation.Animator
 import com.asdev.libjam.md.base.WindowStateManager
 import com.asdev.libjam.md.layout.FrameDecoration
 import com.asdev.libjam.md.layout.LinearLayout
 import com.asdev.libjam.md.layout.newLayoutParams
+import com.asdev.libjam.md.menu.ContextMenu
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.thread.*
@@ -35,7 +35,7 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     /**
      * The frame on the screen.
      */
-    private val frame: JFrame
+    private val frame: JFrame = JFrame(title)
 
     /**
      * The UI looper for this RootView.
@@ -48,10 +48,14 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
 
     private val windowStateManager: WindowStateManager
 
+    /**
+     * The context menu associated with this root view.
+     */
+    var contextMenu: ContextMenu? = null
+
     val choreographer = AnimationChoreographer()
 
     init {
-        frame = JFrame(title)
         frame.isUndecorated = isUndecorated
 
         windowStateManager = WindowStateManager(frame)
@@ -162,6 +166,8 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         choreographer.loop()
         rootView.loop()
 
+        contextMenu?.loop()
+
         if(choreographer.requestFrame()) {
             requestPaint()
         }
@@ -210,6 +216,7 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
 
         val start = System.nanoTime()
 
+        rootView.onMeasure(newLayoutParams())
         rootView.onLayout(FloatDim(size.width.toFloat(), size.height.toFloat()))
         rootView.onPostLayout()
 
@@ -274,6 +281,8 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         // call on draw on the root view group
         rootView.onDraw(g)
         rootView.onPostDraw(g)
+        contextMenu?.onDraw(g)
+        contextMenu?.onPostDraw(g)
 
         // draw the resize tab
         g.color = Color.BLACK
@@ -324,10 +333,30 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     private var resizerMouseStart = Point()
     private var orgSize = Dimension()
 
+    private var contextMenuShowing = false
+
     override fun mouseReleased(e: MouseEvent?) {
         // left click only
-        if(e!!.button == MouseEvent.BUTTON1)
-            rootView.onMouseRelease(e, e.point)
+        if(e!!.button == MouseEvent.BUTTON1) {
+            if(contextMenuShowing) {
+                // check if it is in the bounds of the menu
+                val x = e.x
+                val y = e.y
+
+                val pos = contextMenu!!.getPosition()
+                val size = contextMenu!!.getSize()
+
+                if(x >= pos.x && x <= pos.x + size.w && y >= pos.y && y <= pos.y + size.h) {
+                    // on the context menu
+                    val newPos = FloatPoint(x - pos.x, y - pos.y)
+                    contextMenu!!.onMouseRelease(e, newPos)
+                } else {
+                    rootView.onMouseRelease(e, e.point)
+                }
+            } else {
+                rootView.onMouseRelease(e, e.point)
+            }
+        }
     }
 
     override fun mousePressed(e: MouseEvent?) {
@@ -339,7 +368,32 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
             resizerMouseStart = e.locationOnScreen
             orgSize = frame.size
         } else if(e.button == MouseEvent.BUTTON1) {
-            rootView.onMousePress(e, e.point)
+            if(contextMenuShowing) {
+                // check if it is in the bounds of the menu
+                val x = e.x
+                val y = e.y
+
+                val pos = contextMenu!!.getPosition()
+                val size = contextMenu!!.getSize()
+
+                if(x >= pos.x && x <= pos.x + size.w && y >= pos.y && y <= pos.y + size.h) {
+                    // on the context menu
+                    val newPos = FloatPoint(x - pos.x, y - pos.y)
+                    contextMenu!!.onMousePress(e, newPos)
+                } else {
+                    // hide the context menu
+                    contextMenuShowing = false
+                    contextMenu!!.hide()
+                    // perform the actual click event
+                    rootView.onMousePress(e, e.point)
+                }
+            } else {
+                rootView.onMousePress(e, e.point)
+            }
+        } else if(e.button == MouseEvent.BUTTON3) {
+            contextMenuShowing = contextMenu != null
+            contextMenu?.show(Math.min(e.x.toFloat(), size.width.toFloat() - contextMenu!!.getSize().w - 15f), Math.min(e.y.toFloat(), size.height - contextMenu!!.getSize().h - 15f))
+            requestPaint()
         }
     }
 
@@ -353,13 +407,28 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
             if(!hoveringResizer)
                 setCursor(Cursor.SE_RESIZE_CURSOR)
             hoveringResizer = true
-
         } else {
             if(hoveringResizer)
                 setCursor(Cursor.DEFAULT_CURSOR)
             hoveringResizer = false
 
-            rootView.onMouseMoved(e, e.point)
+            if(contextMenuShowing) {
+                val x = e.x
+                val y = e.y
+
+                val pos = contextMenu!!.getPosition()
+                val size = contextMenu!!.getSize()
+
+                if(x >= pos.x && x <= pos.x + size.w && y >= pos.y && y <= pos.y + size.h) {
+                    // on the context menu
+                    val newPos = FloatPoint(x - pos.x, y - pos.y)
+                    contextMenu!!.onMouseMoved(e, newPos)
+                } else {
+                    rootView.onMouseMoved(e, e.point)
+                }
+            } else {
+                rootView.onMouseMoved(e, e.point)
+            }
         }
     }
 
@@ -378,7 +447,23 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
                     if(d.height % 2 == 0) d.height else d.height + 1
             )
         } else {
-            rootView.onMouseDragged(e, e.point)
+            if(contextMenuShowing) {
+                val x = e.x
+                val y = e.y
+
+                val pos = contextMenu!!.getPosition()
+                val size = contextMenu!!.getSize()
+
+                if(x >= pos.x && x <= pos.x + size.w && y >= pos.y && y <= pos.y + size.h) {
+                    // on the context menu
+                    val newPos = FloatPoint(x - pos.x, y - pos.y)
+                    contextMenu!!.onMouseDragged(e, newPos)
+                } else {
+                    rootView.onMouseDragged(e, e.point)
+                }
+            } else {
+                rootView.onMouseDragged(e, e.point)
+            }
         }
     }
 

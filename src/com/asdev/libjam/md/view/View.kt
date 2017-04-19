@@ -369,6 +369,11 @@ open class View (
     }
 
     /**
+     * An action to be run upon the UI thread.
+     */
+    private var postAction: ((View) -> Unit)? = null
+
+    /**
      * A function called on the UI thread 60 times a second to update this view.
      */
     open fun loop() {
@@ -422,6 +427,23 @@ open class View (
             onLongPressListener?.invoke(Unit)
             hasLongPressed = true
         }
+
+        if(postAction != null) {
+            postAction!!.invoke(this)
+            postAction = null
+        }
+    }
+
+    /**
+     * Posts the specific action to be run upon the ui thread.
+     * Returns whether or not the action will actually be run.
+     */
+    fun postAction(action: (View) -> Unit): Boolean {
+        if(postAction != null)
+            return false
+
+        this.postAction = action
+        return true
     }
 
     /**

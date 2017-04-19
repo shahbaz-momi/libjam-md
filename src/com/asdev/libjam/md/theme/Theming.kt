@@ -187,6 +187,16 @@ abstract class Theme {
      * The width of the progress bar.
      */
     abstract fun getProgressBarWidth(): Float
+
+    /**
+     * The default width of a context menu.
+     */
+    abstract fun getContextMenuWidth(): Float
+
+    /**
+     * The default height of a context menu.
+     */
+    abstract fun getContextMenuHeight(): Float
 }
 
 /**
@@ -203,7 +213,7 @@ object LightMaterialTheme : Theme() {
     private val primaryTextColor = Color.decode("#212121")!!
     private val secondaryTextColor = Color.decode("#757575")!!
     private val backgroundColor = Color.decode("#EEEEEE")!!
-    private val dividerColor = Color.decode("#BDBDBD")!!
+    private val dividerColor = Color.decode("#DBDBDB")!!
     private val rippleColor = Color.decode("#444444")!!
 
     //// Fonts ////
@@ -262,6 +272,10 @@ object LightMaterialTheme : Theme() {
     override fun getCircularProgressStrokeWidth() = 5f
 
     override fun getProgressBarWidth() = 5f
+
+    override fun getContextMenuWidth() = 160f
+
+    override fun getContextMenuHeight() = 250f
 
     override fun toString(): String {
         return "LightMaterialTheme"
@@ -342,6 +356,10 @@ object DarkMaterialTheme : Theme() {
     override fun getCircularProgressStrokeWidth() = 5f
 
     override fun getProgressBarWidth() = 5f
+
+    override fun getContextMenuWidth() = 160f
+
+    override fun getContextMenuHeight() = 250f
 
     override fun toString(): String {
         return "DarkMaterialTheme"

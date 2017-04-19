@@ -755,9 +755,8 @@ class RelativeLayout: ViewGroup() {
         super.onDraw(g)
 
         // ignore z-indexes cuz these should not draw over each other
-        for((i, c) in orderedChildren.withIndex()) {
-            if(c == null)
-                continue
+        for(i in orderedChildren.indices) {
+            val c = orderedChildren[i] ?: continue
 
             val p = childCoords[i]!!
             // translate it
@@ -782,9 +781,8 @@ class RelativeLayout: ViewGroup() {
         if(visibility != VISIBILITY_VISIBLE)
             return
 
-        for((i, c) in orderedChildren.withIndex()) {
-            if(c == null)
-                continue
+        for(i in orderedChildren.indices) {
+            val c = orderedChildren[i] ?: continue
 
             val p = childCoords[i]!!
 

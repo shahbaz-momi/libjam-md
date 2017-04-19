@@ -20,7 +20,7 @@
             <RelativeLayout>
                 <ButtonView id="testing-button"
                             text="${R.strings.button-text}"
-                            maxSize="160x30"
+                            maxSize="180x30"
                             gravity="middle-middle"
                             type="raised"
                             overclip-bottom="20" overclip-left="20" overclip-right="20" overclip-top="20"/>
@@ -60,7 +60,7 @@
                     <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
                     <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
                     <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="600x50" text-color="${R.theme.primary_text}"/>
+                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
                     <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
                     <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
                     <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>

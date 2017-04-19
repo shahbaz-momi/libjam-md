@@ -39,6 +39,7 @@ val ORIENTATION_HORIZONTAL = 1
 open class LinearLayout: ViewGroup() {
 
     private val children = ArrayList<View>()
+    private lateinit var childrenSorted: List<View>
     private lateinit var childrenCoords: Array<FloatPoint>
     private lateinit var childrenLP: Array<LinearLayoutParams>
 
@@ -64,7 +65,7 @@ open class LinearLayout: ViewGroup() {
      */
     fun setOrientation(orientation: Int) {
         this.orientation = orientation
-        requestLayout()
+        super.requestLayout()
     }
 
     /**
@@ -74,7 +75,7 @@ open class LinearLayout: ViewGroup() {
     override fun removeChild(child: View) {
         children.remove(child)
         previousViewMousedOn = -1
-        requestLayout()
+        super.requestLayout()
     }
 
     /**
@@ -82,13 +83,15 @@ open class LinearLayout: ViewGroup() {
      */
     fun removeAllChildren() {
         children.clear()
-        requestLayout()
+        super.requestLayout()
     }
 
     /**
      * Returns the children managed by this layout.
      */
     override fun getChildren() = children.toTypedArray()
+
+    override fun getChildCount() = children.size
 
     /**
      * Adds the specified child to this layout.
@@ -97,7 +100,7 @@ open class LinearLayout: ViewGroup() {
     override fun addChild(child: View) {
         children.add(child)
         // request a layout to accomodate for the new view
-        requestLayout()
+        super.requestLayout()
     }
 
 
@@ -106,7 +109,7 @@ open class LinearLayout: ViewGroup() {
      */
     fun addChildAtIndex(view: View, index: Int) {
         children.add(index, view)
-        requestLayout()
+        super.requestLayout()
     }
 
     /**
@@ -336,6 +339,8 @@ open class LinearLayout: ViewGroup() {
             c.onLayout(sizes[i])
         }
 
+        childrenSorted = children.sorted()
+
         super.onLayout(newSize)
     }
 
@@ -350,7 +355,7 @@ open class LinearLayout: ViewGroup() {
         super.onDraw(g)
 
         // draw the children by z order
-        for(c in children.sorted()) {
+        for(c in childrenSorted) {
             val i = children.indexOf(c)
             // add the translation of the views
             g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())
@@ -376,7 +381,7 @@ open class LinearLayout: ViewGroup() {
             return
 
         // draw the children by z order
-        for(c in children.sorted()) {
+        for(c in childrenSorted) {
             val i = children.indexOf(c)
             // add the translation of the views
             g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())

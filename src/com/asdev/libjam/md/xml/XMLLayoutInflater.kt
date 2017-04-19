@@ -162,6 +162,10 @@ private fun inflateSingleElement(element: Element): View {
                     "bottom-right" -> integer = GRAVITY_BOTTOM_RIGHT
                 }
 
+                if(integer == -1) {
+                    throw XMLParseException("Unknown gravity for attribute $attrName: $attrValue")
+                }
+
                 list.putParam(definition, integer)
             }
 

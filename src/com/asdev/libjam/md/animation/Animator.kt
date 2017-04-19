@@ -45,7 +45,7 @@ open class Animator(
      * Starts this animations
      */
     open fun start() {
-        if(startTime != -1L && !hasEnded())
+        if(isRunning())
             throw IllegalStateException("This animation is already started!")
 
         startTime = System.nanoTime() + (startDelay * 1000000.0f).toLong()

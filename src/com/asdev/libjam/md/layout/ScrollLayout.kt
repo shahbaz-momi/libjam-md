@@ -146,7 +146,8 @@ class ScrollLayout() : ViewGroup() {
     override fun onMouseEnter(e: MouseEvent, mPos: Point) {
         super.onMouseEnter(e, mPos)
         // animate the bar in
-        scrollBarOpacityAnim.setFromValue(0f).setToValue(SCROLLBAR_NORMAL_OPACITY).start()
+        if(!scrollBarHovered && !scrollBarHoveredH)
+            scrollBarOpacityAnim.setFromValue(0f).setToValue(SCROLLBAR_NORMAL_OPACITY).start()
 
         // shift the coordinates of the mouse event by the scroll
         child.onMouseEnter(e, Point(mPos.x + scrollX.toInt(), mPos.y + scrollY.toInt()))
@@ -154,7 +155,8 @@ class ScrollLayout() : ViewGroup() {
 
     override fun onMouseExit(e: MouseEvent, mPos: Point) {
         super.onMouseExit(e, mPos)
-        scrollBarOpacityAnim.setFromValue(SCROLLBAR_NORMAL_OPACITY).setToValue(0f).start()
+        if(!scrollBarHovered && !scrollBarHoveredH)
+            scrollBarOpacityAnim.setFromValue(SCROLLBAR_NORMAL_OPACITY).setToValue(0f).start()
 
         // shift the coordinates of the mouse event by the scroll
         child.onMouseExit(e, Point(mPos.x + scrollX.toInt(), mPos.y + scrollY.toInt()))
@@ -490,7 +492,7 @@ class ScrollLayout() : ViewGroup() {
         g.translate(-childX.toInt() - child.translationX.toInt(), -childY.toInt() - child.translationY.toInt())
 
         // draw scroll bar if this is focused or hovered or pressed
-        if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning()) && scrollBarHeight > 0f) {
+        if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHoveredH || scrollBarHovered) && scrollBarHeight > 0f) {
             g.color = THEME.getDividerColor()
             val prevComp = g.composite
             g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, scrollBarOpacityAnim.getValue())
@@ -507,7 +509,7 @@ class ScrollLayout() : ViewGroup() {
             g.composite = prevComp
         }
 
-        if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning()) && scrollBarWidth > 0f) {
+        if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHovered || scrollBarHoveredH) && scrollBarWidth > 0f) {
             g.color = THEME.getDividerColor()
             val prevComp = g.composite
             g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, scrollBarOpacityAnim.getValue())
