@@ -11,6 +11,7 @@ import com.asdev.libjam.md.layout.newOverlayLayoutParams
 import com.asdev.libjam.md.theme.COLOR_DIVIDER
 import com.asdev.libjam.md.theme.COLOR_PRIMARY_TEXT
 import com.asdev.libjam.md.theme.THEME
+import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.*
@@ -46,7 +47,7 @@ class ContextMenu {
     /**
      * The background of this context menu.
      */
-    private val background = CompoundDrawable(ShadowDrawable(), ColorDrawable(THEME.getBackgroundColor()))
+    private var background = CompoundDrawable(ShadowDrawable(), ColorDrawable(THEME.getBackgroundColor()))
 
     private val animator = FloatValueAnimator(550f, FactorableDecelerateInterpolator(2f), 0f, 0.3f, 1f)
 
@@ -54,6 +55,12 @@ class ContextMenu {
         // initialize the layout
         layout.onAttach()
         layout.visibility = VISIBILITY_INVISIBLE
+    }
+
+    fun onThemeChange(oldTheme: Theme, newTheme: Theme) {
+        layout.onThemeChange(oldTheme, newTheme)
+
+        background = CompoundDrawable(ShadowDrawable(), ColorDrawable(THEME.getBackgroundColor()))
     }
 
     /**
@@ -88,7 +95,7 @@ class ContextMenu {
         // add the children back from the list
         for(it in items) {
             val v = it.constructView()
-            it.bindToView(v)
+            it.bindToView(v, this)
             layout.addChild(v)
         }
 
@@ -135,6 +142,8 @@ class ContextMenu {
      */
     fun hide() {
         layout.visibility = VISIBILITY_INVISIBLE
+        layout.onStateChanged(layout.state, View.State.STATE_NORMAL)
+
         animator.cancel()
     }
 
@@ -219,7 +228,7 @@ abstract class ContextMenuItem {
     /**
      * Called to bind the data of this item to the given view.
      */
-    abstract fun bindToView(v: View)
+    abstract fun bindToView(v: View, root: ContextMenu)
 
 }
 
@@ -238,7 +247,7 @@ open class ContextMenuText(val text: String): ContextMenuItem() {
         return v
     }
 
-    override fun bindToView(v: View) {
+    override fun bindToView(v: View, root: ContextMenu) {
         if(v is TextView)
             v.text = text
     }
@@ -247,8 +256,9 @@ open class ContextMenuText(val text: String): ContextMenuItem() {
 
 /**
  * A class which is a actionable context menu item.
+ * The action must return whether or not to hide the menu after performing the action.
  */
-open class ContextMenuAction(text: String, val action: (Unit) -> Unit): ContextMenuText(text) {
+open class ContextMenuAction(text: String, val action: (Unit) -> Boolean): ContextMenuText(text) {
 
     override fun constructView(): View {
         val v = ButtonView(text, BUTTON_TYPE_FLAT)
@@ -261,10 +271,13 @@ open class ContextMenuAction(text: String, val action: (Unit) -> Unit): ContextM
         return v
     }
 
-    override fun bindToView(v: View) {
+    override fun bindToView(v: View, root: ContextMenu) {
         if(v is ButtonView) {
             v.text = text
-            v.onClickListener = {_, _ -> action.invoke(Unit) }
+            v.onClickListener = {_, _ ->
+                if(action.invoke(Unit))
+                    root.hide()
+            }
         }
     }
 
@@ -283,6 +296,6 @@ object ContextMenuSeparator: ContextMenuItem() {
         return v
     }
 
-    override fun bindToView(v: View) {}
+    override fun bindToView(v: View, root: ContextMenu) {}
 
 }

@@ -56,7 +56,7 @@
 
                 <!-- Just as an example, you can include other layouts within others. You can override attrs as well. -->
                 <Include
-                        name="main-layout"
+                        name="com.asdev.libjam.md.tests.main-layout"
                         gravity="middle-middle" />
 
             </RelativeLayout>

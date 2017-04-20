@@ -21,16 +21,13 @@ const val type_dim = "dim"
 
 object R {
 	object strings {
-		val example_string4 = "Another one!"
-		val example_string5 = "happy"
-		val example_string6 = "Example string 6"
 		val example_string = "Example string!"
 		val example_string2 = "sad"
 		val example_string3 = "Example string 3!"
 		val searching = "Searching..."
 		val snackbar_test = "Super long snackbar string/text can go here..."
 		val dismiss_buttom = "DISMISS"
-		val button_text = "Change background"
+		val button_text = "Light theme"
 	}
 
 	object ints {
@@ -333,10 +330,10 @@ object R {
 	}
 
 	object layout {
-		val layout_main = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_main.xml"
-		val layout_on_boarding = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_on_boarding.xml"
-		val layout_testing = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_testing.xml"
-		val layout_perf_testing = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_perf_testing.xml"
+		val layout_main = "E:\\VCSProjects\\libjam-md\\generated\\layout_main.xml"
+		val layout_on_boarding = "E:\\VCSProjects\\libjam-md\\generated\\layout_on_boarding.xml"
+		val layout_testing = "E:\\VCSProjects\\libjam-md\\generated\\layout_testing.xml"
+		val layout_perf_testing = "E:\\VCSProjects\\libjam-md\\generated\\layout_perf_testing.xml"
 	}
 
 	object id {
@@ -348,24 +345,25 @@ object R {
 	}
 
 	object drawables {
-		val texture = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\texture.png")
-		val welcome_card = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\welcome_card.jpg")
+		val texture = newImageDrawable("E:\\VCSProjects\\libjam-md\\xml\\04drawables\\texture.png")
+		val welcome_card = newImageDrawable("E:\\VCSProjects\\libjam-md\\xml\\04drawables\\welcome_card.jpg")
 	}
 
 	object fonts {
-		val OpenSans_Bold = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Bold.ttf")
-		val OpenSans_BoldItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-BoldItalic.ttf")
-		val OpenSans_ExtraBold = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-ExtraBold.ttf")
-		val OpenSans_ExtraBoldItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-ExtraBoldItalic.ttf")
-		val OpenSans_Italic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Italic.ttf")
-		val OpenSans_Light = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Light.ttf")
-		val OpenSans_LightItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-LightItalic.ttf")
-		val OpenSans_Regular = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Regular.ttf")
-		val OpenSans_Semibold = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Semibold.ttf")
-		val OpenSans_SemiboldItalic = loadFontFile("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-SemiboldItalic.ttf")
+		val OpenSans_Bold = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Bold.ttf")
+		val OpenSans_BoldItalic = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-BoldItalic.ttf")
+		val OpenSans_ExtraBold = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-ExtraBold.ttf")
+		val OpenSans_ExtraBoldItalic = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-ExtraBoldItalic.ttf")
+		val OpenSans_Italic = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Italic.ttf")
+		val OpenSans_Light = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Light.ttf")
+		val OpenSans_LightItalic = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-LightItalic.ttf")
+		val OpenSans_Regular = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Regular.ttf")
+		val OpenSans_Semibold = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-Semibold.ttf")
+		val OpenSans_SemiboldItalic = loadFontFile("E:\\VCSProjects\\libjam-md\\xml\\05fonts\\OpenSans\\OpenSans-SemiboldItalic.ttf")
 	}
 
 	object dims {
+		val widget_button = FloatDim(180.0f, 30.0f)
 		val example_dim = FloatDim(100.5f, 100.5f)
 	}
 

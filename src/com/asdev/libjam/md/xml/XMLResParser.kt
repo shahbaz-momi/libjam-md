@@ -333,9 +333,9 @@ fun parseDimReference(ref: String): FloatDim {
     // split on x
     if(ref.contains("\$")) {
         // contains a reference
-        val parts = ref.replace(" ", "").split("}x\$", ignoreCase = true)
-        val w = parseIntReference(parts[0] + "}")
-        val h = parseIntReference("\$" + parts[1])
+        val parts = ref.replace(Regex.fromLiteral("\\s"), "").split("x", ignoreCase = true)
+        val w = parseIntReference(parts[0])
+        val h = parseIntReference(parts[1])
         return FloatDim(w.toFloat(), h.toFloat())
     } else {
         val parts = ref.split("x")

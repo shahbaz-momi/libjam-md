@@ -99,7 +99,7 @@ open class View (
     /**
      * The state listener associated with this [View].
      */
-    var stateListener: StateListener? = null
+    var onStateChangeListener: ((State, State) -> Unit)? = null
 
     /**
      * The state of the current view.
@@ -363,7 +363,7 @@ open class View (
      */
     open fun onStateChanged(previous: State, newState: State) {
         // call on listener
-        stateListener?.onStateChanged(previous, newState)
+        onStateChangeListener?.invoke(previous, newState)
 
         // call on potential stateful drawable
         if(background != null && background is StatefulDrawable)
@@ -629,15 +629,6 @@ open class View (
         fun onKeyTyped(e: KeyEvent)
         fun onKeyPressed(e: KeyEvent)
         fun onKeyReleased(e: KeyEvent)
-
-    }
-
-    /**
-     * A [View].[State] listener.
-     */
-    interface StateListener {
-
-        fun onStateChanged(prevState: State, newState: State)
 
     }
 

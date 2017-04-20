@@ -197,6 +197,7 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
                 THEME = theme
                 // call onThemeChanged of the view
                 rootView.onThemeChange(oldTheme, THEME)
+                contextMenu.onThemeChange(oldTheme, THEME)
                 // call on draw
                 requestPaint()
             } else if(msg.action == MESSAGE_ACTION_SET_CURSOR) {
@@ -435,11 +436,11 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
                 val pos = contextMenu.getPosition()
                 val size = contextMenu.getSize()
 
-                if(x >= pos.x && x <= pos.x + size.w && y >= pos.y && y <= pos.y + size.h) {
-                    // on the context menu
-                    val newPos = FloatPoint(x - pos.x, y - pos.y)
-                    contextMenu.onMouseMoved(e, newPos)
-                } else {
+                // on the context menu
+                val newPos = FloatPoint(x - pos.x, y - pos.y)
+                contextMenu.onMouseMoved(e, newPos)
+
+                if(!(x >= pos.x && x <= pos.x + size.w && y >= pos.y && y <= pos.y + size.h)) {
                     rootView.onMouseMoved(e, e.point)
                 }
             } else {
@@ -470,11 +471,11 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
                 val pos = contextMenu.getPosition()
                 val size = contextMenu.getSize()
 
-                if(x >= pos.x && x <= pos.x + size.w && y >= pos.y && y <= pos.y + size.h) {
-                    // on the context menu
-                    val newPos = FloatPoint(x - pos.x, y - pos.y)
-                    contextMenu.onMouseDragged(e, newPos)
-                } else {
+                // on the context menu
+                val newPos = FloatPoint(x - pos.x, y - pos.y)
+                contextMenu.onMouseDragged(e, newPos)
+
+                if(!(x >= pos.x && x <= pos.x + size.w && y >= pos.y && y <= pos.y + size.h)) {
                     rootView.onMouseDragged(e, e.point)
                 }
             } else {

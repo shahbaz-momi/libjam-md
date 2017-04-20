@@ -20,10 +20,10 @@
             <RelativeLayout>
                 <ButtonView id="testing-button"
                             text="${R.strings.button-text}"
-                            maxSize="180x30"
+                            maxSize="${R.dims.widget_button}"
                             gravity="middle-middle"
                             type="raised"
-                            overclip-bottom="20" overclip-left="20" overclip-right="20" overclip-top="20"/>
+                            />
             </RelativeLayout>
 
         </LinearLayout>

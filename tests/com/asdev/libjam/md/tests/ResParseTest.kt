@@ -1,3 +1,5 @@
+package com.asdev.libjam.md.tests
+
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.SCALE_TYPE_COVER
 import com.asdev.libjam.md.glg2d.GLG2DRootView
@@ -13,6 +15,7 @@ import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.ButtonView
 import com.asdev.libjam.md.view.TextView
+import com.asdev.libjam.md.view.View
 import com.asdev.libjam.md.xml.*
 import res.R
 import java.awt.Color
@@ -28,15 +31,7 @@ fun main(args: Array<String>) {
     println("Took " + ((System.nanoTime() - start) / 1000000.0) + "ms for XML Layout inflation.")
 
     // example of finding a view from a inflated xml layout
-    val button = v.findViewById(R.id.testing_button) as? ButtonView?: return
-    // example on click event.
-    button.onClickListener = { _, _ ->
-        // create a soft clone of a texture and apply it to this as the background
-        v.background = R.drawables.texture.softClone(SCALE_TYPE_COVER)
-    }
-
-    button.contextMenuItems = listOf(ContextMenuText("Button menu"))
-    v.contextMenuItems = listOf(ContextMenuAction("Layout menu", {}))
+    val button = v.findViewById(R.id.testing_button) as? ButtonView ?: return
 
 //    val childContainer = v.findViewById(R.id.child_container) as? LinearLayout?: throw Exception("Unable to get LinearLayout")
 //    for(i in 1 until childContainer.getChildCount()) {
@@ -53,4 +48,16 @@ fun main(args: Array<String>) {
     val frame = GLG2DRootView(v, "ResParseTestKt", Dimension(500, 500), true)
 
     frame.showFrame()
+
+    button.contextMenuItems = listOf(ContextMenuText("Button menu"))
+    v.contextMenuItems = listOf(ContextMenuAction("Dark theme", {
+            frame.setTheme(DarkMaterialTheme)
+            return@ContextMenuAction true
+        }
+    ))
+
+    // example on click event.
+    button.onClickListener = { _, _ ->
+        frame.setTheme(LightMaterialTheme)
+    }
 }

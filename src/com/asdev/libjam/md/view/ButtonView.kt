@@ -46,10 +46,20 @@ open class ButtonView(): TextView() {
         this.type = type
 
         updateSettings()
+
+        overClipBottom = 20f
+        overClipLeft = 20f
+        overClipRight = 20f
+        overClipTop = 20f
     }
 
     init {
         updateSettings()
+
+        overClipBottom = 20f
+        overClipLeft = 20f
+        overClipRight = 20f
+        overClipTop = 20f
     }
 
     private var themeBgColor = COLOR_ACCENT

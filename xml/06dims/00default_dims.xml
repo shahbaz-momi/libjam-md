@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- File containing default dimensions for widgets -->
+<Dims xmlns="http://asdev.ca/libjam-md/schemas/dims.xsd">
+
+    <!-- Widgets -->
+    <Dim name="widget_button">180x30</Dim>
+
+</Dims>
