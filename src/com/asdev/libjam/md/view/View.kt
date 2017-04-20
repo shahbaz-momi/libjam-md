@@ -11,6 +11,7 @@ import com.asdev.libjam.md.drawable.StatefulDrawable
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.GenericParamList
 import com.asdev.libjam.md.layout.LayoutParams
+import com.asdev.libjam.md.menu.ContextMenuItem
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.thread.*
 import com.asdev.libjam.md.util.*
@@ -176,6 +177,12 @@ open class View (
     var scrollListener: ((MouseWheelEvent) -> Unit)? = null
 
     /**
+     * A list that contains the context menu items of this view, if any.
+     * Nullable if there is no context menu for this view.
+     */
+    var contextMenuItems: List<ContextMenuItem>? = null
+
+    /**
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
      * @return the min and max sizes, respectively.
      */
@@ -195,8 +202,7 @@ open class View (
     /**
      * Called when the layout has been determined and the layout pass has been run.
      */
-    open fun onPostLayout() {
-    }
+    open fun onPostLayout() { }
 
     /**
      * Called by the [RootView] when an [Theme] change occurs.
@@ -209,7 +215,7 @@ open class View (
     }
 
     /**
-     * The addition parameter list ([GenericParamList]) attached to this view. Will be applied in [onMeasure].
+     * The addition parameter list ([GenericParamList] or [XMLParamList]) attached to this view. Will be applied in [onMeasure].
      */
     private var paramList: GenericParamList? = null
 
@@ -228,7 +234,7 @@ open class View (
 
             if(params.hasParam(R.attrs.View.visibility)) {
                 val vis = params.getString(R.attrs.View.visibility)
-                visibility = if (vis == "visible") 0 else 1
+                visibility = if (vis == "visible") VISIBILITY_VISIBLE else VISIBILITY_INVISIBLE
             }
 
             params.setToDim(R.attrs.View.minSize, this::minSize)
@@ -596,6 +602,11 @@ open class View (
             g.drawRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
         }
     }
+
+    /**
+     * Finds the context menu items for the view at the given position, or null if none found.
+     */
+    open fun findContextMenuItems(viewPos: FloatPoint) = contextMenuItems
 
     /**
      * A mouse event listener.

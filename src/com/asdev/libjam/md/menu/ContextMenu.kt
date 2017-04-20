@@ -66,6 +66,15 @@ class ContextMenu {
     }
 
     /**
+     * Sets the context menu items of this menu.
+     */
+    fun setItems(items: List<ContextMenuItem>) {
+       this.items = items
+
+        notifyChangedItems()
+    }
+
+    /**
      * Returns the context menu items of this menu.
      */
     fun getItems() = items

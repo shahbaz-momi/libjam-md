@@ -1,5 +1,6 @@
 package com.asdev.libjam.md.layout
 
+import com.asdev.libjam.md.menu.ContextMenuItem
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.OverlayView
@@ -147,29 +148,29 @@ abstract class ViewGroup: View() {
         // check if the view is a child of ours
         val pos = findChildPosition(v)
         if(pos != null) {
-            return pos add yourPos
+            return pos + yourPos
         } else {
             val children = getChildren()
             for(c in children) {
                 if(c is ViewGroup) {
-                    val p = c.findViewPosition0(v, yourPos add findChildPosition(c)!!)
+                    val p = c.findViewPosition0(v, yourPos + findChildPosition(c)!!)
                     if(p != null)
                         return p
                 } else if(c is PaddingLayout) {
                     // special case for paddinglayout, which actually isnt a layout
                     if(c.child == v) {
-                        return yourPos add c.findChildPosition() add findChildPosition(c)!!
+                        return yourPos + c.findChildPosition() + findChildPosition(c)!!
                     } else if(c.child is ViewGroup) {
-                        val p = c.child.findViewPosition0(v, yourPos add findChildPosition(c)!! add c.findChildPosition())
+                        val p = c.child.findViewPosition0(v, yourPos + findChildPosition(c)!! + c.findChildPosition())
                         if(p != null)
                             return p
                     }
                 } else if(c is ElevatedLayout) {
                     // special case for elevation layout, which actually isnt a layout
                     if (c.child == v) {
-                        return yourPos add c.findChildPosition() add findChildPosition(c)!!
+                        return yourPos + c.findChildPosition() + findChildPosition(c)!!
                     } else if (c.child is ViewGroup) {
-                        val p = c.child.findViewPosition0(v, yourPos add findChildPosition(c)!! add c.findChildPosition())
+                        val p = c.child.findViewPosition0(v, yourPos + findChildPosition(c)!! + c.findChildPosition())
                         if (p != null)
                             return p
                     }
@@ -344,5 +345,33 @@ abstract class ViewGroup: View() {
             hardRef.onPostDraw(g)
             g.translate(-hardRef.position.x.toDouble() - hardRef.translationX, -hardRef.position.y.toDouble() - hardRef.translationY)
         }
+    }
+
+    /**
+     * Finds the context menu items for the view at the given position, or the most lower-level non-null
+     * context menu items if none for the children are found. Avoids returning no items/null.
+     */
+    override fun findContextMenuItems(viewPos: FloatPoint): List<ContextMenuItem>? {
+        // find the child at that point
+        val children = getChildren()
+
+        for(c in children) {
+            val pos = findChildPosition(c)?: throw IllegalStateException("Unable to find the position of my own child!")
+
+            // check if the point is in the view
+            if(viewPos.x >= pos.x && viewPos.x <= pos.x + c.layoutSize.w
+                    && viewPos.y >= pos.y && viewPos.y <= pos.y + c.layoutSize.h) {
+
+                // return the items of that view if they aren't null
+                val items = c.findContextMenuItems(viewPos - pos)
+                if(items != null)
+                    return items
+
+                // we already found the view at the position, so break now
+                break
+            }
+        }
+
+        return super.findContextMenuItems(viewPos)
     }
 }

@@ -27,7 +27,8 @@ data class FloatDim(
     }
 }
 
-/** Constant float dimensions
+/**
+ * Constant float dimensions
  */
 val DIM_UNSET = FloatDim(-1f, -1f)
 val DIM_UNLIMITED = FloatDim(-2f, -2f)
@@ -60,13 +61,10 @@ data class FloatPoint(
          */
         var y: Float) {
 
-    infix fun add(other: FloatPoint) = FloatPoint(x + other.x, y + other.y)
-
-    infix fun subtract(other: FloatPoint) = FloatPoint(x - other.x, y - other.y)
-
-    infix fun multiply(other: FloatPoint) = FloatPoint(x * other.x, y * other.y)
-
-    infix fun divide(other: FloatPoint) = FloatPoint(x / other.x, y / other.y)
+    operator fun plus(other: FloatPoint) = FloatPoint(x + other.x, y + other.y)
+    operator fun minus(other: FloatPoint) = FloatPoint(x - other.x, y - other.y)
+    operator fun times(other: FloatPoint) = FloatPoint(x * other.x, y * other.y)
+    operator fun div(other: FloatPoint) = FloatPoint(x / other.x, y / other.y)
 
 
     override fun toString(): String {
