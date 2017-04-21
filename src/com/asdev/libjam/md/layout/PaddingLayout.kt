@@ -220,4 +220,6 @@ class PaddingLayout (val child: View, padding: Float = 15f): View() {
      * Returns the position of the child within this PaddingLayout.
      */
     fun findChildPosition() = FloatPoint(paddingLeft, paddingTop)
+
+    override fun findContextMenuItems(viewPos: FloatPoint) = child.findContextMenuItems(viewPos - findChildPosition())?: super.findContextMenuItems(viewPos)
 }

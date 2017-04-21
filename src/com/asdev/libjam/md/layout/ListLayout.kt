@@ -5,6 +5,7 @@ import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
 import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
+import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
 import java.awt.Point
@@ -44,8 +45,7 @@ class ListLayout (val listLayoutAdapter: ListLayoutAdapter, val itemDividers: Bo
     }
 
     /**
-     * Invalidates the data within this list and causes a reset to occur
-     *
+     * Invalidates the data within this list and causes a reset to occur.
      */
     fun notifyDatasetChanged() {
         // clear the layout of its children
@@ -183,6 +183,8 @@ class ListLayout (val listLayoutAdapter: ListLayoutAdapter, val itemDividers: Bo
         layout.onPostDraw(g)
         super.onPostDraw(g)
     }
+
+    override fun findContextMenuItems(viewPos: FloatPoint) = layout.findContextMenuItems(viewPos)
 }
 
 /**

@@ -7,121 +7,29 @@
         <!-- The root view goes here -->
         <LinearLayout orientation="horizontal" background="${R.theme.background}">
 
-            <CircularProgressView
-                    gravity="middle-middle"
-                    circle-gravity="bottom-middle"
-                    overclip-bottom="20"/>
+            <RelativeLayout background="${R.drawables.nightskydopeplanet:cover}">
+                <TextView text="Hello from the ground!"
+                            text-color="${R.theme.title}"
+                            text-gravity="bottom-middle"
+                            padding-bottom="8"
+                            text-font="${R.theme.font_title:24}" />
+            </RelativeLayout>
 
             <TextView text="${R.strings.searching}"
                       gravity="middle-middle"
                       text-gravity="middle-middle"
-                        text-font="${R.fonts.OpenSans_Regular:14}"/>
+                      maxSize="-1x50"/>
 
-            <RelativeLayout>
+            <RelativeLayout maxSize="-1x70">
                 <ButtonView id="testing-button"
                             text="${R.strings.button-text}"
                             maxSize="${R.dims.widget_button}"
                             gravity="middle-middle"
-                            type="raised"
-                            />
+                            type="raised" />
             </RelativeLayout>
 
         </LinearLayout>
 
     </Layout>
 
-    <Layout name="layout_perf_testing">
-        <LinearLayout orientation="horizontal" background="${R.theme.background}" >
-            <ScrollLayout>
-                <LinearLayout orientation="horizontal" id="child-container">
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-                    <ButtonView type="flat" text="Hello, World" text-gravity="middle-middle" minSize="-1x50" text-color="${R.theme.primary_text}"/>
-
-                </LinearLayout>
-            </ScrollLayout>
-        </LinearLayout>
-    </Layout>
 </Layouts>

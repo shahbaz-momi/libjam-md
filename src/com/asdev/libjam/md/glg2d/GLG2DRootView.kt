@@ -111,8 +111,14 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_THEME_CHANGED).apply { data0 = theme })
     }
 
+    private var dragXVals = intArrayOf(0)
+    private var dragYVals = intArrayOf(0)
+
     override fun setSize(d: Dimension) {
         super.setSize(d)
+
+        dragXVals = intArrayOf(size.width - 10, size.width, size.width)
+        dragYVals = intArrayOf(size.height, size.height, size.height - 10)
 
         looper.postMessage(Message(MESSAGE_TYPE_ROOT_VIEW, MESSAGE_ACTION_RESIZE).apply { data0 = Dimension(
                 if(d.width % 2 == 0) d.width else d.width + 1,
@@ -246,9 +252,6 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     private val PULL_TAB_COMPOSITE = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.3f)
 
     override fun paintComponent(g: Graphics?) {
-        val d = Debug()
-        d.startTimer()
-
         if(g == null || g !is Graphics2D)
             return
 
@@ -261,24 +264,6 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC)
 
-        // check for animations TODO implement these animations
-//        if(!maxXAnim.hasEnded() || !maxWAnim.hasEnded() ||
-//                !maxYAnim.hasEnded() || !maxHAnim.hasEnded()) {
-//            if((maxHAnim.getValue() > 0f || maxWAnim.getValue() > 0f) && frame.opacity == 0f) // frame flashing hack
-//                frame.opacity = 1f
-//
-//            // set the clip to the values
-//            g.setClip(maxXAnim.getValue().toInt(), maxYAnim.getValue().toInt(), maxWAnim.getValue().toInt(), maxHAnim.getValue().toInt())
-//            requestPaint()
-//        }
-//
-//        if(!minYAnim.hasEnded()) {
-//            // translate it
-//            g.translate(0.0, -minYAnim.getValue().toDouble())
-//            requestPaint()
-//        }
-
-
         // call on draw on the root view group
         rootView.onDraw(g)
         rootView.onPostDraw(g)
@@ -288,13 +273,7 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         // draw the resize tab
         g.color = Color.BLACK
         g.composite = PULL_TAB_COMPOSITE
-        g.fillPolygon(
-                intArrayOf(size.width - 10, size.width, size.width),
-                intArrayOf(size.height, size.height, size.height - 10),
-                3
-        )
-
-        d.stopTimer("[RootView] On draw")
+        g.fillPolygon(dragXVals, dragYVals, 3)
     }
 
     /**
@@ -319,16 +298,11 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
 
     // mouse events
 
-    override fun mouseEntered(e: MouseEvent?) {
-    }
+    override fun mouseEntered(e: MouseEvent?) { }
 
-    override fun mouseClicked(e: MouseEvent?) {
+    override fun mouseClicked(e: MouseEvent?) { }
 
-    }
-
-    override fun mouseExited(e: MouseEvent?) {
-
-    }
+    override fun mouseExited(e: MouseEvent?) { }
 
     private var hoveringResizer = false
     private var resizerMouseStart = Point()

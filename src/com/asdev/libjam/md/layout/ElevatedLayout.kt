@@ -188,4 +188,6 @@ open class ElevatedLayout(val child: View, val radius: Float = 15f, opacity: Flo
     }
 
     fun findChildPosition() = FloatPoint(radius, radius)
+
+    override fun findContextMenuItems(viewPos: FloatPoint) = child.findContextMenuItems(viewPos - FloatPoint(radius, radius))?: super.findContextMenuItems(viewPos)
 }

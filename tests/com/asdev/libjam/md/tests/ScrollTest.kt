@@ -5,7 +5,9 @@ import com.asdev.libjam.md.drawable.ImageDrawable
 import com.asdev.libjam.md.drawable.SCALE_TYPE_ORIGINAL
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.ScrollLayout
+import com.asdev.libjam.md.menu.ContextMenuAction
 import com.asdev.libjam.md.theme.COLOR_TITLE
+import com.asdev.libjam.md.theme.DarkMaterialTheme
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
@@ -38,4 +40,7 @@ fun main(args: Array<String>) {
 
     val frame = GLG2DRootView(layout, "Scroll Test", Dimension(500, 500), true)
     frame.showFrame()
+
+    child.contextMenuItems = listOf(ContextMenuAction("Dark theme", {frame.setTheme(DarkMaterialTheme); return@ContextMenuAction true;}))
+
 }

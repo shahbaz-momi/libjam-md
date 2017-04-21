@@ -58,7 +58,7 @@ TODO:
 - OverlayLayout: using an overlay layer which allows for a dialog/View to be drawn on top // DONE - OverlayViewGroup
     - snackbars // TextView and a ButtonView in a OverlayLinearLayout
     - drawer
-- right-click menu / context menu // IMPLEMENTED BASE - need closing animation
+- right-click menu / context menu // DONE - need closing animation
 - fab
 - loading views // DONE
     - circular loading view
@@ -80,10 +80,11 @@ TODO:
 - concept of layouts in the RootView for easy switching // IN PROGRESS
 - tool tips
 - more material ui components
+- text inputs and number spinners
 
 //////// TODO //////////
-1. Override findContextMenuItems in ScrollLayout, ElevatedLayout, ListLayout, and PaddingLayout
-2. OverlayView events - Scroll events and key events
-3. Auto-sizing (min and max size, multi-line) text views
-2. DrawerLayout
-3. YogaLayout
+1. OverlayView events - Scroll events and key events
+1b. Text input - TextInputView and Number spinner
+2. Auto-sizing (min and max size, multi-line) text views
+3. DrawerLayout
+4. YogaLayout

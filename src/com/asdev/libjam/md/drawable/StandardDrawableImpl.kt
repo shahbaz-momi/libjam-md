@@ -293,10 +293,6 @@ class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = fal
         // middle section x and width
         val midW = w.toInt() - leftW - rightW
 
-        if(midW < 0) {
-            throw IllegalArgumentException("Drawable must be greater in size than the source nine-patch")
-        }
-
         val leftStartX = x.toInt()
         val leftEndX = leftStartX + sizes[0].width
 

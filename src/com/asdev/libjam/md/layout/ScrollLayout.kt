@@ -31,7 +31,7 @@ import java.awt.event.MouseWheelEvent
 const val KEY_SCROLL_AMT = 7f
 
 const val SCROLLBAR_NORMAL_OPACITY = 0.7f
-const val SCROLLBAR_HOVER_OPACITY = 0.9f
+const val SCROLLBAR_HOVER_OPACITY = 0.825f
 
 /**
  * A layout which allows for scrolling if the minimum size of the child does not fit the available size.
@@ -414,7 +414,7 @@ class ScrollLayout() : ViewGroup() {
      * Returns the amount horizontally scrolled.
      */
     fun getScrollX() = scrollX
-
+    
     /**
      * Returns the amount vertically scrolled.
      */
@@ -493,7 +493,7 @@ class ScrollLayout() : ViewGroup() {
 
         // draw scroll bar if this is focused or hovered or pressed
         if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHoveredH || scrollBarHovered) && scrollBarHeight > 0f) {
-            g.color = THEME.getDividerColor()
+            g.color = THEME.getScrollbarColor()
             val prevComp = g.composite
             g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, scrollBarOpacityAnim.getValue())
 
@@ -544,5 +544,7 @@ class ScrollLayout() : ViewGroup() {
 
         super.onPostDraw(g)
     }
+
+    override fun findContextMenuItems(viewPos: FloatPoint) = child.findContextMenuItems(FloatPoint(viewPos.x + scrollX, viewPos.y + scrollY))
 
 }

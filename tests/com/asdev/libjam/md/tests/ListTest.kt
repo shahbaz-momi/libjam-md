@@ -3,6 +3,7 @@ package com.asdev.libjam.md.tests
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.*
+import com.asdev.libjam.md.menu.ContextMenuText
 import com.asdev.libjam.md.theme.COLOR_PRIMARY_TEXT
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.util.DIM_UNLIMITED
@@ -35,6 +36,8 @@ fun main(args: Array<String>) {
             val v = ButtonView("${index + 1}", BUTTON_TYPE_FLAT)
             v.minSize = FloatDim(DIM_UNLIMITED.w, 100f)
             v.setThemeColor(COLOR_PRIMARY_TEXT)
+            v.contextMenuItems = listOf(ContextMenuText("Menu ${index + 1}"))
+
             return v
         }
 

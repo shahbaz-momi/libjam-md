@@ -1,7 +1,6 @@
 package com.asdev.libjam.md.xml
 
-import com.asdev.libjam.md.drawable.ColorDrawable
-import com.asdev.libjam.md.drawable.Drawable
+import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.util.FloatDim
 import res.R
 import java.awt.Color
@@ -225,13 +224,30 @@ fun parseDrawableReference(ref: String): Drawable {
         val codeRef = ref.substring( ref.indexOf("{") + 1, ref.lastIndexOf("}") )
         // must be reference to the R object
         if(codeRef.startsWith("R.drawables.")) {
-            val fieldName = codeRef.replace("R.drawables.", "").replace("-", "_") // get the name and format it
+            var fieldName = codeRef.replace("R.drawables.", "").replace("-", "_") // get the name and format it
+
+            var scaleType = SCALE_TYPE_CONTAIN
+            if(fieldName.contains(":")) {
+                // has a font size param
+                val scaleTypeStr = (fieldName.substring(fieldName.indexOf(":") + 1))
+
+                when(scaleTypeStr) {
+                    "contain" -> scaleType = SCALE_TYPE_CONTAIN
+                    "cover" -> scaleType = SCALE_TYPE_COVER
+                    "fit" -> scaleType = SCALE_TYPE_FIT
+                    "original" -> scaleType = SCALE_TYPE_ORIGINAL
+                    else -> throw XMLParseException("Unknown image scale type: $scaleTypeStr")
+                }
+
+                fieldName = fieldName.substring(0, fieldName.indexOf(":"))
+            }
+
             // use reflection to get the field
             try {
                 val field = drawableClass.getDeclaredField(fieldName)
                 // force access
                 field.isAccessible = true
-                return field.get(null) as Drawable
+                return (field.get(null) as ImageDrawable).softClone(scaleType)
             } catch (e: NoSuchFieldException) {
                 throw XMLParseException("Invalid drawable code reference: $codeRef. No such drawable.")
             }

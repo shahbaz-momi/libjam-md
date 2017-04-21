@@ -339,7 +339,7 @@ open class LinearLayout: ViewGroup() {
             c.onLayout(sizes[i])
         }
 
-        childrenSorted = children.sorted()
+        childrenSorted = children.sortedWith(Comparator { o1, o2 -> o1.zIndex.compareTo(o2.zIndex) })
 
         super.onLayout(newSize)
     }
@@ -355,7 +355,8 @@ open class LinearLayout: ViewGroup() {
         super.onDraw(g)
 
         // draw the children by z order
-        for(c in childrenSorted) {
+        for(index in childrenSorted.indices) {
+            val c = childrenSorted[index]
             val i = children.indexOf(c)
             // add the translation of the views
             g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())
@@ -381,7 +382,8 @@ open class LinearLayout: ViewGroup() {
             return
 
         // draw the children by z order
-        for(c in childrenSorted) {
+        for(index in childrenSorted.indices) {
+            val c = childrenSorted[index]
             val i = children.indexOf(c)
             // add the translation of the views
             g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())

@@ -28,9 +28,9 @@ import javax.swing.JFrame
  */
 class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: WindowStateManager): LinearLayout() {
 
-    private val navBar: RelativeLayout = RelativeLayout()
-    private val toolbar: RelativeLayout = RelativeLayout()
-    private val titleText: TextView = TextView(title)
+    private val navBar = RelativeLayout()
+    private val toolbar = RelativeLayout()
+    private val titleText = TextView(title)
 
     init {
 
@@ -38,7 +38,7 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
         titleText.setThemeColor(COLOR_TITLE)
         titleText.setThemeFont(FONT_TITLE)
         titleText.gravity = GRAVITY_MIDDLE_LEFT
-        titleText.setPadding(20f)
+        titleText.paddingLeft = 20f
         // set the gravity of title text to middle left
         titleText.applyParameters(
                 GenericParamList() with ("gravity" to GRAVITY_MIDDLE_LEFT)
@@ -53,8 +53,12 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
         toolbar.maxSize = FloatDim(-2f, 50f)
         toolbar.minSize = toolbar.maxSize
         toolbar.overClipTop = 30f
+        toolbar.overClipBottom = 30f
         maxSize = FloatDim(-2f, 85f)
         minSize = maxSize
+
+        overClipBottom = 30f
+        zIndex = 99
 
         // add the title text to the toolbar
         toolbar.addChild(titleText)
@@ -153,7 +157,10 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
     /**
      * Sets whether to draw this frame decoration above all other views. Results in a shadow being cast on the content underneath.
      */
-    fun setDrawAboveAll(b: Boolean) = if(b) zIndex = 99 else zIndex = 0
+    fun setDrawAboveAll(b: Boolean) {
+        if(b) this.zIndex = 99 else this.zIndex = 0
+        requestLayout()
+    }
 
     override fun onThemeChange(prevTheme: Theme, newTheme: Theme) {
         // on theme change the children

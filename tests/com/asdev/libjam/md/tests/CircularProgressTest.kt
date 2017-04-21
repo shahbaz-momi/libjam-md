@@ -55,8 +55,6 @@ fun main(args: Array<String>) {
     snackbarText.paddingLeft = 12f
     snackbarText.setThemeColor(-1)
     snackbarText.color = Color(230, 230, 230)
-    snackbarText.setThemeFont(-1)
-    snackbarText.font = R.fonts.OpenSans_Semibold.deriveFont(14f)
 
 
     val overlay = OverlayLinearLayout()

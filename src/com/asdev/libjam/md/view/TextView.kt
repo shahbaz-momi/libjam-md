@@ -186,7 +186,7 @@ open class TextView(): OverlayView() {
         val y = calculateYComp(gravity, 0f, layoutSize.h, textSize.h)
 
         // draw the text at that spot
-        g.drawString(text, x + paddingLeft, y + textSize.h - (g.fontMetrics.height - g.fontMetrics.ascent) / 2 - paddingTop) // shift height by text size h because we are drawing from the basline
+        g.drawString(text, x + paddingLeft - paddingRight, y + textSize.h - (g.fontMetrics.height - g.fontMetrics.ascent) / 2 + paddingTop - paddingBottom) // shift height by text size h because we are drawing from the basline
 
         if(DEBUG_LAYOUT_BOXES) {
             g.color = Color.RED

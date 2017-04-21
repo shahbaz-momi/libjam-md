@@ -29,6 +29,7 @@ import java.util.*
 open class OverlayLinearLayout: OverlayViewGroup() {
 
     private val children = ArrayList<View>()
+    private lateinit var childrenSorted: List<View>
     private lateinit var childrenCoords: Array<FloatPoint>
     private lateinit var childrenLP: Array<LinearLayoutParams>
 
@@ -104,6 +105,7 @@ open class OverlayLinearLayout: OverlayViewGroup() {
      * This layout passes [LinearLayoutParams] as its [LayoutParams] type.
      */
     override fun onMeasure(result: LayoutParams): LayoutParams {
+        childrenSorted = children.sortedWith(Comparator { o1, o2 -> o1.zIndex.compareTo(o2.zIndex) })
         // measure each view to determine the min size
         // the order of the children determines they are shown
 
@@ -340,7 +342,8 @@ open class OverlayLinearLayout: OverlayViewGroup() {
         super.onDraw(g)
 
         // draw the children by z order
-        for(c in children.sorted()) {
+        for(index in childrenSorted.indices) {
+            val c = childrenSorted[index]
             val i = children.indexOf(c)
             // add the translation of the views
             g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())
@@ -366,7 +369,8 @@ open class OverlayLinearLayout: OverlayViewGroup() {
             return
 
         // draw the children by z order
-        for(c in children.sorted()) {
+        for(index in childrenSorted.indices) {
+            val c = childrenSorted[index]
             val i = children.indexOf(c)
             // add the translation of the views
             g.translate(childrenCoords[i].x.toDouble() + c.translationX.toDouble(), childrenCoords[i].y.toDouble() + c.translationY.toDouble())

@@ -164,6 +164,11 @@ abstract class Theme {
     //// Misc ////
 
     /**
+     * The color of the scrollbar, excluding the alpha.
+     */
+    abstract fun getScrollbarColor(): Color
+
+    /**
      * The width of the scroll bars.
      */
     abstract fun getScrollBarWidth(): Int
@@ -215,6 +220,7 @@ object LightMaterialTheme : Theme() {
     private val backgroundColor = Color.decode("#EEEEEE")!!
     private val dividerColor = Color.decode("#DBDBDB")!!
     private val rippleColor = Color.decode("#444444")!!
+    private val scrollbarColor = Color.decode("#666666")!!
 
     //// Fonts ////
     private lateinit var titleFont: Font
@@ -262,6 +268,8 @@ object LightMaterialTheme : Theme() {
     override fun getSecondaryTextFont() = secondaryTextFont
 
     //// Misc ////
+
+    override fun getScrollbarColor() = scrollbarColor
 
     override fun getScrollBarWidth() = 10
 
@@ -299,6 +307,7 @@ object DarkMaterialTheme : Theme() {
     private val backgroundColor = Color.decode("#303030")!!
     private val dividerColor = Color.decode("#444444")!!
     private val rippleColor = Color.decode("#EEEEEE")!!
+    private val scrollbarColor = Color.decode("#AAAAAA")!!
 
     //// Fonts ////
     private lateinit var titleFont: Font
@@ -346,6 +355,8 @@ object DarkMaterialTheme : Theme() {
     override fun getSecondaryTextFont() = secondaryTextFont
 
     //// Misc ////
+
+    override fun getScrollbarColor() = scrollbarColor
 
     override fun getScrollBarWidth() = 10
 

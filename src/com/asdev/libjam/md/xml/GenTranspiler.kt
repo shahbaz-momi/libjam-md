@@ -68,6 +68,7 @@ val R_OBJECT_TEMPLATE = "package res\n" +
         "\t\tval background = THEME.getBackgroundColor()\n" +
         "\t\tval divider = THEME.getDividerColor()\n" +
         "\t\tval ripple = THEME.getRippleColor()\n" +
+        "\t\tval scrollbar = THEME.getScrollbarColor()\n" +
         "\n" +
         "\t\tval font_primary = THEME.getPrimaryTextFont()\n" +
         "\t\tval font_secondary = THEME.getSecondaryTextFont()\n" +

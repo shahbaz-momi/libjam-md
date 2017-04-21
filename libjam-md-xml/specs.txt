@@ -35,6 +35,11 @@ R.drawables.xxx
 
 In XML:
 ${R.drawables.xxx}
+
+With scale type:
+${R.drawables.xxx:contain}
+Valid scale types: contain, cover, original, and fit
+
 ColorDrawables:
 ${R.colors.xxx}
 ${R.theme.xxx}

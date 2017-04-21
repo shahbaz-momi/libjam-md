@@ -62,7 +62,7 @@ open class View (
         /**
          * The id associated with this id.
          */
-        var id: String = "View:${generateRandomId()}"): Comparable<View> {
+        var id: String = "View:${generateRandomId()}") {
 
     /**
      * The max and minimum sizes of this view. Consider the maximum size as the preferred size as the layout will always
@@ -506,11 +506,6 @@ open class View (
         // should never reach this point as the loopable should be a root view
         throw IllegalStateException("No RootView found bound with the current Looper when performing isAnimationRunning()!")
     }
-
-    /**
-     * Compares this view against the other view based on the z-index.
-     */
-    override fun compareTo(other: View) = zIndex.compareTo(other.zIndex)
 
     private var flagRequestingCursor = -1
 
