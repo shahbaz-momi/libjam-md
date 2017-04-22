@@ -7,7 +7,7 @@
         <!-- The root view goes here -->
         <LinearLayout orientation="horizontal" background="${R.theme.background}">
 
-            <RelativeLayout background="${R.drawables.nightskydopeplanet:cover}">
+            <RelativeLayout background="${R.drawables.welcome_card:cover}">
                 <TextView text="Hello from the ground!"
                             text-color="${R.theme.title}"
                             text-gravity="bottom-middle"
@@ -30,6 +30,21 @@
 
         </LinearLayout>
 
+    </Layout>
+
+    <Layout name="layout_text_wrap">
+        <LinearLayout orientation="horizontal" id="container" background="${R.theme.background}">
+
+            <TextView text="${R.strings.lorem-ipsum}"
+                      text-gravity="top-left"
+                      padding-top="20" padding-bottom="20"
+                      padding-left="20" padding-right="20" />
+
+            <TextView text="${R.strings.lorem-ipsum}"
+                      text-gravity="bottom-right"
+                      padding-right="20" padding-left="20"
+                      padding-top="20" padding-bottom="20" />
+        </LinearLayout>
     </Layout>
 
 </Layouts>

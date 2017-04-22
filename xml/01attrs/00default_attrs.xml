@@ -33,6 +33,8 @@
         <Property type="string" name="text" />
         <Property type="font" name="text-font" />
         <Property type="color" name="text-color" />
+        <Property type="float" name="line-height" />
+        <Property type="string" name="wrap-lines" />
 
     </Styleable>
 

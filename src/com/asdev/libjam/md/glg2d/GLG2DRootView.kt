@@ -14,6 +14,7 @@ import com.asdev.libjam.md.view.View
 import org.jogamp.glg2d.GLG2DCanvas
 import java.awt.*
 import java.awt.event.*
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.swing.JFrame
 import javax.swing.JPanel
 
@@ -47,6 +48,8 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     private var frameDecoration: FrameDecoration? = null
 
     private val windowStateManager: WindowStateManager
+
+    private val requestingLayout = AtomicBoolean(false)
 
     /**
      * The context menu associated with this root view.
@@ -177,10 +180,15 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
         if(choreographer.requestFrame()) {
             requestPaint()
         }
+
+    }
+
+    override fun onPostLoop() {
+        rootView.onPostLoop()
     }
 
     override fun handleMessage(msg: Message) {
-        if(DEBUG) {
+        if(DEBUG && msg != MESSAGE_REQUEST_REPAINT) {
             println("[RootView] Handling message: $msg")
         }
         if(msg.type == MESSAGE_TYPE_VIEW) {
@@ -218,27 +226,11 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     }
 
     private fun reLayout() {
-        if(DEBUG)
-            println("[RootView] Performing a layout pass...")
-
-        val start = System.nanoTime()
-
-        rootView.onMeasure(newLayoutParams())
-        rootView.onLayout(FloatDim(size.width.toFloat(), size.height.toFloat()))
-        rootView.onPostLayout()
-
-
-        if(DEBUG)
-            println("[RootView] On layout took ${(System.nanoTime() - start) / 1000000.0}ms")
-
-        // repaint because of a layout change
-        requestPaint()
+        requestingLayout.set(true)
+        repaint()
     }
 
     private fun requestPaint() {
-        if(DEBUG)
-            println("[RootView] Requesting a repaint...")
-
         if(frame.isVisible)
             repaint()
     }
@@ -252,6 +244,25 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     private val PULL_TAB_COMPOSITE = AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, 0.3f)
 
     override fun paintComponent(g: Graphics?) {
+
+        if(requestingLayout.getAndSet(false)) {
+            if (DEBUG)
+                println("[RootView] Performing a layout pass...")
+
+            val start = System.nanoTime()
+
+            rootView.onMeasure(newLayoutParams())
+            rootView.onLayout(FloatDim(size.width.toFloat(), size.height.toFloat()))
+            rootView.onPostLayout()
+
+
+            if (DEBUG)
+                println("[RootView] On layout took ${(System.nanoTime() - start) / 1000000.0}ms")
+
+            // repaint because of a layout change
+            requestPaint()
+        }
+
         if(g == null || g !is Graphics2D)
             return
 

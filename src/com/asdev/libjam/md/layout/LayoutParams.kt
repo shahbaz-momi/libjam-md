@@ -25,7 +25,7 @@ open class LayoutParams(var minSize: FloatDim, var maxSize: FloatDim) {
     }
 }
 
-fun newLayoutParams() = LayoutParams(DIM_UNSET, DIM_UNSET)
+fun newLayoutParams() = LayoutParams(DIM_UNSET.copy(), DIM_UNSET.copy())
 
 /**
  * Gravities used by various layouts
@@ -70,7 +70,7 @@ class RelativeLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: In
     }
 }
 
-fun newRelativeLayoutParams() = RelativeLayoutParams(DIM_UNSET, DIM_UNSET, GRAVITY_MIDDLE_MIDDLE)
+fun newRelativeLayoutParams() = RelativeLayoutParams(DIM_UNSET.copy(), DIM_UNSET.copy(), GRAVITY_MIDDLE_MIDDLE)
 
 val ANCHOR_INSIDE = 0
 val ANCHOR_ABOVE = 1
@@ -110,7 +110,7 @@ class OverlayLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int
     }
 }
 
-fun newOverlayLayoutParams() = OverlayLayoutParams(DIM_UNSET, DIM_UNSET, GRAVITY_MIDDLE_MIDDLE, ANCHOR_INSIDE)
+fun newOverlayLayoutParams() = OverlayLayoutParams(DIM_UNSET.copy(), DIM_UNSET.copy(), GRAVITY_MIDDLE_MIDDLE, ANCHOR_INSIDE)
 
 
 class LinearLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int = GRAVITY_MIDDLE_MIDDLE): LayoutParams(minSize, maxSize) {
@@ -135,7 +135,7 @@ class LinearLayoutParams(minSize: FloatDim, maxSize: FloatDim, var gravity: Int 
 
 }
 
-fun newLinearLayoutParams() = LinearLayoutParams(DIM_UNSET, DIM_UNSET, GRAVITY_MIDDLE_MIDDLE)
+fun newLinearLayoutParams() = LinearLayoutParams(DIM_UNSET.copy(), DIM_UNSET.copy(), GRAVITY_MIDDLE_MIDDLE)
 
 open class GenericParamList {
 

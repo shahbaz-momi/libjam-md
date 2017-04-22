@@ -68,10 +68,11 @@ TODO:
 - list views // DONE -- MORE EFFICIENT RENDERING THO - draw only visible views
 - view ids // PRETTY MUCH DONE
     - findViewById(id: String)
-- wrapping text view / multi-line text view
+- wrapping text view / multi-line text view // DONE
     - min and max sizes based off of text
     - alignment of text // center, left align, right align, etc
     - fitting text within given dimensions
+    - new line (\n or \r\n) support
     - line heights, keming, etc.
     - these calculations should be performed in onLayout!!! It would be to blocking for onDraw
 - xml based view inflation // MOSTLY DONE - need to adapt some views for xml inflation tho
@@ -82,9 +83,14 @@ TODO:
 - more material ui components
 - text inputs and number spinners
 
+NOTES:
+- Should TextView generate synthetic min sizes? This causes a chain of synthetic min sizes and wrecks the hierarchy
+
 //////// TODO //////////
-1. OverlayView events - Scroll events and key events
-1b. Text input - TextInputView and Number spinner
-2. Auto-sizing (min and max size, multi-line) text views
-3. DrawerLayout
-4. YogaLayout
+0. Synthetic min and max sizes
+    - actual minSize by delegate
+    - minSizeSynth for calculated sizes
+    - minSizeReq for requested sizes - OUTSIDE SOURCES USE THIS
+1. Text input - TextInputView and Number spinner
+2. DrawerLayout
+3. YogaLayout

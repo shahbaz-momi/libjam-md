@@ -53,7 +53,7 @@ fun main(args: Array<String>) {
 
     cardHeader.addChild(title)
 
-    val content = TextView("Hey there! How are you doing?")
+    val content = TextView("Hey there! How are you doing? This could be some really long description/card text. It will automatically wrap and resize, so no need to worry 'bout that!")
     content.gravity = GRAVITY_TOP_LEFT
     content.setPadding(10f)
     content.paddingBottom = 20f

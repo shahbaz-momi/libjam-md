@@ -92,7 +92,15 @@
                                     <xs:attribute name="text" use="required" type="xs:string" />
                                     <xs:attribute name="text-color" use="optional" type="xs:string" />
                                     <xs:attribute name="text-font" use="optional" type="xs:string" />
-                                    <xs:attribute name="text-size" use="optional" type="xs:integer" />
+                                    <xs:attribute name="line-height" use="optional" type="xs:float" />
+                                    <xs:attribute name="wrap-lines" use="optional" >
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="true" />
+                                                <xs:enumeration value="false" />
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
                                 </xs:extension>
                             </xs:simpleContent>
                         </xs:complexType>
@@ -111,6 +119,17 @@
                                     <xs:attribute name="text" use="required" type="xs:string" />
                                     <xs:attribute name="text-color" use="optional" type="xs:string" />
                                     <xs:attribute name="text-font" use="optional" type="xs:string" />
+                                    <xs:attribute name="line-height" use="optional" type="xs:float" />
+
+                                    <xs:attribute name="wrap-lines" use="optional" >
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:string">
+                                                <xs:enumeration value="true" />
+                                                <xs:enumeration value="false" />
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+
                                     <xs:attribute name="type" use="optional">
                                         <xs:simpleType>
                                             <xs:restriction base="xs:string">

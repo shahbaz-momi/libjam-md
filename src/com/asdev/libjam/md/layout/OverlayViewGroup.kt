@@ -5,6 +5,7 @@ import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.util.generateRandomId
 import com.asdev.libjam.md.view.OverlayView
 import com.asdev.libjam.md.view.View
+import java.awt.event.KeyEvent
 
 /**
  * Created by Asdev on 03/03/17. All rights reserved.
@@ -41,6 +42,13 @@ abstract class OverlayViewGroup(id: String = "OverlayViewGroup:${generateRandomI
      */
     open fun getChildCount() = getChildren().size
 
+    override fun onPostLayout() {
+        super.onPostLayout()
+
+        for(c in getChildren())
+            c.onPostLayout()
+    }
+
     /**
      * Returns the child [View] at the specified index (i).
      */
@@ -72,6 +80,45 @@ abstract class OverlayViewGroup(id: String = "OverlayViewGroup:${generateRandomI
             getChildAtIndex(i).loop()
         }
 
+    }
+
+    /**
+     * Calls [onKeyTyped] on all the children that are focused.
+     */
+    override fun onKeyTyped(e: KeyEvent) {
+        super.onKeyTyped(e)
+
+        val children = getChildren()
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+                c.onKeyTyped(e)
+    }
+
+    /**
+     * Calls [onKeyPressed] on all the children that are focused.
+     */
+    override fun onKeyPressed(e: KeyEvent) {
+        super.onKeyPressed(e)
+
+        val children = getChildren()
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+                c.onKeyPressed(e)
+    }
+
+    /**
+     * Calls [onKeyReleased] on all the children that are focused.
+     */
+    override fun onKeyReleased(e: KeyEvent) {
+        super.onKeyReleased(e)
+
+        val children = getChildren()
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+                c.onKeyReleased(e)
     }
 
     /**

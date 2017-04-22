@@ -6,7 +6,9 @@
     <String name="example-string2">sad</String>
     <String name="example-string3">Example string 3!</String>
     <String name="searching">Searching...</String>
-    <String name="snackbar-test">Super long snackbar string/text can go here...</String>
+    <String name="snackbar-test">Super long snackbar string/text can go here... SUPER DUPER SUPER DUPER SUPER DUPER SUPER DUPER LONG!</String>
     <String name="dismiss-buttom">DISMISS</String>
     <String name="button-text">Show snackbar</String>
+    <String name="newline-test">This is\na multi-line string</String>
+    <String name="lorem-ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lobortis massa. Fusce scelerisque viverra viverra. Aliquam ut venenatis felis. Nunc maximus ut est ac dapibus. Nulla pretium vitae justo vulputate finibus. Integer in leo ac ante fringilla finibus. Nulla aliquam nisi nec nisi fringilla gravida.</String>
 </Strings>

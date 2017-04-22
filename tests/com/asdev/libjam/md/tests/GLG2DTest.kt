@@ -89,7 +89,7 @@ fun main(args: Array<String>) {
     card.addChild(divider)
     card.addChild(actions)
 
-    card.keyListener = object : View.ViewKeyListener {
+    card.onKeyListener = object : View.ViewKeyListener {
         override fun onKeyTyped(e: KeyEvent) {
             content.text = content.text + e.keyChar
             content.requestRepaint()
@@ -177,7 +177,7 @@ fun createCardView(): View {
     card.addChild(divider)
     card.addChild(actions)
 
-    card.keyListener = object : View.ViewKeyListener {
+    card.onKeyListener = object : View.ViewKeyListener {
         override fun onKeyTyped(e: KeyEvent) {
             content.text = content.text + e.keyChar
             content.requestRepaint()

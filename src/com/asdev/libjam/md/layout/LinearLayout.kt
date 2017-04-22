@@ -1,5 +1,5 @@
 package com.asdev.libjam.md.layout
-
+import com.asdev.libjam.md.menu.ContextMenuItem
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
@@ -194,7 +194,7 @@ open class LinearLayout: ViewGroup() {
         val skipIndicesW = ArrayList<Int>()
         val skipIndicesH = ArrayList<Int>()
 
-        val sizes = Array(children.size) { DIM_UNSET }
+        val sizes = Array(children.size) { DIM_UNSET.copy() }
 
         // iterate over each view
         // the order of the children is the order they are drawn
@@ -608,40 +608,37 @@ open class LinearLayout: ViewGroup() {
         previousViewMousedOn = -1
     }
 
-    /**
-     * Calls [onKeyTyped] on all the children that are focused.
-     */
-    override fun onKeyTyped(e: KeyEvent) {
-        super.onKeyTyped(e)
-
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyTyped(e)
-    }
-
-    /**
-     * Calls [onKeyPressed] on all the children that are focused.
-     */
     override fun onKeyPressed(e: KeyEvent) {
-        super.onKeyPressed(e)
-
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyPressed(e)
+        val overlay = getOverlayView()
+        if(wasOnOverlay && overlay != null) {
+            overlay.onKeyPressed(e)
+            onKeyListener?.onKeyPressed(e)
+        } else {
+            super.onKeyPressed(e)
+        }
     }
 
-    /**
-     * Calls [onKeyReleased] on all the children that are focused.
-     */
     override fun onKeyReleased(e: KeyEvent) {
-        super.onKeyReleased(e)
-
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyReleased(e)
+        val overlay = getOverlayView()
+        if(wasOnOverlay && overlay != null) {
+            overlay.onKeyReleased(e)
+            onKeyListener?.onKeyReleased(e)
+        } else {
+            super.onKeyReleased(e)
+        }
     }
 
-    var currTraverse = -1
+    override fun onKeyTyped(e: KeyEvent) {
+        val overlay = getOverlayView()
+        if(wasOnOverlay && overlay != null) {
+            overlay.onKeyTyped(e)
+            onKeyListener?.onKeyTyped(e)
+        } else {
+            super.onKeyTyped(e)
+        }
+    }
+
+    private var currTraverse = -1
 
     /**
      * Traverses the Views within this layout.
@@ -674,17 +671,39 @@ open class LinearLayout: ViewGroup() {
     }
 
     /**
-     * Scrolls the proper child of this layout.
+     * Scrolls the proper child (or overlay) of this layout.
      */
     override fun onScroll(e: MouseWheelEvent) {
         super.onScroll(e)
-        // find the focused view
-        for(c in children) {
-            if(c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
-                // scroll it
-                c.onScroll(e)
-                return
+
+        val overlay = getOverlayView()
+
+        if(wasOnOverlay && overlay != null) {
+            // if its on the overlay, scroll that
+            overlay.onScroll(e)
+        } else {
+            // find the focused view
+            for (c in children) {
+                if (c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
+                    // scroll it
+                    c.onScroll(e)
+                    return
+                }
             }
+        }
+    }
+
+    /**
+     * Finds the context menu items for the view at the given position, or the most lower-level non-null
+     * context menu items if none for the children are found. Avoids returning no items/null. Also accounts
+     * for the overlay view
+     */
+    override fun findContextMenuItems(viewPos: FloatPoint): List<ContextMenuItem>? {
+        val overlay = getOverlayView()
+        if(wasOnOverlay && overlay != null) {
+            return overlay.findContextMenuItems(viewPos - overlay.position)
+        } else {
+            return super.findContextMenuItems(viewPos)
         }
     }
 

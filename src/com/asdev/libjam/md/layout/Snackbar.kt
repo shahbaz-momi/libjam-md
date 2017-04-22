@@ -68,6 +68,7 @@ class Snackbar private constructor(private val viewGroup: OverlayViewGroup, val 
 
             val sb = Snackbar(overlay, text)
             parent.setOverlayView(sb.viewGroup)
+
             return sb
         }
 
@@ -90,7 +91,7 @@ class Snackbar private constructor(private val viewGroup: OverlayViewGroup, val 
                 overlay.cancelAnimation("Animator${sb.id}:SnackBarHide")
 
                 // run a snack bar dismiss animation
-                val anim = FloatValueAnimator(300f, AccelerateInterpolator, 0f, overlay.translationY, 60f)
+                val anim = FloatValueAnimator(300f, AccelerateInterpolator, 0f, overlay.translationY, maxOf(sb.viewGroup.minSize.h, 60f))
                 anim.action = { overlay.translationY = it.getValue() }
                 anim.id = "Animator${sb.id}:SnackBarDismiss"
 
@@ -133,7 +134,7 @@ class Snackbar private constructor(private val viewGroup: OverlayViewGroup, val 
         viewGroup.cancelAnimation("Animator$id:SnackBarHide")
 
         // run a snack bar dismiss animation
-        val anim = FloatValueAnimator(300f, AccelerateInterpolator, 0f, viewGroup.translationY, 60f)
+        val anim = FloatValueAnimator(300f, AccelerateInterpolator, 0f, viewGroup.translationY, maxOf(viewGroup.minSize.h, 60f))
         anim.action = { viewGroup.translationY = it.getValue() }
         anim.id = "Animator$id:SnackBarDismiss"
 
@@ -146,7 +147,7 @@ class Snackbar private constructor(private val viewGroup: OverlayViewGroup, val 
     fun show() {
         viewGroup.translationYAnimator.setFromValue(60f).setToValue(0f).setDuration(300f).setInterpolator(DecelerateInterpolator).start()
 
-        val anim = FloatValueAnimator(300f, AccelerateInterpolator, 2300f, 0f, 60f)
+        val anim = FloatValueAnimator(300f, AccelerateInterpolator, 2300f, 0f, maxOf(viewGroup.minSize.h, 60f))
         anim.action = {viewGroup.translationY = it.getValue()}
         anim.id = "Animator$id:SnackBarHide"
 

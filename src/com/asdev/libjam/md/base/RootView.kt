@@ -146,7 +146,7 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
 
     override fun getSize() = Dimension(actualSize.w.toInt(), actualSize.h.toInt())
 
-    private var actualSize = DIM_UNSET
+    private var actualSize = DIM_UNSET.copy()
 
     /**
      * Resizes this root view. Is thread-safe (actual resizing is done on Looper thread).
@@ -213,6 +213,10 @@ class RootView: JPanel, Loopable, MouseListener, MouseMotionListener, WindowFocu
             // frame flashing hack
             frame.opacity = 0f
         }
+    }
+
+    override fun onPostLoop() {
+        rootView.onPostLoop()
     }
 
     fun setCursor(cursor: Int) {

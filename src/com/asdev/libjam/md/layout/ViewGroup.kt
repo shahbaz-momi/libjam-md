@@ -7,6 +7,7 @@ import com.asdev.libjam.md.view.OverlayView
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
+import java.awt.event.KeyEvent
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -93,6 +94,16 @@ abstract class ViewGroup: View() {
         overlayView?.loop()
     }
 
+    override fun onPostLoop() {
+        super.onPostLoop()
+
+        for(i in 0 until getChildCount()) {
+            getChildAtIndex(i).onPostLoop()
+        }
+
+        overlayView?.onPostLoop()
+    }
+
     /**
      * Returns the child [View] at the specified index ($i).
      */
@@ -101,6 +112,46 @@ abstract class ViewGroup: View() {
             throw ArrayIndexOutOfBoundsException("There is no child with the specified index ($i)")
 
         return getChildren()[i]
+    }
+
+
+    /**
+     * Calls [onKeyTyped] on all the children that are focused.
+     */
+    override fun onKeyTyped(e: KeyEvent) {
+        super.onKeyTyped(e)
+
+        val children = getChildren()
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+                c.onKeyTyped(e)
+    }
+
+    /**
+     * Calls [onKeyPressed] on all the children that are focused.
+     */
+    override fun onKeyPressed(e: KeyEvent) {
+        super.onKeyPressed(e)
+
+        val children = getChildren()
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+                c.onKeyPressed(e)
+    }
+
+    /**
+     * Calls [onKeyReleased] on all the children that are focused.
+     */
+    override fun onKeyReleased(e: KeyEvent) {
+        super.onKeyReleased(e)
+
+        val children = getChildren()
+
+        for(c in children)
+            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+                c.onKeyReleased(e)
     }
 
     /**
@@ -198,8 +249,7 @@ abstract class ViewGroup: View() {
 
         val children = getChildren()
         for(c in children) {
-            if(c is ViewGroup)
-                c.onPostLayout()
+            c.onPostLayout()
         }
 
         val hardRef = overlayView
@@ -263,6 +313,8 @@ abstract class ViewGroup: View() {
             hardRef.onLayout(size)
             hardRef.onPostLayout(position, null)
         }
+
+        overlayView?.onPostLayout()
 
         // make it visible again
         hardRef?.visibility = VISIBILITY_VISIBLE
@@ -349,7 +401,8 @@ abstract class ViewGroup: View() {
 
     /**
      * Finds the context menu items for the view at the given position, or the most lower-level non-null
-     * context menu items if none for the children are found. Avoids returning no items/null.
+     * context menu items if none for the children are found. Avoids returning no items/null. DOES NOT search the
+     * overlay view for a context menu, however, [LinearLayout] and [RelativeLayout] do.
      */
     override fun findContextMenuItems(viewPos: FloatPoint): List<ContextMenuItem>? {
         // find the child at that point

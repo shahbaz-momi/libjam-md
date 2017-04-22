@@ -18,7 +18,6 @@ import javax.xml.parsers.DocumentBuilderFactory
 
 private val documentBuilderFactory = DocumentBuilderFactory.newInstance()
 
-
 /**
  * Inflates the passed layout reference string.
  */

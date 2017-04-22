@@ -1,5 +1,6 @@
 package com.asdev.libjam.md.layout
 
+import com.asdev.libjam.md.menu.ContextMenuItem
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
@@ -49,7 +50,7 @@ class RelativeLayout: ViewGroup() {
     /**
      * The absolute minimum size required to fit the children into this [ViewGroup].
      */
-    private var minChildSize = DIM_UNSET
+    private var minChildSize = DIM_UNSET.copy()
 
     override fun removeChild(child: View) {
         children.remove(child)
@@ -240,7 +241,7 @@ class RelativeLayout: ViewGroup() {
         // it evenly. To calculate co-ordinates, simply add up the widths and height upto that view
 
         // calculate the difference between the widthes
-        val newSizes = Array(9) { DIM_UNSET }
+        val newSizes = Array(9) { DIM_UNSET.copy() }
 
         layoutRow(newSize, newSizes, GRAVITY_TOP_LEFT, GRAVITY_TOP_RIGHT)
         layoutRow(newSize, newSizes, GRAVITY_MIDDLE_LEFT, GRAVITY_MIDDLE_RIGHT)
@@ -649,37 +650,34 @@ class RelativeLayout: ViewGroup() {
         previousViewMousedOn = -1
     }
 
-    /**
-     * Calls [onKeyTyped] on all the children that are focused.
-     */
-    override fun onKeyTyped(e: KeyEvent) {
-        super.onKeyTyped(e)
-
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyTyped(e)
-    }
-
-    /**
-     * Calls [onKeyPressed] on all the children that are focused.
-     */
     override fun onKeyPressed(e: KeyEvent) {
-        super.onKeyPressed(e)
-
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyPressed(e)
+        val overlay = getOverlayView()
+        if(wasOnOverlay && overlay != null) {
+            overlay.onKeyPressed(e)
+            onKeyListener?.onKeyPressed(e)
+        } else {
+            super.onKeyPressed(e)
+        }
     }
 
-    /**
-     * Calls [onKeyReleased] on all the children that are focused.
-     */
     override fun onKeyReleased(e: KeyEvent) {
-        super.onKeyReleased(e)
+        val overlay = getOverlayView()
+        if(wasOnOverlay && overlay != null) {
+            overlay.onKeyReleased(e)
+            onKeyListener?.onKeyReleased(e)
+        } else {
+            super.onKeyReleased(e)
+        }
+    }
 
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyReleased(e)
+    override fun onKeyTyped(e: KeyEvent) {
+        val overlay = getOverlayView()
+        if(wasOnOverlay && overlay != null) {
+            overlay.onKeyTyped(e)
+            onKeyListener?.onKeyTyped(e)
+        } else {
+            super.onKeyTyped(e)
+        }
     }
 
     private var currTraverse = -1
@@ -720,16 +718,37 @@ class RelativeLayout: ViewGroup() {
      */
     override fun onScroll(e: MouseWheelEvent) {
         super.onScroll(e)
-        // find the focused view
-        for(c in orderedChildren) {
-            if(c == null)
-                continue
 
-            if(c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
-                // scroll it
-                c.onScroll(e)
-                return
+        val overlay = getOverlayView()
+
+        if(wasOnOverlay && overlay != null) {
+            overlay.onScroll(e)
+        } else {
+            // find the focused view
+            for (c in orderedChildren) {
+                if (c == null)
+                    continue
+
+                if (c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
+                    // scroll it
+                    c.onScroll(e)
+                    return
+                }
             }
+        }
+    }
+
+    /**
+     * Finds the context menu items for the view at the given position, or the most lower-level non-null
+     * context menu items if none for the children are found. Avoids returning no items/null. Also accounts
+     * for the overlay view
+     */
+    override fun findContextMenuItems(viewPos: FloatPoint): List<ContextMenuItem>? {
+        val overlay = getOverlayView()
+        if(wasOnOverlay && overlay != null) {
+            return overlay.findContextMenuItems(viewPos - overlay.position)
+        } else {
+            return super.findContextMenuItems(viewPos)
         }
     }
 

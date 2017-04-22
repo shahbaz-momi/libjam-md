@@ -68,8 +68,18 @@ open class View (
      * The max and minimum sizes of this view. Consider the maximum size as the preferred size as the layout will always
      * try to grow the view to that size.
      */
-    var maxSize = DIM_UNLIMITED
-    var minSize = DIM_UNLIMITED
+    var maxSize = DIM_UNLIMITED.copy()
+    var minSize = DIM_UNLIMITED.copy()
+
+    /**
+     * The minimum size requested by the View it self.
+     */
+    protected var minSizeSynthetic = DIM_UNLIMITED.copy()
+
+    /**
+     * The minimum size requested for this View. Use THIS to manually View minimum sizes.
+     */
+    var minSizeReq = DIM_UNLIMITED.copy()
 
     /**
      * Defines the visibility of this view. May either be VISIBLE or INVISIBLE
@@ -79,12 +89,12 @@ open class View (
     /**
      * The size of this view set by the layout. Will be between min and max size once a layout pass has been conducted.
      */
-    var layoutSize = DIM_UNSET
+    var layoutSize = DIM_UNSET.copy()
 
     /**
      * The background drawable of this view. Defaults to the null.
      */
-        var background: Drawable? = null // should it be ColorDrawable(THEME.getBackgroundColor())?
+    var background: Drawable? = null // should it be ColorDrawable(THEME.getBackgroundColor())?
 
     /**
      * The ordering index of this view. The higher the index, the further on-top it is drawn.
@@ -94,7 +104,7 @@ open class View (
     /**
      * The mouse listener associated with this [View].
      */
-    var mouseListener: ViewMouseListener? = null
+    var onMouseListener: ViewMouseListener? = null
 
     /**
      * The state listener associated with this [View].
@@ -169,12 +179,12 @@ open class View (
     /**
      * An interface that listens to key press events.
      */
-    var keyListener: ViewKeyListener? = null
+    var onKeyListener: ViewKeyListener? = null
 
     /**
      * A listener for scroll events upon this View.
      */
-    var scrollListener: ((MouseWheelEvent) -> Unit)? = null
+    var onScrollListener: ((MouseWheelEvent) -> Unit)? = null
 
     /**
      * A list that contains the context menu items of this view, if any.
@@ -186,7 +196,14 @@ open class View (
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
      * @return the min and max sizes, respectively.
      */
-    open fun onMeasure(result: LayoutParams): LayoutParams = result.apply { minSize = this@View.minSize; maxSize = this@View.maxSize; applyAdditional(paramList); }
+    open fun onMeasure(result: LayoutParams): LayoutParams {
+        minSize.w = maxOf(minSizeReq.w, minSizeSynthetic.w)
+        minSize.h = maxOf(minSizeReq.h, minSizeSynthetic.h)
+
+        result.minSize = minSize
+        result.maxSize = maxSize
+        return result
+    }
 
     /**
      * Called when the layout has determined the size of this layout.
@@ -293,8 +310,6 @@ open class View (
      * [RootView].
      */
     fun requestRepaint() {
-        if(DEBUG)
-            println("[View] Repaint requested...")
         // flag repaint on ui thread
         flagRequestingRepaint = true
     }
@@ -306,7 +321,7 @@ open class View (
      * Called when the mouse is pressed within this [View]'s bounds.
      */
     open fun onMousePress(e: MouseEvent, mPos: Point) {
-        mouseListener?.onMousePress(e, mPos)
+        onMouseListener?.onMousePress(e, mPos)
         // change the state to pressed
         onStateChanged(state, State.STATE_PRESSED)
 
@@ -319,7 +334,7 @@ open class View (
      * Called when the mouse is released within this [View]'s bounds.
      */
     open fun onMouseRelease(e: MouseEvent, mPos: Point) {
-        mouseListener?.onMouseRelease(e,  mPos)
+        onMouseListener?.onMouseRelease(e,  mPos)
         // the the state to focused
         onStateChanged(state, State.STATE_FOCUSED)
 
@@ -335,18 +350,18 @@ open class View (
     /**
      * Called when the mouse is moved within this [View]'s bounds.
      */
-    open fun onMouseMoved(e: MouseEvent, mPos: Point) = mouseListener?.onMouseMoved(e, mPos)
+    open fun onMouseMoved(e: MouseEvent, mPos: Point) = onMouseListener?.onMouseMoved(e, mPos)
 
     /**
      * Called when the mouse is dragged within this [View]'s bounds.
      */
-    open fun onMouseDragged(e: MouseEvent, mPos: Point) = mouseListener?.onMouseDragged(e, mPos)
+    open fun onMouseDragged(e: MouseEvent, mPos: Point) = onMouseListener?.onMouseDragged(e, mPos)
 
     /**
      * Called when the mouse enters this [View]'s bounds.
      */
     open fun onMouseEnter(e: MouseEvent, mPos: Point) {
-        mouseListener?.onMouseEnter(e, mPos)
+        onMouseListener?.onMouseEnter(e, mPos)
         onStateChanged(state, State.STATE_HOVER)
     }
 
@@ -354,7 +369,7 @@ open class View (
      * Called when the mouse exits this [View]'s bounds.
      */
     open fun onMouseExit(e: MouseEvent, mPos: Point) {
-        mouseListener?.onMouseExit(e, mPos)
+        onMouseListener?.onMouseExit(e, mPos)
         onStateChanged(state, State.STATE_NORMAL)
     }
 
@@ -433,7 +448,12 @@ open class View (
             onLongPressListener?.invoke(Unit)
             hasLongPressed = true
         }
+    }
 
+    /**
+     * Called after all loop()s have been completed
+     */
+    open fun onPostLoop() {
         if(postAction != null) {
             postAction!!.invoke(this)
             postAction = null
@@ -521,28 +541,29 @@ open class View (
      */
     fun sendMessageToRoot(msg: Message) {
         // post it if the current looper isn't null
-        myLooper()?.postMessage(msg)
+        val looper = myLooper()?: throw IllegalStateException("sendMessageToRoot not called on UI Looper")
+        looper.postMessage(msg)
     }
 
     /**
      * Called when a key is typed and this View has the state STATE_FOCUSED.
      */
     open fun onKeyTyped(e: KeyEvent) {
-        keyListener?.onKeyTyped(e)
+        onKeyListener?.onKeyTyped(e)
     }
 
     /**
      * Called when a pressed is typed and this View has the state STATE_FOCUSED.
      */
     open fun onKeyPressed(e: KeyEvent) {
-        keyListener?.onKeyPressed(e)
+        onKeyListener?.onKeyPressed(e)
     }
 
     /**
      * Called when a released is typed and this View has the state STATE_FOCUSED.
      */
     open fun onKeyReleased(e: KeyEvent) {
-        keyListener?.onKeyReleased(e)
+        onKeyListener?.onKeyReleased(e)
     }
 
     /**
@@ -563,7 +584,7 @@ open class View (
      * Called when the mouse is scrolled upon this View.
      */
     open fun onScroll(e: MouseWheelEvent) {
-        scrollListener?.invoke(e)
+        onScrollListener?.invoke(e)
     }
 
     /**

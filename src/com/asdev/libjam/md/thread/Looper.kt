@@ -65,7 +65,7 @@ class Looper(val loopable: Loopable): Thread() {
 
             loopable.loop()
 
-            Thread.sleep(loopDelay)
+            loopable.onPostLoop()
         }
     }
 

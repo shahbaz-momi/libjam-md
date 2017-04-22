@@ -21,6 +21,12 @@ interface Loopable {
     fun loop()
 
     /**
+     * Called after a loop has been completed.
+     * Will be after handleMessage but on the same thread.
+     */
+    fun onPostLoop()
+
+    /**
      * Called when a message is sent to this looper
      * Will be before loop and on the same thread.
      */

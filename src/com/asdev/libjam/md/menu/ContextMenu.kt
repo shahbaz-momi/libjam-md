@@ -92,6 +92,9 @@ class ContextMenu {
     private fun notifyChangedItems() {
         // remove all items from the layout
         layout.removeAllChildren()
+        layout.minSize = FloatDim(-1f, -1f)
+        layout.maxSize = FloatDim(-1f, -1f)
+        
         // add the children back from the list
         for(it in items) {
             val v = it.constructView()

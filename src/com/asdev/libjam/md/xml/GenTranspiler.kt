@@ -7,6 +7,7 @@ import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.util.*
+import java.util.regex.Pattern
 import javax.xml.parsers.DocumentBuilderFactory
 
 
@@ -850,16 +851,17 @@ fun containsSpecialCharacters(s: String): Boolean {
     return false
 }
 
+private val metaCharacters = arrayOf("\\", "$", "\"", "\'")
 fun escapeMetaCharacters(string: String): String {
     var str = string
-    val metaCharacters = arrayOf("\\", "$", "\"", "\'")
+
     for (i in metaCharacters.indices) {
         if (str.contains(metaCharacters[i])) {
             str = str.replace(metaCharacters[i], "\\" + metaCharacters[i])
         }
     }
 
-    str = str.replace("\n", "\\n")
+    str = str.replace("\\\\r\\\\n", "\\n").replace("\\\\n", "\\n")
 
     return str
 }

@@ -3,7 +3,6 @@ package com.asdev.libjam.md.layout
 import com.asdev.libjam.md.base.WindowStateManager
 import com.asdev.libjam.md.drawable.*
 import com.asdev.libjam.md.theme.*
-import com.asdev.libjam.md.util.DIM_UNLIMITED
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.BUTTON_TYPE_FLAT
 import com.asdev.libjam.md.view.ButtonView
@@ -49,13 +48,13 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
 
         // set min and max sizes
         navBar.maxSize = FloatDim(-2f, 35f)
-        navBar.minSize = navBar.maxSize
+        navBar.minSize = navBar.maxSize.copy()
         toolbar.maxSize = FloatDim(-2f, 50f)
-        toolbar.minSize = toolbar.maxSize
+        toolbar.minSize = toolbar.maxSize.copy()
         toolbar.overClipTop = 30f
         toolbar.overClipBottom = 30f
         maxSize = FloatDim(-2f, 85f)
-        minSize = maxSize
+        minSize = maxSize.copy()
 
         overClipBottom = 30f
         zIndex = 99
@@ -105,7 +104,7 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
                 GenericParamList() with ("gravity" to GRAVITY_MIDDLE_RIGHT)
         )
 
-        navBarButtonsContainer.maxSize = FloatDim(120f, DIM_UNLIMITED.h)
+        navBarButtonsContainer.maxSize = FloatDim(120f, 1000000f)
 
         navBarButtonsContainer.addChild(buttonMinimize)
         navBarButtonsContainer.addChild(buttonMaximize)
@@ -113,8 +112,7 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
         navBar.addChild(navBarButtonsContainer)
 
         // make a listener to drag the window on mouse dragged
-        // TODO: move this to the global frame onListen as this is causing lag
-        navBar.mouseListener = object : ViewMouseListener {
+        navBar.onMouseListener = object : ViewMouseListener {
 
             override fun onMouseEnter(e: MouseEvent, p: Point) {
             }

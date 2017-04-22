@@ -183,7 +183,7 @@ open class OverlayLinearLayout: OverlayViewGroup() {
         val skipIndicesW = ArrayList<Int>()
         val skipIndicesH = ArrayList<Int>()
 
-        val sizes = Array(children.size) { DIM_UNSET }
+        val sizes = Array(children.size) { DIM_UNSET.copy() }
 
         // iterate over each view
         // the order of the children is the order they are drawn
@@ -506,40 +506,7 @@ open class OverlayLinearLayout: OverlayViewGroup() {
         previousViewMousedOn = -1
     }
 
-    /**
-     * Calls [onKeyTyped] on all the children that are focused.
-     */
-    override fun onKeyTyped(e: KeyEvent) {
-        super.onKeyTyped(e)
-
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyTyped(e)
-    }
-
-    /**
-     * Calls [onKeyPressed] on all the children that are focused.
-     */
-    override fun onKeyPressed(e: KeyEvent) {
-        super.onKeyPressed(e)
-
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyPressed(e)
-    }
-
-    /**
-     * Calls [onKeyReleased] on all the children that are focused.
-     */
-    override fun onKeyReleased(e: KeyEvent) {
-        super.onKeyReleased(e)
-
-        for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
-                c.onKeyReleased(e)
-    }
-
-    var currTraverse = -1
+    private var currTraverse = -1
 
     /**
      * Traverses the Views within this layout.

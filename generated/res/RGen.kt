@@ -28,9 +28,11 @@ object R {
 		val example_string2 = "sad"
 		val example_string3 = "Example string 3!"
 		val searching = "Searching..."
-		val snackbar_test = "Super long snackbar string/text can go here..."
+		val snackbar_test = "Super long snackbar string/text can go here... SUPER DUPER SUPER DUPER SUPER DUPER SUPER DUPER LONG!"
 		val dismiss_buttom = "DISMISS"
 		val button_text = "Show snackbar"
+		val newline_test = "This is\na multi-line string"
+		val lorem_ipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et lobortis massa. Fusce scelerisque viverra viverra. Aliquam ut venenatis felis. Nunc maximus ut est ac dapibus. Nulla pretium vitae justo vulputate finibus. Integer in leo ac ante fringilla finibus. Nulla aliquam nisi nec nisi fringilla gravida."
 	}
 
 	object ints {
@@ -139,6 +141,8 @@ object R {
 			val text = "text" to type_string
 			val text_font = "text-font" to type_font
 			val text_color = "text-color" to type_color
+			val line_height = "line-height" to type_float
+			val wrap_lines = "wrap-lines" to type_string
 
 			val type = "type" to type_string
 		}
@@ -237,6 +241,8 @@ object R {
 			val text = "text" to type_string
 			val text_font = "text-font" to type_font
 			val text_color = "text-color" to type_color
+			val line_height = "line-height" to type_float
+			val wrap_lines = "wrap-lines" to type_string
 		}
 
 		object OverlayLinearLayout {
@@ -336,6 +342,7 @@ object R {
 		val layout_main = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_main.xml"
 		val layout_on_boarding = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_on_boarding.xml"
 		val layout_testing = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_testing.xml"
+		val layout_text_wrap = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_text_wrap.xml"
 	}
 
 	object id {
@@ -343,10 +350,10 @@ object R {
 		val greeting_text = "greeting-text"
 		val progress_view = "progress-view"
 		val testing_button = "testing-button"
+		val container = "container"
 	}
 
 	object drawables {
-		val nightskydopeplanet = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\nightskydopeplanet.jpg")
 		val texture = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\texture.png")
 		val welcome_card = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\welcome_card.jpg")
 	}
@@ -394,6 +401,7 @@ object R {
 		val background = THEME.getBackgroundColor()
 		val divider = THEME.getDividerColor()
 		val ripple = THEME.getRippleColor()
+		val scrollbar = THEME.getScrollbarColor()
 
 		val font_primary = THEME.getPrimaryTextFont()
 		val font_secondary = THEME.getSecondaryTextFont()

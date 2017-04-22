@@ -4,11 +4,11 @@ import com.asdev.libjam.md.animation.DecelerateInterpolator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.theme.Theme
+import com.asdev.libjam.md.util.AlphaCompositeMutable
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.util.FloatPoint
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
-import java.awt.AlphaComposite
 import java.awt.Cursor
 import java.awt.Graphics2D
 import java.awt.Point
@@ -39,6 +39,12 @@ const val SCROLLBAR_HOVER_OPACITY = 0.825f
 class ScrollLayout() : ViewGroup() {
 
     private lateinit var child: View
+
+    /**
+     * A listener for scroll events produced by the ScrollLayout itself.
+     * Params: ScrollLayout, scrollX (Float), scrollY (Float)
+     */
+    var onScrollChangeListener: ((ScrollLayout, Float, Float) -> Unit)? = null
 
     constructor(child: View): this() {
         this.child = child
@@ -448,6 +454,8 @@ class ScrollLayout() : ViewGroup() {
         val percH = scrollX / maxScrollX
         scrollBarX = diffH * percH
 
+        onScrollChangeListener?.invoke(this, scrollX, scrollY)
+
         requestRepaint()
     }
 
@@ -465,6 +473,8 @@ class ScrollLayout() : ViewGroup() {
 
         return null
     }
+
+    private val alphaComp = AlphaCompositeMutable().apply { setAlpha(0.1f) }
 
     /**
      * Draws the child of this ScrollLayout according to the user scroll.
@@ -491,11 +501,14 @@ class ScrollLayout() : ViewGroup() {
         g.translate(scrollX.toInt(), scrollY.toInt())
         g.translate(-childX.toInt() - child.translationX.toInt(), -childY.toInt() - child.translationY.toInt())
 
+        alphaComp.setAlpha(scrollBarOpacityAnim.getValue())
+
+        val prevComp = g.composite
+        g.composite = alphaComp.composite
+
         // draw scroll bar if this is focused or hovered or pressed
         if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHoveredH || scrollBarHovered) && scrollBarHeight > 0f) {
             g.color = THEME.getScrollbarColor()
-            val prevComp = g.composite
-            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, scrollBarOpacityAnim.getValue())
 
             g.fillRoundRect(
                     layoutSize.w.toInt() - THEME.getScrollBarWidth() + ((1f - (scrollBarOpacityAnim.getValue() - SCROLLBAR_NORMAL_OPACITY) * 5f) * THEME.getScrollBarCornerRadius()).toInt(),
@@ -506,13 +519,10 @@ class ScrollLayout() : ViewGroup() {
                     THEME.getScrollBarCornerRadius()
             )
 
-            g.composite = prevComp
         }
 
         if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHovered || scrollBarHoveredH) && scrollBarWidth > 0f) {
-            g.color = THEME.getDividerColor()
-            val prevComp = g.composite
-            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, scrollBarOpacityAnim.getValue())
+            g.color = THEME.getScrollbarColor()
 
             g.fillRoundRect(
                     scrollBarX.toInt(),
@@ -523,8 +533,9 @@ class ScrollLayout() : ViewGroup() {
                     THEME.getScrollBarCornerRadius()
             )
 
-            g.composite = prevComp
         }
+
+        g.composite = prevComp
 
         // undo clip op
         g.clip = prevClip

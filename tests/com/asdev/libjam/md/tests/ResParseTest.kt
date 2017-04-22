@@ -27,20 +27,13 @@ fun main(args: Array<String>) {
     frame.showFrame()
 
     button.contextMenuItems = listOf(ContextMenuText("Button menu"))
-    v.contextMenuItems = listOf(ContextMenuAction("Dark theme", {
-            frame.setTheme(DarkMaterialTheme)
-            return@ContextMenuAction true
-        }),
-        ContextMenuAction("Light theme", {
-            frame.setTheme(LightMaterialTheme)
-            return@ContextMenuAction true
-        })
+    v.contextMenuItems = listOf(
+            ContextMenuAction("Dark theme", { frame.setTheme(DarkMaterialTheme); true }),
+            ContextMenuAction("Light theme", { frame.setTheme(LightMaterialTheme); true })
     )
 
     // example on click event.
     button.onClickListener = { _, _ ->
-        button.postAction {
-            Snackbar.makeTextAndAction("Hello, this is a snackbar!", "UNDO", {_, _ -> print("Will undo!")}, v).show()
-        }
+        Snackbar.makeTextAndAction(R.strings.snackbar_test, "UNDO", {_, _ -> print("Will undo!")}, v).show()
     }
 }
