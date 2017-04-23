@@ -7,7 +7,7 @@
 <a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.animation</a>&nbsp;/&nbsp;<a href=".">FloatValueAnimator</a><br/>
 <br/>
 <h1>FloatValueAnimator</h1>
-<code><span class="keyword">class </span><span class="identifier">FloatValueAnimator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-animator/index.html"><span class="identifier">Animator</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">FloatValueAnimator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-animator/index.html"><span class="identifier">Animator</span></a></code>
 <p>Animates a Float value from the given <a href="#">from</a> to the given <a href="#">to</a>. Can be used as a property delegate.</p>
 <h3>Constructors</h3>
 <table>
@@ -33,6 +33,14 @@
 <p>The action to run on each loop while the animation is running.</p>
 </td>
 </tr>
+<tr>
+<td>
+<a href="../-animator/id.html">id</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">id</span><span class="symbol">: </span><span class="identifier">String</span></code>
+<p>The id associated with this animator. May be used for comparing animators and removing/adjusting based of this id.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <h3>Functions</h3>
@@ -42,7 +50,7 @@
 <td>
 <a href="get-raw-value.html">getRawValue</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">getRawValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getRawValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
 <p>Returns the raw (non-interpolated) value of this animation.</p>
 </td>
 </tr>
@@ -50,7 +58,7 @@
 <td>
 <a href="get-value.html">getValue</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
 <p>Returns the interpolated value of this animation.</p>
 <code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">getValue</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$getValue(kotlin.Any, kotlin.reflect.KProperty((kotlin.Any)))/thisRef">thisRef</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.animation.FloatValueAnimator$getValue(kotlin.Any, kotlin.reflect.KProperty((kotlin.Any)))/property">property</span><span class="symbol">:</span>&nbsp;<span class="identifier">KProperty</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
 <p>Returns the animated value of this animator.</p>
@@ -103,6 +111,12 @@
 </tr>
 <tr>
 <td>
+<a href="../-animator/equals.html">equals</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.Animator$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
 <a href="../-animator/get-duration.html">getDuration</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">getDuration</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
@@ -146,6 +160,12 @@
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hasEnded</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
 <p>Returns whether this animation has ended or not yet.</p>
 </td>
+</tr>
+<tr>
+<td>
+<a href="../-animator/hash-code.html">hashCode</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
 </tr>
 <tr>
 <td>

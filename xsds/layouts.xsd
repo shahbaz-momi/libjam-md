@@ -65,10 +65,10 @@
                             <xs:complexContent>
                                 <xs:extension base="layout_type">
 
-                                    <xs:attribute name="padding-left" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-right" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-top" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-bottom" use="optional" type="xs:integer" default="0" />
+                                    <xs:attribute name="padding-left" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-right" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-top" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-bottom" use="optional" type="xs:float" default="0" />
 
                                 </xs:extension>
                             </xs:complexContent>
@@ -83,10 +83,10 @@
                         <xs:complexType>
                             <xs:simpleContent>
                                 <xs:extension base="view_type">
-                                    <xs:attribute name="padding-left" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-right" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-top" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-bottom" use="optional" type="xs:integer" default="0" />
+                                    <xs:attribute name="padding-left" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-right" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-top" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-bottom" use="optional" type="xs:float" default="0" />
 
                                     <xs:attribute name="text-gravity" use="optional" type="gravity_type" />
                                     <xs:attribute name="text" use="required" type="xs:string" />
@@ -101,6 +101,21 @@
                                             </xs:restriction>
                                         </xs:simpleType>
                                     </xs:attribute>
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="TextInputView" minOccurs="0">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="view_type">
+                                    <xs:attribute name="label-text" use="required" type="xs:string" />
+                                    <xs:attribute name="font" use="optional" type="xs:string" />
+                                    <xs:attribute name="color" use="optional" type="xs:string" />
+                                    <xs:attribute name="color-accent" use="optional" type="xs:string" />
+                                    <xs:attribute name="content-gravity" use="optional" type="gravity_type" />
+                                    <xs:attribute name="padding-horizontal" use="optional" type="xs:float" />
                                 </xs:extension>
                             </xs:simpleContent>
                         </xs:complexType>
@@ -147,10 +162,10 @@
                         <xs:complexType>
                             <xs:simpleContent>
                                 <xs:extension base="view_type">
-                                    <xs:attribute name="padding-left" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-right" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-top" use="optional" type="xs:integer" default="0" />
-                                    <xs:attribute name="padding-bottom" use="optional" type="xs:integer" default="0" />
+                                    <xs:attribute name="padding-left" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-right" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-top" use="optional" type="xs:float" default="0" />
+                                    <xs:attribute name="padding-bottom" use="optional" type="xs:float" default="0" />
 
                                     <xs:attribute name="circle-radius" use="optional" type="xs:integer" />
                                     <xs:attribute name="circle-stroke-width" use="optional" type="xs:integer"/>

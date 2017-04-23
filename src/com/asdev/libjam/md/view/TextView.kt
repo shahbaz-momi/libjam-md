@@ -71,7 +71,7 @@ open class TextView(): OverlayView() {
     /**
      * The [Color] to draw the text in.
      */
-    lateinit var color: Color
+    var color = R.theme.primary_text
 
     /**
      * The gravity of the text to draw.
@@ -124,21 +124,10 @@ open class TextView(): OverlayView() {
                 params.setToColor(R.attrs.TextView.text_color, this::color)
             }
 
-            if(params.hasParam(R.attrs.TextView.padding_bottom)) {
-                paddingBottom = params.getInt(R.attrs.TextView.padding_bottom)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.TextView.padding_top)) {
-                paddingTop = params.getInt(R.attrs.TextView.padding_top)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.TextView.padding_left)) {
-                paddingLeft = params.getInt(R.attrs.TextView.padding_left)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.TextView.padding_right)) {
-                paddingRight = params.getInt(R.attrs.TextView.padding_right)!!.toFloat()
-            }
+            params.setToFloat(R.attrs.TextView.padding_bottom, this::paddingBottom)
+            params.setToFloat(R.attrs.TextView.padding_top, this::paddingTop)
+            params.setToFloat(R.attrs.TextView.padding_left, this::paddingLeft)
+            params.setToFloat(R.attrs.TextView.padding_right, this::paddingRight)
 
             params.setToFloat(R.attrs.TextView.line_height, this::lineHeightMultiplier)
 
@@ -195,22 +184,18 @@ open class TextView(): OverlayView() {
      */
     private var lines = listOf("")
 
-    override fun onMeasure(result: LayoutParams): LayoutParams {
-        return super.onMeasure(result)
-    }
-
     private var isMinPass = false
     override fun onPostLayout() {
         super.onPostLayout()
 
-        if(!isMinPass) {
+//        if(!isMinPass) {
             layoutText()
-            minSizeSynthetic = _calculateMinimumSize()
-            isMinPass = true
-            requestLayout()
-        } else {
-            isMinPass = false
-        }
+//            minSize = _calculateMinimumSize()
+//            isMinPass = true
+//            requestLayout()
+//        } else {
+//            isMinPass = false
+//        }
 
     }
 

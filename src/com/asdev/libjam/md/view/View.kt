@@ -72,16 +72,6 @@ open class View (
     var minSize = DIM_UNLIMITED.copy()
 
     /**
-     * The minimum size requested by the View it self.
-     */
-    protected var minSizeSynthetic = DIM_UNLIMITED.copy()
-
-    /**
-     * The minimum size requested for this View. Use THIS to manually View minimum sizes.
-     */
-    var minSizeReq = DIM_UNLIMITED.copy()
-
-    /**
      * Defines the visibility of this view. May either be VISIBLE or INVISIBLE
      */
     var visibility = VISIBILITY_VISIBLE
@@ -196,14 +186,7 @@ open class View (
      * Called by the layout before layout to signify that the view should determine its max and min sizes at this point.
      * @return the min and max sizes, respectively.
      */
-    open fun onMeasure(result: LayoutParams): LayoutParams {
-        minSize.w = maxOf(minSizeReq.w, minSizeSynthetic.w)
-        minSize.h = maxOf(minSizeReq.h, minSizeSynthetic.h)
-
-        result.minSize = minSize
-        result.maxSize = maxSize
-        return result
-    }
+    open fun onMeasure(result: LayoutParams): LayoutParams = result.apply { minSize = this@View.minSize; maxSize = this@View.maxSize; applyAdditional(paramList); }
 
     /**
      * Called when the layout has determined the size of this layout.
@@ -335,8 +318,6 @@ open class View (
      */
     open fun onMouseRelease(e: MouseEvent, mPos: Point) {
         onMouseListener?.onMouseRelease(e,  mPos)
-        // the the state to focused
-        onStateChanged(state, State.STATE_FOCUSED)
 
         if(System.currentTimeMillis() - mousePressTime <= MOUSE_CLICK_TIME) {
             onClickListener?.invoke(e, mPos)
@@ -362,7 +343,10 @@ open class View (
      */
     open fun onMouseEnter(e: MouseEvent, mPos: Point) {
         onMouseListener?.onMouseEnter(e, mPos)
-        onStateChanged(state, State.STATE_HOVER)
+
+        if(state != State.STATE_FOCUSED) {
+            onStateChanged(state, State.STATE_HOVER)
+        }
     }
 
     /**
@@ -370,6 +354,23 @@ open class View (
      */
     open fun onMouseExit(e: MouseEvent, mPos: Point) {
         onMouseListener?.onMouseExit(e, mPos)
+
+        if(state != State.STATE_FOCUSED) {
+            onStateChanged(state, State.STATE_NORMAL)
+        }
+    }
+
+    /**
+     * Called when the focus of this view has been gained.
+     */
+    open fun onFocusGained() {
+        onStateChanged(state, State.STATE_FOCUSED)
+    }
+
+    /**
+     * Called when the focus of this view is lost.
+     */
+    open fun onFocusLost() {
         onStateChanged(state, State.STATE_NORMAL)
     }
 
@@ -567,17 +568,11 @@ open class View (
     }
 
     /**
-     * Called when tab was pressed and it was determined that this is the resultant View of the traversal. It should set
-     * the current state to HOVER. Returns whether or not this is the last View in a potential chain of Views.
+     * Called when tab was pressed and it was determined that this is the resultant View of the traversal. If this returns
+     * true, it means that this View has been fully traversed, otherwise it will return false.
      */
     open fun onTabTraversal(): Boolean {
-        if(state == State.STATE_NORMAL) {
-            onStateChanged(state, State.STATE_HOVER)
-            return false
-        } else {
-            onStateChanged(state, State.STATE_NORMAL)
-            return true
-        }
+        return true
     }
 
     /**

@@ -37,21 +37,10 @@ class PaddingLayout (val child: View, padding: Float = 15f): View() {
         super.applyParameters(params)
 
         if(params is XMLParamList) {
-            if(params.hasParam(R.attrs.PaddingLayout.padding_bottom)) {
-                paddingBottom = params.getInt(R.attrs.PaddingLayout.padding_bottom)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.PaddingLayout.padding_top)) {
-                paddingTop = params.getInt(R.attrs.PaddingLayout.padding_top)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.PaddingLayout.padding_left)) {
-                paddingLeft = params.getInt(R.attrs.PaddingLayout.padding_left)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.PaddingLayout.padding_right)) {
-                paddingRight = params.getInt(R.attrs.PaddingLayout.padding_right)!!.toFloat()
-            }
+            params.setToFloat(R.attrs.PaddingLayout.padding_bottom, this::paddingBottom)
+            params.setToFloat(R.attrs.PaddingLayout.padding_top, this::paddingTop)
+            params.setToFloat(R.attrs.PaddingLayout.padding_left, this::paddingLeft)
+            params.setToFloat(R.attrs.PaddingLayout.padding_right, this::paddingRight)
         }
     }
 

@@ -7,7 +7,10 @@ import com.asdev.libjam.md.view.OverlayView
 import com.asdev.libjam.md.view.VISIBILITY_VISIBLE
 import com.asdev.libjam.md.view.View
 import java.awt.Graphics2D
+import java.awt.Point
 import java.awt.event.KeyEvent
+import java.awt.event.MouseEvent
+import java.awt.event.MouseWheelEvent
 
 /**
  * Created by Asdev on 10/05/16. All rights reserved.
@@ -114,6 +117,267 @@ abstract class ViewGroup: View() {
         return getChildren()[i]
     }
 
+    /////// MOUSE METHODS IMPL BEGINS //////
+
+    override fun onMouseEnter(e: MouseEvent, mPos: Point) {
+        super.onMouseEnter(e, mPos)
+    }
+
+    override fun onMouseExit(e: MouseEvent, mPos: Point) {
+        super.onMouseExit(e, mPos)
+
+        // mouse exited this view, call exit on any view it was hovering on inside this layout
+        if(previousHoveringView != -1) {
+            getChildAtIndex(previousHoveringView).onMouseExit(e, mPos)
+            previousHoveringView = -1
+        }
+    }
+
+    override fun onMousePress(e: MouseEvent, mPos: Point) {
+        super.onMousePress(e, mPos)
+
+        // check if it is in the bounds of the overlay first
+        val overlay = getOverlayView()
+        if(overlay != null) {
+            if(mPos.x >= overlay.position.x + overlay.translationX && mPos.x <= overlay.position.x + overlay.translationX + overlay.layoutSize.w
+                    && mPos.y >= overlay.position.y + overlay.translationY && mPos.y <= overlay.position.y + overlay.translationY + overlay.layoutSize.h) {
+                // in the overlay
+                overlay.onMousePress(e, Point((mPos.x - overlay.position.x - overlay.translationX).toInt(), (mPos.y - overlay.position.y - overlay.translationY).toInt()))
+                return
+            }
+        }
+
+        // not on the overlay, most be on one of the children
+        val children = getChildren()
+
+        for(i in children.indices) {
+            // check which view the point is in the bounds of
+            val c = children[i]
+            val p = findChildPosition(c)!!
+
+            if(mPos.x >= p.x + c.translationX && mPos.x <= p.x + c.translationX + c.layoutSize.w &&
+                    mPos.y >= p.y + c.translationY && mPos.y <= p.y + c.translationY + c.layoutSize.h) {
+                // in this view, call the child's method
+                c.onMousePress(e, Point( (mPos.x - p.x - c.translationX).toInt(), (mPos.y - p.y - c.translationY).toInt() ))
+                return
+            }
+        }
+    }
+
+    private var focusMutex = -1
+
+    override fun onMouseRelease(e: MouseEvent, mPos: Point) {
+        super.onMouseRelease(e, mPos)
+
+        // check if it is in the bounds of the overlay first
+        val overlay = getOverlayView()
+        if(overlay != null) {
+            if(mPos.x >= overlay.position.x + overlay.translationX && mPos.x <= overlay.position.x + overlay.translationX + overlay.layoutSize.w
+                    && mPos.y >= overlay.position.y + overlay.translationY && mPos.y <= overlay.position.y + overlay.translationY + overlay.layoutSize.h) {
+                // in the overlay
+                overlay.onMouseRelease(e, Point((mPos.x - overlay.position.x - overlay.translationX).toInt(), (mPos.y - overlay.position.y - overlay.translationY).toInt()))
+                return
+            }
+        }
+
+        // not on the overlay, most be on one of the children
+        val children = getChildren()
+
+        for(i in children.indices) {
+            // check which view the point is in the bounds of
+            val c = children[i]
+            val p = findChildPosition(c)!!
+
+            if(mPos.x >= p.x + c.translationX && mPos.x <= p.x + c.translationX + c.layoutSize.w &&
+                    mPos.y >= p.y + c.translationY && mPos.y <= p.y + c.translationY + c.layoutSize.h) {
+
+                if(focusMutex != i) {
+                    if(focusMutex != -1) {
+                        // the previous focused view has lost focus
+                        children[focusMutex].onFocusLost()
+                    }
+
+                    // drop any lingering focuses
+                    for(j in children) {
+                        if(j.state == State.STATE_FOCUSED && j != c) {
+                            j.onFocusLost()
+                        }
+                    }
+
+                    // this view now has focus
+                    c.onFocusGained()
+                    focusMutex = i
+                }
+
+                // in this view, call the child's method
+                c.onMouseRelease(e, Point( (mPos.x - p.x - c.translationX).toInt(), (mPos.y - p.y - c.translationY).toInt() ))
+                return
+            }
+        }
+    }
+
+    override fun onFocusLost() {
+        super.onFocusLost()
+
+        // release the focus mutex of this group as well
+        if(focusMutex != -1) {
+            getChildAtIndex(focusMutex).onFocusLost()
+            focusMutex = -1
+        }
+    }
+
+    private var previousHoveringView = -1
+    private var wasHoveringOverlay = false
+
+    override fun onMouseMoved(e: MouseEvent, mPos: Point) {
+        super.onMouseMoved(e, mPos)
+
+        val children = getChildren()
+
+        // if it is on the overlay, check that first
+        val overlay = getOverlayView()
+
+        if(overlay != null) {
+            // check if the point is within the bounds of the overlay
+            if(mPos.x >= overlay.position.x + overlay.translationX && mPos.x <= overlay.position.x + overlay.translationX + overlay.layoutSize.w
+                    && mPos.y >= overlay.position.y + overlay.translationY && mPos.y <= overlay.position.y + overlay.translationY + overlay.layoutSize.h) {
+
+                // was it on the overlay before?
+                // if it wasn't, call mouse exit on the previous view
+                // and mouse enter on the overlay it self
+                if(!wasHoveringOverlay) {
+                    // was it on a view previously?
+                    if(previousHoveringView != -1) {
+                        // notify the previous child that the mouse has left that view
+                        children[previousHoveringView].onMouseExit(e, mPos)
+                    }
+
+                    // reset the hovering states, as now it is hovering the overlay
+                    wasHoveringOverlay = true
+                    previousHoveringView = -1
+                    overlay.onMouseEnter(e, mPos)
+                }
+
+                // the standard mouse move on the overlay
+                overlay.onMouseMoved(e, Point((mPos.x - overlay.position.x - overlay.translationX).toInt(), (mPos.y - overlay.position.y - overlay.translationY).toInt()))
+                return
+            } else {
+                // not on the overlay, but if it was previously, notify the overlay of a mouse exit
+                if(wasHoveringOverlay) {
+                    overlay.onMouseExit(e, mPos)
+                    wasHoveringOverlay = false
+                }
+            }
+        }
+
+        // find the child the mouse is currently hovering over
+        for(i in children.indices) {
+            val c = children[i]
+            val p = findChildPosition(c)!!
+
+            if(mPos.x >= p.x + c.translationX && mPos.x <= p.x + c.translationX + c.layoutSize.w &&
+                    mPos.y >= p.y + c.translationY && mPos.y <= p.y + c.translationY + c.layoutSize.h) {
+                // fits this view
+                // check the mouse was on a different view previously
+                if(previousHoveringView != i) {
+                    // call mouse exit on the previous view if it was set
+                    if(previousHoveringView != -1) {
+                        children[previousHoveringView].onMouseExit(e, mPos)
+                    }
+
+                    // call mouse enter on this view
+                    c.onMouseEnter(e, mPos)
+                    // set this as the hovering view
+                    previousHoveringView = i
+                }
+
+                // call standard mouse move
+                c.onMouseMoved(e, Point( (mPos.x - p.x - c.translationX).toInt(), (mPos.y - p.y - c.translationY).toInt() ))
+                return
+            }
+        }
+
+        // not on any view, so if it was on one before call exit on it
+        if(previousHoveringView != -1) {
+            children[previousHoveringView].onMouseExit(e, mPos)
+            previousHoveringView = -1
+        }
+    }
+
+    override fun onMouseDragged(e: MouseEvent, mPos: Point) {
+        super.onMouseDragged(e, mPos)
+
+        val children = getChildren()
+
+        // if it is on the overlay, check that first
+        val overlay = getOverlayView()
+
+        if(overlay != null) {
+            // check if the point is within the bounds of the overlay
+            if(mPos.x >= overlay.position.x + overlay.translationX && mPos.x <= overlay.position.x + overlay.translationX + overlay.layoutSize.w
+                    && mPos.y >= overlay.position.y + overlay.translationY && mPos.y <= overlay.position.y + overlay.translationY + overlay.layoutSize.h) {
+
+                // was it on the overlay before?
+                // if it wasn't, call mouse exit on the previous view
+                // and mouse enter on the overlay it self
+                if(!wasHoveringOverlay) {
+                    // was it on a view previously?
+                    if(previousHoveringView != -1) {
+                        // notify the previous child that the mouse has left that view
+                        children[previousHoveringView].onMouseExit(e, mPos)
+                    }
+
+                    // reset the hovering states, as now it is hovering the overlay
+                    wasHoveringOverlay = true
+                    previousHoveringView = -1
+                    overlay.onMouseEnter(e, mPos)
+                }
+
+                // the standard mouse move on the overlay
+                overlay.onMouseDragged(e, Point((mPos.x - overlay.position.x - overlay.translationX).toInt(), (mPos.y - overlay.position.y - overlay.translationY).toInt()))
+                return
+            } else {
+                // not on the overlay, but if it was previously, notify the overlay of a mouse exit
+                if(wasHoveringOverlay) {
+                    overlay.onMouseExit(e, mPos)
+                    wasHoveringOverlay = false
+                }
+            }
+        }
+
+        // find the child the mouse is currently hovering over
+        for(i in children.indices) {
+            val c = children[i]
+            val p = findChildPosition(c)!!
+
+            if(mPos.x >= p.x + c.translationX && mPos.x <= p.x + c.translationX + c.layoutSize.w &&
+                    mPos.y >= p.y + c.translationY && mPos.y <= p.y + c.translationY + c.layoutSize.h) {
+                // fits this view
+                // check the mouse was on a different view previously
+                if(previousHoveringView != i) {
+                    // call mouse exit on the previous view if it was set
+                    if(previousHoveringView != -1) {
+                        children[previousHoveringView].onMouseExit(e, mPos)
+                    }
+
+                    // call mouse enter on this view
+                    c.onMouseEnter(e, mPos)
+                    // set this as the hovering view
+                    previousHoveringView = i
+                }
+
+                // call standard mouse move
+                c.onMouseDragged(e, Point( (mPos.x - p.x - c.translationX).toInt(), (mPos.y - p.y - c.translationY).toInt() ))
+                return
+            }
+        }
+
+        // not on any view, so if it was on one before call exit on it
+        if(previousHoveringView != -1) {
+            children[previousHoveringView].onMouseExit(e, mPos)
+            previousHoveringView = -1
+        }
+    }
 
     /**
      * Calls [onKeyTyped] on all the children that are focused.
@@ -122,6 +386,13 @@ abstract class ViewGroup: View() {
         super.onKeyTyped(e)
 
         val children = getChildren()
+        // check if it was on the overlay before
+        val overlay = getOverlayView()
+
+        if(wasHoveringOverlay && overlay != null) {
+            overlay.onKeyTyped(e)
+            return
+        }
 
         for(c in children)
             if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
@@ -135,6 +406,13 @@ abstract class ViewGroup: View() {
         super.onKeyPressed(e)
 
         val children = getChildren()
+        // check if it was on the overlay before
+        val overlay = getOverlayView()
+
+        if(wasHoveringOverlay && overlay != null) {
+            overlay.onKeyPressed(e)
+            return
+        }
 
         for(c in children)
             if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
@@ -148,10 +426,40 @@ abstract class ViewGroup: View() {
         super.onKeyReleased(e)
 
         val children = getChildren()
+        // check if it was on the overlay before
+        val overlay = getOverlayView()
+
+        if(wasHoveringOverlay && overlay != null) {
+            overlay.onKeyReleased(e)
+            return
+        }
 
         for(c in children)
             if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
                 c.onKeyReleased(e)
+    }
+
+    /**
+     * Scrolls the proper child of this layout.
+     */
+    override fun onScroll(e: MouseWheelEvent) {
+        super.onScroll(e)
+
+        val children = getChildren()
+        val overlay = getOverlayView()
+
+        if(wasHoveringOverlay && overlay != null) {
+            overlay.onScroll(e)
+        } else {
+            // find the focused view
+            for (c in children) {
+                if (c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
+                    // scroll it
+                    c.onScroll(e)
+                    return
+                }
+            }
+        }
     }
 
     /**
@@ -401,12 +709,16 @@ abstract class ViewGroup: View() {
 
     /**
      * Finds the context menu items for the view at the given position, or the most lower-level non-null
-     * context menu items if none for the children are found. Avoids returning no items/null. DOES NOT search the
-     * overlay view for a context menu, however, [LinearLayout] and [RelativeLayout] do.
+     * context menu items if none for the children are found. Avoids returning no items/null.
      */
     override fun findContextMenuItems(viewPos: FloatPoint): List<ContextMenuItem>? {
         // find the child at that point
         val children = getChildren()
+        val overlay = getOverlayView()
+
+        if(wasHoveringOverlay && overlay != null) {
+            return overlay.findContextMenuItems(viewPos - overlay.position)
+        }
 
         for(c in children) {
             val pos = findChildPosition(c)?: throw IllegalStateException("Unable to find the position of my own child!")
@@ -426,5 +738,41 @@ abstract class ViewGroup: View() {
         }
 
         return super.findContextMenuItems(viewPos)
+    }
+
+    private var currentTraverse = 0
+
+    /**
+     * Traverses the children of this ViewGroup.
+     */
+    override fun onTabTraversal(): Boolean {
+        val children = getChildren()
+
+        // find any previously focused/hovered views and go from there
+        for(i in children.indices) {
+            if(children[i].state == State.STATE_FOCUSED && i != currentTraverse) {
+                children[i].onFocusLost()
+            }
+        }
+
+        if(currentTraverse < children.size) {
+            while(children[currentTraverse].onTabTraversal()) {
+                currentTraverse ++
+                focusMutex = currentTraverse
+
+                if(currentTraverse >= children.size) {
+                    currentTraverse = 0
+                    focusMutex = -1
+                    return true
+                }
+            }
+
+            return false
+        } else {
+            // reset the traversal now that it is all done
+            currentTraverse = 0
+            focusMutex = -1
+            return true
+        }
     }
 }

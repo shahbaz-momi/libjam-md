@@ -9,6 +9,7 @@
 <h1>runAnimation</h1>
 <a name="com.asdev.libjam.md.view.View$runAnimation(com.asdev.libjam.md.animation.Animator, kotlin.Boolean)"></a>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">runAnimation</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$runAnimation(com.asdev.libjam.md.animation.Animator, kotlin.Boolean)/a">a</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.animation/-animator/index.html"><span class="identifier">Animator</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View$runAnimation(com.asdev.libjam.md.animation.Animator, kotlin.Boolean)/startIt">startIt</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Posts the animation to the Choregrapher and starts it if not already started. MUST be run on the UI Looper for it to work.</p>
+<p>Posts the animation to the Choregrapher and starts it if not already started. Will be posted if the current Thread
+is not the looper. If an animation with the same id is already running, this animation will not be run.</p>
 </BODY>
 </HTML>

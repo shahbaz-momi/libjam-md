@@ -72,6 +72,29 @@ object R {
 	}
 
 	object attrs {
+		object TextInputView {
+			val visibility = "visibility" to type_string
+			val id = "id" to type_string
+			val minSize = "minSize" to type_dim
+			val maxSize = "maxSize" to type_dim
+			val background = "background" to type_drawable
+			val z_index = "z-index" to type_int
+			val translation_x = "translation-x" to type_int
+			val translation_y = "translation-y" to type_int
+			val overclip_left = "overclip-left" to type_int
+			val overclip_right = "overclip-right" to type_int
+			val overclip_top = "overclip-top" to type_int
+			val overclip_bottom = "overclip-bottom" to type_int
+			val gravity = "gravity" to type_gravity
+
+			val label_text = "label-text" to type_string
+			val font = "font" to type_font
+			val color = "color" to type_color
+			val color_accent = "color-accent" to type_color
+			val content_gravity = "content-gravity" to type_gravity
+			val padding_horizontal = "padding-horizontal" to type_float
+		}
+
 		object ProgressView {
 			val visibility = "visibility" to type_string
 			val id = "id" to type_string
@@ -108,10 +131,10 @@ object R {
 			val overclip_bottom = "overclip-bottom" to type_int
 			val gravity = "gravity" to type_gravity
 
-			val padding_left = "padding-left" to type_int
-			val padding_right = "padding-right" to type_int
-			val padding_top = "padding-top" to type_int
-			val padding_bottom = "padding-bottom" to type_int
+			val padding_left = "padding-left" to type_float
+			val padding_right = "padding-right" to type_float
+			val padding_top = "padding-top" to type_float
+			val padding_bottom = "padding-bottom" to type_float
 			val circle_radius = "circle-radius" to type_int
 			val circle_stroke_width = "circle-stroke-width" to type_int
 			val circle_color = "circle-color" to type_color
@@ -133,10 +156,10 @@ object R {
 			val overclip_bottom = "overclip-bottom" to type_int
 			val gravity = "gravity" to type_gravity
 
-			val padding_left = "padding-left" to type_int
-			val padding_right = "padding-right" to type_int
-			val padding_top = "padding-top" to type_int
-			val padding_bottom = "padding-bottom" to type_int
+			val padding_left = "padding-left" to type_float
+			val padding_right = "padding-right" to type_float
+			val padding_top = "padding-top" to type_float
+			val padding_bottom = "padding-bottom" to type_float
 			val text_gravity = "text-gravity" to type_gravity
 			val text = "text" to type_string
 			val text_font = "text-font" to type_font
@@ -162,10 +185,10 @@ object R {
 			val overclip_bottom = "overclip-bottom" to type_int
 			val gravity = "gravity" to type_gravity
 
-			val padding_left = "padding-left" to type_int
-			val padding_right = "padding-right" to type_int
-			val padding_top = "padding-top" to type_int
-			val padding_bottom = "padding-bottom" to type_int
+			val padding_left = "padding-left" to type_float
+			val padding_right = "padding-right" to type_float
+			val padding_top = "padding-top" to type_float
+			val padding_bottom = "padding-bottom" to type_float
 		}
 
 		object View {
@@ -233,10 +256,10 @@ object R {
 			val overclip_bottom = "overclip-bottom" to type_int
 			val gravity = "gravity" to type_gravity
 
-			val padding_left = "padding-left" to type_int
-			val padding_right = "padding-right" to type_int
-			val padding_top = "padding-top" to type_int
-			val padding_bottom = "padding-bottom" to type_int
+			val padding_left = "padding-left" to type_float
+			val padding_right = "padding-right" to type_float
+			val padding_top = "padding-top" to type_float
+			val padding_bottom = "padding-bottom" to type_float
 			val text_gravity = "text-gravity" to type_gravity
 			val text = "text" to type_string
 			val text_font = "text-font" to type_font
@@ -343,6 +366,7 @@ object R {
 		val layout_on_boarding = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_on_boarding.xml"
 		val layout_testing = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_testing.xml"
 		val layout_text_wrap = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_text_wrap.xml"
+		val layout_text_input = "C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\generated\\layout_text_input.xml"
 	}
 
 	object id {

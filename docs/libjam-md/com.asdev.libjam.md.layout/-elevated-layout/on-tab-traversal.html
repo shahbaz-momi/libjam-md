@@ -10,7 +10,7 @@
 <a name="com.asdev.libjam.md.layout.ElevatedLayout$onTabTraversal()"></a>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onTabTraversal</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
 <p>Overrides <a href="../../com.asdev.libjam.md.view/-view/on-tab-traversal.html">View.onTabTraversal</a></p>
-<p>Called when tab was pressed and it was determined that this is the resultant View of the traversal. It should set
-the current state to HOVER. Returns whether or not this is the last View in a potential chain of Views.</p>
+<p>Called when tab was pressed and it was determined that this is the resultant View of the traversal. If this returns
+true, it means that this View has been fully traversed, otherwise it will return false.</p>
 </BODY>
 </HTML>

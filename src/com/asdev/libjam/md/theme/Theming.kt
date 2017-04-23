@@ -31,6 +31,7 @@ val COLOR_SECONDARY_TEXT = 7
 val COLOR_BACKGROUND = 8
 val COLOR_DIVIDER = 9
 val COLOR_RIPPLE = 10
+val COLOR_SCROLLBAR = 11
 
 /**
  * Font property indexing constants. For use in Theme.getFont(which)
@@ -68,6 +69,7 @@ abstract class Theme {
             COLOR_BACKGROUND -> return getBackgroundColor()
             COLOR_DIVIDER -> return getDividerColor()
             COLOR_RIPPLE -> return getRippleColor()
+            COLOR_SCROLLBAR -> return getScrollbarColor()
         }
 
         throw IllegalArgumentException("The color index must be a valid color property index. $which is not.")

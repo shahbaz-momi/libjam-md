@@ -122,6 +122,7 @@ class Snackbar private constructor(private val viewGroup: OverlayViewGroup, val 
             }
 
             overlay.addChild(button)
+
             parent.setOverlayView(sb.viewGroup)
             return sb
         }

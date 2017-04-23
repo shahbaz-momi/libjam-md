@@ -64,9 +64,20 @@ prohibited.</p>
 </tr>
 <tr>
 <td>
-<a href="../../com.asdev.libjam.md.view/-view/key-listener.html">onKeyListener</a></td>
+<a href="../../com.asdev.libjam.md.view/-view/context-menu-items.html">contextMenuItems</a></td>
 <td>
-<code><span class="keyword">var </span><span class="identifier">onKeyListener</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-view-key-listener/index.html"><span class="identifier">ViewKeyListener</span></a><span class="symbol">?</span></code></td>
+<code><span class="keyword">var </span><span class="identifier">contextMenuItems</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../com.asdev.libjam.md.menu/-context-menu-item/index.html"><span class="identifier">ContextMenuItem</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>A list that contains the context menu items of this view, if any.
+Nullable if there is no context menu for this view.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/id.html">id</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">id</span><span class="symbol">: </span><span class="identifier">String</span></code>
+<p>The id associated with this id.</p>
+</td>
 </tr>
 <tr>
 <td>
@@ -93,18 +104,18 @@ try to grow the view to that size.</p>
 </tr>
 <tr>
 <td>
-<a href="../../com.asdev.libjam.md.view/-view/mouse-listener.html">onMouseListener</a></td>
-<td>
-<code><span class="keyword">var </span><span class="identifier">onMouseListener</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-view-mouse-listener/index.html"><span class="identifier">ViewMouseListener</span></a><span class="symbol">?</span></code>
-<p>The mouse listener associated with this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
-</td>
-</tr>
-<tr>
-<td>
 <a href="../../com.asdev.libjam.md.view/-view/on-click-listener.html">onClickListener</a></td>
 <td>
 <code><span class="keyword">var </span><span class="identifier">onClickListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
 <p>Called when this view is clicked upon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-key-listener.html">onKeyListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onKeyListener</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-view-key-listener/index.html"><span class="identifier">ViewKeyListener</span></a><span class="symbol">?</span></code>
+<p>An interface that listens to key press events.</p>
 </td>
 </tr>
 <tr>
@@ -125,10 +136,34 @@ try to grow the view to that size.</p>
 </tr>
 <tr>
 <td>
+<a href="../../com.asdev.libjam.md.view/-view/on-mouse-listener.html">onMouseListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onMouseListener</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-view-mouse-listener/index.html"><span class="identifier">ViewMouseListener</span></a><span class="symbol">?</span></code>
+<p>The mouse listener associated with this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="../../com.asdev.libjam.md.view/-view/on-press-listener.html">onPressListener</a></td>
 <td>
 <code><span class="keyword">var </span><span class="identifier">onPressListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">,</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
 <p>Called when this view is pressed upon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-scroll-listener.html">onScrollListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onScrollListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseWheelEvent.html"><span class="identifier">MouseWheelEvent</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>A listener for scroll events upon this View.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-state-change-listener.html">onStateChangeListener</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onStateChangeListener</span><span class="symbol">: </span><span class="symbol">(</span><a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">,</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span></code>
+<p>The state listener associated with this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
 </td>
 </tr>
 <tr>
@@ -169,14 +204,6 @@ try to grow the view to that size.</p>
 <td>
 <code><span class="keyword">var </span><span class="identifier">state</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a></code>
 <p>The state of the current view.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="../../com.asdev.libjam.md.view/-view/state-listener.html">stateListener</a></td>
-<td>
-<code><span class="keyword">var </span><span class="identifier">stateListener</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/-state-listener/index.html"><span class="identifier">StateListener</span></a><span class="symbol">?</span></code>
-<p>The state listener associated with this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
 </td>
 </tr>
 <tr>
@@ -234,6 +261,20 @@ try to grow the view to that size.</p>
 <tbody>
 <tr>
 <td>
+<a href="find-child-position.html">findChildPosition</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">findChildPosition</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-point/index.html"><span class="identifier">FloatPoint</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="find-context-menu-items.html">findContextMenuItems</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">findContextMenuItems</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$findContextMenuItems(com.asdev.libjam.md.util.FloatPoint)/viewPos">viewPos</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-point/index.html"><span class="identifier">FloatPoint</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../com.asdev.libjam.md.menu/-context-menu-item/index.html"><span class="identifier">ContextMenuItem</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Finds the context menu items for the view at the given position, or null if none found.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="loop.html">loop</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
@@ -278,7 +319,7 @@ view should be 0, 0 when drawing something</p>
 <a href="on-layout.html">onLayout</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onLayout</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onLayout(com.asdev.libjam.md.util.FloatDim)/newSize">newSize</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Called when the layout has determined the size of this layout</p>
+<p>Called when the layout has determined the size of this layout.</p>
 </td>
 </tr>
 <tr>
@@ -323,11 +364,27 @@ view should be 0, 0 when drawing something</p>
 </tr>
 <tr>
 <td>
+<a href="on-post-draw.html">onPostDraw</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPostDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onPostDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the initial drawn has already occurred, and this drawing pass is used to draw over the previous one.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-scroll.html">onScroll</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onScroll</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ElevatedLayout$onScroll(java.awt.event.MouseWheelEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseWheelEvent.html"><span class="identifier">MouseWheelEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Scrolls the child of this layout.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="on-tab-traversal.html">onTabTraversal</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onTabTraversal</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
-<p>Called when tab was pressed and it was determined that this is the resultant View of the traversal. It should set
-the current state to HOVER. Returns whether or not this is the last View in a potential chain of Views.</p>
+<p>Called when tab was pressed and it was determined that this is the resultant View of the traversal. If this returns
+true, it means that this View has been fully traversed, otherwise it will return false.</p>
 </td>
 </tr>
 <tr>
@@ -345,18 +402,43 @@ the current state to HOVER. Returns whether or not this is the last View in a po
 <tbody>
 <tr>
 <td>
-<a href="../../com.asdev.libjam.md.view/-view/apply-layout-parameters.html">applyParameters</a></td>
+<a href="../../com.asdev.libjam.md.view/-view/apply-parameters.html">applyParameters</a></td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">applyParameters</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$applyLayoutParameters(com.asdev.libjam.md.layout.GenericLayoutParamList)/params">params</span><span class="symbol">:</span>&nbsp;<a href="../-generic-layout-param-list/index.html"><span class="identifier">GenericLayoutParamList</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">applyParameters</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$applyParameters(com.asdev.libjam.md.layout.GenericParamList)/params">params</span><span class="symbol">:</span>&nbsp;<a href="../-generic-param-list/index.html"><span class="identifier">GenericParamList</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Applies the given layout parameters. Can be taken by onMeasure</p>
 </td>
 </tr>
 <tr>
 <td>
-<a href="../../com.asdev.libjam.md.view/-view/compare-to.html">compareTo</a></td>
+<a href="../../com.asdev.libjam.md.view/-view/cancel-animation.html">cancelAnimation</a></td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">compareTo</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$compareTo(com.asdev.libjam.md.view.View)/other">other</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
-<p>Compares this view against the other view based on the z-index.</p>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">cancelAnimation</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$cancelAnimation(kotlin.String)/animationId">animationId</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Cancels any animation with the given id.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/is-animation-running.html">isAnimationRunning</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isAnimationRunning</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$isAnimationRunning(kotlin.String)/animationId">animationId</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Returns whether the specified animation is running or not. MUST be run on the UILooper, otherwise an IllegalStateException
+will be thrown.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-focus-gained.html">onFocusGained</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onFocusGained</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the focus of this view has been gained.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-focus-lost.html">onFocusLost</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onFocusLost</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the focus of this view is lost.</p>
 </td>
 </tr>
 <tr>
@@ -377,10 +459,35 @@ the current state to HOVER. Returns whether or not this is the last View in a po
 </tr>
 <tr>
 <td>
+<a href="../../com.asdev.libjam.md.view/-view/on-post-layout.html">onPostLayout</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPostLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the layout has been determined and the layout pass has been run.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/on-post-loop.html">onPostLoop</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPostLoop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called after all loop()s have been completed</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="../../com.asdev.libjam.md.view/-view/on-state-changed.html">onStateChanged</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onStateChanged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/previous">previous</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Called when the state of this view has changed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../com.asdev.libjam.md.view/-view/post-action.html">postAction</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">postAction</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$postAction(kotlin.Function1((com.asdev.libjam.md.view.View, kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Posts the specific action to be run upon the ui thread.
+Returns whether or not the action will actually be run.</p>
 </td>
 </tr>
 <tr>
@@ -396,8 +503,8 @@ the current state to HOVER. Returns whether or not this is the last View in a po
 <a href="../../com.asdev.libjam.md.view/-view/request-repaint.html">requestRepaint</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">requestRepaint</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Requests a repaint (to the <a href="#">RootView</a>) of the entire frame. It broadcasts a message via the UI <a href="../../com.asdev.libjam.md.thread/-looper/index.html">Looper</a> to the
-<a href="#">RootView</a>.</p>
+<p>Requests a repaint (to the <a href="../../com.asdev.libjam.md.base/-root-view/index.html">RootView</a>) of the entire frame. It broadcasts a message via the UI <a href="../../com.asdev.libjam.md.thread/-looper/index.html">Looper</a> to the
+<a href="../../com.asdev.libjam.md.base/-root-view/index.html">RootView</a>.</p>
 </td>
 </tr>
 <tr>
@@ -405,7 +512,8 @@ the current state to HOVER. Returns whether or not this is the last View in a po
 <a href="../../com.asdev.libjam.md.view/-view/run-animation.html">runAnimation</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">runAnimation</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.View$runAnimation(com.asdev.libjam.md.animation.Animator, kotlin.Boolean)/a">a</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.animation/-animator/index.html"><span class="identifier">Animator</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.View$runAnimation(com.asdev.libjam.md.animation.Animator, kotlin.Boolean)/startIt">startIt</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Posts the animation to the Choregrapher and starts it if not already started. MUST be run on the UI Looper for it to work.</p>
+<p>Posts the animation to the Choregrapher and starts it if not already started. Will be posted if the current Thread
+is not the looper. If an animation with the same id is already running, this animation will not be run.</p>
 </td>
 </tr>
 <tr>

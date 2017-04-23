@@ -14,15 +14,47 @@
 <td>
 <a href="-button-view/index.html">ButtonView</a></td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">ButtonView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-text-view/index.html"><span class="identifier">TextView</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ButtonView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-text-view/index.html"><span class="identifier">TextView</span></a></code>
 <p>A simple button widget.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-circular-progress-view/index.html">CircularProgressView</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">CircularProgressView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-view/index.html"><span class="identifier">View</span></a></code>
+<p>A view that shows indeterminate circular progress.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-overlay-view/index.html">OverlayView</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">OverlayView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-view/index.html"><span class="identifier">View</span></a></code>
+<p>A view which is drawn as an overlay on a view group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-progress-view/index.html">ProgressView</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ProgressView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-view/index.html"><span class="identifier">View</span></a></code>
+<p>A View that shows progress on a horizontal progress bar.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-text-input-view/index.html">TextInputView</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TextInputView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-view/index.html"><span class="identifier">View</span></a></code>
+<p>A view for text input.</p>
 </td>
 </tr>
 <tr>
 <td>
 <a href="-text-view/index.html">TextView</a></td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">TextView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-view/index.html"><span class="identifier">View</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">TextView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-overlay-view/index.html"><span class="identifier">OverlayView</span></a></code>
 <p>A <a href="-view/index.html">View</a> that displays the specified text.</p>
 </td>
 </tr>
@@ -30,9 +62,10 @@
 <td>
 <a href="-view/index.html">View</a></td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">View</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Comparable</span><span class="symbol">&lt;</span><a href="-view/index.html"><span class="identifier">View</span></a><span class="symbol">&gt;</span></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">View</span></code>
 <p>An open class that defines a View. A View is simply a lightweight widget which all other widgets originate from. It
-implements the bare minimum functionality, allowing for easy extensibility.</p>
+implements the bare minimum functionality, allowing for easy extensibility. It does NOT have a context or a reference
+to its parent View/ViewGroup.</p>
 </td>
 </tr>
 </tbody>
@@ -40,6 +73,12 @@ implements the bare minimum functionality, allowing for easy extensibility.</p>
 <h3>Properties</h3>
 <table>
 <tbody>
+<tr>
+<td>
+<a href="-b-l-i-n-k_-t-i-m-e.html">BLINK_TIME</a></td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">BLINK_TIME</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
 <tr>
 <td>
 <a href="-b-u-t-t-o-n_-t-y-p-e_-f-l-a-t.html">BUTTON_TYPE_FLAT</a></td>
@@ -70,6 +109,30 @@ implements the bare minimum functionality, allowing for easy extensibility.</p>
 <td>
 <code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">MOUSE_LONG_PRESS_TIME</span><span class="symbol">: </span><span class="identifier">Float</span></code>
 <p>The time that it takes for a press to be considered a long press.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-p-r-o-g-r-e-s-s_-t-y-p-e_-d-e-t-e-r-m-i-n-a-t-e.html">PROGRESS_TYPE_DETERMINATE</a></td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">PROGRESS_TYPE_DETERMINATE</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>The type for a progress view where the progress is known.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-p-r-o-g-r-e-s-s_-t-y-p-e_-i-n-d-e-t-e-r-m-i-n-a-t-e.html">PROGRESS_TYPE_INDETERMINATE</a></td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">PROGRESS_TYPE_INDETERMINATE</span><span class="symbol">: </span><span class="identifier">Int</span></code>
+<p>The type for a progress view where the progress is unknown.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="-s-c-a-l-e_-c-h-a-n-g-e.html">SCALE_CHANGE</a></td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SCALE_CHANGE</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>The label text scale change during animation.</p>
 </td>
 </tr>
 <tr>

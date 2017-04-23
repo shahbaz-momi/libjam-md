@@ -184,9 +184,15 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     }
 
     override fun onPostLoop() {
+        if(cursorRequest != -1) {
+            frame.cursor = Cursor.getPredefinedCursor(cursorRequest)
+            cursorRequest = -1
+        }
+
         rootView.onPostLoop()
     }
 
+    private var cursorRequest = -1
     override fun handleMessage(msg: Message) {
         if(DEBUG && msg != MESSAGE_REQUEST_REPAINT) {
             println("[RootView] Handling message: $msg")
@@ -216,9 +222,8 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
                 requestPaint()
             } else if(msg.action == MESSAGE_ACTION_SET_CURSOR) {
                 val cursorInt = msg.data0 as Int
-                val cursor = Cursor.getPredefinedCursor(cursorInt)
-                // set it
-                frame.cursor = cursor
+                // take the highest priority cursor
+                cursorRequest = maxOf(cursorRequest, cursorInt)
             }
         } else if(msg.type == MESSAGE_TYPE_ANIMATION) {
             choreographer.handleMessage(msg)

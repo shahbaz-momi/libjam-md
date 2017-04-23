@@ -100,21 +100,10 @@ class CircularProgressView : View() {
         super.applyParameters(params)
 
         if(params is XMLParamList) {
-            if(params.hasParam(R.attrs.CircularProgressView.padding_bottom)) {
-                paddingBottom = params.getInt(R.attrs.CircularProgressView.padding_bottom)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.CircularProgressView.padding_top)) {
-                paddingTop = params.getInt(R.attrs.CircularProgressView.padding_top)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.CircularProgressView.padding_left)) {
-                paddingLeft = params.getInt(R.attrs.CircularProgressView.padding_left)!!.toFloat()
-            }
-
-            if(params.hasParam(R.attrs.CircularProgressView.padding_right)) {
-                paddingRight = params.getInt(R.attrs.CircularProgressView.padding_right)!!.toFloat()
-            }
+            params.setToFloat(R.attrs.CircularProgressView.padding_bottom, this::paddingBottom)
+            params.setToFloat(R.attrs.CircularProgressView.padding_top, this::paddingTop)
+            params.setToFloat(R.attrs.CircularProgressView.padding_left, this::paddingLeft)
+            params.setToFloat(R.attrs.CircularProgressView.padding_right, this::paddingRight)
 
             if(params.hasParam(R.attrs.CircularProgressView.circle_stroke_width)) {
                 setUseThemeCircleStrokeWidth(false)

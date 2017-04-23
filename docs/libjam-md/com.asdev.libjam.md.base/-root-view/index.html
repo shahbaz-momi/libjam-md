@@ -7,7 +7,7 @@
 <a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.base</a>&nbsp;/&nbsp;<a href=".">RootView</a><br/>
 <br/>
 <h1>RootView</h1>
-<code><span class="keyword">class </span><span class="identifier">RootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><a href="../../com.asdev.libjam.md.thread/-loopable/index.html"><span class="identifier">Loopable</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseListener.html"><span class="identifier">MouseListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseMotionListener.html"><span class="identifier">MouseMotionListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/WindowFocusListener.html"><span class="identifier">WindowFocusListener</span></a></code>
+<code><span class="keyword">class </span><span class="identifier">RootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><a href="../../com.asdev.libjam.md.thread/-loopable/index.html"><span class="identifier">Loopable</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseListener.html"><span class="identifier">MouseListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseMotionListener.html"><span class="identifier">MouseMotionListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/WindowFocusListener.html"><span class="identifier">WindowFocusListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseWheelListener.html"><span class="identifier">MouseWheelListener</span></a></code>
 <p>Created by Asdev on 10/05/16. All rights reserved.
 Unauthorized copying via any medium is stricitly
 prohibited.</p>
@@ -22,6 +22,17 @@ under the package com.asdev.libjam.md.base</p>
 <a href="-init-.html">&lt;init&gt;</a></td>
 <td>
 <code><span class="identifier">RootView</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean, kotlin.Boolean)/title">title</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean, kotlin.Boolean)/size">size</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Dimension.html"><span class="identifier">Dimension</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean, kotlin.Boolean)/rootVG">rootVG</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean, kotlin.Boolean)/customToolbar">customToolbar</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.base.RootView$<init>(kotlin.String, java.awt.Dimension, com.asdev.libjam.md.view.View, kotlin.Boolean, kotlin.Boolean)/windowShadow">windowShadow</span><span class="symbol">:</span>&nbsp;<span class="identifier">Boolean</span>&nbsp;<span class="symbol">=</span>&nbsp;false<span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="choreographer.html">choreographer</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">choreographer</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.animation/-animation-choreographer/index.html"><span class="identifier">AnimationChoreographer</span></a></code></td>
 </tr>
 </tbody>
 </table>
@@ -127,6 +138,21 @@ Will be after handleMessage but on the same thread.</p>
 <a href="mouse-released.html">mouseReleased</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">mouseReleased</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mouseReleased(java.awt.event.MouseEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="mouse-wheel-moved.html">mouseWheelMoved</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mouseWheelMoved</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.base.RootView$mouseWheelMoved(java.awt.event.MouseWheelEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseWheelEvent.html"><span class="identifier">MouseWheelEvent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="on-post-loop.html">onPostLoop</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onPostLoop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called after a loop has been completed.
+Will be after handleMessage but on the same thread.</p>
+</td>
 </tr>
 <tr>
 <td>

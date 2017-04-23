@@ -47,4 +47,28 @@
         </LinearLayout>
     </Layout>
 
+    <Layout name="layout_text_input">
+        <RelativeLayout background="${R.theme.background}">
+
+            <TextInputView label-text="Enter something..."
+                           gravity="top-middle"
+                           content-gravity="middle-left"
+                           padding-horizontal="12" />
+
+            <TextInputView label-text="Enter something 2..."
+                           gravity="bottom-left"
+                           content-gravity="middle-left"
+                           padding-horizontal="12" />
+
+            <TextInputView label-text="Enter something 3..."
+                           gravity="bottom-right"
+                           content-gravity="middle-left"
+                           padding-horizontal="12" />
+
+            <TextView text="Click here to drop the focus!"
+                      gravity="middle-middle" />
+
+        </RelativeLayout>
+    </Layout>
+
 </Layouts>

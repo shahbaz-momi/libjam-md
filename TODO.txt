@@ -87,10 +87,6 @@ NOTES:
 - Should TextView generate synthetic min sizes? This causes a chain of synthetic min sizes and wrecks the hierarchy
 
 //////// TODO //////////
-0. Synthetic min and max sizes
-    - actual minSize by delegate
-    - minSizeSynth for calculated sizes
-    - minSizeReq for requested sizes - OUTSIDE SOURCES USE THIS
 1. Text input - TextInputView and Number spinner
 2. DrawerLayout
 3. YogaLayout

@@ -7,7 +7,7 @@
 <a href="../../index.html">libjam-md</a>&nbsp;/&nbsp;<a href="../index.html">com.asdev.libjam.md.view</a>&nbsp;/&nbsp;<a href=".">ButtonView</a><br/>
 <br/>
 <h1>ButtonView</h1>
-<code><span class="keyword">class </span><span class="identifier">ButtonView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-text-view/index.html"><span class="identifier">TextView</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ButtonView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-text-view/index.html"><span class="identifier">TextView</span></a></code>
 <p>A simple button widget.</p>
 <h3>Constructors</h3>
 <table>
@@ -16,7 +16,7 @@
 <td>
 <a href="-init-.html">&lt;init&gt;</a></td>
 <td>
-<code><span class="identifier">ButtonView</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$<init>(kotlin.String, kotlin.Int)/text">text</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$<init>(kotlin.String, kotlin.Int)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span>&nbsp;<span class="symbol">=</span>&nbsp;BUTTON_TYPE_RAISED<span class="symbol">)</span></code>
+<code><span class="identifier">ButtonView</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$<init>(kotlin.String, kotlin.Int)/text">text</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$<init>(kotlin.String, kotlin.Int)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span>&nbsp;<span class="symbol">=</span>&nbsp;BUTTON_TYPE_RAISED<span class="symbol">)</span></code><code><span class="identifier">ButtonView</span><span class="symbol">(</span><span class="symbol">)</span></code>
 <p>A simple button widget.</p>
 </td>
 </tr>
@@ -33,12 +33,6 @@
 <p>The foreground of this button. May be an image, etc.</p>
 </td>
 </tr>
-<tr>
-<td>
-<a href="type.html">type</a></td>
-<td>
-<code><span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
-</tr>
 </tbody>
 </table>
 <h3>Inherited Properties</h3>
@@ -48,7 +42,7 @@
 <td>
 <a href="../-text-view/color.html">color</a></td>
 <td>
-<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">color</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Color.html"><span class="identifier">Color</span></a></code>
+<code><span class="keyword">var </span><span class="identifier">color</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
 <p>The <a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Color.html">Color</a> to draw the text in.</p>
 </td>
 </tr>
@@ -56,7 +50,7 @@
 <td>
 <a href="../-text-view/font.html">font</a></td>
 <td>
-<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">font</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Font.html"><span class="identifier">Font</span></a></code>
+<code><span class="keyword">var </span><span class="identifier">font</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
 <p>The <a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Font.html">Font</a> to be used by this view.</p>
 </td>
 </tr>
@@ -66,6 +60,15 @@
 <td>
 <code><span class="keyword">var </span><span class="identifier">gravity</span><span class="symbol">: </span><span class="identifier">Int</span></code>
 <p>The gravity of the text to draw.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-text-view/line-height-multiplier.html">lineHeightMultiplier</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">lineHeightMultiplier</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>The multiplier on the line height, used to adjust the vertical spacing between lines.
+E.g. 1.0 line height is standard, 2.0 is double spaced, etc.</p>
 </td>
 </tr>
 <tr>
@@ -98,7 +101,17 @@
 <td>
 <a href="../-text-view/text.html">text</a></td>
 <td>
-<code><span class="keyword">var </span><span class="identifier">text</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+<code><span class="keyword">var </span><span class="identifier">text</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>The text to be displayed in this view.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-text-view/wrap-lines.html">wrapLines</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">wrapLines</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Whether or not to wrap long lines of text.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -107,9 +120,17 @@
 <tbody>
 <tr>
 <td>
+<a href="apply-parameters.html">applyParameters</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">applyParameters</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$applyParameters(com.asdev.libjam.md.layout.GenericParamList)/params">params</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.layout/-generic-param-list/index.html"><span class="identifier">GenericParamList</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Applies the given layout parameters. Can be taken by onMeasure</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="loop.html">loop</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>A function called on the UI thread 60 times a second to update this view.</p>
 </td>
 </tr>
@@ -117,7 +138,7 @@
 <td>
 <a href="on-draw.html">onDraw</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Draws the text with the specified attributes.</p>
 </td>
 </tr>
@@ -125,7 +146,7 @@
 <td>
 <a href="on-mouse-dragged.html">onMouseDragged</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onMouseDragged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseDragged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Called when the mouse is dragged within this <a href="../-view/index.html">View</a>s bounds.</p>
 </td>
 </tr>
@@ -133,7 +154,7 @@
 <td>
 <a href="on-mouse-press.html">onMousePress</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onMousePress</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMousePress</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Called when the mouse is pressed within this <a href="../-view/index.html">View</a>s bounds.</p>
 </td>
 </tr>
@@ -141,15 +162,24 @@
 <td>
 <a href="on-state-changed.html">onStateChanged</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onStateChanged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/previous">previous</span><span class="symbol">:</span>&nbsp;<a href="../-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="../-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onStateChanged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/previous">previous</span><span class="symbol">:</span>&nbsp;<a href="../-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onStateChanged(com.asdev.libjam.md.view.View.State, com.asdev.libjam.md.view.View.State)/newState">newState</span><span class="symbol">:</span>&nbsp;<a href="../-view/-state/index.html"><span class="identifier">State</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Called when the state of this view has changed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="on-tab-traversal.html">onTabTraversal</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onTabTraversal</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Called when tab was pressed and it was determined that this is the resultant View of the traversal. If this returns
+true, it means that this View has been fully traversed, otherwise it will return false.</p>
 </td>
 </tr>
 <tr>
 <td>
 <a href="on-theme-change.html">onThemeChange</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onThemeChange</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/prevTheme">prevTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/newTheme">newTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onThemeChange</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/prevTheme">prevTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.view.ButtonView$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/newTheme">newTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p><a href="../-text-view/index.html">TextView</a> implementation of <a href="on-theme-change.html">onThemeChange</a>. Will update the <a href="#">Font</a> and <a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Color.html">Color</a> used by this <a href="../-text-view/index.html">TextView</a>.</p>
 </td>
 </tr>
@@ -197,6 +227,22 @@ Make sure to call <a href="set-theme-background-color.html">setThemeBackgroundCo
 <td>
 <code><span class="keyword">fun </span><span class="identifier">getThemeColor</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code>
 <p>Returns the theme color this <a href="../-text-view/index.html">TextView</a> will use to draw the text.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-text-view/layout-text.html">layoutText</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">layoutText</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Measures and layouts out the text.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-text-view/on-post-layout.html">onPostLayout</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPostLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the layout has been determined and the layout pass has been run.</p>
 </td>
 </tr>
 <tr>

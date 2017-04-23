@@ -29,6 +29,28 @@ run on the UILooper to avoid any concurrency issues.</p>
 <tbody>
 <tr>
 <td>
+<a href="cancel.html">cancel</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">cancel</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.AnimationChoreographer$cancel(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Cancels any animation with the specified id.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="handle-message.html">handleMessage</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handleMessage</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.AnimationChoreographer$handleMessage(com.asdev.libjam.md.thread.Message)/msg">msg</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.thread/-message/index.html"><span class="identifier">Message</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="is-animation-running.html">isAnimationRunning</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isAnimationRunning</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.AnimationChoreographer$isAnimationRunning(kotlin.String)/animationId">animationId</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Returns whether or not an Animator with the given id is running or not.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="loop.html">loop</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">loop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
@@ -45,8 +67,9 @@ run on the UILooper to avoid any concurrency issues.</p>
 <td>
 <a href="run.html">run</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">run</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.AnimationChoreographer$run(com.asdev.libjam.md.animation.Animator)/anim">anim</span><span class="symbol">:</span>&nbsp;<a href="../-animator/index.html"><span class="identifier">Animator</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
-<p>Runs the provided <a href="../-animator/index.html">Animator</a> by pushing it to the stack. They will be automatically removed at the end of the animation.</p>
+<code><span class="keyword">fun </span><span class="identifier">run</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.AnimationChoreographer$run(com.asdev.libjam.md.animation.Animator)/anim">anim</span><span class="symbol">:</span>&nbsp;<a href="../-animator/index.html"><span class="identifier">Animator</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Runs the provided <a href="../-animator/index.html">Animator</a> by pushing it to the stack. They will be automatically removed at the end of the animation.
+If an animation with the same id is already running, this animation will not be run.</p>
 </td>
 </tr>
 </tbody>

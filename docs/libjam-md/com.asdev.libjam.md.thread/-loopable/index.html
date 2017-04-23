@@ -38,6 +38,15 @@ Will be after handleMessage but on the same thread.</p>
 <p>The number of loops to perform per second</p>
 </td>
 </tr>
+<tr>
+<td>
+<a href="on-post-loop.html">onPostLoop</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onPostLoop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called after a loop has been completed.
+Will be after handleMessage but on the same thread.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <h3>Inheritors</h3>
@@ -47,7 +56,7 @@ Will be after handleMessage but on the same thread.</p>
 <td>
 <a href="../../com.asdev.libjam.md.glg2d/-g-l-g2-d-root-view/index.html">GLG2DRootView</a></td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">GLG2DRootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><span class="identifier">Loopable</span><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseListener.html"><span class="identifier">MouseListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseMotionListener.html"><span class="identifier">MouseMotionListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyListener.html"><span class="identifier">KeyListener</span></a></code>
+<code><span class="keyword">class </span><span class="identifier">GLG2DRootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><span class="identifier">Loopable</span><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseListener.html"><span class="identifier">MouseListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseMotionListener.html"><span class="identifier">MouseMotionListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyListener.html"><span class="identifier">KeyListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseWheelListener.html"><span class="identifier">MouseWheelListener</span></a></code>
 <p>A RootView that uses the GLG2D Canvas.</p>
 </td>
 </tr>
@@ -55,7 +64,7 @@ Will be after handleMessage but on the same thread.</p>
 <td>
 <a href="../../com.asdev.libjam.md.base/-root-view/index.html">RootView</a></td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">RootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><span class="identifier">Loopable</span><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseListener.html"><span class="identifier">MouseListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseMotionListener.html"><span class="identifier">MouseMotionListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/WindowFocusListener.html"><span class="identifier">WindowFocusListener</span></a></code>
+<code><span class="keyword">class </span><span class="identifier">RootView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/javax/swing/JPanel.html"><span class="identifier">JPanel</span></a><span class="symbol">, </span><span class="identifier">Loopable</span><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseListener.html"><span class="identifier">MouseListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseMotionListener.html"><span class="identifier">MouseMotionListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/WindowFocusListener.html"><span class="identifier">WindowFocusListener</span></a><span class="symbol">, </span><a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseWheelListener.html"><span class="identifier">MouseWheelListener</span></a></code>
 <p>Created by Asdev on 10/05/16. All rights reserved.
 Unauthorized copying via any medium is stricitly
 prohibited.</p>

@@ -33,6 +33,14 @@
 <p>The action to run on each loop while the animation is running.</p>
 </td>
 </tr>
+<tr>
+<td>
+<a href="id.html">id</a></td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">id</span><span class="symbol">: </span><span class="identifier">String</span></code>
+<p>The id associated with this animator. May be used for comparing animators and removing/adjusting based of this id.</p>
+</td>
+</tr>
 </tbody>
 </table>
 <h3>Functions</h3>
@@ -45,6 +53,12 @@
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">cancel</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Cancels and resets this animator.</p>
 </td>
+</tr>
+<tr>
+<td>
+<a href="equals.html">equals</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.animation.Animator$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
 </tr>
 <tr>
 <td>
@@ -110,6 +124,12 @@
 </tr>
 <tr>
 <td>
+<a href="hash-code.html">hashCode</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
 <a href="is-running.html">isRunning</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">isRunning</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
@@ -163,7 +183,7 @@
 <td>
 <a href="../-float-value-animator/index.html">FloatValueAnimator</a></td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">FloatValueAnimator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Animator</span></code>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">FloatValueAnimator</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Animator</span></code>
 <p>Animates a Float value from the given <a href="#">from</a> to the given <a href="#">to</a>. Can be used as a property delegate.</p>
 </td>
 </tr>

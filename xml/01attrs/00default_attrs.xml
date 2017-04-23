@@ -24,10 +24,10 @@
 
     <Styleable class="com.asdev.libjam.md.view.TextView" base="com.asdev.libjam.md.view.View">
 
-        <Property type="int" name="padding-left" />
-        <Property type="int" name="padding-right" />
-        <Property type="int" name="padding-top" />
-        <Property type="int" name="padding-bottom" />
+        <Property type="float" name="padding-left" />
+        <Property type="float" name="padding-right" />
+        <Property type="float" name="padding-top" />
+        <Property type="float" name="padding-bottom" />
 
         <Property type="gravity" name="text-gravity" />
         <Property type="string" name="text" />
@@ -43,10 +43,10 @@
     </Styleable>
 
     <Styleable class="com.asdev.libjam.md.view.CircularProgressView" base="com.asdev.libjam.md.view.View">
-        <Property type="int" name="padding-left" />
-        <Property type="int" name="padding-right" />
-        <Property type="int" name="padding-top" />
-        <Property type="int" name="padding-bottom" />
+        <Property type="float" name="padding-left" />
+        <Property type="float" name="padding-right" />
+        <Property type="float" name="padding-top" />
+        <Property type="float" name="padding-bottom" />
 
         <Property type="int" name="circle-radius" />
         <Property type="int" name="circle-stroke-width" />
@@ -71,10 +71,10 @@
     </Styleable>
 
     <Styleable class="com.asdev.libjam.md.layout.PaddingLayout" base="com.asdev.libjam.md.view.View">
-        <Property type="int" name="padding-left" />
-        <Property type="int" name="padding-right" />
-        <Property type="int" name="padding-top" />
-        <Property type="int" name="padding-bottom" />
+        <Property type="float" name="padding-left" />
+        <Property type="float" name="padding-right" />
+        <Property type="float" name="padding-top" />
+        <Property type="float" name="padding-bottom" />
     </Styleable>
 
     <Styleable class="com.asdev.libjam.md.layout.ElevatedLayout" base="com.asdev.libjam.md.view.View">
@@ -87,5 +87,14 @@
     <Styleable class="com.asdev.libjam.md.layout.RelativeLayout" base="com.asdev.libjam.md.view.View" />
 
     <Styleable class="com.asdev.libjam.md.layout.ScrollLayout" base="com.asdev.libjam.md.view.View" />
+
+    <Styleable class="com.asdev.libjam.md.view.TextInputView" base="com.asdev.libjam.md.view.View">
+        <Property type="string" name="label-text"/>
+        <Property type="font" name="font" />
+        <Property type="color" name="color" />
+        <Property type="color" name="color-accent" />
+        <Property type="gravity" name="content-gravity" />
+        <Property type="float" name="padding-horizontal" />
+    </Styleable>
 
 </Attributes>

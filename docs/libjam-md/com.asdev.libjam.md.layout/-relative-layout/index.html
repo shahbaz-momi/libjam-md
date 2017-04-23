@@ -8,7 +8,7 @@
 <br/>
 <h1>RelativeLayout</h1>
 <code><span class="keyword">class </span><span class="identifier">RelativeLayout</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-view-group/index.html"><span class="identifier">ViewGroup</span></a></code>
-<p>A <a href="../-view-group/index.html">ViewGroup</a> that manages children in a grid-like fashion.</p>
+<p>A <a href="../-view-group/index.html">ViewGroup</a> that manages childCache in a grid-like fashion.</p>
 <h3>Constructors</h3>
 <table>
 <tbody>
@@ -17,7 +17,7 @@
 <a href="-init-.html">&lt;init&gt;</a></td>
 <td>
 <code><span class="identifier">RelativeLayout</span><span class="symbol">(</span><span class="symbol">)</span></code>
-<p>A <a href="../-view-group/index.html">ViewGroup</a> that manages children in a grid-like fashion.</p>
+<p>A <a href="../-view-group/index.html">ViewGroup</a> that manages childCache in a grid-like fashion.</p>
 </td>
 </tr>
 </tbody>
@@ -31,6 +31,14 @@
 <td>
 <code><span class="keyword">fun </span><span class="identifier">addChild</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$addChild(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Adds the specified child to this <a href="../-view-group/index.html">ViewGroup</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="find-child-position.html">findChildPosition</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">findChildPosition</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$findChildPosition(com.asdev.libjam.md.view.View)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-point/index.html"><span class="identifier">FloatPoint</span></a><span class="symbol">?</span></code>
+<p>Returns the local coordinates of the specified child excluding the local translations, or null if none found.</p>
 </td>
 </tr>
 <tr>
@@ -54,31 +62,7 @@
 <a href="on-draw.html">onDraw</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">onDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Draws this <a href="../-view-group/index.html">ViewGroup</a> and its children <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="on-key-pressed.html">onKeyPressed</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onKeyPressed</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onKeyPressed(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Calls <a href="on-key-pressed.html">onKeyPressed</a> on all the children that are focused.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="on-key-released.html">onKeyReleased</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onKeyReleased</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onKeyReleased(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Calls <a href="on-key-released.html">onKeyReleased</a> on all the children that are focused.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="on-key-typed.html">onKeyTyped</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onKeyTyped</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onKeyTyped(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Calls <a href="on-key-typed.html">onKeyTyped</a> on all the children that are focused.</p>
+<p>Draws this <a href="../-view-group/index.html">ViewGroup</a> and its childCache <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>.</p>
 </td>
 </tr>
 <tr>
@@ -86,7 +70,7 @@
 <a href="on-layout.html">onLayout</a></td>
 <td>
 <code><span class="keyword">fun </span><span class="identifier">onLayout</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onLayout(com.asdev.libjam.md.util.FloatDim)/newSize">newSize</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-dim/index.html"><span class="identifier">FloatDim</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Lays out the children to fit in the given size ($newSize).</p>
+<p>Called when the layout has determined the size of this layout.</p>
 </td>
 </tr>
 <tr>
@@ -99,55 +83,10 @@
 </tr>
 <tr>
 <td>
-<a href="on-mouse-dragged.html">onMouseDragged</a></td>
+<a href="on-post-draw.html">onPostDraw</a></td>
 <td>
-<code><span class="keyword">fun </span><span class="identifier">onMouseDragged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="on-mouse-dragged.html">onMouseDragged</a> then checks to find which child is being dragged on. Finally,
-it calls <a href="on-mouse-dragged.html">onMouseDragged</a> of that child.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="on-mouse-exit.html">onMouseExit</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onMouseExit</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMouseExit(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMouseExit(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="on-mouse-exit.html">onMouseExit</a> then checks to find which child is being exited on. Finally,
-it calls <a href="on-mouse-exit.html">onMouseExit</a> of that child.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="on-mouse-moved.html">onMouseMoved</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onMouseMoved</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMouseMoved(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMouseMoved(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="on-mouse-moved.html">onMouseMoved</a> then checks to find which child is being moved on. Finally,
-it calls <a href="on-mouse-moved.html">onMouseMoved</a> of that child.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="on-mouse-press.html">onMousePress</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onMousePress</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="on-mouse-press.html">onMousePress</a> then checks to find which child is being pressed on. Finally,
-it calls <a href="on-mouse-press.html">onMousePress</a> of that child.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="on-mouse-release.html">onMouseRelease</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onMouseRelease</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
-<p>Calls <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s implementation of <a href="on-mouse-release.html">onMouseRelease</a> then checks to find which child is being released on. Finally,
-it calls <a href="on-mouse-release.html">onMouseRelease</a> of that child.</p>
-</td>
-</tr>
-<tr>
-<td>
-<a href="on-tab-traversal.html">onTabTraversal</a></td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">onTabTraversal</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
-<p>Traverses the Views within this layout.</p>
+<code><span class="keyword">fun </span><span class="identifier">onPostDraw</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.RelativeLayout$onPostDraw(java.awt.Graphics2D)/g">g</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html"><span class="identifier">Graphics2D</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the initial drawn has already occurred, and this drawing pass is used to draw over the previous one.</p>
 </td>
 </tr>
 <tr>
@@ -163,6 +102,67 @@ it calls <a href="on-mouse-release.html">onMouseRelease</a> of that child.</p>
 <h3>Inherited Functions</h3>
 <table>
 <tbody>
+<tr>
+<td>
+<a href="../-view-group/calculate-anchor-x.html">calculateAnchorX</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">calculateAnchorX</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorX(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/anchor">anchor</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorX(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/originalX">originalX</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorX(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/objectW">objectW</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorX(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/boxX">boxX</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorX(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/boxW">boxW</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/calculate-anchor-y.html">calculateAnchorY</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">calculateAnchorY</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorY(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/anchor">anchor</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorY(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/originalY">originalY</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorY(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/objectH">objectH</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorY(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/boxY">boxY</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateAnchorY(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float, kotlin.Float)/boxH">boxH</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/calculate-x-comp.html">calculateXComp</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">calculateXComp</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateXComp(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float)/gravity">gravity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateXComp(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float)/bX">bX</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateXComp(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float)/bW">bW</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateXComp(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float)/oW">oW</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Calculates the x-component of the corresponding gravity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/calculate-y-comp.html">calculateYComp</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">calculateYComp</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateYComp(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float)/gravity">gravity</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateYComp(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float)/bY">bY</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateYComp(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float)/bH">bH</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$calculateYComp(kotlin.Int, kotlin.Float, kotlin.Float, kotlin.Float)/oH">oH</span><span class="symbol">:</span>&nbsp;<span class="identifier">Float</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Float</span></code>
+<p>Calculates the y-component of the corresponding gravity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/find-context-menu-items.html">findContextMenuItems</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">findContextMenuItems</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$findContextMenuItems(com.asdev.libjam.md.util.FloatPoint)/viewPos">viewPos</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-point/index.html"><span class="identifier">FloatPoint</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../com.asdev.libjam.md.menu/-context-menu-item/index.html"><span class="identifier">ContextMenuItem</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Finds the context menu items for the view at the given position, or the most lower-level non-null
+context menu items if none for the children are found. Avoids returning no items/null.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/find-view-by-id.html">findViewById</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">findViewById</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$findViewById(kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">?</span></code>
+<p>Returns the view with the specified id, or null if none found.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/find-view-position.html">findViewPosition</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">findViewPosition</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$findViewPosition(com.asdev.libjam.md.view.View)/v">v</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-point/index.html"><span class="identifier">FloatPoint</span></a><span class="symbol">?</span></code>
+<p>Returns the coordinates relative to this view group of the view if it is a child of this ViewGroup or one of its descendants.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/find-view-position0.html">findViewPosition0</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">findViewPosition0</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$findViewPosition0(com.asdev.libjam.md.view.View, com.asdev.libjam.md.util.FloatPoint)/v">v</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-view/index.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$findViewPosition0(com.asdev.libjam.md.view.View, com.asdev.libjam.md.util.FloatPoint)/yourPos">yourPos</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.util/-float-point/index.html"><span class="identifier">FloatPoint</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.util/-float-point/index.html"><span class="identifier">FloatPoint</span></a><span class="symbol">?</span></code>
+<p>Internal method for finding the view position.</p>
+</td>
+</tr>
 <tr>
 <td>
 <a href="../-view-group/get-child-at-index.html">getChildAtIndex</a></td>
@@ -181,10 +181,138 @@ it calls <a href="on-mouse-release.html">onMouseRelease</a> of that child.</p>
 </tr>
 <tr>
 <td>
+<a href="../-view-group/get-overlay-view.html">getOverlayView</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getOverlayView</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.asdev.libjam.md.view/-overlay-view/index.html"><span class="identifier">OverlayView</span></a><span class="symbol">?</span></code>
+<p>Returns the local OverlayView.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-focus-lost.html">onFocusLost</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onFocusLost</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the focus of this view is lost.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-key-pressed.html">onKeyPressed</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyPressed</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onKeyPressed(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="../-view-group/on-key-pressed.html">onKeyPressed</a> on all the children that are focused.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-key-released.html">onKeyReleased</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyReleased</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onKeyReleased(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="../-view-group/on-key-released.html">onKeyReleased</a> on all the children that are focused.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-key-typed.html">onKeyTyped</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onKeyTyped</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onKeyTyped(java.awt.event.KeyEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/KeyEvent.html"><span class="identifier">KeyEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Calls <a href="../-view-group/on-key-typed.html">onKeyTyped</a> on all the children that are focused.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-mouse-dragged.html">onMouseDragged</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseDragged</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseDragged(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse is dragged within this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-mouse-enter.html">onMouseEnter</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseEnter</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseEnter(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseEnter(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse enters this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-mouse-exit.html">onMouseExit</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseExit</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseExit(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseExit(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse exits this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-mouse-moved.html">onMouseMoved</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseMoved</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseMoved(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseMoved(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse is moved within this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-mouse-press.html">onMousePress</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMousePress</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMousePress(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse is pressed within this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-mouse-release.html">onMouseRelease</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onMouseRelease</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseEvent.html"><span class="identifier">MouseEvent</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onMouseRelease(java.awt.event.MouseEvent, java.awt.Point)/mPos">mPos</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/Point.html"><span class="identifier">Point</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the mouse is released within this <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a>s bounds.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-post-layout.html">onPostLayout</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPostLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called when the layout has been determined and the layout pass has been run.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-post-loop.html">onPostLoop</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPostLoop</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Called after all loop()s have been completed</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-scroll.html">onScroll</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onScroll</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onScroll(java.awt.event.MouseWheelEvent)/e">e</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/awt/event/MouseWheelEvent.html"><span class="identifier">MouseWheelEvent</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Scrolls the proper child of this layout.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/on-tab-traversal.html">onTabTraversal</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onTabTraversal</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code>
+<p>Traverses the children of this ViewGroup.</p>
+</td>
+</tr>
+<tr>
+<td>
 <a href="../-view-group/on-theme-change.html">onThemeChange</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onThemeChange</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/prevTheme">prevTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">, </span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$onThemeChange(com.asdev.libjam.md.theme.Theme, com.asdev.libjam.md.theme.Theme)/newTheme">newTheme</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.theme/-theme/index.html"><span class="identifier">Theme</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
 <p>Implementation of <a href="../-view-group/on-theme-change.html">onThemeChange</a>. Calls the <a href="../../com.asdev.libjam.md.view/-view/index.html">View</a> implementation and then notifies its children of the theme change.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-view-group/set-overlay-view.html">setOverlayView</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setOverlayView</span><span class="symbol">(</span><span class="identifier" id="com.asdev.libjam.md.layout.ViewGroup$setOverlayView(com.asdev.libjam.md.view.OverlayView)/v">v</span><span class="symbol">:</span>&nbsp;<a href="../../com.asdev.libjam.md.view/-overlay-view/index.html"><span class="identifier">OverlayView</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Sets the local OverlayView to the given one.</p>
 </td>
 </tr>
 </tbody>

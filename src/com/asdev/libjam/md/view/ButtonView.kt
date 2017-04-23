@@ -199,6 +199,16 @@ open class ButtonView(): TextView() {
         }
     }
 
+    override fun onTabTraversal(): Boolean {
+        if(state == State.STATE_NORMAL) {
+            onStateChanged(state, State.STATE_HOVER)
+            return false
+        } else {
+            onStateChanged(state, State.STATE_NORMAL)
+            return true
+        }
+    }
+
     private var mPos = Point(-1, -1)
     override fun onMouseDragged(e: MouseEvent, mPos: Point) {
         super.onMouseDragged(e, mPos)
