@@ -319,6 +319,8 @@ open class View (
     open fun onMouseRelease(e: MouseEvent, mPos: Point) {
         onMouseListener?.onMouseRelease(e,  mPos)
 
+        onStateChanged(state, State.STATE_POST_PRESS)
+
         if(System.currentTimeMillis() - mousePressTime <= MOUSE_CLICK_TIME) {
             onClickListener?.invoke(e, mPos)
         } else {
@@ -344,9 +346,7 @@ open class View (
     open fun onMouseEnter(e: MouseEvent, mPos: Point) {
         onMouseListener?.onMouseEnter(e, mPos)
 
-        if(state != State.STATE_FOCUSED) {
-            onStateChanged(state, State.STATE_HOVER)
-        }
+        onStateChanged(state, State.STATE_HOVER)
     }
 
     /**
@@ -355,16 +355,25 @@ open class View (
     open fun onMouseExit(e: MouseEvent, mPos: Point) {
         onMouseListener?.onMouseExit(e, mPos)
 
-        if(state != State.STATE_FOCUSED) {
-            onStateChanged(state, State.STATE_NORMAL)
-        }
+        onStateChanged(state, State.STATE_NORMAL)
     }
+
+    /**
+     * Stores whether or not this view has focus.
+     */
+    protected var hasFocus = false
+
+    /**
+     * Returns whether or not this [View] has focus.
+     */
+    fun hasFocus() = hasFocus
 
     /**
      * Called when the focus of this view has been gained.
      */
     open fun onFocusGained() {
-        onStateChanged(state, State.STATE_FOCUSED)
+        onStateChanged(state, State.STATE_POST_PRESS)
+        hasFocus = true
     }
 
     /**
@@ -372,6 +381,7 @@ open class View (
      */
     open fun onFocusLost() {
         onStateChanged(state, State.STATE_NORMAL)
+        hasFocus = false
     }
 
     /**
@@ -547,21 +557,21 @@ open class View (
     }
 
     /**
-     * Called when a key is typed and this View has the state STATE_FOCUSED.
+     * Called when a key is typed and this View has the state STATE_POST_PRESS.
      */
     open fun onKeyTyped(e: KeyEvent) {
         onKeyListener?.onKeyTyped(e)
     }
 
     /**
-     * Called when a pressed is typed and this View has the state STATE_FOCUSED.
+     * Called when a pressed is typed and this View has the state STATE_POST_PRESS.
      */
     open fun onKeyPressed(e: KeyEvent) {
         onKeyListener?.onKeyPressed(e)
     }
 
     /**
-     * Called when a released is typed and this View has the state STATE_FOCUSED.
+     * Called when a released is typed and this View has the state STATE_POST_PRESS.
      */
     open fun onKeyReleased(e: KeyEvent) {
         onKeyListener?.onKeyReleased(e)
@@ -598,8 +608,9 @@ open class View (
         else
             bg?.draw(g, 0f, 0f, layoutSize.w, layoutSize.h)
 
+
         if(DEBUG_LAYOUT_BOXES) {
-            g.color = Color(hashCode())
+            g.color = Color(hashCode() shr state.ordinal shr if(hasFocus) 1 else 0)
             g.fillRect(0, 0, layoutSize.w.toInt(), layoutSize.h.toInt())
         }
     }
@@ -659,6 +670,6 @@ open class View (
         /**
          * The state when the mouse has clicked on the [View]
          */
-        STATE_FOCUSED;
+        STATE_POST_PRESS;
     }
 }

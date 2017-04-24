@@ -55,7 +55,7 @@ class RippleDrawable(
             // start the ripple
             rippleAnimator.setFromValue(0f).setToValue(2f).setDuration(1400f).setInterpolator(LinearInterpolator).start()
             rippleOpacityAnimator.setFromValue(rippleOpacity).setToValue(RIPPLE_OPACITY).setDuration(200f).setInterpolator(LinearInterpolator).start()
-        } else if(newState == View.State.STATE_FOCUSED) {
+        } else if(newState == View.State.STATE_POST_PRESS) {
             // end the ripple quickly outwards
             // for nougat ripples - around 400ms
             // for marshmellow - around 340ms

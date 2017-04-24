@@ -1,6 +1,9 @@
 package com.asdev.libjam.md.tests
 
 import com.asdev.libjam.md.glg2d.GLG2DRootView
+import com.asdev.libjam.md.menu.ContextMenuAction
+import com.asdev.libjam.md.theme.DarkMaterialTheme
+import com.asdev.libjam.md.theme.LightMaterialTheme
 import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.xml.inflateLayout
 import res.R
@@ -18,5 +21,13 @@ import java.awt.Dimension
 fun main(args: Array<String>) {
     THEME.init()
 
-    GLG2DRootView(inflateLayout(R.layout.layout_text_input), "Text Input Test", Dimension(500, 500), true).showFrame()
+    val v = inflateLayout(R.layout.layout_text_input)
+
+    val frame = GLG2DRootView(v, "Text Input Test", Dimension(500, 500), true)
+    frame.showFrame()
+
+    v.contextMenuItems = listOf(
+            ContextMenuAction("Dark theme", { frame.setTheme(DarkMaterialTheme); true }),
+            ContextMenuAction("Light theme", { frame.setTheme(LightMaterialTheme); true })
+    )
 }

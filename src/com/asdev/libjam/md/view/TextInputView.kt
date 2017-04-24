@@ -138,7 +138,7 @@ class TextInputView(): View() {
             requestRepaint()
         }
 
-        if(state == State.STATE_FOCUSED) {
+        if(state == State.STATE_POST_PRESS || hasFocus) {
             if(System.currentTimeMillis() - lastBlinkT > BLINK_TIME) {
                 lastBlinkT = System.currentTimeMillis()
 
@@ -149,20 +149,30 @@ class TextInputView(): View() {
         }
     }
 
+    override fun onFocusLost() {
+        super.onFocusLost()
+
+        blink = false
+
+        if(inputText.isEmpty()) {
+            animator.setFromValue(1f).setToValue(0f).start()
+        }
+    }
+
     override fun onMousePress(e: MouseEvent, mPos: Point) {
-        if(state != State.STATE_FOCUSED)
+        if(state != State.STATE_POST_PRESS)
             super.onMousePress(e, mPos)
     }
 
     override fun onMouseRelease(e: MouseEvent, mPos: Point) {
-        if(state != State.STATE_FOCUSED)
+        if(state != State.STATE_POST_PRESS)
             super.onMouseRelease(e, mPos)
     }
 
     override fun onStateChanged(previous: State, newState: State) {
         super.onStateChanged(previous, newState)
 
-        if(newState == State.STATE_FOCUSED) {
+        if(newState == State.STATE_POST_PRESS) {
             // begin the animation
             if(!animator.isRunning() && inputText.isEmpty())
                 animator.setFromValue(0f).setToValue(1f).start()
@@ -170,8 +180,8 @@ class TextInputView(): View() {
         } else if(newState == State.STATE_HOVER) {
             setCursor(Cursor.TEXT_CURSOR)
             blink = false
-        } else if (newState != State.STATE_PRESSED){
-            if(previous == State.STATE_FOCUSED && inputText.isEmpty()) {
+        } else if (newState == State.STATE_NORMAL && !hasFocus){
+            if(previous == State.STATE_POST_PRESS && inputText.isEmpty()) {
                 animator.setFromValue(1f).setToValue(0f).start()
             }
 
@@ -182,7 +192,7 @@ class TextInputView(): View() {
 
     override fun onTabTraversal(): Boolean {
         if(state == State.STATE_NORMAL) {
-            onStateChanged(state, State.STATE_FOCUSED)
+            onStateChanged(state, State.STATE_POST_PRESS)
             return false
         } else {
             onStateChanged(state, State.STATE_NORMAL)
@@ -199,7 +209,7 @@ class TextInputView(): View() {
     override fun onKeyPressed(e: KeyEvent) {
         super.onKeyPressed(e)
 
-        if(state != State.STATE_FOCUSED)
+        if(state != State.STATE_POST_PRESS && !hasFocus)
             return
 
         if(e.keyCode == KeyEvent.VK_BACK_SPACE && inputText.isNotEmpty()) {
@@ -213,7 +223,7 @@ class TextInputView(): View() {
     override fun onKeyTyped(e: KeyEvent) {
         super.onKeyTyped(e)
 
-        if(state != State.STATE_FOCUSED)
+        if(state != State.STATE_POST_PRESS && !hasFocus)
             return
 
         // add to the input text
@@ -393,7 +403,7 @@ class TextInputView(): View() {
         g.font = font
 
         // draw the label above it
-        if(state == State.STATE_FOCUSED || inputText.isNotEmpty() || animator.isRunning()) {
+        if(state == State.STATE_POST_PRESS || hasFocus || inputText.isNotEmpty() || animator.isRunning()) {
             val prog = animator.getValue()
 
             // animate the color as well

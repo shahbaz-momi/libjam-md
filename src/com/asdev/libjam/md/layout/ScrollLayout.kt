@@ -507,7 +507,7 @@ class ScrollLayout() : ViewGroup() {
         g.composite = alphaComp.composite
 
         // draw scroll bar if this is focused or hovered or pressed
-        if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHoveredH || scrollBarHovered) && scrollBarHeight > 0f) {
+        if((state == State.STATE_POST_PRESS || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHoveredH || scrollBarHovered) && scrollBarHeight > 0f) {
             g.color = THEME.getScrollbarColor()
 
             g.fillRoundRect(
@@ -521,7 +521,7 @@ class ScrollLayout() : ViewGroup() {
 
         }
 
-        if((state == State.STATE_FOCUSED || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHovered || scrollBarHoveredH) && scrollBarWidth > 0f) {
+        if((state == State.STATE_POST_PRESS || state == State.STATE_HOVER || state == State.STATE_PRESSED || scrollBarOpacityAnim.isRunning() || scrollBarHovered || scrollBarHoveredH) && scrollBarWidth > 0f) {
             g.color = THEME.getScrollbarColor()
 
             g.fillRoundRect(

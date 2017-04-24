@@ -199,7 +199,7 @@ abstract class ViewGroup: View() {
 
                     // drop any lingering focuses
                     for(j in children) {
-                        if(j.state == State.STATE_FOCUSED && j != c) {
+                        if(j.state == State.STATE_POST_PRESS && j != c) {
                             j.onFocusLost()
                         }
                     }
@@ -395,7 +395,7 @@ abstract class ViewGroup: View() {
         }
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+            if(c.state == State.STATE_POST_PRESS || c.state == State.STATE_HOVER || c.hasFocus())
                 c.onKeyTyped(e)
     }
 
@@ -415,7 +415,7 @@ abstract class ViewGroup: View() {
         }
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+            if(c.state == State.STATE_POST_PRESS || c.state == State.STATE_HOVER || c.hasFocus())
                 c.onKeyPressed(e)
     }
 
@@ -435,7 +435,7 @@ abstract class ViewGroup: View() {
         }
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+            if(c.state == State.STATE_POST_PRESS || c.state == State.STATE_HOVER || c.hasFocus())
                 c.onKeyReleased(e)
     }
 
@@ -453,7 +453,7 @@ abstract class ViewGroup: View() {
         } else {
             // find the focused view
             for (c in children) {
-                if (c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
+                if (c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_POST_PRESS) {
                     // scroll it
                     c.onScroll(e)
                     return
@@ -750,7 +750,7 @@ abstract class ViewGroup: View() {
 
         // find any previously focused/hovered views and go from there
         for(i in children.indices) {
-            if(children[i].state == State.STATE_FOCUSED && i != currentTraverse) {
+            if(children[i].state == State.STATE_POST_PRESS && i != currentTraverse) {
                 children[i].onFocusLost()
             }
         }

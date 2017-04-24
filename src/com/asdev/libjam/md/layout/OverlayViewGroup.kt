@@ -80,8 +80,9 @@ abstract class OverlayViewGroup(id: String = "OverlayViewGroup:${generateRandomI
     override fun loop() {
         super.loop()
 
-        for(i in 0 until getChildCount()) {
-            getChildAtIndex(i).loop()
+        val children = getChildren()
+        for(c in children) {
+            c.loop()
         }
 
     }
@@ -231,7 +232,7 @@ abstract class OverlayViewGroup(id: String = "OverlayViewGroup:${generateRandomI
         val children = getChildren()
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+            if(c.state == State.STATE_POST_PRESS || c.state == State.STATE_HOVER)
                 c.onKeyTyped(e)
     }
 
@@ -244,7 +245,7 @@ abstract class OverlayViewGroup(id: String = "OverlayViewGroup:${generateRandomI
         val children = getChildren()
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+            if(c.state == State.STATE_POST_PRESS || c.state == State.STATE_HOVER)
                 c.onKeyPressed(e)
     }
 
@@ -257,7 +258,7 @@ abstract class OverlayViewGroup(id: String = "OverlayViewGroup:${generateRandomI
         val children = getChildren()
 
         for(c in children)
-            if(c.state == State.STATE_FOCUSED || c.state == State.STATE_HOVER)
+            if(c.state == State.STATE_POST_PRESS || c.state == State.STATE_HOVER)
                 c.onKeyReleased(e)
     }
 
@@ -270,7 +271,7 @@ abstract class OverlayViewGroup(id: String = "OverlayViewGroup:${generateRandomI
         val children = getChildren()
         // find the focused view
         for (c in children) {
-            if (c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_FOCUSED) {
+            if (c.state == State.STATE_HOVER || c.state == State.STATE_PRESSED || c.state == State.STATE_POST_PRESS) {
                 // scroll it
                 c.onScroll(e)
                 return

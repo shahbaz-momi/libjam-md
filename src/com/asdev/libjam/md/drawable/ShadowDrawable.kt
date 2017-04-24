@@ -119,7 +119,7 @@ class AnimatedHoverShadowDrawable(radius: Float = 10f, opacity: Float = 0.3f, va
             yOffsetAnimator.setFromValue(yOffset).setToValue(yOffsetHover + viewYTransHover).setInterpolator(DecelerateInterpolator).setDuration(animDuration).start()
             if(bounder != null)
                 bounder.translationYAnimator.setFromValue(bounder.translationY).setToValue(viewYTransNormal).setDuration(animDuration).setInterpolator(DecelerateInterpolator).start()
-        } else if(newState == View.State.STATE_FOCUSED) {
+        } else if(newState == View.State.STATE_POST_PRESS) {
             yOffsetAnimator.setFromValue(yOffset).setToValue(yOffsetHover).setInterpolator(DecelerateInterpolator).setDuration(animDuration).start()
             if(bounder != null)
                 bounder.translationYAnimator.setFromValue(bounder.translationY).setToValue(viewYTransHover).setDuration(animDuration).setInterpolator(DecelerateInterpolator).start()

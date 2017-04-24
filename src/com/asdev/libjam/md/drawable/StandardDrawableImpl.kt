@@ -418,7 +418,7 @@ class StatefulCompoundDrawable(val normal: Drawable, val hover: Drawable? = null
                 hover.draw(g, x, y, w, h)
             else
                 normal.draw(g, x, y, w, h)
-        } else if(state == View.State.STATE_FOCUSED) {
+        } else if(state == View.State.STATE_POST_PRESS) {
             if(focused != null)
                 focused.draw(g, x, y, w, h)
             else
