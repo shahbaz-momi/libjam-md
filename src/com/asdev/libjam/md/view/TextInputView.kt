@@ -3,11 +3,13 @@ package com.asdev.libjam.md.view
 import com.asdev.libjam.md.animation.FactorableDecelerateInterpolator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.layout.*
+import com.asdev.libjam.md.menu.ContextMenuAction
 import com.asdev.libjam.md.theme.*
 import com.asdev.libjam.md.util.DEBUG_LAYOUT_BOXES
 import com.asdev.libjam.md.xml.XMLParamList
 import res.R
 import java.awt.*
+import java.awt.datatransfer.DataFlavor
 import java.awt.event.KeyEvent
 import java.awt.event.MouseEvent
 import java.awt.font.FontRenderContext
@@ -97,6 +99,22 @@ class TextInputView(): View() {
      * Whether or not to draw the blinking text cursor.
      */
     private var blink = false
+
+    /**
+     * The position of the caret in relation to the inputText.
+     */
+    private var caretPos = 0
+
+    init {
+        // add paste action
+        contextMenuItems = listOf(
+                ContextMenuAction("Paste", {
+                    val text = Toolkit.getDefaultToolkit().systemClipboard.getData(DataFlavor.stringFlavor) as? String?: return@ContextMenuAction true
+                    setInputText(inputText + text)
+                    true
+                })
+        )
+    }
 
     constructor(label: String): this() {
         this.labelText = label
@@ -213,9 +231,32 @@ class TextInputView(): View() {
             return
 
         if(e.keyCode == KeyEvent.VK_BACK_SPACE && inputText.isNotEmpty()) {
-            inputText = inputText.substring(0, inputText.length - 1)
 
-            updateText()
+            val builder = StringBuilder(inputText)
+            if(caretPos - 1 >= 0)
+                builder.delete(caretPos - 1, caretPos)
+
+            updateText(builder.toString())
+            requestRepaint()
+        } else if(e.keyCode == KeyEvent.VK_LEFT) {
+            if(caretPos > 0)
+                caretPos --
+
+            // force a blink
+            blink = true
+            lastBlinkT = System.currentTimeMillis()
+
+            updateText(inputText)
+            requestRepaint()
+        } else if(e.keyCode == KeyEvent.VK_RIGHT) {
+            if(caretPos < inputText.length)
+                caretPos ++
+
+            // force a blink
+            blink = true
+            lastBlinkT = System.currentTimeMillis()
+
+            updateText(inputText)
             requestRepaint()
         }
     }
@@ -230,9 +271,17 @@ class TextInputView(): View() {
         val char = e.keyChar
 
         if(font.canDisplay(char) && char != '\t' && char != '\n') {
-            inputText += char
+            val out: String
 
-            updateText()
+            if(inputText.isNotEmpty()) {
+                val builder = StringBuilder(inputText)
+                builder.insert(caretPos, char)
+                out = builder.toString()
+            } else {
+                out = char.toString()
+            }
+
+            updateText(out)
             requestRepaint()
         }
     }
@@ -300,10 +349,17 @@ class TextInputView(): View() {
      * The truncated display text.
      */
     private var displayText = inputText
+    /**
+     * The truncated text until the caret.
+     */
+    private var tillCaretPos = ""
 
-    private fun updateText() {
+    private fun updateText(newInput: String) {
+        val prevLength = inputText.length
+        inputText = newInput
         displayText = inputText
 
+        var seek = 0
         if(font.getStringBounds(inputText, fontRendererContext).width + font.size > layoutSize.w - paddingHorizontal * 2f) {
             // overflowing, begin cutoff
             for(i in inputText.length - 2 downTo 0) {
@@ -312,8 +368,26 @@ class TextInputView(): View() {
                 if(font.getStringBounds(str, fontRendererContext).width + font.size < layoutSize.w - paddingHorizontal * 2f) {
                     // i + 1 is our str
                     displayText = inputText.substring(i)
+                    seek = i
+                } else {
+                    break
                 }
             }
+        }
+
+        // shift the caret by the change in length
+        caretPos += inputText.length - prevLength
+
+        // calculate the actual display text caret pos
+        if(caretPos >= inputText.length - displayText.length) {
+            tillCaretPos = inputText.substring((inputText.length - displayText.length), caretPos)
+        } else {
+            // seek to the left one
+            val diff = (inputText.length - displayText.length) - caretPos
+
+            val end = seek + displayText.length - diff
+            seek -= diff
+            displayText = inputText.substring(seek, end)
         }
     }
 
@@ -360,7 +434,9 @@ class TextInputView(): View() {
     fun setLabel(label: String) {
         labelText = label
 
-        updateText()
+        caretPos = 0
+
+        updateText(inputText)
         layoutText()
         requestRepaint()
     }
@@ -371,7 +447,9 @@ class TextInputView(): View() {
     fun setInputText(input: String) {
         inputText = input
 
-        updateText()
+        caretPos = 0
+
+        updateText(inputText)
         layoutText()
         requestRepaint()
     }
@@ -432,7 +510,7 @@ class TextInputView(): View() {
             g.color = color
 
             if(blink) {
-                val bounds = g.getFontMetrics(font).getStringBounds(displayText, g)
+                val bounds = g.getFontMetrics(font).getStringBounds(tillCaretPos, g)
 
                 // draw the blink
                 g.fillRect(bounds.width.toInt() + paddingHorizontal.toInt(), labelY.toInt() - inputTextLineHeight.toInt() + 2, baselineThickness, inputTextLineHeight.toInt() + 1)
