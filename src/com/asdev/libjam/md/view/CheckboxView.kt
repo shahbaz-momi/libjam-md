@@ -150,6 +150,9 @@ class CheckboxView(private val onCheckListener: ((CheckboxView, Boolean) -> Unit
      * Sets the checked state of this checkbox and begins any necessary animations.
      */
     fun setChecked(b: Boolean) {
+        if(checked == b)
+            return
+
         checked = b
 
         if(checked) {

@@ -71,6 +71,7 @@ class RelativeLayout: ViewGroup() {
      */
     override fun onMeasure(result: LayoutParams): LayoutParams {
         children.fill(null)
+        params.fill(null)
 
         // measure each individual child
         for(i in childCache.indices) {
