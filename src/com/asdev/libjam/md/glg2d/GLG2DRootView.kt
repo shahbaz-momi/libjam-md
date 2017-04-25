@@ -54,7 +54,7 @@ class GLG2DRootView(view: View, title: String, d: Dimension, val isUndecorated: 
     /**
      * The context menu associated with this root view.
      */
-    private val contextMenu = ContextMenu()
+    private val contextMenu = ContextMenu(this::contextMenuShowing)
 
     val choreographer = AnimationChoreographer()
 

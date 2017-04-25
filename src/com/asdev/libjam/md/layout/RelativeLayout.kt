@@ -256,6 +256,9 @@ class RelativeLayout: ViewGroup() {
 
             // stop the overlap
             if(i > 0) {
+                if(getRowRange(i - 1).count { children[it] != null } == 0)
+                    continue
+
                 for(j in getRowRange(i)) {
                     if(positions[j].y < height) {
                         positions[j].y = height
@@ -266,7 +269,10 @@ class RelativeLayout: ViewGroup() {
             height += rowHeights[i]
 
             // make it doesn't overlap into the next row
-            if(i > 0) {
+            if(i < 2) {
+                if(getRowRange(i + 1).count { children[it] != null } == 0)
+                    continue
+
                 for(j in getRowRange(i)) {
                     if(positions[j].y + sizes[j].h > height) {
                         positions[j].y = height - sizes[j].h

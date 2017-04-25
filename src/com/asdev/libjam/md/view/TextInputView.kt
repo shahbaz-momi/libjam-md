@@ -4,6 +4,7 @@ import com.asdev.libjam.md.animation.FactorableDecelerateInterpolator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.menu.ContextMenuAction
+import com.asdev.libjam.md.menu.ContextMenuSeparator
 import com.asdev.libjam.md.theme.*
 import com.asdev.libjam.md.util.DEBUG_LAYOUT_BOXES
 import com.asdev.libjam.md.xml.XMLParamList
@@ -52,7 +53,7 @@ class TextInputView(): View() {
     /**
      * The color to draw the primary text with.
      */
-    var color = R.theme.scrollbar
+    var color = R.theme.secondary_text
 
     /**
      * The accent color to use with this text input.
@@ -73,7 +74,7 @@ class TextInputView(): View() {
     /**
      * The [Color] to be used from the theme. Will be update every time in [onThemeChange]. Use -1 to not use a theme color
      */
-    private var themeColor = COLOR_SCROLLBAR
+    private var themeColor = COLOR_SECONDARY_TEXT
 
     /**
      * The accent [Color] to be used from the theme. Will be update every time in [onThemeChange]. Use -1 to not use a theme color
@@ -106,11 +107,18 @@ class TextInputView(): View() {
     private var caretPos = 0
 
     init {
-        // add paste action
+        // add copy, clear and paste action
         contextMenuItems = listOf(
+                ContextMenuAction("Clear", {
+                    setInputText("")
+                    true
+                }),
+                ContextMenuSeparator,
                 ContextMenuAction("Paste", {
-                    val text = Toolkit.getDefaultToolkit().systemClipboard.getData(DataFlavor.stringFlavor) as? String?: return@ContextMenuAction true
-                    setInputText(inputText + text)
+                    try {
+                        val text = Toolkit.getDefaultToolkit().systemClipboard.getData(DataFlavor.stringFlavor) as? String ?: return@ContextMenuAction true
+                        setInputText(inputText + text)
+                    } catch (ignored: Exception) { } // maybe throw exception for invalid data type
                     true
                 })
         )
@@ -231,10 +239,27 @@ class TextInputView(): View() {
             return
 
         if(e.keyCode == KeyEvent.VK_BACK_SPACE && inputText.isNotEmpty()) {
-
             val builder = StringBuilder(inputText)
-            if(caretPos - 1 >= 0)
+            if(caretPos - 1 >= 0) {
                 builder.delete(caretPos - 1, caretPos)
+                if(offset > 0)
+                    offset --
+            }
+
+            updateText(builder.toString())
+            requestRepaint()
+        } else if(e.keyCode == KeyEvent.VK_DELETE && inputText.isNotEmpty()) {
+            val builder = StringBuilder(inputText)
+            if(caretPos + 1 <= inputText.length) {
+                builder.delete(caretPos, caretPos + 1)
+                // keep the caret in place cuz its a delete operation AFTER the cursor
+                caretPos ++
+
+                if(offset > 0)
+                    offset --
+            }
+
+
 
             updateText(builder.toString())
             requestRepaint()
@@ -353,13 +378,13 @@ class TextInputView(): View() {
      * The truncated text until the caret.
      */
     private var tillCaretPos = ""
+    private var offset = 0
 
     private fun updateText(newInput: String) {
         val prevLength = inputText.length
         inputText = newInput
         displayText = inputText
 
-        var seek = 0
         if(font.getStringBounds(inputText, fontRendererContext).width + font.size > layoutSize.w - paddingHorizontal * 2f) {
             // overflowing, begin cutoff
             for(i in inputText.length - 2 downTo 0) {
@@ -367,8 +392,7 @@ class TextInputView(): View() {
 
                 if(font.getStringBounds(str, fontRendererContext).width + font.size < layoutSize.w - paddingHorizontal * 2f) {
                     // i + 1 is our str
-                    displayText = inputText.substring(i)
-                    seek = i
+                    displayText = inputText.substring(i - offset, inputText.length - offset)
                 } else {
                     break
                 }
@@ -378,16 +402,21 @@ class TextInputView(): View() {
         // shift the caret by the change in length
         caretPos += inputText.length - prevLength
 
-        // calculate the actual display text caret pos
-        if(caretPos >= inputText.length - displayText.length) {
-            tillCaretPos = inputText.substring((inputText.length - displayText.length), caretPos)
+        if(caretPos >= inputText.length - displayText.length - offset) {
+            tillCaretPos = inputText.substring((inputText.length - displayText.length - offset), caretPos)
+            if(tillCaretPos.length > displayText.length) {
+                // shift right one
+                val diff = tillCaretPos.length - displayText.length
+                offset -= diff
+                updateText(newInput)
+            }
         } else {
-            // seek to the left one
-            val diff = (inputText.length - displayText.length) - caretPos
+            // calculate the difference from the display text to the input text
+            val diff = (inputText.length - displayText.length - offset) - caretPos
 
-            val end = seek + displayText.length - diff
-            seek -= diff
-            displayText = inputText.substring(seek, end)
+            offset += diff
+
+            updateText(newInput)
         }
     }
 
@@ -435,6 +464,7 @@ class TextInputView(): View() {
         labelText = label
 
         caretPos = 0
+        offset = 0
 
         updateText(inputText)
         layoutText()
@@ -448,6 +478,7 @@ class TextInputView(): View() {
         inputText = input
 
         caretPos = 0
+        offset = 0
 
         updateText(inputText)
         layoutText()

@@ -87,6 +87,13 @@ NOTES:
 - Should TextView generate synthetic min sizes? This causes a chain of synthetic min sizes and wrecks the hierarchy
 
 //////// TODO //////////
-1. Text input - TextInputView and Number spinner
-2. DrawerLayout
+1:
+b. RadioButtonView
+2:
+a. DrawerLayout
+   i.  TYPE_PINNED - pinned to the left side of the child view
+   ii. TYPE_COLLAPSING - overlays and collapses to the left side with the toggle button
+b. DrawerToggleView
+   i. AnimatedDrawable -> hamburger icon to back button
+
 3. YogaLayout

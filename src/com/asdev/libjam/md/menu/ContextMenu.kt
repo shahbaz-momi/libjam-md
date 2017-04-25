@@ -19,6 +19,8 @@ import res.R
 import java.awt.Graphics2D
 import java.awt.Point
 import java.awt.event.MouseEvent
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.jvm.isAccessible
 
 /**
  * Created by Asdev on 03/17/17. All rights reserved.
@@ -30,9 +32,10 @@ import java.awt.event.MouseEvent
  */
 
 /**
- * A class which is used to manage and display a context menu on a root view.
+ * A class which is used to manage and display a context menu on a root view. Will update the supplied variable
+ * every time the state is changed.
  */
-class ContextMenu {
+class ContextMenu(private val stateVar: KMutableProperty<Boolean>? = null) {
 
     /**
      * A list of the contained items within this ContextMenu.
@@ -55,6 +58,9 @@ class ContextMenu {
         // initialize the layout
         layout.onAttach()
         layout.visibility = VISIBILITY_INVISIBLE
+
+        // force access to the setter
+        stateVar?.setter?.isAccessible = true
     }
 
     fun onThemeChange(oldTheme: Theme, newTheme: Theme) {
@@ -138,6 +144,9 @@ class ContextMenu {
             animator.cancel()
 
         animator.start()
+
+        // update the state variable
+        stateVar?.setter?.call(true)
     }
 
     /**
@@ -148,6 +157,9 @@ class ContextMenu {
         layout.onStateChanged(layout.state, View.State.STATE_NORMAL)
 
         animator.cancel()
+
+        // update the state variable
+        stateVar?.setter?.call(false)
     }
 
     fun loop() {
