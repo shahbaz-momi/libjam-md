@@ -97,4 +97,18 @@
         <Property type="float" name="padding-horizontal" />
     </Styleable>
 
+    <Styleable class="com.asdev.libjam.md.view.CheckboxView" base="com.asdev.libjam.md.view.View">
+        <Property type="color" name="color-activated"/>
+        <Property type="color" name="color-unactivated"/>
+        <Property type="color" name="color-checkmark"/>
+    </Styleable>
+
+    <Styleable class="com.asdev.libjam.md.view.RadioButtonView" base="com.asdev.libjam.md.view.View">
+        <Property type="color" name="color-activated"/>
+        <Property type="color" name="color-unactivated"/>
+        <Property type="color" name="color-background-internal"/>
+        <Property type="string" name="group-value" />
+        <Property type="string" name="group" />
+    </Styleable>
+
 </Attributes>

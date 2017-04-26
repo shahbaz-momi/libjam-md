@@ -2,9 +2,11 @@ package com.asdev.libjam.md.view
 
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.animation.LinearInterpolator
+import com.asdev.libjam.md.layout.GenericParamList
 import com.asdev.libjam.md.layout.LinearLayout
 import com.asdev.libjam.md.layout.ORIENTATION_VERTICAL
 import com.asdev.libjam.md.theme.*
+import com.asdev.libjam.md.xml.XMLParamList
 import res.R
 import java.awt.Color
 import java.awt.Cursor
@@ -48,6 +50,9 @@ private const val CHECKMARK_STROKE = 2
  * A toggleable checkbox input view featuring material animations.
  */
 class CheckboxView(private val onCheckListener: ((CheckboxView, Boolean) -> Unit)? = null, private var checked: Boolean = false): View() {
+
+    // required for xml inflation
+    constructor(): this(null, false)
 
     companion object {
 
@@ -109,6 +114,27 @@ class CheckboxView(private val onCheckListener: ((CheckboxView, Boolean) -> Unit
             animator.setAssignedValue(1f)
         } else {
             animator.setAssignedValue(0f)
+        }
+    }
+
+    override fun applyParameters(params: GenericParamList) {
+        super.applyParameters(params)
+
+        if(params is XMLParamList) {
+            if(params.hasParam(R.attrs.CheckboxView.color_activated)) {
+                colorActivated = params.getColor(R.attrs.CheckboxView.color_activated)!!
+                setThemeColorActivated(-1)
+            }
+
+            if(params.hasParam(R.attrs.CheckboxView.color_unactivated)) {
+                colorUnactivated = params.getColor(R.attrs.CheckboxView.color_unactivated)!!
+                setThemeColorUnactivated(-1)
+            }
+
+            if(params.hasParam(R.attrs.CheckboxView.color_checkmark)) {
+                colorCheckmark = params.getColor(R.attrs.CheckboxView.color_checkmark)!!
+                setThemeColorCheckmark(-1)
+            }
         }
     }
 

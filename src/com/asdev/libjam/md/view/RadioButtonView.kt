@@ -2,10 +2,12 @@ package com.asdev.libjam.md.view
 
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.animation.LinearInterpolator
+import com.asdev.libjam.md.layout.GenericParamList
 import com.asdev.libjam.md.layout.LinearLayout
 import com.asdev.libjam.md.layout.ORIENTATION_VERTICAL
 import com.asdev.libjam.md.theme.*
 import com.asdev.libjam.md.util.generateRandomId
+import com.asdev.libjam.md.xml.XMLParamList
 import res.R
 import java.awt.Color
 import java.awt.Cursor
@@ -23,7 +25,7 @@ import java.awt.Graphics2D
 /**
  * The size of the radio button itself.
  */
-private const val RADIO_BUTTON_SIZE = 14
+private const val RADIO_BUTTON_SIZE = 15
 
 /**
  * The padding for the contents inside the radio button.
@@ -36,9 +38,48 @@ private const val CONTENTS_PAD = 2
 private const val PADDING = 14f
 
 /**
+ * A list containing the global radio button groups.
+ */
+private val groups = ArrayList<RadioButtonGroup>()
+
+/**
+ * The default radio button group.
+ */
+private val DEFAULT_GROUP = RadioButtonGroup("DefaultRadios")
+
+/**
  * A class that represents a radio button group.
  */
 data class RadioButtonGroup(val id: String = generateRandomId(), val onChangeListener: ((RadioButtonView) -> Unit)? = null) {
+
+    init {
+        // add it self to the global list
+        groups.add(this)
+    }
+
+    companion object {
+
+        /**
+         * Creates a new RadioButtonGroup or returns any existing group with the same id. Equivalent to simplying constructing a new group object.
+         */
+        fun createGroup(id: String, onChangeListener: ((RadioButtonView) -> Unit)? = null): RadioButtonGroup {
+            val existing = getGroup(id)
+            if(existing != null)
+                return existing
+
+            val group = RadioButtonGroup(id, onChangeListener)
+            groups.add(group)
+            return group
+        }
+
+        /**
+         * Attemps to find any RadioButtonGroup with the given id, otherwise returns null.
+         */
+        fun getGroup(id: String): RadioButtonGroup? {
+            return groups.find { it.id == id }
+        }
+
+    }
 
     private val buttons = ArrayList<RadioButtonView>()
 
@@ -49,6 +90,15 @@ data class RadioButtonGroup(val id: String = generateRandomId(), val onChangeLis
         buttons.add(v)
 
         // force the default state to false
+        v.setChecked(false)
+    }
+
+    /**
+     * Unregisters the given radio button from this group.
+     */
+    fun unregisterRadioButton(v: RadioButtonView) {
+        buttons.remove(v)
+
         v.setChecked(false)
     }
 
@@ -89,13 +139,15 @@ data class RadioButtonGroup(val id: String = generateRandomId(), val onChangeLis
  */
 class RadioButtonView(private val onChangeListener: ((RadioButtonView, Boolean) -> Unit)? = null,
                       /**
-                       * The value of this radio button inside its parent group
+                       * The value of this radio button inside its parent group.
                        */
-                      val groupValue: String = generateRandomId(),
+                      var groupValue: String = generateRandomId(),
                       /**
                        * The group that will house this radio button.
                        */
-                      val group: RadioButtonGroup): View() {
+                      private var group: RadioButtonGroup): View() {
+
+    constructor(): this(null, group = DEFAULT_GROUP)
 
     companion object {
 
@@ -161,6 +213,39 @@ class RadioButtonView(private val onChangeListener: ((RadioButtonView, Boolean) 
         animator.setAssignedValue(0f)
 
         group.registerRadioButton(this)
+    }
+
+    override fun applyParameters(params: GenericParamList) {
+        super.applyParameters(params)
+
+        if(params is XMLParamList) {
+            if(params.hasParam(R.attrs.RadioButtonView.color_activated)) {
+                colorActivated = params.getColor(R.attrs.RadioButtonView.color_activated)!!
+                setThemeColorActivated(-1)
+            }
+
+            if(params.hasParam(R.attrs.RadioButtonView.color_unactivated)) {
+                colorUnactivated = params.getColor(R.attrs.RadioButtonView.color_unactivated)!!
+                setThemeColorUnactivated(-1)
+            }
+
+            if(params.hasParam(R.attrs.RadioButtonView.color_background_internal)) {
+                colorBackgroundInternal = params.getColor(R.attrs.RadioButtonView.color_background_internal)!!
+                setThemeColorBackgroundInternal(-1)
+            }
+
+            params.setToString(R.attrs.RadioButtonView.group_value, this::groupValue)
+
+            if(params.hasParam(R.attrs.RadioButtonView.group)) {
+                val newGroupId = params.getString(R.attrs.RadioButtonView.group)!!
+                // unregister from the current group
+                group.unregisterRadioButton(this)
+
+                val instance = RadioButtonGroup.createGroup(newGroupId, null)
+                instance.registerRadioButton(this)
+                this.group = instance
+            }
+        }
     }
 
     override fun loop() {

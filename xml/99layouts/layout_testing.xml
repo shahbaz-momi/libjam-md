@@ -15,6 +15,13 @@
                             text-font="${R.theme.font_title:24}" />
             </RelativeLayout>
 
+            <LinearLayout orientation="vertical" maxSize="1000000x60">
+                <RadioButtonView group-value="0" group="MainRadios" />
+                <TextView text="Radio 1" text-gravity="middle-left"/>
+                <RadioButtonView group-value="1" group="MainRadios" />
+                <TextView text="Radio 2" text-gravity="middle-left"/>
+            </LinearLayout>
+
             <TextView text="${R.strings.searching}"
                       gravity="middle-middle"
                       text-gravity="middle-middle"

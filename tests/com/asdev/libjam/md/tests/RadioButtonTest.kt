@@ -7,6 +7,7 @@ import com.asdev.libjam.md.menu.ContextMenuAction
 import com.asdev.libjam.md.theme.DarkMaterialTheme
 import com.asdev.libjam.md.theme.LightMaterialTheme
 import com.asdev.libjam.md.theme.THEME
+import com.asdev.libjam.md.view.CheckboxView
 import com.asdev.libjam.md.view.RadioButtonGroup
 import com.asdev.libjam.md.view.RadioButtonView
 import com.asdev.libjam.md.view.View
@@ -25,21 +26,19 @@ import java.awt.Dimension
 fun main(args: Array<String>) {
     THEME.init()
 
-    val group = RadioButtonGroup(onChangeListener = {println(it.groupValue + " was selected")})
-
-    val box = RadioButtonView.makeWithLabel("Check me!", group = group, groupValue = "0")
-
-    val box2 = RadioButtonView.makeWithLabel("Check me 2!", group = group, groupValue = "1")
-
-    val box3 = RadioButtonView.makeWithLabel("Check me 3!", group = group, groupValue = "2")
+    val group = RadioButtonGroup.createGroup("TestButtons")
 
     val layout = LinearLayout()
     layout.setOrientation(ORIENTATION_HORIZONTAL)
     layout.background = ColorDrawable(R.theme.background)
-    layout.addChild(box)
-    layout.addChild(box2)
-    layout.addChild(box3)
+    layout.addChild(RadioButtonView.makeWithLabel("Radio button 1!", group = group, groupValue = "0"))
+    layout.addChild(RadioButtonView.makeWithLabel("Radio button 2!", group = group, groupValue = "1"))
+    layout.addChild(RadioButtonView.makeWithLabel("Radio button 3!", group = group, groupValue = "2"))
     layout.addChild(View())
+    layout.addChild(CheckboxView.makeWithLabel("Check me 1!"))
+    layout.addChild(CheckboxView.makeWithLabel("Check me 2!"))
+    layout.addChild(CheckboxView.makeWithLabel("Check me 3!"))
+
 
     val frame = GLG2DRootView(layout, "Radio Button Test", Dimension(500, 500), true)
     frame.showFrame()

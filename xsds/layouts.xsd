@@ -205,6 +205,32 @@
                         </xs:complexType>
                     </xs:element>
 
+                    <xs:element name="CheckboxView" minOccurs="0">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="view_type">
+                                    <xs:attribute name="color-activated" type="xs:string" use="optional" />
+                                    <xs:attribute name="color-unactivated" type="xs:string" use="optional" />
+                                    <xs:attribute name="color-checkmark" type="xs:string" use="optional" />
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+
+                    <xs:element name="RadioButtonView" minOccurs="0">
+                        <xs:complexType>
+                            <xs:simpleContent>
+                                <xs:extension base="view_type">
+                                    <xs:attribute name="color-activated" type="xs:string" use="optional" />
+                                    <xs:attribute name="color-unactivated" type="xs:string" use="optional" />
+                                    <xs:attribute name="color-background-internal" type="xs:string" use="optional" />
+                                    <xs:attribute name="group-value" type="xs:string" use="required" />
+                                    <xs:attribute name="group" type="xs:string" use="required" />
+                                </xs:extension>
+                            </xs:simpleContent>
+                        </xs:complexType>
+                    </xs:element>
+
                     <xs:element name="Include" minOccurs="0">
                         <xs:complexType>
                             <xs:simpleContent>
