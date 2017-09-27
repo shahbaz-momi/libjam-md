@@ -28,7 +28,7 @@ object R {
 		val example_string2 = "sad"
 		val example_string3 = "Example string 3!"
 		val searching = "Searching..."
-		val snackbar_test = "Super long snackbar string/text can go here... SUPER DUPER SUPER DUPER SUPER DUPER SUPER DUPER LONG!"
+		val snackbar_test = "Super long snackbar string/text can go here..."
 		val dismiss_buttom = "DISMISS"
 		val button_text = "Show snackbar"
 		val newline_test = "This is\na multi-line string"
@@ -420,6 +420,12 @@ object R {
 	}
 
 	object drawables {
+		val ic_arrow_front = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\icons\\ic_arrow_front.png")
+		val ic_attach_file_white_24dp = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\icons\\ic_attach_file_white_24dp.png")
+		val ic_check_white_24dp = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\icons\\ic_check_white_24dp.png")
+		val ic_insert_photo_white_24dp = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\icons\\ic_insert_photo_white_24dp.png")
+		val ic_message_black_36dp = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\icons\\ic_message_black_36dp.png")
+		val ic_message_pair = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\icons\\ic_message_pair.png")
 		val texture = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\texture.png")
 		val welcome_card = newImageDrawable("C:\\Users\\Shahbaz Momi\\IdeaProjects\\libjam-md\\xml\\04drawables\\welcome_card.jpg")
 	}

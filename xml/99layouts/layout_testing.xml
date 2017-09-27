@@ -22,10 +22,18 @@
                 <TextView text="Radio 2" text-gravity="middle-left"/>
             </LinearLayout>
 
-            <TextView text="${R.strings.searching}"
-                      gravity="middle-middle"
-                      text-gravity="middle-middle"
-                      maxSize="-1x50"/>
+
+            <LinearLayout orientation="vertical"
+                          gravity="middle-middle"
+                          maxSize="-1x50"
+                          translation-x="-30">
+
+                <CircularProgressView gravity="middle-left" circle-gravity="middle-right" padding-right="6" circle-radius="12" circle-stroke-width="3" />
+                <TextView text="${R.strings.searching}"
+                          gravity="middle-middle"
+                          text-gravity="middle-left"/>
+
+            </LinearLayout>
 
             <RelativeLayout maxSize="-1x70">
                 <ButtonView id="testing-button"

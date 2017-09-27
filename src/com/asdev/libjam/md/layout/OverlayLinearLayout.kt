@@ -257,8 +257,10 @@ open class OverlayLinearLayout: OverlayViewGroup() {
             println("[LinearLayout] Overflowed H $diffHOverflow and W $diffWOverflow")
         }
 
+        var attempts = 0
+
         // add the height overflow back in
-        while(diffHOverflow >= 0.1f) {
+        while(diffHOverflow >= 0.1f && attempts < 10) {
             val gain = diffHOverflow / (children.size - skipIndicesH.size)
 
             for((i, c) in children.withIndex()) {
@@ -288,10 +290,14 @@ open class OverlayLinearLayout: OverlayViewGroup() {
                     childrenCoords[j].y += shift
                 }
             }
+
+            attempts ++
         }
 
+        attempts = 0
+
         // add the width overflow back in
-        while(diffWOverflow >= 0.1f) {
+        while(diffWOverflow >= 0.1f && attempts < 10) {
             val gain = diffWOverflow / (children.size - skipIndicesW.size)
 
             for((i, c) in children.withIndex()) {
@@ -321,6 +327,8 @@ open class OverlayLinearLayout: OverlayViewGroup() {
                     childrenCoords[j].x += shift
                 }
             }
+
+            attempts ++
         }
 
         for((i, c) in children.withIndex()) {

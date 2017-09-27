@@ -111,16 +111,16 @@ fun parseColorReference(colorContent: String): Color {
     } else if(colorContent.startsWith("rgba", true)) {
         // grab the content between brackets
         val params = colorContent.substring( colorContent.indexOf("(") + 1, colorContent.indexOf(")") )
-        val components = params.split(",").map(String::trim) // split based off of commas and trim the contents
+        val components = params.split(",").map { it.trim().toFloat() } // split based off of commas and trim the contents
 
         if(components.size != 4) {
             throw XMLParseException("Invalid RGBA Color $colorContent. It must have for parameters, as rgba(r, g, b, a)")
         }
 
-        val red = components[0].toFloat()
-        val green = components[1].toFloat()
-        val blue = components[2].toFloat()
-        val alpha = components[3].toFloat()
+        val red = components[0]
+        val green = components[1]
+        val blue = components[2]
+        val alpha = components[3]
 
         if(red > 255 || green > 255 || blue > 255 || alpha > 255) {
             throw XMLParseException("Invalid RGBA Color $colorContent. Either red, green, blue, green is outside of the valid range.")
@@ -136,15 +136,15 @@ fun parseColorReference(colorContent: String): Color {
     } else if(colorContent.startsWith("rgb", true)) {
         // grab the content between brackets
         val params = colorContent.substring( colorContent.indexOf("(") + 1, colorContent.indexOf(")") )
-        val components = params.split(",").map(String::trim) // split based off of commas and trim the contents
+        val components = params.split(",").map { it.trim().toFloat() } // split based off of commas and trim the contents
 
         if(components.size != 3) {
             throw XMLParseException("Invalid RGB Color $colorContent. It must have for parameters, as rgb(r, g, b)")
         }
 
-        val red = components[0].toFloat()
-        val green = components[1].toFloat()
-        val blue = components[2].toFloat()
+        val red = components[0]
+        val green = components[1]
+        val blue = components[2]
 
         if(red > 255 || green > 255 || blue > 255) {
             throw XMLParseException("Invalid RGB Color $colorContent. Either red, green, blue, green is outside of the valid range.")
@@ -228,7 +228,7 @@ fun parseDrawableReference(ref: String): Drawable {
 
             var scaleType = SCALE_TYPE_CONTAIN
             if(fieldName.contains(":")) {
-                // has a font size param
+                // has a drawable cover param
                 val scaleTypeStr = (fieldName.substring(fieldName.indexOf(":") + 1))
 
                 when(scaleTypeStr) {

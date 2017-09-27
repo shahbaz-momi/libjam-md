@@ -1,12 +1,15 @@
 package com.asdev.libjam.md.tests
 
 import com.asdev.libjam.md.glg2d.GLG2DRootView
-import com.asdev.libjam.md.layout.*
+import com.asdev.libjam.md.layout.Snackbar
+import com.asdev.libjam.md.layout.ViewGroup
 import com.asdev.libjam.md.menu.ContextMenuAction
 import com.asdev.libjam.md.menu.ContextMenuText
-import com.asdev.libjam.md.theme.*
+import com.asdev.libjam.md.theme.DarkMaterialTheme
+import com.asdev.libjam.md.theme.LightMaterialTheme
+import com.asdev.libjam.md.theme.THEME
 import com.asdev.libjam.md.view.ButtonView
-import com.asdev.libjam.md.xml.*
+import com.asdev.libjam.md.xml.inflateLayout
 import res.R
 import java.awt.Dimension
 

@@ -56,8 +56,8 @@ TODO:
     - finding the location of a View on screen // DONE
     - useful for popup menus and such
 - OverlayLayout: using an overlay layer which allows for a dialog/View to be drawn on top // DONE - OverlayViewGroup
-    - snackbars // TextView and a ButtonView in a OverlayLinearLayout
-    - drawer
+    - snackbars // TextView and a ButtonView in a OverlayLinearLayout - See Snackbar.kt
+    - drawer // MOSTLY DONE
 - right-click menu / context menu // DONE - need closing animation
 - fab
 - loading views // DONE
@@ -79,6 +79,14 @@ TODO:
     - separate module
     - establish spec
 - concept of layouts in the RootView for easy switching // IN PROGRESS
+- radio buttons // DONE
+- check box // DONE
+- text input // DONE - still need cursor caret positioning tho
+- DrawerLayout // IN PROGRESS
+    - Pinned drawer // DONE
+    - Collapsing // kinda screws with the layout like big time - is it wise to generate animating layout changes???
+    - Animated hamburger drawable // DONE - works w/ or wo/ a drawer
+        - Call FrameDecoration (from rootView.getFrameDecoration()) #enableDrawerToggle(drawer$optional)
 - tool tips
 - more material ui components
 - text inputs and number spinners
@@ -87,13 +95,8 @@ NOTES:
 - Should TextView generate synthetic min sizes? This causes a chain of synthetic min sizes and wrecks the hierarchy
 
 //////// TODO //////////
-1:
-b. RadioButtonView
-2:
-a. DrawerLayout
+DrawerLayout
    i.  TYPE_PINNED - pinned to the left side of the child view
    ii. TYPE_COLLAPSING - overlays and collapses to the left side with the toggle button
-b. DrawerToggleView
-   i. AnimatedDrawable -> hamburger icon to back button
 
-3. YogaLayout
+YogaLayout

@@ -169,7 +169,6 @@ class ScrollLayout() : ViewGroup() {
     }
 
     override fun onMouseRelease(e: MouseEvent, mPos: Point) {
-        super.onMouseRelease(e, mPos)
         if(scrollBarHovered) {
             // consume the event
             // trigger the reset of the mouse
@@ -187,7 +186,6 @@ class ScrollLayout() : ViewGroup() {
     private var scrollUnitsH = 0f
 
     override fun onMousePress(e: MouseEvent, mPos: Point) {
-        super.onMousePress(e, mPos)
         if(scrollBarHovered) {
             pressSource = mPos
         } else if(scrollBarHoveredH) {
@@ -313,7 +311,9 @@ class ScrollLayout() : ViewGroup() {
             // scroll the child
             child.onScroll(e)
         } else {
+            // haven't hit max scroll, so do a local scroll
             scroll(0f, (e.scrollAmount * e.unitsToScroll).toFloat())
+            // also call a mouse on moved
         }
     }
 

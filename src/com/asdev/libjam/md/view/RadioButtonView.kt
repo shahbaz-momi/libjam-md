@@ -73,7 +73,7 @@ data class RadioButtonGroup(val id: String = generateRandomId(), val onChangeLis
         }
 
         /**
-         * Attemps to find any RadioButtonGroup with the given id, otherwise returns null.
+         * Attempts to find any RadioButtonGroup with the given id, otherwise returns null.
          */
         fun getGroup(id: String): RadioButtonGroup? {
             return groups.find { it.id == id }
@@ -147,7 +147,7 @@ class RadioButtonView(private val onChangeListener: ((RadioButtonView, Boolean) 
                        */
                       private var group: RadioButtonGroup): View() {
 
-    constructor(): this(null, group = DEFAULT_GROUP)
+    constructor(): this(null, group = DEFAULT_GROUP) // required for XML inflation
 
     companion object {
 

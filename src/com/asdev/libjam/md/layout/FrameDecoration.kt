@@ -31,6 +31,8 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
     private val toolbar = RelativeLayout()
     private val titleText = TextView(title)
 
+    private var drawerShown = false
+
     init {
 
         // set fonts and colors of title text
@@ -40,7 +42,7 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
         titleText.paddingLeft = 20f
         // set the gravity of title text to middle left
         titleText.applyParameters(
-                GenericParamList() with ("gravity" to GRAVITY_MIDDLE_LEFT)
+                GenericParamList() with ("gravity" to GRAVITY_MIDDLE_MIDDLE)
         )
 
         // set the background colors for the navbar and toolbars
@@ -67,7 +69,7 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
         buttonMinimize.foreground = ImageDrawable(ImageIO.read(File("assets/minimize.png")), SCALE_TYPE_ORIGINAL)
         buttonMinimize.setThemeColor(COLOR_TITLE)
 
-        buttonMinimize.onClickListener = { mouseEvent: MouseEvent, point: Point -> windowStateManager.minimize() }
+        buttonMinimize.onClickListener = { _, _ -> windowStateManager.minimize() }
 
         val maximize = ImageDrawable(ImageIO.read(File("assets/maximize.png")), SCALE_TYPE_ORIGINAL)
         val unmaximize = ImageDrawable(ImageIO.read(File("assets/unmaximize.png")), SCALE_TYPE_ORIGINAL)
@@ -75,7 +77,7 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
         val buttonMaximize = ButtonView("", BUTTON_TYPE_FLAT)
         buttonMaximize.foreground = maximize
 
-        buttonMaximize.onClickListener = { mouseEvent: MouseEvent, point: Point ->
+        buttonMaximize.onClickListener = { _, _ ->
             windowStateManager.maximize()
         }
 
@@ -92,7 +94,7 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
 
         val buttonClose = ButtonView("", BUTTON_TYPE_FLAT)
         buttonClose.foreground = ImageDrawable(ImageIO.read(File("assets/close.png")), SCALE_TYPE_ORIGINAL)
-        buttonClose.onClickListener = {mouseEvent: MouseEvent, point: Point -> windowStateManager.exit() }
+        buttonClose.onClickListener = { _, _ -> windowStateManager.exit() }
         buttonClose.setThemeColor(COLOR_TITLE)
         // override to a red ripple
         buttonClose.setThemeRippleColor(-1)
@@ -150,6 +152,29 @@ class FrameDecoration(title: String, val frame: JFrame, val windowStateManager: 
 
         addChild(navBar)
         addChild(toolbar)
+    }
+
+    /**
+     * Enables the drawer toggle on this frame decoration with the given drawer.
+     */
+    fun enableDrawerToggle(drawer: DrawerLayout?) {
+        val drawerToggle = ButtonView("", BUTTON_TYPE_FLAT)
+        drawerToggle.background = HamburgerDrawable()
+        drawerToggle.maxSize.w = 50f
+        drawerToggle.applyParameters(GenericParamList() with (LAYOUT_PARAM_GRAVITY to GRAVITY_MIDDLE_LEFT))
+
+        titleText.paddingLeft = 10f
+
+        toolbar.addChild(drawerToggle)
+
+        // bind on click events to the drawer
+        drawerToggle.onClickListener = {
+            _, _ ->
+            // toggle shown state
+            drawerShown = !drawerShown // no need for async events as all are handled on the UI thread.
+            // send an event to the drawer
+            drawer?.toggle(drawerShown)
+        }
     }
 
     /**

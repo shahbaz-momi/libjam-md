@@ -99,7 +99,7 @@ open class ButtonView(): TextView() {
             background =
                     AnimatedCompoundDrawable(
                             AnimatedHoverShadowDrawable(opacity = 0.3f, viewYTransHover = 0f),
-                            RoundedRectangleDrawable(THEME.getAccentColor(), 6f)
+                            RoundedRectangleDrawable(THEME.getAccentColor(), radius = 6f)
                     )
         // if its a flat style then background should be null
         else if(type == BUTTON_TYPE_FLAT) {

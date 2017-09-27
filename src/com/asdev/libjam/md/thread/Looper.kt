@@ -55,7 +55,6 @@ class Looper(val loopable: Loopable): Thread() {
         isRunning.set(true)
 
         while(isRunning.get()) {
-
             // handle all of the messages in the queue
             var e = msgQueue.poll()
             while(e != null) {
@@ -66,6 +65,8 @@ class Looper(val loopable: Loopable): Thread() {
             loopable.loop()
 
             loopable.onPostLoop()
+
+            Thread.sleep(loopDelay)
         }
     }
 

@@ -2,10 +2,7 @@ package com.asdev.libjam.md.drawable
 
 import com.asdev.libjam.md.util.*
 import com.asdev.libjam.md.view.View
-import java.awt.Color
-import java.awt.Dimension
-import java.awt.Graphics2D
-import java.awt.Point
+import java.awt.*
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
@@ -49,26 +46,26 @@ fun newImageDrawable(path: String): ImageDrawable {
 
 class ImageDrawable: Drawable {
 
-    val img: BufferedImage
+    val img: Image
     var scaleType: Int = SCALE_TYPE_CONTAIN
 
-    constructor(img: BufferedImage) {
+    constructor(img: Image) {
         this.img = img
         scaleType = SCALE_TYPE_CONTAIN
     }
 
-    constructor(img: BufferedImage, scaleType: Int) {
+    constructor(img: Image, scaleType: Int) {
         this.img = img
         this.scaleType = scaleType
     }
 
     /**
-     * Returns a clone of this ImageDrawable without cloning the image.
+     * Returns a clone of this ImageDrawable without cloning the underlying image.
      */
     fun softClone() = ImageDrawable(img, scaleType)
 
     /**
-     * Returns a clone of this ImageDrawable without cloning the image using the given scale type.
+     * Returns a clone of this ImageDrawable without cloning the underlying image using the given scale type.
      */
     fun softClone(scaleType: Int) = ImageDrawable(img, scaleType)
 
@@ -78,20 +75,23 @@ class ImageDrawable: Drawable {
     override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float) {
         val clipP = g.clip
 
+        val width = img.getWidth(null)
+        val height = img.getHeight(null)
+
         g.clipRect(x.toInt(), y.toInt(), w.toInt(), h.toInt())
         // check scaling mode
         if(scaleType == SCALE_TYPE_ORIGINAL) {
             // center the original image size within this
-            g.drawImage(img, x.toInt() + ((w - img.width) / 2f).toInt(), y.toInt() + ((h - img.height) / 2f).toInt(), img.width, img.height, null)
+            g.drawImage(img, x.toInt() + ((w - width) / 2f).toInt(), y.toInt() + ((h - height) / 2f).toInt(), width, height, null)
         } else if(scaleType == SCALE_TYPE_FIT) {
             // stretch w and h to fit the bounding size
             g.drawImage(img, x.toInt(), y.toInt(), w.toInt(), h.toInt(), null)
         } else if(scaleType == SCALE_TYPE_CONTAIN) {
-            val sfh = h / img.height
-            val newW = img.width * sfh
+            val sfh = h / height
+            val newW = height * sfh
 
-            val sfw = w / img.width
-            val newH = img.height * sfw
+            val sfw = w / width
+            val newH = width * sfw
 
             if(newH > h) {
                 // center the foreground horizontally
@@ -100,12 +100,12 @@ class ImageDrawable: Drawable {
                 g.drawImage(img, x.toInt(), y.toInt() + ((h - newH) / 2f).toInt(), w.toInt(), newH.toInt(), null)
             }
         } else if(scaleType == SCALE_TYPE_COVER) {
-            val sfh = h / img.height
-            val newW = img.width * sfh
+            val sfh = h / height
+            val newW = width * sfh
 
             // width is the width of the view
-            val sfw = w / img.width
-            val newH = img.height * sfw
+            val sfw = w / width
+            val newH = height * sfw
 
             if(newH < h) {
                 // center the foreground horizontally
@@ -135,9 +135,9 @@ class CompoundDrawable(vararg private val drawables: Drawable): Drawable() {
 /**
  * Accepts a standard Android nine-patch foreground and draws it as a nine-patch drawable. NOTE: this is slow, so using caching
  * (by setting cache = true) if you are going to be constantly be repainting the foreground. This may improve performance just
- * a bit.
+ * a bit in exchange for memory.
  */
-class NinePatchDrawable(val ninepatch: BufferedImage, val doCache: Boolean = false, val drawMiddlePatch: Boolean = true): Drawable() {
+class NinePatchDrawable(private val ninepatch: BufferedImage, private val doCache: Boolean = false, private val drawMiddlePatch: Boolean = true): Drawable() {
 
     /**
      * The coordinates of the nine-patch elements.
@@ -436,7 +436,7 @@ class StatefulCompoundDrawable(val normal: Drawable, val hover: Drawable? = null
 /**
  * A compound animated drawable that will attempt to animate its children.
  */
-class AnimatedCompoundDrawable(vararg drawables: Drawable): AnimatedDrawable() {
+class AnimatedCompoundDrawable(private vararg val drawables: Drawable): AnimatedDrawable() {
 
 
     /**
@@ -446,25 +446,19 @@ class AnimatedCompoundDrawable(vararg drawables: Drawable): AnimatedDrawable() {
 
     override fun onStateChanged(bounder: View?, prevState: View.State, newState: View.State) {
         // try and update the states of the children
-        drawables.forEach {
+        for (it in drawables) {
             if(it is StatefulDrawable)
                 it.onStateChanged(bounder, prevState, newState)
         }
     }
 
     override fun requestFrame(): Boolean {
-        drawables.forEach {
+        for (it in drawables) {
             if(it is AnimatedDrawable && it.requestFrame())
                 return true
         }
 
         return false
-    }
-
-    private val drawables: Array<out Drawable>
-
-    init {
-        this.drawables = drawables
     }
 
     override fun draw(g: Graphics2D, x: Float, y: Float, w: Float, h: Float, state: View.State, progress: Float) {
