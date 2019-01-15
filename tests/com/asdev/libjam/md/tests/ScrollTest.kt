@@ -2,7 +2,7 @@ package com.asdev.libjam.md.tests
 
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.ImageDrawable
-import com.asdev.libjam.md.drawable.SCALE_TYPE_ORIGINAL
+import com.asdev.libjam.md.drawable.ImageDrawable.Companion.SCALE_TYPE_ORIGINAL
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.ScrollLayout
 import com.asdev.libjam.md.menu.ContextMenuAction

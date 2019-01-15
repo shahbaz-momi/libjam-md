@@ -20,6 +20,11 @@
                     text-color="${R.theme.primary_text}"
                     text-font="${R.theme.font_title:14}"/>
 
+            <CircularProgressView
+                circle-gravity="middle-middle"
+                gravity="middle-middle"
+                />
+
         </LinearLayout>
 
     </Layout>

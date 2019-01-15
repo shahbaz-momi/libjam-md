@@ -398,6 +398,9 @@ fun parseIds(node: Node) {
             val id = idRaw.textContent
             val formattedId = id.replace("-", "_")
             println("Found View with id: $id")
+            if(ids.contains(ID_ENTRY_TEMPLATE.format(formattedId, id))) {
+                throw XMLParseException("Error: duplicate ID found: $id")
+            }
             ids.add(ID_ENTRY_TEMPLATE.format(formattedId, id))
         }
     }

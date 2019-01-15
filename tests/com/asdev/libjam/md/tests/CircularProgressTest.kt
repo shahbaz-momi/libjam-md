@@ -5,7 +5,7 @@ import com.asdev.libjam.md.animation.DecelerateInterpolator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.drawable.ColorDrawable
 import com.asdev.libjam.md.drawable.CompoundDrawable
-import com.asdev.libjam.md.drawable.SCALE_TYPE_COVER
+import com.asdev.libjam.md.drawable.ImageDrawable.Companion.SCALE_TYPE_COVER
 import com.asdev.libjam.md.drawable.ShadowDrawable
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.*

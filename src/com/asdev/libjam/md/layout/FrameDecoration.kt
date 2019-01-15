@@ -2,6 +2,7 @@ package com.asdev.libjam.md.layout
 
 import com.asdev.libjam.md.base.WindowStateManager
 import com.asdev.libjam.md.drawable.*
+import com.asdev.libjam.md.drawable.ImageDrawable.Companion.SCALE_TYPE_ORIGINAL
 import com.asdev.libjam.md.theme.*
 import com.asdev.libjam.md.util.FloatDim
 import com.asdev.libjam.md.view.BUTTON_TYPE_FLAT

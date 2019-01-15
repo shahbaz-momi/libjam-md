@@ -31,11 +31,6 @@ class ColorDrawable(c: Color) : Drawable() {
 
 }
 
-const val SCALE_TYPE_CONTAIN = 0
-const val SCALE_TYPE_COVER = 1
-const val SCALE_TYPE_FIT = 2
-const val SCALE_TYPE_ORIGINAL = 3
-
 /**
  * Creates a new ImageDrawable from the given file at the path.
  */
@@ -45,6 +40,13 @@ fun newImageDrawable(path: String): ImageDrawable {
 }
 
 class ImageDrawable: Drawable {
+
+    companion object {
+        const val SCALE_TYPE_CONTAIN = 0
+        const val SCALE_TYPE_COVER = 1
+        const val SCALE_TYPE_FIT = 2
+        const val SCALE_TYPE_ORIGINAL = 3
+    }
 
     val img: Image
     var scaleType: Int = SCALE_TYPE_CONTAIN

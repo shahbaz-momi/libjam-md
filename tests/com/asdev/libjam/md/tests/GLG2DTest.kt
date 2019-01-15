@@ -3,6 +3,7 @@ package com.asdev.libjam.md.tests
 import com.asdev.libjam.md.animation.AccelerateInterpolator
 import com.asdev.libjam.md.animation.FloatValueAnimator
 import com.asdev.libjam.md.drawable.*
+import com.asdev.libjam.md.drawable.ImageDrawable.Companion.SCALE_TYPE_COVER
 import com.asdev.libjam.md.glg2d.GLG2DRootView
 import com.asdev.libjam.md.layout.*
 import com.asdev.libjam.md.theme.*

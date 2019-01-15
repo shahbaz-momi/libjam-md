@@ -1,6 +1,10 @@
 package com.asdev.libjam.md.xml
 
 import com.asdev.libjam.md.drawable.*
+import com.asdev.libjam.md.drawable.ImageDrawable.Companion.SCALE_TYPE_CONTAIN
+import com.asdev.libjam.md.drawable.ImageDrawable.Companion.SCALE_TYPE_COVER
+import com.asdev.libjam.md.drawable.ImageDrawable.Companion.SCALE_TYPE_FIT
+import com.asdev.libjam.md.drawable.ImageDrawable.Companion.SCALE_TYPE_ORIGINAL
 import com.asdev.libjam.md.util.FloatDim
 import res.R
 import java.awt.Color

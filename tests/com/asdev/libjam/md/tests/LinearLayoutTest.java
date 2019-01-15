@@ -2,17 +2,13 @@ package com.asdev.libjam.md.tests;
 
 import com.asdev.libjam.md.base.RootView;
 import com.asdev.libjam.md.drawable.ColorDrawable;
-import com.asdev.libjam.md.drawable.CompoundDrawable;
-import com.asdev.libjam.md.drawable.ImageDrawable;
 import com.asdev.libjam.md.layout.GenericParamList;
 import com.asdev.libjam.md.layout.LinearLayout;
 import com.asdev.libjam.md.layout.RelativeLayout;
 import com.asdev.libjam.md.util.FloatDim;
 import com.asdev.libjam.md.view.View;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -84,12 +80,12 @@ public class LinearLayoutTest {
         list7.putParam("gravity", 4);
         lC3.applyParameters(list7);
 
-        lC3.setBackground(
-                new CompoundDrawable(
-                        new ImageDrawable(ImageIO.read(new File("assets/texture.png")), 1),
-                        new ImageDrawable(ImageIO.read(new File("assets/port.png")), 0)
-                )
-        );
+//        lC3.setBackground(
+//                new CompoundDrawable(
+//                        new ImageDrawable(ImageIO.read(new File("assets/texture.png")), ImageDrawable.SCALE_TYPE_COVER),
+//                        new ImageDrawable(ImageIO.read(new File("assets/port.png")), ImageDrawable.SCALE_TYPE_CONTAIN)
+//                )
+//        );
 
         layout.addChild(lC);
         layout.addChild(lC2);
